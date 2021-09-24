@@ -6,10 +6,10 @@ Group 1
 
 **Group Members:**
 
-Xinran Tang xinran_tang@g.harvard.edu
+_Xinran Tang xinran_tang@g.harvard.edu_
 
-Renhao Luo renhao_luo@hms.harvard.edu
+_Renhao Luo renhao_luo@hms.harvard.edu_
 
-Chelse Swoopes cswoopes@g.harvard.edu
+_Chelse Swoopes cswoopes@g.harvard.edu_
 
-Shijia Zhang shijiazhang@hms.harvard.edu
+_Shijia Zhang shijiazhang@hms.harvard.edu_
