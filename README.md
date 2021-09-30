@@ -1,5 +1,7 @@
 # cs107-FinalProject
 
+![Codecov](https://img.shields.io/codecov/c/gh/cswbuild/https://github.com/cs107-undefined/cs107-FinalProject.git)
+
 **Group Number:**
 
 Group 1
