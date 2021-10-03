@@ -4,8 +4,6 @@
 [![Build Status](https://app.travis-ci.com/cs107-undefined/cs107-FinalProject.svg?branch=main)](https://app.travis-ci.com/cs107-undefined/cs107-FinalProject)
 
 ## Codecov
-![Codecov](https://codecov.io/gh/cs107-undefined/cs107-FinalProject?token=9ffba77b-c73f-4942-9cf0-dacf44d924b3)
-
 [![codecov](https://codecov.io/gh/cs107-undefined/cs107-FinalProject/branch/main/graph/badge.svg)](https://codecov.io/gh/cs107-undefined/cs107-FinalProject)
 
 **Group Number:**
