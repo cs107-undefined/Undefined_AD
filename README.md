@@ -1,8 +1,10 @@
 # cs107-FinalProject
 
+## Travis CI
 [![Build Status](https://app.travis-ci.com/cs107-undefined/cs107-FinalProject.svg?branch=main)](https://app.travis-ci.com/cs107-undefined/cs107-FinalProject)
 
-![Codecov](https://img.shields.io/codecov/c/gh/cswbuild/https://github.com/cs107-undefined/cs107-FinalProject.git)
+## Codecov
+[![codecov](https://codecov.io/gh/cs107-undefined/cs107-FinalProject/branch/main/graph/badge.svg)](https://codecov.io/gh/cs107-undefined/cs107-FinalProject)
 
 **Group Number:**
 
