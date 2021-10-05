@@ -5,7 +5,6 @@
 
 ## Codecov
 [![codecov](https://codecov.io/gh/cs107-undefined/cs107-FinalProject/branch/main/graph/badge.svg)](https://codecov.io/gh/cs107-undefined/cs107-FinalProject)
->>>>>>> origin
 
 **Group Number:**
 
