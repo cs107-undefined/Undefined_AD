@@ -96,5 +96,4 @@ class UDFunction:
             UDFunction: object with neg value
         """
         return -1 * self
-    def __cos__(self):
-        return -1
+
