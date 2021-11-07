@@ -1,5 +1,6 @@
 # TODO: add summary in docstring
 class UDFunction:
+    #constructor that sets the value of the function and derivative
     def __init__(self, val, der=1):
         """[summary]
 
@@ -16,6 +17,7 @@ class UDFunction:
         self.left_child = None
         self.right_child = None
 
+    #overloading add method
     def __add__(self, other):
         """[summary]
 
@@ -34,6 +36,7 @@ class UDFunction:
         finally:
             return UDFunction(new_val, new_der)
 
+    #overloading multiplication method
     def __mul__(self, other):
         """[summary]
 
@@ -53,6 +56,7 @@ class UDFunction:
         finally:
             return UDFunction(new_val, new_der)
 
+    #overloading radd method
     def __radd__(self, other):
         """[summary]
 
@@ -71,6 +75,7 @@ class UDFunction:
         finally:
             return UDFunction(new_val, new_der)
 
+    #overloading rmul method
     def __rmul__(self, other):
         """[summary]
 
