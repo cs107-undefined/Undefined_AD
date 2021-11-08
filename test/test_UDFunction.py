@@ -30,7 +30,7 @@ class TestUDFunction(unittest.TestCase):
 		self.f2 = beta + 2*x
 		self.f3 = 5*x + 3*x
 		self.f4 = x + 5*x + 3*x
-		self.f5 = 5 + 2 
+		#self.f5 = 5 + 2 
 
 		# substraction
 		# self.f6 = 2*x - beta
@@ -47,7 +47,7 @@ class TestUDFunction(unittest.TestCase):
 		# self.f15 = (x + 1) * (x - 2)
 
 		# divide
-		self.f16 = 3*x/2
+		#self.f16 = 3*x/2
 		# self.f17 = (x+1)/(x-5)
 
 
@@ -64,6 +64,16 @@ class TestUDFunction(unittest.TestCase):
 
 		self.assertEqual(self.f1.val, -1.0)
 		self.assertEqual(self.f1.der, -2.0)
+		self.assertEqual(self.f2.val, 7.0)
+		self.assertEqual(self.f2.der, 2.0)
+		self.assertEqual(self.f3.val, 16.0)
+		self.assertEqual(self.f3.der, 8.0)
+		self.assertEqual(self.f4.val, 18.0)
+		self.assertEqual(self.f4.der, 9.0)
+		#self.assertEqual(self.f5.val, 7.0)
+		#self.assertEqual(self.f5.der, 0.0)
+
+
 		# result1 = UDFunction.add(self.f1)
 		# self.assertEqual(self.f1, 2.0)
 		# # result2 = UDFunction.add(self.f2)
@@ -97,13 +107,19 @@ class TestUDFunction(unittest.TestCase):
 		self.assertEqual(self.f12.val, 15.0)
 		self.assertEqual(self.f12.der, 6.0)
 
+		self.assertEqual(self.f13.val, 7.0)
+		self.assertEqual(self.f13.der, 2.0)
+
+		self.assertEqual(self.f14.val, 11.0)
+		self.assertEqual(self.f14.der, 4.0)
+
 		# self.assertEqual(self.f13, 2.0)
 		# self.assertEqual(self.f14, 4.0)
 		# self.assertEqual(self.f15, 3.0)
 
-	def test_dev(self):
-		self.assertEqual(self.f16.val, 3)
-		self.assertEqual(self.f16.der, 1.5)
+	# def test_dev(self):
+	# 	self.assertEqual(self.f16.val, 3)
+	# 	self.assertEqual(self.f16.der, 1.5)
 		
 		# self.assertEqual(self.f17, -4.0)
 
