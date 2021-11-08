@@ -11,6 +11,14 @@ def trace(f, mode = 'forward'):
     """
     raise NotImplementedError
 
+def stack_trace(f_vector, mode = 'forward'):
+    """[summary]
+
+    Args:
+        f_vector (list): list of user defined functions
+        mode (str, optional): Automatic Differenciation mode. Defaults to 'forward'.
+    """
+    raise NotImplementedError
 
 # x = UDFunction(np.array([2,2]), np.array([[1,1],[0,0]]))
 # y = UDFunction(np.array([1,1]), np.array([[0,0],[1,1]]))
