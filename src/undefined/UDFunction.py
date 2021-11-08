@@ -102,3 +102,12 @@ class UDFunction:
         """
         return -1 * self
 
+
+
+if __name__ == "__main__":
+    a = 2.0
+    x = UDFunction(a)
+    print(x.val)
+
+
+
