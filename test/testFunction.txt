@@ -1,0 +1,11 @@
+
+
+function_1 = x - np.exp(-2*(np.sin(4*x))**2)
+
+
+# test addition
+function2 = x + np.exp(2x+2)
+
+# test substraction
+
+function3 = x - np.exp(2x-2)
