@@ -1,20 +1,9 @@
 import unittest
 import sys
 sys.path.append("../src/undefined")
-
 from UDFunction import UDFunction
 
 class TestUDFunction(unittest.TestCase):
-
-	# the following classmethods are designed for something you just need to run once
-	# such as populate some data.
-	# @classmethod
-	# def setUpClass(cls):
-	# 	pass 
-
-	# @classmethod
-	# def tearDownClass(cls):
-	# 	pass
 
 	# the setUp and tearDown are the methods to keep the code dry.
 	def setUp(self):
