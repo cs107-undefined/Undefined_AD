@@ -17,6 +17,8 @@ class UDFunction:
         self.left_child = None
         self.right_child = None
 
+    def __str__(self):
+        return f"value: {self.val} \n" + f"derivative: {self.der}"
     #overloading add method
     def __add__(self, other):
         """[summary]
@@ -102,12 +104,133 @@ class UDFunction:
         """
         return -1 * self
 
+    def __sub__(self, other):
+        """[summary]
 
+        Args:
+            other ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        try:
+            new_val = self.val - other.val
+            new_der = self.der - other.der
+        except AttributeError:
+            new_val = self.val - other
+            new_der = self.der
+        finally:
+            return UDFunction(new_val, new_der)
+
+    def __rsub__(self, other):
+        """[summary]
+
+        Args:
+            other ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        try:
+            new_val = other.val - self.val
+            new_der = other.der - self.der
+        except AttributeError:
+            new_val = other - self.val
+            new_der = - self.der
+        finally:
+            return UDFunction(new_val, new_der)
+        
+    def __truediv__(self, other): # bc - ad / c**2
+        """[summary]
+
+        Args:
+            other ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        try:
+            new_val = self.val / other.val
+            new_der = (self.der * other.val - self.val * other.der) / (other.val * other.val)
+        except AttributeError:
+            new_val = self.val / other
+            new_der = self.der / other
+        finally:
+            return UDFunction(new_val, new_der)
+
+    def __rtruediv__(self, other):
+        """[summary]
+
+        Args:
+            other ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        try:
+            new_val = other.val / self.val
+            new_der = (self.val * other.der - self.der * other.val) / (self.val * self.val)
+        except AttributeError:
+            new_val = other / self.val
+            new_der = - 1 * other * self.der / (self.val * self.val)
+        finally:
+            return UDFunction(new_val, new_der)
+
+    def __floordiv__(self, other): # self // other
+        """[summary]
+
+        Args:
+            other ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        try:
+            new_val = self.val // other.val
+            new_der = (self.der * other.val - self.val * other.der) // (other.val * other.val)
+        except AttributeError:
+            new_val = self.val // other
+            new_der = self.der // other
+        finally:
+            return UDFunction(new_val, new_der)
+
+    def __rfloordiv__(self, other): # other // self
+        """[summary]
+
+        Args:
+            other ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        try:
+            new_val = other.val // self.val
+            new_der = (self.val * other.der - self.der * other.val) // (self.val * self.val)
+        except AttributeError:
+            new_val = other // self.val
+            new_der = - 1 * other * self.der / (self.val * self.val)
+        finally:
+            return UDFunction(new_val, new_der)
+
+    def __pow__(self, degree):
+        """[summary]
+
+        Args:
+            degree ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        udf = self
+        for d in range(degree - 1):
+            udf = udf * self
+        return udf
 
 if __name__ == "__main__":
     a = 2.0
     x = UDFunction(a)
-    print(x.val)
+    y = 1/x
+    print(y)
 
 
 
