@@ -1,7 +1,7 @@
 import unittest
 import sys
 sys.path.append("../src/undefined")
-from UDFunction import UDFunction
+from src.undefined.UDFunction import UDFunction
 
 class TestUDFunction(unittest.TestCase):
 
