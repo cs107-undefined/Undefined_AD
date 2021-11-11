@@ -2,3 +2,5 @@
 .DS_store
 # Ignore ipynb checkpoints
 .ipynb_checkpoints
+
+.idea
