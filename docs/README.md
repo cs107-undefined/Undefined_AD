@@ -9,3 +9,5 @@ Updates log:
 10/19/21: Modify directory structure and add LICENSE
 
 10/20/21: Add the initial draft for the implementation
+
+11/10/21: Add the initial draft for milestone2 documentation. 
