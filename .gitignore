@@ -4,3 +4,5 @@
 .ipynb_checkpoints
 
 .idea
+test/__pycache__/
+src/undefined/__pycache__/
