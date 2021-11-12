@@ -251,7 +251,7 @@ class UDFunction:
 if __name__ == "__main__":
     a = 2.0
     x = UDFunction(a)
-    y = x**2 + 3
+    y = 4*x**3
     print(y)
 
 

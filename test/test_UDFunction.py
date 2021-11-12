@@ -35,9 +35,19 @@ class TestUDFunction(unittest.TestCase):
 		self.f14 = beta + 4*x
 		self.f15 = (x + 1) * (x - 2)
 
-		# divide
+		# true divide
 		self.f16 = 3*x/2
 		self.f17 = (x+1)/(x-5)
+		self.f20 = 4/3*x
+
+		# floor divide
+		self.f18 = 3*x//4
+		self.f19 = (x+1)//(x-5)
+		self.f21 = 4//3*x
+
+		# power
+		self.f22 = 4*x**3
+		self.f23 = 4**2
 
 
 	# tearDown is used to delete output files if applicable.
@@ -101,13 +111,33 @@ class TestUDFunction(unittest.TestCase):
 		self.assertEqual(self.f14.der, 4.0)
 
 
-	def test_dev(self):
+	def test_truedev(self):
 		self.assertEqual(self.f16.val, 3)
 		self.assertEqual(self.f16.der, 1.5)
 		
 		self.assertEqual(self.f17.val, -1.0)
 		self.assertEqual(round(self.f17.der, 2), -0.67)
 
+		self.assertEqual(round(self.f20.val,2), 2.67)
+		self.assertEqual(round(self.f20.der, 2), 1.33)
+
+	def test_floordev(self):
+		self.assertEqual(self.f18.val, 1.0)
+		self.assertEqual(self.f18.der, 0)
+		
+		self.assertEqual(self.f19.val, -1.0)
+		self.assertEqual(round(self.f19.der, 2), -1.0)
+
+		self.assertEqual(round(self.f21.val,2), 2)
+		self.assertEqual(round(self.f21.der, 2), 1)
+
+	def test_power(self):
+		self.assertEqual(self.f22.val, 32)
+		self.assertEqual(self.f22.der, 48)
+
+		with self.assertRaises(Exception):
+			self.f23.val
+			self.f23.der
 
 
 
