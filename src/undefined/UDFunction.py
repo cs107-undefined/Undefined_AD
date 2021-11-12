@@ -119,10 +119,10 @@ class UDFunction:
         AttributeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
-            other ([type]): [description]
+            other (UDFunction or numeric): object to subtract with
 
         Returns:
-            [type]: [description]
+            UDFunction: a new object with new_val and new_der
         """
         try:
             new_val = self.val - other.val
@@ -138,10 +138,10 @@ class UDFunction:
         This is called when int/float or UDFunction instances - an instance of Variable class.
 
         Args:
-            other ([type]): [description]
+            other (UDFunction or numeric): object to subtract with
 
         Returns:
-            [type]: [description]
+            UDFunction: a new object with new_val and new_der
         """
         try:
             new_val = other.val - self.val
@@ -159,10 +159,10 @@ class UDFunction:
 
 
         Args:
-            other ([type]): [description]
+            other (UDFunction or numeric): object to (true) divide with
 
         Returns:
-            [type]: [description]
+            UDFunction: a new object with new_val and new_der
         """
         try:
             new_val = self.val / other.val
@@ -178,10 +178,10 @@ class UDFunction:
         This is called when int/float or UDFunction instances / (divide) an instance of Variable class.
 
         Args:
-            other ([type]): [description]
+            other (UDFunction or numeric): object to (true) divide with
 
         Returns:
-            [type]: [description]
+            UDFunction: a new object with new_val and new_der
         """
         try:
             new_val = other.val / self.val
@@ -197,12 +197,11 @@ class UDFunction:
         This allows to do floor division with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative.
         AttributeError will raise if none of the self or other are UDFunction instances. 
 
-
         Args:
-            other ([type]): [description]
+            other (UDFunction or numeric): object to (floor) divide with
 
         Returns:
-            [type]: [description]
+            UDFunction: a new object with new_val and new_der
         """
         try:
             new_val = self.val // other.val
@@ -218,10 +217,10 @@ class UDFunction:
         This is called when int/float or UDFunction instances // (floor divide) an instance of Variable class.
 
         Args:
-            other ([type]): [description]
+            other (UDFunction or numeric): object to (floor) divide with
 
         Returns:
-            [type]: [description]
+            UDFunction: a new object with new_val and new_der
         """
         try:
             new_val = other.val // self.val
@@ -238,12 +237,11 @@ class UDFunction:
         ** operator.
         AttributeError will raise if none of the self or other are UDFunction instances. 
 
-
         Args:
-            degree ([type]): [description]
+            degree (numeric): object to take power of.
 
         Returns:
-            [type]: [description]
+            UDFunction: a new object with new_val and new_der
         """
         udf = self
         for d in range(degree - 1):
@@ -253,7 +251,7 @@ class UDFunction:
 if __name__ == "__main__":
     a = 2.0
     x = UDFunction(a)
-    y = 1/x
+    y = x**2 + 3
     print(y)
 
 
