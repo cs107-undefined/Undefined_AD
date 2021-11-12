@@ -2,7 +2,8 @@
 class UDFunction:
     #constructor that sets the value of the function and derivative
     def __init__(self, val, der=1):
-        """[summary]
+        """
+        This class is where we overload all the operators, which will be used to calculate the derivatives.
 
         Args:
             val (numeric or numpy ndarray): value of function
@@ -19,9 +20,12 @@ class UDFunction:
 
     def __str__(self):
         return f"value: {self.val} \n" + f"derivative: {self.der}"
+    
     #overloading add method
     def __add__(self, other):
-        """[summary]
+        """
+        This allows to do addition with UDFunction instances or scalar numbers, and calculate the value after taking the derivative. 
+        AttributeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to add with
@@ -40,7 +44,9 @@ class UDFunction:
 
     #overloading multiplication method
     def __mul__(self, other):
-        """[summary]
+        """
+        This allows to do multification with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative. 
+        AttributeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to multiply with
@@ -60,7 +66,8 @@ class UDFunction:
 
     #overloading radd method
     def __radd__(self, other):
-        """[summary]
+        """
+        This is called when int/float or UDFunction instances + an instance of Variable class.
 
         Args:
             other (UDFunction or numeric): object to add with
@@ -79,7 +86,8 @@ class UDFunction:
 
     #overloading rmul method
     def __rmul__(self, other):
-        """[summary]
+        """
+        This is called when int/float or UDFunction instances * an instance of Variable class.
 
         Args:
             other (UDFunction or numeric): object to multiply with
@@ -97,7 +105,8 @@ class UDFunction:
             return UDFunction(new_val, new_der)
 
     def __neg__(self):
-        """[summary]
+        """
+        This allows to negate UDFunction instances itself.
 
         Returns:
             UDFunction: object with neg value
@@ -105,7 +114,9 @@ class UDFunction:
         return -1 * self
 
     def __sub__(self, other):
-        """[summary]
+        """
+        This allows to do subtraction with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative. 
+        AttributeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other ([type]): [description]
@@ -123,7 +134,8 @@ class UDFunction:
             return UDFunction(new_val, new_der)
 
     def __rsub__(self, other):
-        """[summary]
+        """
+        This is called when int/float or UDFunction instances - an instance of Variable class.
 
         Args:
             other ([type]): [description]
@@ -141,7 +153,10 @@ class UDFunction:
             return UDFunction(new_val, new_der)
         
     def __truediv__(self, other): # bc - ad / c**2
-        """[summary]
+        """
+        This allows to do true division with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative. 
+        AttributeError will raise if none of the self or other are UDFunction instances. 
+
 
         Args:
             other ([type]): [description]
@@ -159,7 +174,8 @@ class UDFunction:
             return UDFunction(new_val, new_der)
 
     def __rtruediv__(self, other):
-        """[summary]
+        """
+        This is called when int/float or UDFunction instances / (divide) an instance of Variable class.
 
         Args:
             other ([type]): [description]
@@ -177,7 +193,10 @@ class UDFunction:
             return UDFunction(new_val, new_der)
 
     def __floordiv__(self, other): # self // other
-        """[summary]
+        """
+        This allows to do floor division with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative.
+        AttributeError will raise if none of the self or other are UDFunction instances. 
+
 
         Args:
             other ([type]): [description]
@@ -195,7 +214,8 @@ class UDFunction:
             return UDFunction(new_val, new_der)
 
     def __rfloordiv__(self, other): # other // self
-        """[summary]
+        """
+        This is called when int/float or UDFunction instances // (floor divide) an instance of Variable class.
 
         Args:
             other ([type]): [description]
@@ -213,7 +233,11 @@ class UDFunction:
             return UDFunction(new_val, new_der)
 
     def __pow__(self, degree):
-        """[summary]
+        """
+        This allows to do "to the power" with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative.
+        ** operator.
+        AttributeError will raise if none of the self or other are UDFunction instances. 
+
 
         Args:
             degree ([type]): [description]
