@@ -3,7 +3,9 @@ python:
   - "3.6"
 before_install:
   - pip install codecov
+  - pip install coverage
 script:
   - python -m unittest test/test_UDFunction.py
+  - coverage run -m unittest
 after_success:
   - codecov
