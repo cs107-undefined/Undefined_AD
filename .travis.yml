@@ -3,7 +3,6 @@ python:
   - "3.6"
   - "3.8"
 before_install:
-  - pip install unittest
   - pip install codecov
 script:
   - python -m unittest test/test_UDFunction.py
