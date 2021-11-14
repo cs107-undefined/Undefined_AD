@@ -227,7 +227,7 @@ class UDFunction:
             new_der = (self.val * other.der - self.der * other.val) // (self.val * self.val)
         except AttributeError:
             new_val = other // self.val
-            new_der = - 1 * other * self.der / (self.val * self.val)
+            new_der = - 1 * other * self.der // (self.val * self.val)
         finally:
             return UDFunction(new_val, new_der)
 
@@ -248,11 +248,6 @@ class UDFunction:
             udf = udf * self
         return udf
 
-if __name__ == "__main__":
-    a = 2.0
-    x = UDFunction(a)
-    y = 4*x**3
-    print(y)
 
 
 
