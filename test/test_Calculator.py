@@ -7,6 +7,7 @@ sys.path.append("src/undefined")
 
 import Calculator as cal
 from UDFunction import UDFunction
+import math
 
 
 class TestCalculator(unittest.TestCase):
@@ -34,6 +35,17 @@ class TestCalculator(unittest.TestCase):
         # test sqrt
         self.f7 = cal.sqrt(x)
         self.f8 = 2*x + cal.sqrt(2*x)
+
+        # test exp
+        self.f9 = cal.exp(x)
+        self.f10 = 2*x - cal.exp(x) + 1
+
+        # test log
+        self.f11 = cal.log(x, math.e)
+        self.f12 = 5*x + cal.log(x+1, math.e) - 2/x
+
+        self.f13 = cal.log(x, 2)
+
 
     def test_sine(self):
 
@@ -67,7 +79,24 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(round(self.f8.val, 2), 3.41)
         self.assertEqual(round(self.f8.der, 2), 2.71)
 
-   
+    def test_exp(self):
+
+        self.assertEqual(round(self.f9.val, 2), 2.72)
+        self.assertEqual(round(self.f9.der, 2), 2.72)
+
+        self.assertEqual(round(self.f10.val, 2), 0.28)
+        self.assertEqual(round(self.f10.der, 2), -0.72)
+
+    def test_log(self):
+
+        self.assertEqual(round(self.f11.val, 2), 0)
+        self.assertEqual(round(self.f11.der, 2), 1)
+
+        self.assertEqual(round(self.f12.val, 2), 3.69)
+        self.assertEqual(round(self.f12.der, 2), 7.5)
+
+        self.assertEqual(round(self.f13.val, 2), 0)
+        self.assertEqual(round(self.f13.der, 2), 1.44)
 
 
 if __name__ == "__main__":
