@@ -5,6 +5,7 @@ before_install:
   - pip install codecov
   - pip install coverage
 script:
-  - coverage run -m unittest test
+  - coverage run -m unittest test/test_UDFunction.py
+  - coverage run -m unittest test/test_Calculator.py
 after_success:
   - codecov
