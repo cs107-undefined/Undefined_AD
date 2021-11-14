@@ -75,6 +75,7 @@ class TestUDFunction(unittest.TestCase):
 
 		with self.assertRaises(Exception):
 			self.f5.val
+		with self.assertRaises(Exception):
 			self.f5.der
 
 
@@ -95,6 +96,7 @@ class TestUDFunction(unittest.TestCase):
 
 		with self.assertRaises(Exception):
 			self.f10.val
+		with self.assertRaises(Exception):
 			self.f10.der
 
 
