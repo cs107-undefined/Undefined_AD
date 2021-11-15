@@ -10,4 +10,6 @@ Updates log:
 
 10/20/21: Add the initial draft for the implementation
 
+11/2/21: Upated the milestone 1 based on TF's comments.
+
 11/10/21: Add the initial draft for milestone2 documentation. 

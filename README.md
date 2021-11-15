@@ -1,8 +1,8 @@
 # cs107-FinalProject
 
-[![Build Status](https://app.travis-ci.com/cs107-undefined/cs107-FinalProject.svg?branch=xinran-dev)](https://app.travis-ci.com/cs107-undefined/cs107-FinalProject)
+[![Build Status](https://app.travis-ci.com/cs107-undefined/cs107-FinalProject.svg?branch=milestone2)](https://app.travis-ci.com/cs107-undefined/cs107-FinalProject)
 
-[![codecov](https://codecov.io/gh/cs107-undefined/cs107-FinalProject/branch/main/graph/badge.svg)](https://codecov.io/gh/cs107-undefined/cs107-FinalProject)
+[![codecov](https://codecov.io/gh/cs107-undefined/cs107-FinalProject/branch/milestone2/graph/badge.svg?token=MWEZONI94C)](https://codecov.io/gh/cs107-undefined/cs107-FinalProject)
 
 **Group Number:**
 
