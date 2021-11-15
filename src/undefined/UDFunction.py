@@ -1,3 +1,4 @@
+import numpy as np
 # TODO: add summary in docstring
 class UDFunction:
     #constructor that sets the value of the function and derivative
@@ -8,17 +9,42 @@ class UDFunction:
             val (numeric or numpy ndarray): value of function
             der (int, optional): derivative of function. Defaults to 1.
         """
-        self.val = val
-        self.der = der
-        try:
-            self.shape = val.shape
-        except AttributeError:
-            self.shape = 1
-        self.left_child = None
-        self.right_child = None
+        self._val = val
+        self._der = der
+        if hasattr(self._val, 'shape'):
+            self._shape = self._val.shape
+        else:
+            self._shape = 1
+        self._left_child = None
+        self._right_child = None
 
+    @property
+    def val(self):
+        """[summary]
+
+        Returns:
+            [type]: [description]
+        """
+        if isinstance(self._val, float):
+            return round(self._val, 2)
+        else:
+            return self._val
+
+    @property
+    def der(self):
+        """[summary]
+
+        Returns:
+            [type]: [description]
+        """
+        if isinstance(self._der, float):
+            return round(self._der, 2)
+        else:
+            return self._der
+            
     def __str__(self):
         return f"value: {self.val} \n" + f"derivative: {self.der}"
+
     #overloading add method
     def __add__(self, other):
         """[summary]
@@ -29,14 +55,15 @@ class UDFunction:
         Returns:
             UDFunction: a new object with new_val and new_der
         """
-        try:
-            new_val = self.val + other.val
-            new_der = self.der + other.der
-        except AttributeError:
-            new_val = self.val + other
-            new_der = self.der
-        finally:
-            return UDFunction(new_val, new_der)
+        if isinstance(other, UDFunction):
+            new_val = self._val + other.val
+            new_der = self._der + other.der
+        elif isinstance(other, (int, float, np.ndarray)):
+            new_val = self._val + other
+            new_der = self._der
+        else:
+            raise AttributeError("unsupported attribute type.")
+        return UDFunction(new_val, new_der)
 
     #overloading multiplication method
     def __mul__(self, other):
@@ -48,15 +75,16 @@ class UDFunction:
         Returns:
             UDFunction: a new object with new_val and new_der
         """
-        try:
-            new_val = self.val * other.val
-            new_der = self.der * other.val + self.val * other.der
-        except AttributeError:
+        if isinstance(other, UDFunction):
+            new_val = self._val * other.val
+            new_der = self._der * other.val + self._val * other.der
+        elif isinstance(other, (int, float, np.ndarray)):
             # TODO: check for vectors
-            new_val = self.val * other
-            new_der = self.der * other
-        finally:
-            return UDFunction(new_val, new_der)
+            new_val = self._val * other
+            new_der = self._der * other
+        else:
+            raise AttributeError("unsupported attribute type.")
+        return UDFunction(new_val, new_der)
 
     #overloading radd method
     def __radd__(self, other):
@@ -68,14 +96,15 @@ class UDFunction:
         Returns:
             UDFunction: a new object with new_val and new_der
         """
-        try:
-            new_val = self.val + other.val
-            new_der = self.der + other.der
-        except AttributeError:
-            new_val = self.val + other
-            new_der = self.der
-        finally:
-            return UDFunction(new_val, new_der)
+        if isinstance(other, UDFunction):
+            new_val = self._val + other.val
+            new_der = self._der + other.der
+        elif isinstance(other, (int, float, np.ndarray)):
+            new_val = self._val + other
+            new_der = self._der
+        else:
+            raise AttributeError("unsupported attribute type.")
+        return UDFunction(new_val, new_der)
 
     #overloading rmul method
     def __rmul__(self, other):
@@ -87,14 +116,15 @@ class UDFunction:
         Returns:
             UDFunction: a new object with new_val and new_der
         """
-        try:
-            new_val = self.val * other.val
-            new_der = self.der * other.val + self.val * other.der
-        except AttributeError:
-            new_val = self.val * other
-            new_der = self.der * other
-        finally:
-            return UDFunction(new_val, new_der)
+        if isinstance(other, UDFunction):
+            new_val = self._val * other.val
+            new_der = self._der * other.val + self._val * other.der
+        elif isinstance(other, (int, float, np.ndarray)):
+            new_val = self._val * other
+            new_der = self._der * other
+        else:
+            raise AttributeError("unsupported attribute type.")
+        return UDFunction(new_val, new_der)
 
     def __neg__(self):
         """[summary]
@@ -113,14 +143,15 @@ class UDFunction:
         Returns:
             [type]: [description]
         """
-        try:
-            new_val = self.val - other.val
-            new_der = self.der - other.der
-        except AttributeError:
-            new_val = self.val - other
-            new_der = self.der
-        finally:
-            return UDFunction(new_val, new_der)
+        if isinstance(other, UDFunction):
+            new_val = self._val - other.val
+            new_der = self._der - other.der
+        elif isinstance(other, (int, float, np.ndarray)):
+            new_val = self._val - other
+            new_der = self._der
+        else:
+            raise AttributeError("unsupported attribute type.")
+        return UDFunction(new_val, new_der)
 
     def __rsub__(self, other):
         """[summary]
@@ -131,14 +162,15 @@ class UDFunction:
         Returns:
             [type]: [description]
         """
-        try:
-            new_val = other.val - self.val
-            new_der = other.der - self.der
-        except AttributeError:
-            new_val = other - self.val
-            new_der = - self.der
-        finally:
-            return UDFunction(new_val, new_der)
+        if isinstance(other, UDFunction):
+            new_val = other.val - self._val
+            new_der = other.der - self._der
+        elif isinstance(other, (int, float, np.ndarray)):
+            new_val = other - self._val
+            new_der = - self._der
+        else:
+            raise AttributeError("unsupported attribute type.")
+        return UDFunction(new_val, new_der)
         
     def __truediv__(self, other): # bc - ad / c**2
         """[summary]
@@ -149,14 +181,15 @@ class UDFunction:
         Returns:
             [type]: [description]
         """
-        try:
-            new_val = self.val / other.val
-            new_der = (self.der * other.val - self.val * other.der) / (other.val * other.val)
-        except AttributeError:
-            new_val = self.val / other
-            new_der = self.der / other
-        finally:
-            return UDFunction(new_val, new_der)
+        if isinstance(other, UDFunction):
+            new_val = self._val / other.val
+            new_der = (self._der * other.val - self._val * other.der) / (other.val * other.val)
+        elif isinstance(other, (int, float, np.ndarray)):
+            new_val = self._val / other
+            new_der = self._der / other
+        else:
+            raise AttributeError("unsupported attribute type.")
+        return UDFunction(new_val, new_der)
 
     def __rtruediv__(self, other):
         """[summary]
@@ -167,14 +200,15 @@ class UDFunction:
         Returns:
             [type]: [description]
         """
-        try:
-            new_val = other.val / self.val
-            new_der = (self.val * other.der - self.der * other.val) / (self.val * self.val)
-        except AttributeError:
-            new_val = other / self.val
-            new_der = - 1 * other * self.der / (self.val * self.val)
-        finally:
-            return UDFunction(new_val, new_der)
+        if isinstance(other, UDFunction):
+            new_val = other.val / self._val
+            new_der = (self._val * other.der - self._der * other.val) / (self._val * self._val)
+        elif isinstance(other, (int, float, np.ndarray)):
+            new_val = other / self._val
+            new_der = - 1 * other * self._der / (self._val * self._val)
+        else:
+            raise AttributeError("unsupported attribute type.")
+        return UDFunction(new_val, new_der)
 
     def __floordiv__(self, other): # self // other
         """[summary]
@@ -185,14 +219,15 @@ class UDFunction:
         Returns:
             [type]: [description]
         """
-        try:
-            new_val = self.val // other.val
-            new_der = (self.der * other.val - self.val * other.der) // (other.val * other.val)
-        except AttributeError:
-            new_val = self.val // other
-            new_der = self.der // other
-        finally:
-            return UDFunction(new_val, new_der)
+        if isinstance(other, UDFunction):
+            new_val = self._val // other.val
+            new_der = (self._der * other.val - self._val * other.der) // (other.val * other.val)
+        elif isinstance(other, (int, float, np.ndarray)):
+            new_val = self._val // other
+            new_der = self._der // other
+        else:
+            raise AttributeError("unsupported attribute type.")
+        return UDFunction(new_val, new_der)
 
     def __rfloordiv__(self, other): # other // self
         """[summary]
@@ -203,14 +238,15 @@ class UDFunction:
         Returns:
             [type]: [description]
         """
-        try:
-            new_val = other.val // self.val
-            new_der = (self.val * other.der - self.der * other.val) // (self.val * self.val)
-        except AttributeError:
-            new_val = other // self.val
-            new_der = - 1 * other * self.der / (self.val * self.val)
-        finally:
-            return UDFunction(new_val, new_der)
+        if isinstance(other, UDFunction):
+            new_val = other.val // self._val
+            new_der = (self._val * other.der - self._der * other.val) // (self._val * self._val)
+        elif isinstance(other, (int, float, np.ndarray)):
+            new_val = other // self._val
+            new_der = - 1 * other * self._der / (self._val * self._val)
+        else:
+            raise AttributeError("unsupported attribute type.")
+        return UDFunction(new_val, new_der)
 
     def __pow__(self, degree):
         """[summary]
@@ -229,7 +265,7 @@ class UDFunction:
 if __name__ == "__main__":
     a = 2.0
     x = UDFunction(a)
-    y = 1/x
+    y = 1//x
     print(y)
 
 
