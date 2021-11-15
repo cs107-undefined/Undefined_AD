@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 # TODO: add summary in docstring
 class UDFunction:
     #constructor that sets the value of the function and derivative
@@ -28,6 +29,8 @@ class UDFunction:
         """
         if isinstance(self._val, float):
             return round(self._val, 2)
+        elif isinstance(self._val, np.ndarray):
+            return np.round(self._val, 2)
         else:
             return self._val
 
@@ -40,6 +43,8 @@ class UDFunction:
         """
         if isinstance(self._der, float):
             return round(self._der, 2)
+        elif isinstance(self._der, np.ndarray):
+            return np.round(self._der, 3)
         else:
             return self._der
             
@@ -58,8 +63,8 @@ class UDFunction:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDFunction):
-            new_val = self._val + other.val
-            new_der = self._der + other.der
+            new_val = self._val + other._val
+            new_der = self._der + other._der
         elif isinstance(other, (int, float, np.ndarray)):
             new_val = self._val + other
             new_der = self._der
@@ -79,8 +84,8 @@ class UDFunction:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDFunction):
-            new_val = self._val * other.val
-            new_der = self._der * other.val + self._val * other.der
+            new_val = self._val * other._val
+            new_der = self._der * other._val + self._val * other._der
         elif isinstance(other, (int, float, np.ndarray)):
             # TODO: check for vectors
             new_val = self._val * other
@@ -100,8 +105,8 @@ class UDFunction:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDFunction):
-            new_val = self._val + other.val
-            new_der = self._der + other.der
+            new_val = self._val + other._val
+            new_der = self._der + other._der
         elif isinstance(other, (int, float, np.ndarray)):
             new_val = self._val + other
             new_der = self._der
@@ -121,8 +126,8 @@ class UDFunction:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDFunction):
-            new_val = self._val * other.val
-            new_der = self._der * other.val + self._val * other.der
+            new_val = self._val * other._val
+            new_der = self._der * other._val + self._val * other._der
         elif isinstance(other, (int, float, np.ndarray)):
             new_val = self._val * other
             new_der = self._der * other
@@ -151,8 +156,8 @@ class UDFunction:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDFunction):
-            new_val = self._val - other.val
-            new_der = self._der - other.der
+            new_val = self._val - other._val
+            new_der = self._der - other._der
         elif isinstance(other, (int, float, np.ndarray)):
             new_val = self._val - other
             new_der = self._der
@@ -171,8 +176,8 @@ class UDFunction:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDFunction):
-            new_val = other.val - self._val
-            new_der = other.der - self._der
+            new_val = other._val - self._val
+            new_der = other._der - self._der
         elif isinstance(other, (int, float, np.ndarray)):
             new_val = other - self._val
             new_der = - self._der
@@ -192,8 +197,8 @@ class UDFunction:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDFunction):
-            new_val = self._val / other.val
-            new_der = (self._der * other.val - self._val * other.der) / (other.val * other.val)
+            new_val = self._val / other._val
+            new_der = (self._der * other._val - self._val * other._der) / (other._val * other._val)
         elif isinstance(other, (int, float, np.ndarray)):
             new_val = self._val / other
             new_der = self._der / other
@@ -212,8 +217,8 @@ class UDFunction:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDFunction):
-            new_val = other.val / self._val
-            new_der = (self._val * other.der - self._der * other.val) / (self._val * self._val)
+            new_val = other._val / self._val
+            new_der = (self._val * other._der - self._der * other._val) / (self._val * self._val)
         elif isinstance(other, (int, float, np.ndarray)):
             new_val = other / self._val
             new_der = - 1 * other * self._der / (self._val * self._val)
@@ -233,8 +238,8 @@ class UDFunction:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDFunction):
-            new_val = self._val // other.val
-            new_der = (self._der * other.val - self._val * other.der) // (other.val * other.val)
+            new_val = self._val // other._val
+            new_der = (self._der * other._val - self._val * other._der) // (other._val * other._val)
         elif isinstance(other, (int, float, np.ndarray)):
             new_val = self._val // other
             new_der = self._der // other
@@ -253,8 +258,8 @@ class UDFunction:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDFunction):
-            new_val = other.val // self._val
-            new_der = (self._val * other.der - self._der * other.val) // (self._val * self._val)
+            new_val = other._val // self._val
+            new_der = (self._val * other._der - self._der * other._val) // (self._val * self._val)
         elif isinstance(other, (int, float, np.ndarray)):
             new_val = other // self._val
             new_der = - 1 * other * self._der // (self._val * self._val)
