@@ -1,12 +1,8 @@
 import unittest
-import sys
-
-# temp solution for directory.
-sys.path.append("../src/undefined")
-sys.path.append("src/undefined")
-
-import Calculator as cal
-from UDFunction import UDFunction
+# import sys
+# import undefined
+from undefined import Calculator as cal
+from undefined.UDFunction import UDFunction
 import math
 
 

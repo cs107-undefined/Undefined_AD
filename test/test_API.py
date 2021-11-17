@@ -1,13 +1,11 @@
 import unittest
-import sys
-
-
-# temp solution for directory.
-sys.path.append("../src/undefined")
-sys.path.append("src/undefined")
-from UDFunction import UDFunction
-from API import trace
-from Calculator import *
+# import sys
+# # temp solution for directory.
+# sys.path.append("../src/undefined")
+# sys.path.append("src/undefined")
+from undefined.UDFunction import UDFunction
+from undefined.API import trace
+from undefined.Calculator import *
 import numpy as np
 
 
