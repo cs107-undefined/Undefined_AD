@@ -52,11 +52,9 @@ if __name__ == "__main__":
     print(str(log(exp(x*y), 2)))
     print("using trace() function:")
     print("f1:")
-    trace(f1, x = 1, y = 2)
     print("f2:")
     trace(f2, x = 1, y = 2)
     print()
-    
     f1 = lambda x: sin((1 / x + 1)**2)
     f2 = lambda x: log((tan(sin(x + 10 / x)) + cos(2 / x))**2, 3)
     x = UDFunction(1)
