@@ -1,8 +1,8 @@
 import unittest
-# import sys
+import sys
 # # temp solution for directory.
 # sys.path.append("../src/undefined")
-# sys.path.append("src/undefined")
+sys.path.append("./src/")
 from undefined.UDFunction import UDFunction
 from undefined.API import trace
 from undefined.Calculator import *

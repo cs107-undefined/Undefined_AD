@@ -1,6 +1,7 @@
 import unittest
-# import sys
+import sys
 # import undefined
+sys.path.append("./src/")
 from undefined import Calculator as cal
 from undefined.UDFunction import UDFunction
 import math
