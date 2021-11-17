@@ -1,10 +1,11 @@
 import unittest
-import sys
+# import sys
 
 # temp solution for directory.
-sys.path.append("../src/undefined")
-sys.path.append("src/undefined")
-from UDFunction import UDFunction
+# sys.path.append("../src/undefined")
+# sys.path.append("src/undefined")
+# import undefined
+from undefined.UDFunction import UDFunction
 
 class TestUDFunction(unittest.TestCase):
 
