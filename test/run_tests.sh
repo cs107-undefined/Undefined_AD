@@ -8,7 +8,7 @@ tests=(
 )
 # decide what driver to use (depending on arguments given)
 unit='-m unittest'
-if [[ $# -gt 0 && ${1} == 'coverage --source=undefined' ]]; then
+if [[ $# -gt 0 && ${1} == 'coverage' ]]; then
        driver="${@} ${unit}"
 elif [[ $# -gt 0 && ${1} == 'pytest'* ]]; then
        driver="${@}"
