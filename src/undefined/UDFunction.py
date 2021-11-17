@@ -1,8 +1,6 @@
 import numpy as np
-import copy
-# TODO: add summary in docstring
+
 class UDFunction:
-    #constructor that sets the value of the function and derivative
     def __init__(self, val, der=1):
         """
         This class is where we overload all the operators, which will be used to calculate the derivatives.
@@ -51,7 +49,6 @@ class UDFunction:
     def __str__(self):
         return f"value: {self.val} \n" + f"derivative: {self.der}"
 
-    #overloading add method
     def __add__(self, other):
         """
         This allows to do addition with UDFunction instances or scalar numbers, and calculate the value after taking the derivative. 
@@ -72,7 +69,6 @@ class UDFunction:
             raise AttributeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
-    #overloading multiplication method
     def __mul__(self, other):
         """
         This allows to do multification with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative. 
@@ -87,14 +83,12 @@ class UDFunction:
             new_val = self._val * other._val
             new_der = self._der * other._val + self._val * other._der
         elif isinstance(other, (int, float, np.ndarray)):
-            # TODO: check for vectors
             new_val = self._val * other
             new_der = self._der * other
         else:
             raise AttributeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
-    #overloading radd method
     def __radd__(self, other):
         """
         This is called when int/float or UDFunction instances + an instance of Variable class.
@@ -114,7 +108,6 @@ class UDFunction:
             raise AttributeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
-    #overloading rmul method
     def __rmul__(self, other):
         """
         This is called when int/float or UDFunction instances * an instance of Variable class.
@@ -247,7 +240,7 @@ class UDFunction:
             raise AttributeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
-    def __rfloordiv__(self, other): # other // self
+    def __rfloordiv__(self, other):
         """
         This is called when int/float or UDFunction instances // (floor divide) an instance of Variable class.
 

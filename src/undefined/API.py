@@ -2,31 +2,30 @@ from undefined.UDFunction import UDFunction
 from undefined.Calculator import *
 import numpy as np
 
-def trace(f, **kwargs): 
-    """[summary]
+def trace(f, mode = 'forward', **kwargs): 
+    """trace function in undefined's API
 
     Args:
         f (function): user defined function
         mode (str, optional): Automatic Differenciation mode. Defaults to 'forward'.
     """
-    if 'mode' in kwargs:
-        mode = kwargs['mode']
-        kwargs.pop('mode')
-    else:
-        mode = 'forward'
     if mode == 'forward':
         num_variables = len(kwargs)
-        variables = []
-        for i, (_, v) in enumerate(kwargs.items()):
+        variables = {}
+        for i, (k, v) in enumerate(kwargs.items()):
             if num_variables == 1:
-                variables.append(UDFunction(v))
+                variables[k] = UDFunction(v)
             else:
                 seed_vector = np.zeros(num_variables, dtype = int)
                 seed_vector[i] = 1
-                variables.append(UDFunction(v, seed_vector))
-        f = f(*tuple(variables))
+                variables[k] = UDFunction(v, seed_vector)
+        f = f(**variables)
         # print(f)
         return f
+    elif mode == 'backward':
+        raise NotImplementedError
+    else:
+        raise AttributeError("unsupported mode.")   
 
 def stack_trace(f_vector, mode = 'forward'):
     """[summary]
@@ -42,16 +41,16 @@ if __name__ == "__main__":
 
     f1 = lambda x, y: sqrt(exp(x*y))
     f2 = lambda x, y: log(exp(x*y), 2)
-    x = UDFunction(1, np.array([1,0]))
-    y = UDFunction(2, np.array([0,1]))
-
+    f1.__code__.__getattribute__
     f3 = lambda x, y: x + y - 1
 
+    print(trace(f3, 'forward', x = 1, y = 2))
     print(trace(f3, x = 1, y = 2))
-
+    print(trace(f3, mode = 'forward', x = 1, y = 2))
 
     # x = UDFunction(np.array([2,2]), np.array([[1,1],[0,0]]))
     # y = UDFunction(np.array([1,1]), np.array([[0,0],[1,1]]))
+
     # print("manual:")
     # print("f1:")
     # print(str(sqrt(exp(x*y))))
