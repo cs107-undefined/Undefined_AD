@@ -1,6 +1,6 @@
 import numpy as np
 import math
-from UDFunction import UDFunction
+from undefined.UDFunction import UDFunction
 
 def cos(udfunction):
     """[summary]

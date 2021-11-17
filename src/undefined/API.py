@@ -1,5 +1,5 @@
-import UDFunction
-from Calculator import *
+from undefined.UDFunction import UDFunction
+from undefined.Calculator import *
 import numpy as np
 
 def trace(f, **kwargs): 
