@@ -1,12 +1,12 @@
 import unittest
 import sys
 # # temp solution for directory.
-# sys.path.append("../src/undefined")
+
 sys.path.append("./src/")
-from undefined.UDFunction import UDFunction
+
 from undefined.API import trace
 from undefined.Calculator import *
-import numpy as np
+
 
 
 class TestAPI(unittest.TestCase):
@@ -16,9 +16,6 @@ class TestAPI(unittest.TestCase):
         self.f1 = lambda x: x + 2
         self.f2 = lambda x, y: x + y - 1
         self.f3 = lambda x, y: 2*x + sqrt(y)
-
-        x = UDFunction(2, np.array([1, 0]))
-        y = UDFunction(4, np.array([0, 1]))
 
     def test_trace(self):
 

@@ -1,3 +1,8 @@
+
+import sys
+# # temp solution for directory.
+sys.path.append("./src/")
+
 from undefined.UDFunction import UDFunction
 from undefined.Calculator import *
 import numpy as np
@@ -37,16 +42,16 @@ def stack_trace(f_vector, mode = 'forward'):
     raise NotImplementedError
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    f1 = lambda x, y: sqrt(exp(x*y))
-    f2 = lambda x, y: log(exp(x*y), 2)
-    f1.__code__.__getattribute__
-    f3 = lambda x, y: x + y - 1
+    # f1 = lambda x, y: sqrt(exp(x*y))
+    # f2 = lambda x, y: log(exp(x*y), 2)
+    # f1.__code__.__getattribute__
+    # f3 = lambda x, y: x + y - 1
 
-    print(trace(f3, 'forward', x = 1, y = 2))
-    print(trace(f3, x = 1, y = 2))
-    print(trace(f3, mode = 'forward', x = 1, y = 2))
+    # print(trace(f3, 'forward', x = 1, y = 2))
+    # print(trace(f3, x = 1, y = 2))
+    # print(trace(f3, mode = 'forward', x = 1, y = 2))
 
     # x = UDFunction(np.array([2,2]), np.array([[1,1],[0,0]]))
     # y = UDFunction(np.array([1,1]), np.array([[0,0],[1,1]]))
@@ -76,4 +81,7 @@ if __name__ == "__main__":
     # print(trace(f1, x = 1))
     # # print("f2:")
     # # trace(f2, x = 1)
+
+    # f5 = lambda x, y: x*y + exp(x*y)
+    # print(trace(f5, x = 2, y = 4))
 

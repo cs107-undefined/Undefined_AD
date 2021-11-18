@@ -21,7 +21,6 @@ class TestUDFunction(unittest.TestCase):
 		self.f3 = 5*x + 3*x
 		self.f4 = x + 5*x + 3*x
 		self.f5 = 5 + 2 
-	
 
 		# substraction
 		self.f6 = 2*x - beta
@@ -29,6 +28,7 @@ class TestUDFunction(unittest.TestCase):
 		self.f8 = 5*x - 3*x
 		self.f9 = x - 5*x - 3*x
 		self.f10 = 5 - 2 
+
 
 		# multiplication
 		self.f11 = 2*x + beta
@@ -64,6 +64,9 @@ class TestUDFunction(unittest.TestCase):
 	# otherwise the unittest will not run.
 	def test_add(self):
 
+		a = 2.0
+		x = UDFunction(a)
+
 		self.assertEqual(self.f1.val, -1.0)
 		self.assertEqual(self.f1.der, -2.0)
 
@@ -80,11 +83,29 @@ class TestUDFunction(unittest.TestCase):
 			self.f5.val
 		with self.assertRaises(Exception):
 			self.f5.der
+		
+		with self.assertRaises(Exception):
+			self.f30 = "1" + 2*x
+		
+		with self.assertRaises(Exception):
+			self.f40 = 2*x + "1" 
+
+	def test_radd(self):
+		a = 2.0
+		x = UDFunction(a)
+		y = UDFunction(a + 2)
+		
+		a = y.__radd__(x)
+		self.assertEqual(a.val, 5)
+		self.assertEqual(a.der, 2)
+
 
 
 	def test_sub(self):
 
-		
+		a = 2.0
+		x = UDFunction(a)
+
 		self.assertEqual(self.f6.val, 1.0)
 		self.assertEqual(self.f6.der, 2.0)
 
@@ -102,9 +123,17 @@ class TestUDFunction(unittest.TestCase):
 		with self.assertRaises(Exception):
 			self.f10.der
 
+		with self.assertRaises(Exception):
+			self.f31 = "1" - 2*x
+
+		with self.assertRaises(Exception):
+			self.f41 = 2*x - "1"
 
 
 	def test_mul(self):
+
+		a = 2.0
+		x = UDFunction(a)
 
 		self.assertEqual(self.f11.val, 7.0)
 		self.assertEqual(self.f11.der, 2.0)
@@ -117,6 +146,12 @@ class TestUDFunction(unittest.TestCase):
 
 		self.assertEqual(self.f14.val, 11.0)
 		self.assertEqual(self.f14.der, 4.0)
+
+		with self.assertRaises(Exception):
+			self.f32 = "2" * 4*x
+		
+		with self.assertRaises(Exception):
+			self.f42 = 4*x * "2"
 
 
 	def test_truedev(self):
