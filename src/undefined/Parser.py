@@ -1,5 +1,5 @@
-def evaluate(f):
-    raise NotImplementedError
+# def evaluate(f):
+#     raise NotImplementedError
 
-def parse(udfunction):
-    raise NotImplementedError
+# def parse(udfunction):
+#     raise NotImplementedError
