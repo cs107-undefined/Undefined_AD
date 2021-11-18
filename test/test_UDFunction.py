@@ -94,10 +94,12 @@ class TestUDFunction(unittest.TestCase):
 		a = 2.0
 		x = UDFunction(a)
 		y = UDFunction(a + 2)
-		
+		z = "1"
 		a = y.__radd__(x)
-		self.assertEqual(a.val, 5)
+		self.assertEqual(a.val, 6)
 		self.assertEqual(a.der, 2)
+		with self.assertRaises(Exception):
+			x.__radd__(z)
 
 
 
@@ -129,6 +131,16 @@ class TestUDFunction(unittest.TestCase):
 		with self.assertRaises(Exception):
 			self.f41 = 2*x - "1"
 
+	def test_rsub(self):
+		a = 2.0
+		x = UDFunction(a)
+		y = UDFunction(a + 2)
+		z = "1"
+		a = y.__rsub__(x)
+		self.assertEqual(a.val, -2)
+		self.assertEqual(a.der, 0)
+		with self.assertRaises(Exception):
+			x.__rsub__(z)
 
 	def test_mul(self):
 
@@ -152,9 +164,31 @@ class TestUDFunction(unittest.TestCase):
 		
 		with self.assertRaises(Exception):
 			self.f42 = 4*x * "2"
+	
+	def test_rmul(self):
+		a = 2.0
+		x = UDFunction(a)
+		y = UDFunction(a + 2)
+		z = "1"
+		a = y.__rmul__(x)
+		self.assertEqual(a.val, 8)
+		self.assertEqual(a.der, 6)
+		with self.assertRaises(Exception):
+			x.__rmul__(z)
+	
+	def test_neg(self):
+		a = 2.0
+		x = UDFunction(a)
+
+		self.assertEqual(str(x.__neg__()), "value: -2.0 \nderivative: -1")
+
 
 
 	def test_truedev(self):
+
+		a = 2.0
+		x = UDFunction(a)
+
 		self.assertEqual(self.f16.val, 3)
 		self.assertEqual(self.f16.der, 1.5)
 		
@@ -167,7 +201,28 @@ class TestUDFunction(unittest.TestCase):
 		self.assertEqual(round(self.f24.val,2), 171.5)
 		self.assertEqual(round(self.f24.der, 2), -85.75)
 
+		with self.assertRaises(Exception):
+			self.f35 = "2" / 4*x
+		
+		with self.assertRaises(Exception):
+			self.f45 = 4*x / "2"
+	
+	def test_rtruediv(self):
+		a = 2.0
+		x = UDFunction(a)
+		y = UDFunction(a + 2)
+		z = "1"
+		a = y.__rtruediv__(x)
+		self.assertEqual(a.val, 0.5)
+		self.assertEqual(a.der, 0.12)
+		with self.assertRaises(Exception):
+			x.__rtruediv__(z)
+
 	def test_floordev(self):
+
+		a = 2.0
+		x = UDFunction(a)
+
 		self.assertEqual(self.f18.val, 1.0)
 		self.assertEqual(self.f18.der, 0)
 		
@@ -179,6 +234,23 @@ class TestUDFunction(unittest.TestCase):
 
 		self.assertEqual(round(self.f25.val,2), 171)
 		self.assertEqual(round(self.f25.der, 2), -86)
+
+		with self.assertRaises(Exception):
+			self.f36 = "2" // 4*x
+		
+		with self.assertRaises(Exception):
+			self.f46 = 4*x // "2"
+	
+	def test_rfloordev(self):
+		a = 2.0
+		x = UDFunction(a)
+		y = UDFunction(a + 2)
+		z = "1"
+		a = y.__rfloordiv__(x)
+		self.assertEqual(a.val, 0)
+		self.assertEqual(a.der, 0)
+		with self.assertRaises(Exception):
+			x.__rfloordiv__(z)
 
 	def test_power(self):
 		self.assertEqual(self.f22.val, 32)

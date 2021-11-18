@@ -277,12 +277,7 @@ class UDFunction:
             udf = udf * self
         return udf
 
-if __name__ == "__main__":
-    a = 2.0
-    x = UDFunction(a)
-    # y = 1//x
-    y = UDFunction(a + 1)
-    print(y.__radd__(x))
+
 
 
 
