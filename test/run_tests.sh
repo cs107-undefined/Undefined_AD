@@ -2,10 +2,12 @@
 
 # list of test cases you want to run
 tests=(
-       test_UDFunction.py
-       test_Calculator.py
-       test_API.py
+       test/test_UDFunction.py
+       test/test_Calculator.py
+       test/test_API.py
 )
+
+
 # decide what driver to use (depending on arguments given)
 unit='run --source=undefined -m unittest'
 if [[ $# -gt 0 && ${1} == 'coverage' ]]; then

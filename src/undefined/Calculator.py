@@ -7,7 +7,7 @@ import math
 from undefined.UDFunction import UDFunction
 
 def cos(udfunction):
-    """[summary]
+    """calculate the cosine 
 
     Args:
         udfunction ([type]): [description]
@@ -16,7 +16,7 @@ def cos(udfunction):
         AttributeError: [description]
 
     Returns:
-        [type]: [description]
+        
     """
 
     if isinstance(udfunction._val, (int, float)):
