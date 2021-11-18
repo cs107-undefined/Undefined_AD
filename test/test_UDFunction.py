@@ -1,14 +1,7 @@
 import unittest
 import sys
-import os
-
-# temp solution for directory.
-# sys.path.append("../src/")
-# print(os.getcwd())
 sys.path.append("./src/")
-# print(os.getcwd())
-# sys.path.append("./src/undefined")
-# import undefined
+
 from undefined.UDFunction import UDFunction
 
 class TestUDFunction(unittest.TestCase):
