@@ -5,7 +5,7 @@ before_install:
   - pip install codecov
   - pip install coverage
 
-script: (cd test && ./run_tests.sh)
+script: (cd test && bash run_tests.sh coverage)
 
 after_success:
   - codecov
