@@ -63,9 +63,9 @@ def tan(udfunction: UDFunction):
     if isinstance(udfunction._val, (int, float)):
         new_val = math.tan(udfunction._val)
         new_der = (1 / (math.cos(udfunction._val)) ** 2) * udfunction._der
-    elif isinstance(udfunction._val, np.ndarray):
-        new_val = np.tan(udfunction._val)
-        new_der = (1 / (np.cos(udfunction._val)) ** 2) * udfunction._der
+    # elif isinstance(udfunction._val, np.ndarray):
+    #     new_val = np.tan(udfunction._val)
+    #     new_der = (1 / (np.cos(udfunction._val)) ** 2) * udfunction._der
     else:
         raise AttributeError("unsupported attribute type.")
     return UDFunction(new_val, new_der)
@@ -130,9 +130,9 @@ def log(udfunction: UDFunction, base):
     if isinstance(udfunction._val, (int, float)):
         new_val = math.log(udfunction._val, base)
         new_der = 1 / (math.log(base) * udfunction._val) * udfunction._der
-    elif isinstance(udfunction._val, np.ndarray):
-        new_val = np.log(udfunction._val, base)
-        new_der = 1 / (math.log(base) * udfunction._val) * udfunction._der
+    # elif isinstance(udfunction._val, np.ndarray):
+    #     new_val = np.log(udfunction._val, base)
+    #     new_der = 1 / (math.log(base) * udfunction._val) * udfunction._der
     else:
         raise AttributeError("unsupported attribute type.")
     return UDFunction(new_val, new_der)
