@@ -23,7 +23,7 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(str(trace(self.f1, mode = 'forward', x = 2)), f"value: 4 \n" + f"derivative: 1")
         
         with self.assertRaises(NotImplementedError) as context:
-            trace(self.f1, mode = 'backward', x = 2)
+            trace(self.f1, mode = 'reverse', x = 2)
             # self.assertTrue('This is broken' in context.exception)
         with self.assertRaises(AttributeError) as context:
             trace(self.f1, mode = 'undefined', x = 2)
