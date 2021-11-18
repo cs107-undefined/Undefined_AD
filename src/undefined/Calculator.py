@@ -1,3 +1,7 @@
+import sys
+# # temp solution for directory.
+sys.path.append("./src/")
+
 import numpy as np
 import math
 from undefined.UDFunction import UDFunction
@@ -136,3 +140,10 @@ def log(udfunction: UDFunction, base):
     else:
         raise AttributeError("unsupported attribute type.")
     return UDFunction(new_val, new_der)
+
+
+
+# if __name__=="__main__":
+#     a = 2.0
+#     x = UDFunction(a)
+#     f45 = sin("2*x") + x 
