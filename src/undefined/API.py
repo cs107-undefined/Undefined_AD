@@ -27,7 +27,7 @@ def trace(f, mode = 'forward', **kwargs):
         f = f(**variables)
         # print(f)
         return f
-    elif mode == 'backward':
+    elif mode == 'reverse':
         raise NotImplementedError
     else:
         raise AttributeError("unsupported mode.")   
