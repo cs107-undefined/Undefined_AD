@@ -27,10 +27,10 @@ def trace(f, mode = 'forward', **kwargs):
         f = f(**variables)
         # print(f)
         return f
-    # elif mode == 'backward':
-    #     raise NotImplementedError
-    # else:
-    #     raise AttributeError("unsupported mode.")   
+    elif mode == 'backward':
+        raise NotImplementedError
+    else:
+        raise AttributeError("unsupported mode.")   
 
 # def stack_trace(f_vector, mode = 'forward'):
 #     """[summary]
