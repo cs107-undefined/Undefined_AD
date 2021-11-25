@@ -22,7 +22,15 @@ def trace(f, mode = 'forward', **kwargs):
     Returns:
         (any, any): tuple of the values and derivatives
     """
-    if type(f) is not LambdaType:
+    if type(f) is list:
+        vals, ders = [], []
+        for f_ in f:
+            val, der = trace(f_, mode, **kwargs)
+            vals.append(val)
+            ders.append(der)
+
+        return np.stack(vals), np.stack(ders)
+    elif type(f) is not LambdaType:
         raise TypeError("cannot handle non lambda functions.")
     if mode == 'forward':
         num_variables = len(kwargs)
@@ -78,6 +86,7 @@ if __name__ == "__main__":
 
     x = UDFunction(np.array([[2,2]]), np.array([[1,1],[0,0]]))
     y = UDFunction(np.array([[1,1]]), np.array([[0,0],[1,1]]))
+    print("1. test vector inputs:")
     print("manual:")
     print("f1:")
     print(str(sqrt(exp(x*y))))
@@ -90,9 +99,11 @@ if __name__ == "__main__":
     print(trace(f2, x = np.array([[2,2]]), y = np.array([[1,1]])))
     print()
 
+    print("2. test vector functions on scalar inputs:")
+    f = [f1, f2, f3]
+    print(trace(f, x = 2, y = 1))
 
-
-    print("Test different user input:")
+    print("3. Test different user input:")
     try:
         trace(sum, x = 1)
     except TypeError as e:
@@ -104,6 +115,7 @@ if __name__ == "__main__":
 
     # x = UDFunction(np.array([2,2]), np.array([[1,1],[0,0]]))
     # y = UDFunction(np.array([1,1]), np.array([[0,0],[1,1]]))
+    print("4. test scalar funciton on scalar inputs:")
     x = UDFunction(1, np.array([1,0]))
     y = UDFunction(2, np.array([0,1]))
     print("manual:")
@@ -118,14 +130,15 @@ if __name__ == "__main__":
     print(trace(f2, x = 1, y = 2))
     print()
     
+    print("5. test complex functions on vector input:")
     f1 = lambda x: sin((1 / x + 1)**2)
     f2 = lambda x: log((tan(sin(x + 10 / x)) + cos(2 / x))**2, 3)
     x = np.array([[2,2]])
     print("using trace() function:")
     print("f1:")
     print(trace(f1, x = np.array([[2,2]])))
-    # print("f2:")
-    # trace(f2, x = 1)
-
+    f = [f1, f2]
+    print(trace(f, x = np.array([[2,2]])))
     f5 = lambda x, y: x*y + exp(x*y)
     print(trace(f5, x = np.array([[2,4]]), y = np.array([[1.5,1]])))
+
