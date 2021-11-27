@@ -2,7 +2,7 @@
 import sys
 from typing import Type
 # # temp solution for directory.
-sys.path.append("/Users/xinran/Desktop/Harvard/Courses/cs107/cs107-FinalProject/src/")
+sys.path.append("./src/")
 from undefined.UDFunction import UDFunction
 from undefined.Calculator import *
 import numpy as np
