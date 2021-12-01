@@ -351,4 +351,97 @@ class UDFunction:
         return UDFunction(new_val, new_der)
 
 
+    def __eq__(self, other):
+        """compare whether the two UDFunction objects have the same values.
+        Return true if equal, and false otherwise.
 
+        raise TypeError is other is not a UDFunction object.
+
+        Args:
+            other ([UDFunction])
+        """
+        if isinstance(other, UDFunction):
+            return self.val == other.val
+        else:
+            raise TypeError("Need a UDFunction object to compare")
+    
+    def __ne__(self, other):
+        """compare whether the two UDFunction objects have different values.
+        raise TypeError is other is not a UDFunction object.
+
+        Args:
+            other ([UDFunction])
+        """
+        if isinstance(other, UDFunction):
+            return self.val != other.val
+        else:
+            raise TypeError("Need a UDFunction object to compare")
+    
+    def __lt__(self, other):
+        """overload the < operator
+        raise TypeError is other is not a UDFunction object.
+
+        Args:
+            other ([UDFunction])
+            
+        """
+        if isinstance(other, UDFunction):
+            return self.val < other.val
+        else:
+            raise TypeError("Need a UDFunction object to compare")
+    
+    def __gt__(self, other):
+        """overload the > operator
+        raise TypeError is other is not a UDFunction object.
+
+        Args:
+            other ([UDFunction])
+            
+        """
+        if isinstance(other, UDFunction):
+            return self.val > other.val
+        else:
+            raise TypeError("Need a UDFunction object to compare")
+    
+    def __le__(self, other):
+        """overload the > operator
+        raise TypeError is other is not a UDFunction object.
+
+        Args:
+            other ([UDFunction])
+            
+        """
+        if isinstance(other, UDFunction):
+            return self.val <= other.val
+        else:
+            raise TypeError("Need a UDFunction object to compare")
+
+    def __ge__(self, other):
+        """overload the > operator
+        raise TypeError is other is not a UDFunction object.
+
+        Args:
+            other ([UDFunction])
+            
+        """
+        if isinstance(other, UDFunction):
+            return self.val >= other.val
+        else:
+            raise TypeError("Need a UDFunction object to compare")
+
+
+
+# if __name__ == "__main__":
+#     alpha = 2.0
+#     beta  = 3.0
+
+#     a = 2.0
+#     x = UDFunction(a)
+
+#     b = 5.0
+#     y = UDFunction(b)
+
+#     f1 = -2*x + beta
+#     f2 = -2*y + beta
+
+#     print(x >= y)
