@@ -276,19 +276,28 @@ class UDFunction:
             if isinstance(self._val, (int, float)):
                 new_val = self._val ** other._val
                 if isinstance(other._val, np.ndarray):
-                    new_der = other._val * np.power(self._val, other._val - 1) * self._der
+                    new_der_1 = other._val * np.power(self._val, other._val - 1) * self._der
+                    new_der_2 = math.log(self._val) * new_val * other._der
+                    new_der = new_der_1 + new_der_2
                 else:
-                    new_der = other._val * self._val**(other._val - 1) * self._der
-            else:
+                    new_der_1 = other._val * self._val ** (other._val - 1) * self._der
+                    new_der_2 = math.log(self._val) * new_val * other._der
+                    new_der = new_der_1 + new_der_2
+            else: # self._val is of type ndarray
                 if isinstance(other._val, np.ndarray):
                     if other._val.shape[0] != self._val.shape[0]:
                         raise ValueError(f"operands could not be broadcast together with shapes {other._val.shape} {self._val.shape}")
                     else:
                         new_val = self._val ** other._val
-                        new_der = other._val * np.power(self._val, other._val - 1) * self._der
+                        new_der_1 = other._val * np.power(self._val, other._val - 1) * self._der
+                        new_der_2 = np.log(self._val) * new_val * other._der
+                        new_der = new_der_1 + new_der_2
                 else:
                     new_val = self._val ** other._val
-                    new_der = other._val * self._val**(other._val - 1) * self._der
+                    new_der_1 = other._val * self._val ** (other._val - 1) * self._der
+                    new_der_2 = np.log(self._val) * new_val * other._der
+                    new_der = new_der_1 + new_der_2
+
         elif isinstance(other, (int, float, np.ndarray)):
             if isinstance(self._val, np.ndarray):
                 new_val = np.power(self._val, other)
@@ -311,25 +320,34 @@ class UDFunction:
         Returns:
             UDFunction: a new object with new_val and new_der
         """
+        # other ^ self
         if isinstance(other, UDFunction):
             if isinstance(other._val, (int, float)):
                 new_val = other._val ** self._val
-                new_der = math.log(other._val) * new_val * self._der
+                new_der_1 = np.log(other._val) * new_val * self._der
+                new_der_2 = self._val * other._val ** (self._val - 1) * other._der
+                new_der = new_der_1 + new_der_2
             else:
                 if isinstance(self._val, np.ndarray):
                     if other._val.shape[0] != self._val.shape[0]:
                         raise ValueError(f"operands could not be broadcast together with shapes {other._val.shape} {self._val.shape}")
                     else:
                         new_val = other._val ** self._val
-                        new_der = np.log(other._val) * new_val * self._der
+                        new_der_1 = np.log(other._val) * new_val * self._der
+                        new_der_2 = self._val * np.power(other._val, (self._val - 1)) * other._der
                 else:
                     new_val = other._val ** self._val
-                    new_der = np.log(other._val) * new_val * self._der
+                    new_der_1 = np.log(other._val) * new_val * self._der
+                    new_der_2 = self._val * other._val ** (self._val - 1) * other._der
+        
         elif isinstance(other, (int, float, np.ndarray)):
             new_val = other ** self._val
-            new_der = math.log(other) * new_val * self._der
+            new_der_1 = math.log(other) * new_val * self._der
+        
         else:
             raise AttributeError("unsupported attribute type.")
+        
+
         return UDFunction(new_val, new_der)
 
 
