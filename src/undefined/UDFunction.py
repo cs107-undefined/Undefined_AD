@@ -1,8 +1,6 @@
 import numpy as np
 import math
 
-from numpy.lib.arraysetops import isin
-
 class UDFunction:
     def __init__(self, val, der=1):
         """
@@ -263,23 +261,42 @@ class UDFunction:
             raise AttributeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
-    def __pow__(self, degree):
+    def __pow__(self, other):
         """
         This allows to do "to the power" with UDFunction instances or scalar numbers, and calculate the value after taking the derivative.
         ** operator.
 
         Args:
-            degree (numeric): object to take power of.
+            other (any): object to take power of.
 
         Returns:
             UDFunction: a new object with new_val and new_der
         """
-        if isinstance(self._val, np.ndarray):
-            new_val = np.power(self._val, degree)
-            new_der = degree * np.power(self._val, degree - 1) * self._der
-        elif isinstance(self._val, (int, float)):
-            new_val = self._val ** degree
-            new_der = degree * self._val**(degree - 1) * self._der
+        if isinstance(other, UDFunction):
+            if isinstance(self._val, (int, float)):
+                new_val = self._val ** other._val
+                if isinstance(other._val, np.ndarray):
+                    new_der = other._val * np.power(self._val, other._val - 1) * self._der
+                else:
+                    new_der = other._val * self._val**(other._val - 1) * self._der
+            else:
+                if isinstance(other._val, np.ndarray):
+                    if other._val.shape[0] != self._val.shape[0]:
+                        raise ValueError(f"operands could not be broadcast together with shapes {other._val.shape} {self._val.shape}")
+                    else:
+                        new_val = self._val ** other._val
+                        new_der = other._val * np.power(self._val, other._val - 1) * self._der
+                else:
+                    new_val = self._val ** other._val
+                    new_der = other._val * self._val**(other._val - 1) * self._der
+        elif isinstance(other, (int, float, np.ndarray)):
+            if isinstance(self._val, np.ndarray):
+                new_val = np.power(self._val, other)
+                new_der = other * np.power(self._val, other - 1) * self._der
+            elif isinstance(self._val, (int, float)):
+                new_val = self._val ** other
+                new_der = other * self._val**(other - 1) * self._der
+        
         return UDFunction(new_val, new_der)
 
     def __rpow__(self, other):
