@@ -1,10 +1,12 @@
 import sys
 # # temp solution for directory.
-sys.path.append("./src/")
+sys.path.append("./src")
 
 from undefined.Utils import UDPrimitive
 import numpy as np
 import math
+import networkx as nx
+import matplotlib.pyplot as plt
 
 
 class UDGraph:
@@ -41,11 +43,15 @@ class UDGraph:
         else:
             return self._val
 
+
     def __str__(self):
+        return f"{self._func}\n".replace("UDPrimitive.","") + f"Value:{self.val}\n"
+
+    def __repr__(self):
         res = f'Computational Graph ({self.val}, {self._func})'
         for parent in self._parents:
             res += '\n|\n|<-(parent)-' + \
-                '\n|      '.join(str(parent).split('\n'))
+                '\n|      '.join(repr(parent).split('\n'))
         return res
 
     def __add__(self, other):
@@ -661,12 +667,27 @@ class GraphGenerator:
 
     def __init__(self, g, variables):
         self._udgraph = g
-        self._visgraph = None
         self._variables = variables
+        self._nxgraph = None
 
-    def generate(self):
+    def _generate_inner(self, g:UDGraph, nxgraph:nx.DiGraph):
+        for parent in g._parents:
+            nxgraph.add_edge(parent, g)
+        for k, v in g._params.items():
+            nxgraph.add_edge(f"{k}: {v}", g)
+        for parent in g._parents:
+            self._generate_inner(parent, nxgraph)
+
+    def generate_graph(self):
         # TODO: generate the visualization graph
-        return None
+        if not self._nxgraph:
+            self._nxgraph = nx.DiGraph()
+            self._generate_inner(self._udgraph, self._nxgraph)
+        nx.draw_planar(self._nxgraph, with_labels=True, font_weight='bold')
+        plt.show()
+
+    def generate_str(self):
+        return repr(self._udgraph)
 
     def generate_derivative(self, var_name):
         if var_name not in self._variables.keys():

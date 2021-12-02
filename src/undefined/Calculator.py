@@ -1,6 +1,6 @@
 import sys
 # # temp solution for directory.
-sys.path.append("./src/")
+sys.path.append("./src")
 
 from undefined.Utils import UDPrimitive
 from undefined.GraphGenerator import UDGraph

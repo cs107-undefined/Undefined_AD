@@ -1,7 +1,7 @@
 
 import sys
 # # temp solution for directory.
-sys.path.append("./src/")
+sys.path.append("./src")
 
 from types import LambdaType
 import numpy as np
@@ -86,7 +86,8 @@ def trace(f, mode='forward', **kwargs):
                     "variable type not in (int, float, np.ndarray).")
         g = f(**variables)
         udgenerator = GraphGenerator(g, variables)
-
+        udgenerator.generate_graph()
+        print(udgenerator.generate_str())
         return g.val, [udgenerator.generate_derivative(var_name) for var_name in variables.keys()]
 
     else:
@@ -114,55 +115,55 @@ if __name__ == "__main__":
     print(trace(f4, mode='reverse', x = 1, y = 2))
     print(trace(f5, x = 1, y = 2))
     print(trace(f5, mode='reverse', x = 1, y = 2))
-    x = UDFunction(np.array([[2, 2]]), np.array([[1, 1], [0, 0]]))
-    y = UDFunction(np.array([[1, 1]]), np.array([[0, 0], [1, 1]]))
-    print("1. test vector inputs:")
-    print("manual:")
-    print("f1:")
-    print(str(sqrt(exp(x*y))))
-    print("f2:")
-    print(str(log(exp(x*y), 2)))
-    print("using trace() function:")
-    print("f1:")
-    print(trace(f1, x=np.array([[2, 2]]), y=np.array([[1, 1]])))
-    print("f2:")
-    print(trace(f2, x=np.array([[2, 2]]), y=np.array([[1, 1]])))
-    print()
+    # x = UDFunction(np.array([[2, 2]]), np.array([[1, 1], [0, 0]]))
+    # y = UDFunction(np.array([[1, 1]]), np.array([[0, 0], [1, 1]]))
+    # print("1. test vector inputs:")
+    # print("manual:")
+    # print("f1:")
+    # print(str(sqrt(exp(x*y))))
+    # print("f2:")
+    # print(str(log(exp(x*y), 2)))
+    # print("using trace() function:")
+    # print("f1:")
+    # print(trace(f1, x=np.array([[2, 2]]), y=np.array([[1, 1]])))
+    # print("f2:")
+    # print(trace(f2, x=np.array([[2, 2]]), y=np.array([[1, 1]])))
+    # print()
 
-    print("2. test vector functions on scalar inputs:")
-    f = [f1, f2, f3]
-    print(trace(f, x=2, y=1))
+    # print("2. test vector functions on scalar inputs:")
+    # f = [f1, f2, f3]
+    # print(trace(f, x=2, y=1))
 
-    print("3. Test different user input:")
-    try:
-        trace(sum, x=1)
-    except TypeError as e:
-        print(e)
-    print(trace(f3, 'forward', x=np.array([[2, 2]]), y=np.array([[1, 1]])))
-    print(trace(f3, x=np.array([[2, 2]]), y=np.array([[1, 1]])))
-    print(trace(f3, mode='forward', x=np.array(
-        [[2, 2]]), y=np.array([[1, 1]])))
-    print(trace(f3, mode='forward', x=np.array(
-        [[2, 2]]), y=np.array([[1, 1]])))
+    # print("3. Test different user input:")
+    # try:
+    #     trace(sum, x=1)
+    # except TypeError as e:
+    #     print(e)
+    # print(trace(f3, 'forward', x=np.array([[2, 2]]), y=np.array([[1, 1]])))
+    # print(trace(f3, x=np.array([[2, 2]]), y=np.array([[1, 1]])))
+    # print(trace(f3, mode='forward', x=np.array(
+    #     [[2, 2]]), y=np.array([[1, 1]])))
+    # print(trace(f3, mode='forward', x=np.array(
+    #     [[2, 2]]), y=np.array([[1, 1]])))
 
-    # x = UDFunction(np.array([2,2]), np.array([[1,1],[0,0]]))
-    # y = UDFunction(np.array([1,1]), np.array([[0,0],[1,1]]))
-    print("4. test scalar funciton on scalar inputs:")
-    x = UDFunction(1, np.array([1, 0]))
-    y = UDFunction(2, np.array([0, 1]))
-    print("manual:")
-    print("f1:")
-    print(str(sqrt(exp(x*y))))
-    print("f2:")
-    print(str(log(exp(x*y), 2)))
-    print("using trace() function:")
-    print("f1:")
-    print(trace(f1, x=1, y=2))
-    print(trace(f1, mode = 'reverse', x=1, y=2))
-    print("f2:")
-    print(trace(f2, x=1, y=2))
-    print(trace(f2, mode = 'reverse', x=1, y=2))
-    print()
+    # # x = UDFunction(np.array([2,2]), np.array([[1,1],[0,0]]))
+    # # y = UDFunction(np.array([1,1]), np.array([[0,0],[1,1]]))
+    # print("4. test scalar funciton on scalar inputs:")
+    # x = UDFunction(1, np.array([1, 0]))
+    # y = UDFunction(2, np.array([0, 1]))
+    # print("manual:")
+    # print("f1:")
+    # print(str(sqrt(exp(x*y))))
+    # print("f2:")
+    # print(str(log(exp(x*y), 2)))
+    # print("using trace() function:")
+    # print("f1:")
+    # print(trace(f1, x=1, y=2))
+    # print(trace(f1, mode = 'reverse', x=1, y=2))
+    # print("f2:")
+    # print(trace(f2, x=1, y=2))
+    # print(trace(f2, mode = 'reverse', x=1, y=2))
+    # print()
 
     print("5. test complex functions on vector input:")
     def f1(x): return sin((1 / x + 1)**2)
