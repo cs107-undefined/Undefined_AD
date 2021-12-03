@@ -68,7 +68,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(round(self.f2.val, 2), -0.99)
         self.assertEqual(round(self.f2.der, 2), -0.28)
 
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(TypeError):
             self.f46 = cal.cos(2*x) + x 
 
     def test_tangent(self):
@@ -82,7 +82,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(round(self.f6.val, 2), 1.16)
         self.assertEqual(round(self.f6.der, 2), 4.68)
 
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(TypeError):
             self.f47 = cal.tan(2*x) + x 
     
     def test_sqrt(self):
@@ -95,7 +95,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(round(self.f8.val, 2), 3.41)
         self.assertEqual(round(self.f8.der, 2), 2.71)
 
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(TypeError):
             self.f48 = cal.sqrt(2*x) + x 
 
     def test_exp(self):
@@ -109,7 +109,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(round(self.f10.val, 2), 0.28)
         self.assertEqual(round(self.f10.der, 2), -0.72)
 
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(TypeError):
             self.f49 = cal.exp(2*x) + x 
 
     def test_log(self):
@@ -125,7 +125,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(round(self.f13.val, 2), 0)
         self.assertEqual(round(self.f13.der, 2), 1.44)
 
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(TypeError):
             self.f50 = cal.log(2*x, 2) + x 
 
 

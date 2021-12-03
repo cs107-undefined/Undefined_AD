@@ -3,6 +3,7 @@ import sys
 sys.path.append("./src/")
 
 from undefined.UDFunction import UDFunction
+from undefined.Calculator import sin, cos, exp
 
 class TestUDFunction(unittest.TestCase):
 
@@ -52,6 +53,7 @@ class TestUDFunction(unittest.TestCase):
 		# power
 		self.f22 = 4*x**3
 		self.f23 = 4**2
+		self.f50 = exp(sin(x)) - cos(x**0.5) * sin((cos(x)**2.0 + x**2.0)**0.5)
 
 		
 
@@ -256,12 +258,74 @@ class TestUDFunction(unittest.TestCase):
 		self.assertEqual(self.f22.val, 32)
 		self.assertEqual(self.f22.der, 48)
 
+		self.assertEqual(round(self.f50.val, 2), 2.34)
+		self.assertEqual(round(self.f50.der, 2), -0.64)
+
 		with self.assertRaises(Exception):
 			self.f23.val
 		with self.assertRaises(Exception):
 			self.f23.der
 
+	def test_eq(self):
+		self.assertTrue(self.f22 == 32)
+		self.assertTrue(self.f19 == -1)
+		self.assertTrue(round(self.f25, 2) == 171)
+		self.assertTrue(round(self.f20, 2) == 2.67)
 
+		self.assertTrue(self.f22 == self.f22)
+		self.assertTrue(self.f11 == self.f13)
+
+		with self.assertRaises(TypeError):
+			self.f11 == "self.f13"
+	
+	def test_ne(self):
+		self.assertTrue(self.f19 != -12)
+		self.assertTrue(round(self.f25, 2) != 161)
+		self.assertTrue(self.f22 != self.f19)
+
+		with self.assertRaises(TypeError):
+			self.f11 != "self.f13"
+	
+	def test_lt(self):
+		self.assertTrue(self.f19 < 12)
+		self.assertTrue(round(self.f25, 2) < 200)
+		self.assertTrue(self.f19 < self.f25)
+
+		with self.assertRaises(TypeError):
+			self.f25 < "self.f19"
+	
+	def test_gt(self):
+		self.assertTrue(self.f19 > -12)
+		self.assertTrue(round(self.f25, 2) > -200)
+		self.assertTrue(self.f25 > self.f19)
+
+		with self.assertRaises(TypeError):
+			self.f25 > "self.f19"
+	
+	def test_le(self):
+		self.assertTrue(self.f19 <= 12)
+		self.assertTrue(round(self.f25, 2) <= 200)
+		self.assertTrue(self.f19 <= self.f25)
+
+		self.assertTrue(self.f22 <= 32)
+		self.assertTrue(self.f19 <= -1)
+
+		with self.assertRaises(TypeError):
+			self.f25 <= "self.f19"
+
+	def test_ge(self):
+		self.assertTrue(self.f19 >= -12)
+		self.assertTrue(round(self.f25, 2) >= -200)
+		self.assertTrue(self.f25 >= self.f19)
+
+		self.assertTrue(self.f22 >= 32)
+		self.assertTrue(self.f19 >= -1)
+
+		with self.assertRaises(TypeError):
+			self.f25 >= "self.f19"
+		
+	
+	
 
 
 # this will help to run the unittest directly. 
