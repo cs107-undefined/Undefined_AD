@@ -18,7 +18,7 @@ class TestTrace(unittest.TestCase):
         self.f5 = lambda x, y: exp(1-6*x) * tan(4*x + 2*y)
         self.f6 = lambda x: 1 / (8 + cos(2*np.pi*x))
         self.f7 = lambda x, y, z: x*exp(y**2 - z**2)
-        self.f8 = lambda x: log(x*3 + tan(2*x), np.e) + 2**x
+        self.f8 = lambda x: log(x*3 + tan(2*x), np.e) + 2**x # raise error, need to fix __rpow__
         self.f10 = lambda x: log(x*3, np.e)
         self.f9 = lambda x, y: x**y
     
