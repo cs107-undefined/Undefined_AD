@@ -362,6 +362,8 @@ class UDFunction:
         """
         if isinstance(other, UDFunction):
             return self.val == other.val
+        elif isinstance(other, (int, float)):
+            return self.val == other
         else:
             raise TypeError("Need a UDFunction object to compare")
     
@@ -374,6 +376,8 @@ class UDFunction:
         """
         if isinstance(other, UDFunction):
             return self.val != other.val
+        elif isinstance(other, (int, float)):
+            return self.val != other
         else:
             raise TypeError("Need a UDFunction object to compare")
     
@@ -387,6 +391,8 @@ class UDFunction:
         """
         if isinstance(other, UDFunction):
             return self.val < other.val
+        elif isinstance(other, (int, float)):
+            return self.val < other
         else:
             raise TypeError("Need a UDFunction object to compare")
     
@@ -400,6 +406,8 @@ class UDFunction:
         """
         if isinstance(other, UDFunction):
             return self.val > other.val
+        elif isinstance(other, (int, float)):
+            return self.val > other
         else:
             raise TypeError("Need a UDFunction object to compare")
     
@@ -413,6 +421,8 @@ class UDFunction:
         """
         if isinstance(other, UDFunction):
             return self.val <= other.val
+        elif isinstance(other, (int, float)):
+            return self.val <= other
         else:
             raise TypeError("Need a UDFunction object to compare")
 
@@ -426,22 +436,27 @@ class UDFunction:
         """
         if isinstance(other, UDFunction):
             return self.val >= other.val
+        elif isinstance(other, (int, float)):
+            return self.val >= other
         else:
             raise TypeError("Need a UDFunction object to compare")
 
 
 
-# if __name__ == "__main__":
-#     alpha = 2.0
-#     beta  = 3.0
+if __name__ == "__main__":
+    alpha = 2.0
+    beta  = 3.0
 
-#     a = 2.0
-#     x = UDFunction(a)
+    a = np.array(2.5)
+    x = UDFunction(a)
 
-#     b = 5.0
-#     y = UDFunction(b)
+    b = 5.0
+    y = UDFunction(b)
 
-#     f1 = -2*x + beta
-#     f2 = -2*y + beta
+    f1 = -2*x + beta
+    f2 = -2*y + beta
 
-#     print(x >= y)
+    # print(x >= y)
+    print(f1.val, f2.val)
+    print(f1 == -0.5)
+
