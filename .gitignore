@@ -9,3 +9,6 @@ src/undefined/__pycache__/
 # ignore the .coverage files
 coverage.xml
 .coverage
+
+# ignore the coverage html
+htmlcov
