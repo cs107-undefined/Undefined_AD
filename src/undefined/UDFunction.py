@@ -441,22 +441,25 @@ class UDFunction:
         else:
             raise TypeError("Need a UDFunction object to compare")
 
+    def __round__(self, digit):
+        '''overwrite the round method.
+        '''
+        return round(self.val, digit)
 
+# if __name__ == "__main__":
+#     alpha = 2.0
+#     beta  = 3.0
 
-if __name__ == "__main__":
-    alpha = 2.0
-    beta  = 3.0
+#     a = np.array(2.5)
+#     x = UDFunction(a)
 
-    a = np.array(2.5)
-    x = UDFunction(a)
+#     b = 5.0
+#     y = UDFunction(b)
 
-    b = 5.0
-    y = UDFunction(b)
+#     f1 = -2*x + beta
+#     f2 = -2*y + beta
 
-    f1 = -2*x + beta
-    f2 = -2*y + beta
-
-    # print(x >= y)
-    print(f1.val, f2.val)
-    print(f1 == -0.5)
+#     # print(x >= y)
+#     print(f1.val, f2.val)
+#     print(f1 == -0.5)
 
