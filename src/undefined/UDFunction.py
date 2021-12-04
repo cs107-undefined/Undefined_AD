@@ -21,10 +21,11 @@ class UDFunction:
 
     @property
     def val(self):
-        """[summary]
+        """
+        This is a decorator return rouded input self.val
 
         Returns:
-            [type]: [description]
+            array: 2 decimal rounded input of self.value
         """
         if isinstance(self._val, float):
             return round(self._val, 2)
@@ -35,10 +36,11 @@ class UDFunction:
 
     @property
     def der(self):
-        """[summary]
+        """
+        This is a decorator return rouded input self.der
 
         Returns:
-            [type]: [description]
+            array: 2 decimal rounded input of self.der
         """
         if isinstance(self._der, float):
             return round(self._der, 2)

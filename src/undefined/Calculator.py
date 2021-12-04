@@ -9,16 +9,18 @@ import math
 import numpy as np
 
 def cos(udobject):
-    """calculate the cosine 
+    """calculate the cosine operation of input
 
     Args:
-        udfunction ([type]): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function
 
     Raises:
-        AttributeError: [description]
+        TypeError:raised if input is not compatiable with cosine operation
 
     Returns:
-
+        if input is udfunction object,update val and der by cosine operation.
+        if input is UDGraph object,update notes and function by cosine operation.
+        if input is int,float,ndarray object,update them in cosine operation by their own types. 
     """
     if isinstance(udobject, UDFunction):
         if isinstance(udobject._val, (int, float)):
@@ -54,16 +56,18 @@ def cos(udobject):
 
 
 def sin(udobject):
-    """[summary]
+    """calculate the sin operation of input
 
     Args:
-        udfunction ([type]): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
 
     Raises:
-        AttributeError: [description]
+        TypeError:raised if input is not compatiable with sin operation
 
     Returns:
-        [type]: [description]
+        if input is udfunction object,update val and der by sin operation.
+        if input is UDGraph object,update notes and function by sin operation.
+        if input is int,float,ndarray object,update them in sin operation by their own types. 
     """
     if isinstance(udobject, UDFunction):
         if isinstance(udobject._val, (int, float)):
@@ -98,16 +102,18 @@ def sin(udobject):
 
 
 def tan(udobject):
-    """[summary]
+    """calculate the tangent operation of input
 
     Args:
-        udfunction (UDFunction): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
 
     Raises:
-        AttributeError: [description]
+        TypeError:raised if input is not compatiable with tangent operation
 
     Returns:
-        [type]: [description]
+        if input is udfunction object,update val and der by tangenr operation.
+        if input is UDGraph object,update notes and function by tangent operation.
+        if input is int,float,ndarray object,update them in tangent operation by their own types. 
     """
     if isinstance(udobject, UDFunction):
         if isinstance(udobject._val, (int, float)):
@@ -139,16 +145,18 @@ def tan(udobject):
 
 
 def sqrt(udobject):
-    """[summary]
+    """calculate the square root operation of input
 
     Args:
-        udfunction (UDFunction): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
 
     Raises:
-        AttributeError: [description]
+        TypeError:raised if input is not compatiable with square root operation
 
     Returns:
-        [type]: [description]
+        if input is udfunction object,update val and der by square root operation.
+        if input is UDGraph object,update notes and function by square root operation.
+        if input is int,float,ndarray object,update them in square root operation by their own types. 
     """
     if isinstance(udobject, UDFunction):
         if isinstance(udobject._val, (int, float)):
@@ -184,16 +192,18 @@ def sqrt(udobject):
 
 
 def exp(udobject):
-    """[summary]
+    """calculate the square exponential of input
 
     Args:
-        udfunction (UDFunction): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
 
     Raises:
-        AttributeError: [description]
+        TypeError:raised if input is not compatiable with exponential operation
 
     Returns:
-        [type]: [description]
+        if input is udfunction object,update val and der by exponential operation.
+        if input is UDGraph object,update notes and function by exponential operation.
+        if input is int,float,ndarray object,update them in exponential operation by their own types. 
     """
     if isinstance(udobject, UDFunction):
         if isinstance(udobject._val, (int, float)):
@@ -229,17 +239,18 @@ def exp(udobject):
 
 
 def log(udobject, base):
-    """[summary]
+    """calculate the log of input
 
     Args:
-        udfunction (UDFunction): [description]
-        base ([type]): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
 
     Raises:
-        AttributeError: [description]
+        TypeError:raised if input is not compatiable with log operation
 
     Returns:
-        [type]: [description]
+        if input is udfunction object,update val and der by log operation.
+        if input is UDGraph object,update notes and function by log operation.
+        if input is int,float,ndarray object,update them in log operation by their own types. 
     """
     if isinstance(udobject, UDFunction):
         if isinstance(udobject._val, (int, float)):
