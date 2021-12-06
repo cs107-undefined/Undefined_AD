@@ -12,6 +12,7 @@ coverage.xml
 
 # ignore the coverage html
 htmlcov
+htmlcov/*.html
 
 # ignore sphinx files
 docs/_*
