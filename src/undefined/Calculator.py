@@ -142,9 +142,12 @@ def tan(udobject):
 
     elif isinstance(udobject, np.ndarray):
         return np.tan(udobject)
-
+    
     elif isinstance(udobject, (int, float)):
         return math.tan(udobject)
+
+    else:
+        raise TypeError("unsupported attribute type.")
 
 
 def sqrt(udobject):
@@ -291,9 +294,9 @@ def log(udobject, base):
         raise TypeError("unsupported attribute type.")
 
 
-if __name__ == "__main__":
-    beta = 3.0
-    x = UDGraph(2)
-    y = UDGraph(2)
-    f = sin(x)**0.5 + cos(exp(y) + cos(2)) + log(y, 4) / x
-    print(f)
+# if __name__ == "__main__":
+#     beta = 3.0
+#     x = UDGraph(2)
+#     y = UDGraph(2)
+#     f = sin(x)**0.5 + cos(exp(y) + cos(2)) + log(y, 4) / x
+#     print(f)
