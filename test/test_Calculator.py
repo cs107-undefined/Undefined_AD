@@ -43,6 +43,7 @@ class TestCalculator(unittest.TestCase):
         self.f12 = 5*x + cal.log(x+1, math.e) - 2/x
 
         self.f13 = cal.log(x, 2)
+        self.f1000 = cal.log(x, np.e)
 
 
     def test_sine(self):
