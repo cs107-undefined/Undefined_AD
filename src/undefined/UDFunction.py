@@ -21,10 +21,11 @@ class UDFunction:
 
     @property
     def val(self):
-        """[summary]
+        """
+        This is a decorator return rouded input self.val
 
         Returns:
-            [type]: [description]
+            array: 2 decimal rounded input of self.value
         """
         if isinstance(self._val, float):
             return round(self._val, 2)
@@ -35,10 +36,11 @@ class UDFunction:
 
     @property
     def der(self):
-        """[summary]
+        """
+        This is a decorator return rouded input self.der
 
         Returns:
-            [type]: [description]
+            array: 2 decimal rounded input of self.der
         """
         if isinstance(self._der, float):
             return round(self._der, 2)
@@ -362,6 +364,8 @@ class UDFunction:
         """
         if isinstance(other, UDFunction):
             return self.val == other.val
+        elif isinstance(other, (int, float)):
+            return self.val == other
         else:
             raise TypeError("Need a UDFunction object to compare")
     
@@ -374,6 +378,8 @@ class UDFunction:
         """
         if isinstance(other, UDFunction):
             return self.val != other.val
+        elif isinstance(other, (int, float)):
+            return self.val != other
         else:
             raise TypeError("Need a UDFunction object to compare")
     
@@ -387,6 +393,8 @@ class UDFunction:
         """
         if isinstance(other, UDFunction):
             return self.val < other.val
+        elif isinstance(other, (int, float)):
+            return self.val < other
         else:
             raise TypeError("Need a UDFunction object to compare")
     
@@ -400,6 +408,8 @@ class UDFunction:
         """
         if isinstance(other, UDFunction):
             return self.val > other.val
+        elif isinstance(other, (int, float)):
+            return self.val > other
         else:
             raise TypeError("Need a UDFunction object to compare")
     
@@ -413,6 +423,8 @@ class UDFunction:
         """
         if isinstance(other, UDFunction):
             return self.val <= other.val
+        elif isinstance(other, (int, float)):
+            return self.val <= other
         else:
             raise TypeError("Need a UDFunction object to compare")
 
@@ -426,16 +438,21 @@ class UDFunction:
         """
         if isinstance(other, UDFunction):
             return self.val >= other.val
+        elif isinstance(other, (int, float)):
+            return self.val >= other
         else:
             raise TypeError("Need a UDFunction object to compare")
 
-
+    def __round__(self, digit):
+        '''overwrite the round method.
+        '''
+        return round(self.val, digit)
 
 # if __name__ == "__main__":
 #     alpha = 2.0
 #     beta  = 3.0
 
-#     a = 2.0
+#     a = np.array(2.5)
 #     x = UDFunction(a)
 
 #     b = 5.0
@@ -444,4 +461,7 @@ class UDFunction:
 #     f1 = -2*x + beta
 #     f2 = -2*y + beta
 
-#     print(x >= y)
+#     # print(x >= y)
+#     print(f1.val, f2.val)
+#     print(f1 == -0.5)
+

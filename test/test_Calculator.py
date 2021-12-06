@@ -68,7 +68,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(round(self.f2.val, 2), -0.99)
         self.assertEqual(round(self.f2.der, 2), -0.28)
 
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(TypeError):
             self.f46 = cal.cos(2*x) + x 
 
     def test_tangent(self):

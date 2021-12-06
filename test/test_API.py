@@ -19,20 +19,17 @@ class TestAPI(unittest.TestCase):
 
     def test_trace(self):
 
-        self.assertEqual(str(trace(self.f1, x = 2)), f"value: 4 \n" + f"derivative: 1")
-        self.assertEqual(str(trace(self.f1, mode = 'forward', x = 2)), f"value: 4 \n" + f"derivative: 1")
-        
-        with self.assertRaises(NotImplementedError) as context:
-            trace(self.f1, mode = 'reverse', x = 2)
-            # self.assertTrue('This is broken' in context.exception)
+        self.assertEqual(str(trace(self.f1, x = 2)), '(4, 1)')
+        self.assertEqual(str(trace(self.f1, mode = 'forward', x = 2)), '(4, 1)')
+
         with self.assertRaises(AttributeError) as context:
             trace(self.f1, mode = 'undefined', x = 2)
             # self.assertTrue('This is broken' in context.exception)
 
-        self.assertEqual(str(trace(self.f2, x = 2, y = 4)), f"value: 5 \n" + f"derivative: [1 1]")
-        self.assertEqual(str(trace(self.f2, y = 4, x = 2)), f"value: 5 \n" + f"derivative: [1 1]")
+        self.assertEqual(str(trace(self.f2, x = 2, y = 4)), "(5, array([1, 1]))")
+        self.assertEqual(str(trace(self.f2, y = 4, x = 2)), "(5, array([1, 1]))")
 
-        self.assertEqual(str(trace(self.f3, x = 2, y = 4)), f"value: 6.0 \n" + f"derivative: [2.   0.25]")
+        self.assertEqual(str(trace(self.f3, x = 2, y = 4)), "(6.0, array([2.  , 0.25]))")
 
 
 if __name__ == "__main__":
