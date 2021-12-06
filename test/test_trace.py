@@ -64,8 +64,6 @@ class TestTrace(unittest.TestCase):
         self.assertEqual(str(trace([self.f1, self.f2], x = 2)[0]), "[1.58 135.54]")
         self.assertEqual(str(trace([self.f1, self.f2], x = 2)[1]), "[-3.3000e-01  4.8577e+02]")
 
-        self.f100 = lambda x : 1/tan(x)
-        self.assertEqual(trace(self.f100, x = 1), 0.78539)
 
     # def test_reverse(self):
     #     result1 = trace(self.f1, mode = "reverse", x = 2)
