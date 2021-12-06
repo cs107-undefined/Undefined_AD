@@ -24,6 +24,7 @@ class UDPrimitive(Enum):
     EXP = 18
     LOG = 19
 
+class 
 # def time(operation):
 #     raise NotImplementedError
 

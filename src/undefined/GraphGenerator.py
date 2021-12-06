@@ -1,6 +1,6 @@
 import sys
 # # temp solution for directory.
-sys.path.append("./src")
+sys.path.append("/Users/xinran/Desktop/Harvard/Courses/cs107/cs107-FinalProject/src")
 
 from undefined.Utils import UDPrimitive
 import numpy as np
@@ -57,7 +57,7 @@ class UDGraph:
     def __add__(self, other):
         """
         This allows to do addition with UDFunction instances or scalar numbers, and calculate the value after taking the derivative. 
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to add with
@@ -78,13 +78,13 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __mul__(self, other):
         """
         This allows to do multification with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative. 
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to multiply with
@@ -104,7 +104,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __radd__(self, other):
@@ -129,7 +129,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __rmul__(self, other):
@@ -155,7 +155,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __neg__(self):
@@ -170,7 +170,7 @@ class UDGraph:
     def __sub__(self, other):
         """
         This allows to do subtraction with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative. 
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to subtract with
@@ -191,7 +191,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __rsub__(self, other):
@@ -217,13 +217,13 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __truediv__(self, other):
         """
         This allows to do true division with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative. 
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to (true) divide with
@@ -244,7 +244,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __rtruediv__(self, other):
@@ -270,13 +270,13 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __floordiv__(self, other):  # self // other
         """
         This allows to do floor division with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative.
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to (floor) divide with
@@ -297,7 +297,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __rfloordiv__(self, other):
@@ -323,7 +323,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __pow__(self, other):
@@ -367,7 +367,7 @@ class UDGraph:
         """
         This allows to do "to the power" with UDFunction instances or scalar numbers, and calculate the value after taking the derivative.
         ** operator.
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             degree (numeric): object to take power of.
@@ -397,7 +397,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["base"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
 
@@ -692,7 +692,7 @@ class GraphGenerator:
     def generate_derivative(self, var_name):
         if var_name not in self._variables.keys():
             # TODO: check der(x of x)
-            raise AttributeError("variable not defined in function")
+            raise TypeError("variable not defined in function")
         # TODO: check if variable address does not change
         # TODO: check if variable is UDGraph
 

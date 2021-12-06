@@ -53,7 +53,7 @@ class UDFunction:
     def __add__(self, other):
         """
         This allows to do addition with UDFunction instances or scalar numbers, and calculate the value after taking the derivative. 
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to add with
@@ -67,13 +67,13 @@ class UDFunction:
             new_val = self._val + other
             new_der = self._der
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __mul__(self, other):
         """
         This allows to do multification with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative. 
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to multiply with
@@ -87,7 +87,7 @@ class UDFunction:
             new_val = self._val * other
             new_der = self._der * other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __radd__(self, other):
@@ -106,7 +106,7 @@ class UDFunction:
             new_val = self._val + other
             new_der = self._der
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __rmul__(self, other):
@@ -126,7 +126,7 @@ class UDFunction:
             new_val = self._val * other
             new_der = self._der * other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __neg__(self):
@@ -141,7 +141,7 @@ class UDFunction:
     def __sub__(self, other):
         """
         This allows to do subtraction with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative. 
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to subtract with
@@ -156,7 +156,7 @@ class UDFunction:
             new_val = self._val - other
             new_der = self._der
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __rsub__(self, other):
@@ -176,13 +176,13 @@ class UDFunction:
             new_val = other - self._val
             new_der = - self._der
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
         
     def __truediv__(self, other): 
         """
         This allows to do true division with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative. 
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to (true) divide with
@@ -197,7 +197,7 @@ class UDFunction:
             new_val = self._val / other
             new_der = self._der / other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __rtruediv__(self, other):
@@ -217,13 +217,13 @@ class UDFunction:
             new_val = other / self._val
             new_der = - 1 * other * self._der / (self._val * self._val)
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __floordiv__(self, other): # self // other
         """
         This allows to do floor division with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative.
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to (floor) divide with
@@ -238,7 +238,7 @@ class UDFunction:
             new_val = self._val // other
             new_der = self._der // other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __rfloordiv__(self, other):
@@ -258,7 +258,7 @@ class UDFunction:
             new_val = other // self._val
             new_der = - 1 * other * self._der // (self._val * self._val)
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __pow__(self, other):
@@ -312,7 +312,7 @@ class UDFunction:
         """
         This allows to do "to the power" with UDFunction instances or scalar numbers, and calculate the value after taking the derivative.
         ** operator.
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             degree (numeric): object to take power of.
@@ -345,7 +345,7 @@ class UDFunction:
             new_der_1 = math.log(other) * new_val * self._der
         
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         
 
         return UDFunction(new_val, new_der)

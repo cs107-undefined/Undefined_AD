@@ -1,7 +1,7 @@
 
 import sys
 # # temp solution for directory.
-sys.path.append("./src")
+sys.path.append("/Users/xinran/Desktop/Harvard/Courses/cs107/cs107-FinalProject/src")
 
 from types import LambdaType
 import numpy as np

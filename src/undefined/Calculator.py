@@ -1,6 +1,6 @@
 import sys
 # # temp solution for directory.
-sys.path.append("./src")
+sys.path.append("/Users/xinran/Desktop/Harvard/Courses/cs107/cs107-FinalProject/src")
 
 from undefined.Utils import UDPrimitive
 from undefined.GraphGenerator import UDGraph
@@ -15,7 +15,7 @@ def cos(udobject):
         udfunction ([type]): [description]
 
     Raises:
-        AttributeError: [description]
+        TypeError: [description]
 
     Returns:
 
@@ -60,7 +60,7 @@ def sin(udobject):
         udfunction ([type]): [description]
 
     Raises:
-        AttributeError: [description]
+        TypeError: [description]
 
     Returns:
         [type]: [description]
@@ -73,7 +73,7 @@ def sin(udobject):
             new_val = np.sin(udobject._val)
             new_der = np.cos(udobject._val) * udobject._der
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
     elif isinstance(udobject, UDGraph):
         new_func = UDPrimitive.SIN
@@ -104,7 +104,7 @@ def tan(udobject):
         udfunction (UDFunction): [description]
 
     Raises:
-        AttributeError: [description]
+        TypeError: [description]
 
     Returns:
         [type]: [description]
@@ -117,7 +117,7 @@ def tan(udobject):
             new_val = np.tan(udobject._val)
             new_der = (1 / (np.cos(udobject._val)) ** 2) * udobject._der
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
     elif isinstance(udobject, UDGraph):
         new_func = UDPrimitive.TAN
@@ -145,7 +145,7 @@ def sqrt(udobject):
         udfunction (UDFunction): [description]
 
     Raises:
-        AttributeError: [description]
+        TypeError: [description]
 
     Returns:
         [type]: [description]
@@ -158,7 +158,7 @@ def sqrt(udobject):
             new_val = np.sqrt(udobject._val)
             new_der = 0.5 * np.power(udobject._val, -0.5) * udobject._der
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     elif isinstance(udobject, UDGraph):
@@ -190,7 +190,7 @@ def exp(udobject):
         udfunction (UDFunction): [description]
 
     Raises:
-        AttributeError: [description]
+        TypeError: [description]
 
     Returns:
         [type]: [description]
@@ -203,7 +203,7 @@ def exp(udobject):
             new_val = np.exp(udobject._val)
             new_der = np.exp(udobject._val) * udobject._der
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     elif isinstance(udobject, UDGraph):
@@ -236,7 +236,7 @@ def log(udobject, base):
         base ([type]): [description]
 
     Raises:
-        AttributeError: [description]
+        TypeError: [description]
 
     Returns:
         [type]: [description]
@@ -249,7 +249,7 @@ def log(udobject, base):
             new_val = np.log(udobject._val) / math.log(base)
             new_der = 1 / (math.log(base) * udobject._val) * udobject._der
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     elif isinstance(udobject, UDGraph):
