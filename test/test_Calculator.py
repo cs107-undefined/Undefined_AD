@@ -5,6 +5,7 @@ sys.path.append("./src/")
 from undefined import Calculator as cal
 from undefined.UDFunction import UDFunction
 import math
+import numpy as np
 
 
 class TestCalculator(unittest.TestCase):
@@ -57,6 +58,13 @@ class TestCalculator(unittest.TestCase):
 
         with self.assertRaises(AttributeError):
             self.f45 = cal.sin(2*x) + x 
+        
+        self.assertEqual(cal.sin(np.array([np.pi/2])), 1)
+        self.assertEqual(cal.sin(np.pi/2), 1)
+
+        with self.assertRaises(TypeError):
+            self.f000 = cal.sin("3/np.pi")
+
     
     def test_cosine(self):
         a = "2.0"
@@ -70,6 +78,12 @@ class TestCalculator(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             self.f46 = cal.cos(2*x) + x 
+        
+        self.assertEqual(cal.cos(np.array([np.pi])), -1)
+        self.assertEqual(cal.cos(np.pi), -1)
+
+        with self.assertRaises(TypeError):
+            self.f000 = cal.cos("3/np.pi")
 
     def test_tangent(self):
 
@@ -84,6 +98,12 @@ class TestCalculator(unittest.TestCase):
 
         with self.assertRaises(AttributeError):
             self.f47 = cal.tan(2*x) + x 
+        
+        self.assertEqual(cal.tan(np.array([0])), 0)
+        self.assertEqual(cal.tan(0), 0)
+
+        with self.assertRaises(TypeError):
+            self.f000 = cal.tan("3/np.pi")
     
     def test_sqrt(self):
         a = "2.0"
@@ -97,6 +117,12 @@ class TestCalculator(unittest.TestCase):
 
         with self.assertRaises(AttributeError):
             self.f48 = cal.sqrt(2*x) + x 
+        
+        self.assertEqual(cal.sqrt(np.array([4])), 2)
+        self.assertEqual(cal.sqrt(4), 2)
+
+        with self.assertRaises(TypeError):
+            self.f000 = cal.sqrt("3/np.pi")
 
     def test_exp(self):
 
@@ -111,6 +137,12 @@ class TestCalculator(unittest.TestCase):
 
         with self.assertRaises(AttributeError):
             self.f49 = cal.exp(2*x) + x 
+        
+        self.assertEqual(cal.exp(np.array([1])), np.e)
+        self.assertEqual(cal.exp(1), np.e)
+
+        with self.assertRaises(TypeError):
+            self.f000 = cal.exp("3/np.pi")
 
     def test_log(self):
         a = "2.0"
@@ -127,6 +159,12 @@ class TestCalculator(unittest.TestCase):
 
         with self.assertRaises(AttributeError):
             self.f50 = cal.log(2*x, 2) + x 
+        
+        self.assertEqual(cal.log(np.array([1]), np.e), 0)
+        self.assertEqual(cal.log(1, np.e), 0)
+
+        with self.assertRaises(TypeError):
+            self.f000 = cal.log("3/np.pi", np.e)
 
 
 if __name__ == "__main__":

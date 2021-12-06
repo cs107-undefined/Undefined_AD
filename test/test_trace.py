@@ -14,6 +14,7 @@ class TestTrace(unittest.TestCase):
         self.f1 = lambda x: sqrt(exp(sin(x)))
         self.f2 = lambda x: exp(x**2 + sin(x))
         self.f3 = lambda x: sin(exp(2**x))
+        
         self.f4 = lambda x: x**sin(x+2)
         self.f5 = lambda x, y: exp(1-6*x) * tan(4*x + 2*y)
         self.f6 = lambda x: 1 / (8 + cos(2*np.pi*x))
@@ -21,6 +22,9 @@ class TestTrace(unittest.TestCase):
         self.f8 = lambda x: log(x*3 + tan(2*x), np.e) + 2**x # raise error, need to fix __rpow__
         self.f10 = lambda x: log(x*3, np.e)
         self.f9 = lambda x, y: x**y
+        self.f11 = lambda x: cos(exp(2*x))
+        self.f12 = lambda x, y: log(1-6*x) * tan(4*x + 2*y)
+        self.f13 = lambda x: log(6*x, 10) * tan(4*x)
     
     def tearDown(self):
         pass
@@ -38,7 +42,15 @@ class TestTrace(unittest.TestCase):
         # self.assertEqual(trace(self.f8, x = 3), (2.16, 0.59))
         self.assertEqual(trace(self.f10, x = 2), (1.79, 0.5))
         self.assertEqual(str(trace(self.f9, x = 5, y = 3)), "(125, array([ 75.  , 201.18]))")
-
+    
+    def test_forward_trace(self):
+        result1 = trace(self.f1, x = np.array([2]))
+        self.assertEqual(str(result1), "(array([1.58]), array([-0.328]))")
+        self.assertEqual(str(trace(self.f2, x = np.array([3]))), "(array([9331.21]), array([46749.434]))")
+        # print(trace(self.f5, x = np.array([2]), y = np.array([3]))) # raise error
+        self.assertEqual(str(trace(self.f11, x = np.array([2]))), "(array([-0.37]), array([101.418]))")
+        # print(trace(self.f12, x = np.array([2]), y = np.array([5]))) # raise error
+        self.assertEqual(str(trace(self.f13, x = np.array([3]))), "(array([-0.8]), array([6.959]))")
 
 
     # def test_reverse(self):
