@@ -2,7 +2,7 @@
 import unittest
 import sys
 
-sys.path.append("./src/")
+sys.path.append("/Users/xinran/Desktop/Harvard/Courses/cs107/cs107-FinalProject/src/")
 from undefined.API import trace
 from undefined.UDFunction import UDFunction
 from undefined.Calculator import sin, cos, exp, tan, sqrt, log
@@ -26,46 +26,53 @@ class TestTrace(unittest.TestCase):
         self.f12 = lambda x, y: log(1-6*x) * tan(4*x + 2*y)
         self.f13 = lambda x: log(6*x, 10) * tan(4*x)
     
+    def assertNumpyArraysEqual(self, o1, o2):
+        if o1.shape != o2.shape:
+            raise AssertionError("Shapes don't match")
+        if not np.allclose(o1, o2):
+            raise AssertionError("Elements don't match!")
+
     def tearDown(self):
         pass
 
     def test_forward(self):
         result1 = trace(self.f1, x = 2)
-        self.assertEqual(result1, (1.58, -0.33))
-        self.assertEqual(trace(self.f2, x = 3), (9331.210, 46749.43))
-        # self.assertEqual(trace(self.f3, x = 3), (0.40, -15137.2))
-        self.assertEqual(trace(self.f4, x = 3), (0.35, -0.00))
+        self.assertEqual(result1, (1.58, -0.328))
+        self.assertEqual(trace(self.f2, x = 3), (9331.210, 46749.434))
+        self.assertEqual(trace(self.f3, x = 3), (0.40, -15137.189))
+        self.assertEqual(trace(self.f4, x = 3), (0.35, -0.003))
     
         self.assertEqual(str(trace(self.f5, x = 2, y = 3)), "(0.0, array([0.003, 0.002]))")
-        # print(trace(self.f7, x = 1, y = 2, z = 3))
+        print(trace(self.f7, x = 1, y = 2, z = 3))
         self.assertEqual(str(trace(self.f7, x = 1, y = 2, z = 3)), "(0.01, array([ 0.007,  0.027, -0.04 ]))")
-        self.assertEqual(trace(self.f8, x = 3), (2.16, 0.59))
+        self.assertEqual(trace(self.f8, x = 3), (10.16, 6.139))
         self.assertEqual(trace(self.f10, x = 2), (1.79, 0.5))
         self.assertEqual(str(trace(self.f9, x = 5, y = 3)), "(125, array([ 75.  , 201.18]))")
     
     def test_forward_trace(self):
-        result1 = trace(self.f1, x = np.array([2]))
-        self.assertEqual(str(result1), "(array([1.58]), array([-0.328]))")
-        self.assertEqual(str(trace(self.f2, x = np.array([3]))), "(array([9331.21]), array([46749.434]))")
-        # print(trace(self.f5, x = np.array([2]), y = np.array([3]))) # raise error
-        self.assertEqual(str(trace(self.f11, x = np.array([2]))), "(array([-0.37]), array([101.418]))")
-        # print(trace(self.f12, x = np.array([2]), y = np.array([5]))) # raise error
-        self.assertEqual(str(trace(self.f13, x = np.array([3]))), "(array([-0.8]), array([6.959]))")
-        
+        result1 = trace(self.f1, x = np.array([[2]]))
+        self.assertEqual(result1, (np.array([[1.58]]), np.array([[-0.328]])))
+        self.assertEqual(trace(self.f2, x = np.array([[3]])), (np.array([[9331.21]]), np.array([[46749.434]])))
+        print(trace(self.f5, x = np.array([[2]]), y = np.array([[3]]))) # raise error
+        self.assertEqual(trace(self.f8, x = np.array([[3]])), (np.array([[10.16]]), np.array([[6.139]]))) # raise error
+        self.assertEqual(trace(self.f11, x = np.array([[2]])), (np.array([[-0.37]]), np.array([[101.418]])))
+        # print(trace(self.f12, x = np.array([[2]]), y = np.array([[5]]))) # raise error
+        self.assertEqual(trace(self.f13, x = np.array([[3]])), (np.array([[-0.8]]), np.array([[6.959]])))
+        self.assertEqual(trace(self.f13, x = np.array([[3]])), (np.array([[-0.8]]), np.array([[6.959]])))
         with self.assertRaises(TypeError):
             trace(self.f1, x=np.array([]))
         
         # test multiple x values at the same time
-        self.assertEqual(str(trace(self.f1, x = np.array([[1, 2]]))), "(array([[1.52, 1.58]]), array([[ 0.411, -0.328]]))")
-
+        self.assertNumpyArraysEqual(trace(self.f1, x = np.array([[1, 2]]))[0], np.array([[1.52, 1.58]]))
+        
+        self.assertNumpyArraysEqual(trace(self.f1, x = np.array([[1, 2]]))[1], np.array([[ 0.411, -0.328]]))
         with self.assertRaises(TypeError):
             trace(self.f1, x="2")
         
-        self.assertEqual(str(trace([self.f1, self.f2], x = 2)[0]), "[1.58 135.54]")
-        self.assertEqual(str(trace([self.f1, self.f2], x = 2)[1]), "[-3.3000e-01  4.8577e+02]")
+        self.assertNumpyArraysEqual(trace([self.f1, self.f2], x = 2)[0], np.array([1.58, 135.54]))
+        self.assertNumpyArraysEqual(trace([self.f1, self.f2], x = 2)[1], np.array([-3.2800e-01,  4.8577e+02]))
 
-        self.f100 = lambda x : 1/tan(x)
-        self.assertEqual(trace(self.f100, x = 1), 0.78539)
+        
 
     # def test_reverse(self):
     #     result1 = trace(self.f1, mode = "reverse", x = 2)
