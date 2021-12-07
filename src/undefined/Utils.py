@@ -32,7 +32,7 @@ class UDPrimitive(Enum):
 
 def time():
     now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
+    current_time = now.strftime("%H:%M:%S:%f")
     return current_time
 
 

@@ -502,6 +502,14 @@ class UDGraph:
         else:
             raise TypeError("Need a UDGraph object to compare")
 
+    def __hash__(self):
+        """hash function for udgraph
+
+        Returns:
+            int: hash value for udgraph
+        """
+        return hash((self._val, self._func))
+
 class GeneratorHelper:
     @classmethod
     def _var(self, udgraph: UDGraph, variable: UDGraph):
@@ -784,7 +792,7 @@ class GraphGenerator:
         if not self._nxgraph:
             self._nxgraph = nx.DiGraph()
             self._generate_inner(self._udgraph, self._nxgraph)
-        nx.draw_planar(self._nxgraph, with_labels=True, font_weight='bold')
+        nx.draw_networkx(self._nxgraph, with_labels=True, font_size=6)
         plt.savefig(f"{time()}.png")
 
     def generate_str(self):

@@ -3,7 +3,7 @@ import math
 import numpy as np
 import sys
 # # temp solution for directory.
-sys.path.append("./src/")
+sys.path.append("/Users/xinran/Desktop/Harvard/Courses/cs107/cs107-FinalProject/src/")
 
 
 class UDFunction:
