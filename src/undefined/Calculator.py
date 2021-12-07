@@ -1,6 +1,6 @@
 import sys
 # # temp solution for directory.
-sys.path.append("/Users/xinran/Desktop/Harvard/Courses/cs107/cs107-FinalProject/src")
+sys.path.append("./src/")
 
 from undefined.Utils import UDPrimitive
 from undefined.GraphGenerator import UDGraph
@@ -246,7 +246,7 @@ def exp(udobject):
         raise TypeError("unsupported attribute type.")
 
 
-def log(udobject, base):
+def log(udobject, base = math.e):
     """calculate the log of input
 
     Args:
@@ -265,7 +265,8 @@ def log(udobject, base):
             new_val = math.log(udobject._val, base)
             new_der = 1 / (math.log(base) * udobject._val) * udobject._der
         elif isinstance(udobject._val, np.ndarray):
-            new_val = np.log(udobject._val) / math.log(base)
+            new_val = np.log(udobject._val)
+            new_val = new_val / math.log(base)
             new_der = 1 / (math.log(base) * udobject._val) * udobject._der
         else:
             raise TypeError("unsupported attribute type.")

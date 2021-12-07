@@ -1,6 +1,6 @@
 # import logging
 from enum import Enum
-
+from datetime import datetime
 
 class UDPrimitive(Enum):
     VAR = 0
@@ -23,9 +23,11 @@ class UDPrimitive(Enum):
     SQRT = 17
     EXP = 18
     LOG = 19
-    
-# def time(operation):
-#     raise NotImplementedError
+
+def time():
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    return current_time
 
 # def log(level, information):
 #     logging.basicConfig(level=logging.INFO)

@@ -40,10 +40,10 @@ class UDFunction:
         This is a decorator return rouded input self.der
 
         Returns:
-            array: 2 decimal rounded input of self.der
+            array: 3 decimal rounded input of self.der
         """
         if isinstance(self._der, float):
-            return round(self._der, 2)
+            return round(self._der, 3)
         elif isinstance(self._der, np.ndarray):
             return np.round(self._der, 3)
         else:
@@ -344,7 +344,7 @@ class UDFunction:
         
         elif isinstance(other, (int, float, np.ndarray)):
             new_val = other ** self._val
-            new_der_1 = math.log(other) * new_val * self._der
+            new_der = math.log(other) * new_val * self._der
         
         else:
             raise TypeError("unsupported attribute type.")
@@ -460,8 +460,14 @@ class UDFunction:
 
 #     f1 = -2*x + beta
 #     f2 = -2*y + beta
-
+#     f1 = -2*x + beta
 #     # print(x >= y)
 #     print(f1.val, f2.val)
+#     a = 2.5
+#     x = UDFunction(a)
+#     f1 = -2*x + beta
 #     print(f1 == -0.5)
+#     print(f1.val)
+#     print(0.5 <= -1 * f1)
+
 

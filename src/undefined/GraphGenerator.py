@@ -1,12 +1,13 @@
 import sys
 # # temp solution for directory.
-sys.path.append("/Users/xinran/Desktop/Harvard/Courses/cs107/cs107-FinalProject/src")
+sys.path.append("./src/")
 
-from undefined.Utils import UDPrimitive
+from undefined.Utils import UDPrimitive, time
 import numpy as np
 import math
 import networkx as nx
 import matplotlib.pyplot as plt
+
 
 
 class UDGraph:
@@ -35,7 +36,7 @@ class UDGraph:
         This is a decorator return rouded input self.val
 
         Returns:
-            array: 2 decimal rounded input of self.value
+            array: 4 decimal rounded input of self.value
         """
         if isinstance(self._val, float):
             return round(self._val, 2)
@@ -685,7 +686,7 @@ class GraphGenerator:
             self._nxgraph = nx.DiGraph()
             self._generate_inner(self._udgraph, self._nxgraph)
         nx.draw_planar(self._nxgraph, with_labels=True, font_weight='bold')
-        plt.show()
+        plt.savefig(f"{time()}.png")
 
     def generate_str(self):
         return repr(self._udgraph)
@@ -698,4 +699,4 @@ class GraphGenerator:
         # TODO: check if variable is UDGraph
 
         variable = self._variables[var_name]
-        return GraphGenerator.function_dic[self._udgraph._func](self._udgraph, variable)
+        return np.round(GraphGenerator.function_dic[self._udgraph._func](self._udgraph, variable), 3)
