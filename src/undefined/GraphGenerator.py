@@ -2,7 +2,7 @@ import sys
 # # temp solution for directory.
 sys.path.append("./src/")
 
-from undefined.Utils import UDPrimitive, time
+from undefined.Utils import UDPrimitive, time, check_division_by_zero, check_pow
 import numpy as np
 import math
 import networkx as nx
@@ -234,12 +234,14 @@ class UDGraph:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDGraph):
+            check_division_by_zero(other._val)
             new_val = self._val / other._val
             new_func = UDPrimitive.TRUEDIV
             udgraph = UDGraph(new_val, new_func)
             udgraph._parents.append(self)
             udgraph._parents.append(other)
         elif isinstance(other, (int, float, np.ndarray)):
+            check_division_by_zero(other)
             new_val = self._val / other
             new_func = UDPrimitive.TRUEDIV
             udgraph = UDGraph(new_val, new_func)
@@ -259,6 +261,7 @@ class UDGraph:
         Returns:
             UDFunction: a new object with new_val and new_der
         """
+        check_division_by_zero(self._val)
         if isinstance(other, UDGraph):
             new_val = other._val / self._val
             new_func = UDPrimitive.RTRUEDIV
@@ -287,12 +290,14 @@ class UDGraph:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDGraph):
+            check_division_by_zero(other._val)
             new_val = self._val // other._val
             new_func = UDPrimitive.FLOORDIV
             udgraph = UDGraph(new_val, new_func)
             udgraph._parents.append(self)
             udgraph._parents.append(other)
         elif isinstance(other, (int, float, np.ndarray)):
+            check_division_by_zero(other)
             new_val = self._val // other
             new_func = UDPrimitive.FLOORDIV
             udgraph = UDGraph(new_val, new_func)
@@ -312,6 +317,7 @@ class UDGraph:
         Returns:
             UDFunction: a new object with new_val and new_der
         """
+        check_division_by_zero(self._val)
         if isinstance(other, UDGraph):
             new_val = other._val // self._val
             new_func = UDPrimitive.RFLOORDIV
@@ -328,6 +334,7 @@ class UDGraph:
             raise TypeError("unsupported attribute type.")
         return udgraph
 
+
     def __pow__(self, other):
         """
         This allows to do "to the power" with UDFunction instances or scalar numbers, and calculate the value after taking the derivative.
@@ -341,6 +348,7 @@ class UDGraph:
         """
         new_func = UDPrimitive.POW
         if isinstance(other, UDGraph):
+            check_pow(self._val, other._val)
             if isinstance(self._val, (int, float)):
                 new_val = self._val ** other._val
             else:
@@ -356,6 +364,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._parents.append(other)
         elif isinstance(other, (int, float, np.ndarray)):
+            check_pow(self._val, other)
             if isinstance(self._val, np.ndarray):
                 new_val = np.power(self._val, other)
             elif isinstance(self._val, (int, float)):
@@ -379,6 +388,7 @@ class UDGraph:
         """
         new_func = UDPrimitive.RPOW
         if isinstance(other, UDGraph):
+            check_pow(other._val, self._val)
             if isinstance(other._val, (int, float)):
                 new_val = other._val ** self._val
             else:
@@ -394,6 +404,7 @@ class UDGraph:
             udgraph._parents.append(other)
             udgraph._parents.append(self)
         elif isinstance(other, (int, float, np.ndarray)):
+            check_pow(other, self._val)
             new_val = other ** self._val
             udgraph = UDGraph(new_val, new_func)
             udgraph._parents.append(self)
@@ -401,7 +412,95 @@ class UDGraph:
         else:
             raise TypeError("unsupported attribute type.")
         return udgraph
+    def __eq__(self, other):
+        """compare whether the two UDGraph objects have the same values.
+        Return true if equal, and false otherwise.
 
+        raise TypeError is other is not a UDGraph object.
+
+        Args:
+            other ([UDGraph])
+        """
+        if isinstance(other, UDGraph):
+            return self.val == other.val
+        elif isinstance(other, (int, float)):
+            return self.val == other
+        else:
+            raise TypeError("Need a UDGraph object to compare")
+    
+    def __ne__(self, other):
+        """compare whether the two UDGraph objects have different values.
+        raise TypeError is other is not a UDGraph object.
+
+        Args:
+            other ([UDGraph])
+        """
+        if isinstance(other, UDGraph):
+            return self.val != other.val
+        elif isinstance(other, (int, float)):
+            return self.val != other
+        else:
+            raise TypeError("Need a UDGraph object to compare")
+    
+    def __lt__(self, other):
+        """overload the < operator
+        raise TypeError is other is not a UDGraph object.
+
+        Args:
+            other ([UDGraph])
+            
+        """
+        if isinstance(other, UDGraph):
+            return self.val < other.val
+        elif isinstance(other, (int, float)):
+            return self.val < other
+        else:
+            raise TypeError("Need a UDGraph object to compare")
+    
+    def __gt__(self, other):
+        """overload the > operator
+        raise TypeError is other is not a UDGraph object.
+
+        Args:
+            other ([UDGraph])
+            
+        """
+        if isinstance(other, UDGraph):
+            return self.val > other.val
+        elif isinstance(other, (int, float)):
+            return self.val > other
+        else:
+            raise TypeError("Need a UDGraph object to compare")
+    
+    def __le__(self, other):
+        """overload the > operator
+        raise TypeError is other is not a UDGraph object.
+
+        Args:
+            other ([UDGraph])
+            
+        """
+        if isinstance(other, UDGraph):
+            return self.val <= other.val
+        elif isinstance(other, (int, float)):
+            return self.val <= other
+        else:
+            raise TypeError("Need a UDGraph object to compare")
+
+    def __ge__(self, other):
+        """overload the > operator
+        raise TypeError is other is not a UDGraph object.
+
+        Args:
+            other ([UDGraph])
+            
+        """
+        if isinstance(other, UDGraph):
+            return self.val >= other.val
+        elif isinstance(other, (int, float)):
+            return self.val >= other
+        else:
+            raise TypeError("Need a UDGraph object to compare")
 
 class GeneratorHelper:
     @classmethod

@@ -1,5 +1,6 @@
 import numpy as np
 import math
+from undefined.Utils import check_division_by_zero, check_pow
 
 class UDFunction:
     def __init__(self, val, der=1):
@@ -193,9 +194,11 @@ class UDFunction:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDFunction):
+            check_division_by_zero(other._val)
             new_val = self._val / other._val
             new_der = (self._der * other._val - self._val * other._der) / (other._val * other._val)
         elif isinstance(other, (int, float, np.ndarray)):
+            check_division_by_zero(other)
             new_val = self._val / other
             new_der = self._der / other
         else:
@@ -212,6 +215,7 @@ class UDFunction:
         Returns:
             UDFunction: a new object with new_val and new_der
         """
+        check_division_by_zero(self._val)
         if isinstance(other, UDFunction):
             new_val = other._val / self._val
             new_der = (self._val * other._der - self._der * other._val) / (self._val * self._val)
@@ -234,9 +238,11 @@ class UDFunction:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDFunction):
+            check_division_by_zero(other._val)
             new_val = self._val // other._val
             new_der = (self._der * other._val - self._val * other._der) // (other._val * other._val)
         elif isinstance(other, (int, float, np.ndarray)):
+            check_division_by_zero(other)
             new_val = self._val // other
             new_der = self._der // other
         else:
@@ -253,6 +259,7 @@ class UDFunction:
         Returns:
             UDFunction: a new object with new_val and new_der
         """
+        check_division_by_zero(self._val)
         if isinstance(other, UDFunction):
             new_val = other._val // self._val
             new_der = (self._val * other._der - self._der * other._val) // (self._val * self._val)
@@ -274,41 +281,46 @@ class UDFunction:
         Returns:
             UDFunction: a new object with new_val and new_der
         """
-        if isinstance(other, UDFunction):
-            if isinstance(self._val, (int, float)):
-                new_val = self._val ** other._val
-                if isinstance(other._val, np.ndarray):
-                    new_der_1 = other._val * np.power(self._val, other._val - 1) * self._der
-                    new_der_2 = math.log(self._val) * new_val * other._der
-                    new_der = new_der_1 + new_der_2
-                else:
-                    new_der_1 = other._val * self._val ** (other._val - 1) * self._der
-                    new_der_2 = math.log(self._val) * new_val * other._der
-                    new_der = new_der_1 + new_der_2
-            else: # self._val is of type ndarray
-                if isinstance(other._val, np.ndarray):
-                    if other._val.shape[0] != self._val.shape[0]:
-                        raise ValueError(f"operands could not be broadcast together with shapes {other._val.shape} {self._val.shape}")
+        try:
+            if isinstance(other, UDFunction):
+                check_pow(self._val, other._val)
+                if isinstance(self._val, (int, float)):
+                    new_val = self._val ** other._val
+                    if isinstance(other._val, np.ndarray):
+                        new_der_1 = other._val * np.power(self._val, other._val - 1) * self._der
+                        new_der_2 = math.log(self._val) * new_val * other._der
+                        new_der = new_der_1 + new_der_2
+                    else:
+                        new_der_1 = other._val * self._val ** (other._val - 1) * self._der
+                        new_der_2 = math.log(self._val) * new_val * other._der
+                        new_der = new_der_1 + new_der_2
+                else: # self._val is of type ndarray
+                    if isinstance(other._val, np.ndarray):
+                        if other._val.shape[0] != self._val.shape[0]:
+                            raise ValueError(f"operands could not be broadcast together with shapes {other._val.shape} {self._val.shape}")
+                        else:
+                            new_val = self._val ** other._val
+                            new_der_1 = other._val * np.power(self._val, other._val - 1) * self._der
+                            new_der_2 = np.log(self._val) * new_val * other._der
+                            new_der = new_der_1 + new_der_2
                     else:
                         new_val = self._val ** other._val
-                        new_der_1 = other._val * np.power(self._val, other._val - 1) * self._der
+                        new_der_1 = other._val * self._val ** (other._val - 1) * self._der
                         new_der_2 = np.log(self._val) * new_val * other._der
                         new_der = new_der_1 + new_der_2
-                else:
-                    new_val = self._val ** other._val
-                    new_der_1 = other._val * self._val ** (other._val - 1) * self._der
-                    new_der_2 = np.log(self._val) * new_val * other._der
-                    new_der = new_der_1 + new_der_2
 
-        elif isinstance(other, (int, float, np.ndarray)):
-            if isinstance(self._val, np.ndarray):
-                new_val = np.power(self._val, other)
-                new_der = other * np.power(self._val, other - 1) * self._der
-            elif isinstance(self._val, (int, float)):
-                new_val = self._val ** other
-                new_der = other * self._val**(other - 1) * self._der
-        
-        return UDFunction(new_val, new_der)
+            elif isinstance(other, (int, float, np.ndarray)):
+                check_pow(self._val, other)
+                if isinstance(self._val, np.ndarray):
+                    new_val = np.power(self._val, other)
+                    new_der = other * np.power(self._val, other - 1) * self._der
+                elif isinstance(self._val, (int, float)):
+                    new_val = self._val ** other
+                    new_der = other * self._val**(other - 1) * self._der
+            
+            return UDFunction(new_val, new_der)
+        except ValueError as e:
+            raise ValueError(e)
 
     def __rpow__(self, other):
         """
@@ -324,6 +336,7 @@ class UDFunction:
         """
         # other ^ self
         if isinstance(other, UDFunction):
+            check_pow(other._val, self._val)
             if isinstance(other._val, (int, float)):
                 new_val = other._val ** self._val
                 new_der_1 = np.log(other._val) * new_val * self._der
@@ -343,6 +356,7 @@ class UDFunction:
                     new_der_2 = self._val * other._val ** (self._val - 1) * other._der
         
         elif isinstance(other, (int, float, np.ndarray)):
+            check_pow(other, self._val)
             new_val = other ** self._val
             new_der = math.log(other) * new_val * self._der
         
@@ -443,10 +457,6 @@ class UDFunction:
         else:
             raise TypeError("Need a UDFunction object to compare")
 
-    def __round__(self, digit):
-        '''overwrite the round method.
-        '''
-        return round(self.val, digit)
 
 # if __name__ == "__main__":
 #     alpha = 2.0

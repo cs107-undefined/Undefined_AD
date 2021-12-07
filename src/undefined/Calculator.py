@@ -2,7 +2,7 @@ import sys
 # # temp solution for directory.
 sys.path.append("./src/")
 
-from undefined.Utils import UDPrimitive
+from undefined.Utils import UDPrimitive, check_division_by_zero, check_log, check_pow
 from undefined.GraphGenerator import UDGraph
 from undefined.UDFunction import UDFunction
 import math
@@ -120,9 +120,11 @@ def tan(udobject):
     """
     if isinstance(udobject, UDFunction):
         if isinstance(udobject._val, (int, float)):
+            check_division_by_zero(math.cos(udobject._val))
             new_val = math.tan(udobject._val)
             new_der = (1 / (math.cos(udobject._val)) ** 2) * udobject._der
         elif isinstance(udobject._val, np.ndarray):
+            check_division_by_zero(np.cos(udobject._val))
             new_val = np.tan(udobject._val)
             new_der = (1 / (np.cos(udobject._val)) ** 2) * udobject._der
         else:
@@ -131,8 +133,10 @@ def tan(udobject):
     elif isinstance(udobject, UDGraph):
         new_func = UDPrimitive.TAN
         if isinstance(udobject._val, (int, float)):
+            check_division_by_zero(math.cos(udobject._val))
             new_val = math.tan(udobject._val)
         elif isinstance(udobject._val, np.ndarray):
+            check_division_by_zero(np.cos(udobject._val))
             new_val = np.tan(udobject._val)
         else:
             raise TypeError("unsupported attribute type.")
@@ -141,9 +145,11 @@ def tan(udobject):
         return udgraph
 
     elif isinstance(udobject, np.ndarray):
+        check_division_by_zero(np.cos(udobject))
         return np.tan(udobject)
     
     elif isinstance(udobject, (int, float)):
+        check_division_by_zero(math.cos(udobject))
         return math.tan(udobject)
 
     else:
@@ -166,6 +172,7 @@ def sqrt(udobject):
         if input is int,float,ndarray object,update them in square root operation by their own types. 
     """
     if isinstance(udobject, UDFunction):
+        check_pow(udobject._val, 0.5)
         if isinstance(udobject._val, (int, float)):
             new_val = math.sqrt(udobject._val)
             new_der = 0.5 * math.pow(udobject._val, -0.5) * udobject._der
@@ -177,6 +184,7 @@ def sqrt(udobject):
         return UDFunction(new_val, new_der)
 
     elif isinstance(udobject, UDGraph):
+        check_pow(udobject._val, 0.5)
         new_func = UDPrimitive.SQRT
         if isinstance(udobject._val, (int, float)):
             new_val = math.sqrt(udobject._val)
@@ -189,9 +197,11 @@ def sqrt(udobject):
         return udgraph
 
     elif isinstance(udobject, np.ndarray):
+        check_pow(udobject, 0.5)
         return np.sqrt(udobject)
 
     elif isinstance(udobject, (int, float)):
+        check_pow(udobject, 0.5)
         return math.sqrt(udobject)
 
     else:
@@ -261,6 +271,7 @@ def log(udobject, base = math.e):
         if input is int,float,ndarray object,update them in log operation by their own types. 
     """
     if isinstance(udobject, UDFunction):
+        check_log(udobject._val, base)
         if isinstance(udobject._val, (int, float)):
             new_val = math.log(udobject._val, base)
             new_der = 1 / (math.log(base) * udobject._val) * udobject._der
@@ -273,6 +284,7 @@ def log(udobject, base = math.e):
         return UDFunction(new_val, new_der)
 
     elif isinstance(udobject, UDGraph):
+        check_log(udobject._val, base)
         new_func = UDPrimitive.LOG
         if isinstance(udobject._val, (int, float)):
             new_val = math.log(udobject._val, base)
@@ -286,9 +298,11 @@ def log(udobject, base = math.e):
         return udgraph
 
     elif isinstance(udobject, np.ndarray):
+        check_log(udobject, base)
         return np.log(udobject) / math.log(base)
 
     elif isinstance(udobject, (int, float)):
+        check_log(udobject, base)
         return math.log(udobject, base)
 
     else:
