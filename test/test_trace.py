@@ -45,9 +45,16 @@ class TestTrace(unittest.TestCase):
         self.assertEqual(str(trace(self.f5, x = 2, y = 3)), "(0.0, array([0.003, 0.002]))")
         print(trace(self.f7, x = 1, y = 2, z = 3))
         self.assertEqual(str(trace(self.f7, x = 1, y = 2, z = 3)), "(0.01, array([ 0.007,  0.027, -0.04 ]))")
+
         self.assertEqual(trace(self.f8, x = 3), (10.16, 6.139))
         self.assertEqual(trace(self.f10, x = 2), (1.79, 0.5))
         self.assertEqual(str(trace(self.f9, x = 5, y = 3)), "(125, array([ 75.  , 201.18]))")
+
+        def f22(x):
+            return x+cos(2*x)
+        with self.assertRaises(TypeError):
+            trace(f22(2), x = 2)
+        
     
     def test_forward_trace(self):
         result1 = trace(self.f1, x = np.array([[2]]))
@@ -66,13 +73,13 @@ class TestTrace(unittest.TestCase):
         self.assertNumpyArraysEqual(trace(self.f1, x = np.array([[1, 2]]))[0], np.array([[1.52, 1.58]]))
         
         self.assertNumpyArraysEqual(trace(self.f1, x = np.array([[1, 2]]))[1], np.array([[ 0.411, -0.328]]))
+
         with self.assertRaises(TypeError):
             trace(self.f1, x="2")
         
         self.assertNumpyArraysEqual(trace([self.f1, self.f2], x = 2)[0], np.array([1.58, 135.54]))
         self.assertNumpyArraysEqual(trace([self.f1, self.f2], x = 2)[1], np.array([-3.2800e-01,  4.8577e+02]))
 
-        
 
     # def test_reverse(self):
     #     result1 = trace(self.f1, mode = "reverse", x = 2)
