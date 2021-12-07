@@ -1,12 +1,13 @@
 import sys
 # # temp solution for directory.
-sys.path.append("./src")
+sys.path.append("./src/")
 
-from undefined.Utils import UDPrimitive
+from undefined.Utils import UDPrimitive, time, check_division_by_zero, check_pow
 import numpy as np
 import math
 import networkx as nx
 import matplotlib.pyplot as plt
+
 
 
 class UDGraph:
@@ -35,7 +36,7 @@ class UDGraph:
         This is a decorator return rouded input self.val
 
         Returns:
-            array: 2 decimal rounded input of self.value
+            array: 4 decimal rounded input of self.value
         """
         if isinstance(self._val, float):
             return round(self._val, 2)
@@ -58,7 +59,7 @@ class UDGraph:
     def __add__(self, other):
         """
         This allows to do addition with UDFunction instances or scalar numbers, and calculate the value after taking the derivative. 
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to add with
@@ -79,13 +80,13 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __mul__(self, other):
         """
         This allows to do multification with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative. 
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to multiply with
@@ -105,7 +106,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __radd__(self, other):
@@ -130,7 +131,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __rmul__(self, other):
@@ -156,7 +157,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __neg__(self):
@@ -171,7 +172,7 @@ class UDGraph:
     def __sub__(self, other):
         """
         This allows to do subtraction with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative. 
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to subtract with
@@ -192,7 +193,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __rsub__(self, other):
@@ -218,13 +219,13 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __truediv__(self, other):
         """
         This allows to do true division with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative. 
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to (true) divide with
@@ -233,19 +234,21 @@ class UDGraph:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDGraph):
+            check_division_by_zero(other._val)
             new_val = self._val / other._val
             new_func = UDPrimitive.TRUEDIV
             udgraph = UDGraph(new_val, new_func)
             udgraph._parents.append(self)
             udgraph._parents.append(other)
         elif isinstance(other, (int, float, np.ndarray)):
+            check_division_by_zero(other)
             new_val = self._val / other
             new_func = UDPrimitive.TRUEDIV
             udgraph = UDGraph(new_val, new_func)
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __rtruediv__(self, other):
@@ -258,6 +261,7 @@ class UDGraph:
         Returns:
             UDFunction: a new object with new_val and new_der
         """
+        check_division_by_zero(self._val)
         if isinstance(other, UDGraph):
             new_val = other._val / self._val
             new_func = UDPrimitive.RTRUEDIV
@@ -271,13 +275,13 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __floordiv__(self, other):  # self // other
         """
         This allows to do floor division with UDFunction instances or scalar numbers, , and calculate the value after taking the derivative.
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             other (UDFunction or numeric): object to (floor) divide with
@@ -286,19 +290,21 @@ class UDGraph:
             UDFunction: a new object with new_val and new_der
         """
         if isinstance(other, UDGraph):
+            check_division_by_zero(other._val)
             new_val = self._val // other._val
             new_func = UDPrimitive.FLOORDIV
             udgraph = UDGraph(new_val, new_func)
             udgraph._parents.append(self)
             udgraph._parents.append(other)
         elif isinstance(other, (int, float, np.ndarray)):
+            check_division_by_zero(other)
             new_val = self._val // other
             new_func = UDPrimitive.FLOORDIV
             udgraph = UDGraph(new_val, new_func)
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
 
     def __rfloordiv__(self, other):
@@ -311,6 +317,7 @@ class UDGraph:
         Returns:
             UDFunction: a new object with new_val and new_der
         """
+        check_division_by_zero(self._val)
         if isinstance(other, UDGraph):
             new_val = other._val // self._val
             new_func = UDPrimitive.RFLOORDIV
@@ -324,8 +331,9 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
+
 
     def __pow__(self, other):
         """
@@ -340,6 +348,7 @@ class UDGraph:
         """
         new_func = UDPrimitive.POW
         if isinstance(other, UDGraph):
+            check_pow(self._val, other._val)
             if isinstance(self._val, (int, float)):
                 new_val = self._val ** other._val
             else:
@@ -355,6 +364,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._parents.append(other)
         elif isinstance(other, (int, float, np.ndarray)):
+            check_pow(self._val, other)
             if isinstance(self._val, np.ndarray):
                 new_val = np.power(self._val, other)
             elif isinstance(self._val, (int, float)):
@@ -368,7 +378,7 @@ class UDGraph:
         """
         This allows to do "to the power" with UDFunction instances or scalar numbers, and calculate the value after taking the derivative.
         ** operator.
-        AttributeError will raise if none of the self or other are UDFunction instances. 
+        TypeError will raise if none of the self or other are UDFunction instances. 
 
         Args:
             degree (numeric): object to take power of.
@@ -378,6 +388,7 @@ class UDGraph:
         """
         new_func = UDPrimitive.RPOW
         if isinstance(other, UDGraph):
+            check_pow(other._val, self._val)
             if isinstance(other._val, (int, float)):
                 new_val = other._val ** self._val
             else:
@@ -393,14 +404,103 @@ class UDGraph:
             udgraph._parents.append(other)
             udgraph._parents.append(self)
         elif isinstance(other, (int, float, np.ndarray)):
+            check_pow(other, self._val)
             new_val = other ** self._val
             udgraph = UDGraph(new_val, new_func)
             udgraph._parents.append(self)
             udgraph._params["base"] = other
         else:
-            raise AttributeError("unsupported attribute type.")
+            raise TypeError("unsupported attribute type.")
         return udgraph
+    def __eq__(self, other):
+        """compare whether the two UDGraph objects have the same values.
+        Return true if equal, and false otherwise.
 
+        raise TypeError is other is not a UDGraph object.
+
+        Args:
+            other ([UDGraph])
+        """
+        if isinstance(other, UDGraph):
+            return self.val == other.val
+        elif isinstance(other, (int, float)):
+            return self.val == other
+        else:
+            raise TypeError("Need a UDGraph object to compare")
+    
+    def __ne__(self, other):
+        """compare whether the two UDGraph objects have different values.
+        raise TypeError is other is not a UDGraph object.
+
+        Args:
+            other ([UDGraph])
+        """
+        if isinstance(other, UDGraph):
+            return self.val != other.val
+        elif isinstance(other, (int, float)):
+            return self.val != other
+        else:
+            raise TypeError("Need a UDGraph object to compare")
+    
+    def __lt__(self, other):
+        """overload the < operator
+        raise TypeError is other is not a UDGraph object.
+
+        Args:
+            other ([UDGraph])
+            
+        """
+        if isinstance(other, UDGraph):
+            return self.val < other.val
+        elif isinstance(other, (int, float)):
+            return self.val < other
+        else:
+            raise TypeError("Need a UDGraph object to compare")
+    
+    def __gt__(self, other):
+        """overload the > operator
+        raise TypeError is other is not a UDGraph object.
+
+        Args:
+            other ([UDGraph])
+            
+        """
+        if isinstance(other, UDGraph):
+            return self.val > other.val
+        elif isinstance(other, (int, float)):
+            return self.val > other
+        else:
+            raise TypeError("Need a UDGraph object to compare")
+    
+    def __le__(self, other):
+        """overload the > operator
+        raise TypeError is other is not a UDGraph object.
+
+        Args:
+            other ([UDGraph])
+            
+        """
+        if isinstance(other, UDGraph):
+            return self.val <= other.val
+        elif isinstance(other, (int, float)):
+            return self.val <= other
+        else:
+            raise TypeError("Need a UDGraph object to compare")
+
+    def __ge__(self, other):
+        """overload the > operator
+        raise TypeError is other is not a UDGraph object.
+
+        Args:
+            other ([UDGraph])
+            
+        """
+        if isinstance(other, UDGraph):
+            return self.val >= other.val
+        elif isinstance(other, (int, float)):
+            return self.val >= other
+        else:
+            raise TypeError("Need a UDGraph object to compare")
 
 class GeneratorHelper:
     @classmethod
@@ -685,7 +785,7 @@ class GraphGenerator:
             self._nxgraph = nx.DiGraph()
             self._generate_inner(self._udgraph, self._nxgraph)
         nx.draw_planar(self._nxgraph, with_labels=True, font_weight='bold')
-        plt.show()
+        plt.savefig(f"{time()}.png")
 
     def generate_str(self):
         return repr(self._udgraph)
@@ -693,9 +793,9 @@ class GraphGenerator:
     def generate_derivative(self, var_name):
         if var_name not in self._variables.keys():
             # TODO: check der(x of x)
-            raise AttributeError("variable not defined in function")
+            raise TypeError("variable not defined in function")
         # TODO: check if variable address does not change
         # TODO: check if variable is UDGraph
 
         variable = self._variables[var_name]
-        return GraphGenerator.function_dic[self._udgraph._func](self._udgraph, variable)
+        return np.round(GraphGenerator.function_dic[self._udgraph._func](self._udgraph, variable), 3)

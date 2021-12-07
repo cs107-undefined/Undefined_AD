@@ -1,16 +1,15 @@
 
+from undefined.GraphGenerator import GraphGenerator
+from undefined.UDFunction import UDFunction
+from undefined.Calculator import *
+import numpy as np
+from types import LambdaType
 import sys
 # # temp solution for directory.
-sys.path.append("./src")
-
-from types import LambdaType
-import numpy as np
-from undefined.Calculator import *
-from undefined.UDFunction import UDFunction
-from undefined.GraphGenerator import GraphGenerator
+sys.path.append("./src/")
 
 
-def trace(f, mode='forward', **kwargs):
+def trace(f, mode='forward', graph=False, **kwargs):
     """trace function in undefined's API
 
     Args:
@@ -31,7 +30,7 @@ def trace(f, mode='forward', **kwargs):
             vals.append(val)
             ders.append(der)
 
-        return np.array(vals,dtype=object), np.stack(ders)
+        return np.array(vals), np.stack(ders)
     elif type(f) is not LambdaType:
         raise TypeError("cannot handle non lambda functions.")
     num_variables = len(kwargs)
@@ -42,9 +41,9 @@ def trace(f, mode='forward', **kwargs):
             variable = kwargs[varname]
             if isinstance(variable, np.ndarray):
                 # vector input
-                if variable.shape[0] != 1:
+                if len(variable.shape) <= 1:
                     raise TypeError(
-                        f"only support vector inputs of shape (1, ), invalid input {varname} has shape {variable.shape}")
+                        f"only support vector inputs of shape (1,n), invalid input {varname} has shape {variable.shape}")
                 # single vector input
                 if num_variables == 1:
                     variables[varname] = UDFunction(
@@ -86,8 +85,9 @@ def trace(f, mode='forward', **kwargs):
                     "variable type not in (int, float, np.ndarray).")
         g = f(**variables)
         udgenerator = GraphGenerator(g, variables)
-        udgenerator.generate_graph()
-        print(udgenerator.generate_str())
+        if graph:
+            udgenerator.generate_graph()
+            print(udgenerator.generate_str())
         return g.val, [udgenerator.generate_derivative(var_name) for var_name in variables.keys()]
 
     else:

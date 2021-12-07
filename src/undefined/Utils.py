@@ -1,5 +1,10 @@
 # import logging
 from enum import Enum
+from datetime import datetime
+from typing import final
+import numpy as np
+from numpy.lib.arraysetops import isin
+from numpy.lib.index_tricks import nd_grid
 
 
 class UDPrimitive(Enum):
@@ -24,10 +29,41 @@ class UDPrimitive(Enum):
     EXP = 18
     LOG = 19
 
-# def time(operation):
-#     raise NotImplementedError
 
-# def log(level, information):
+def time():
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    return current_time
+
+
+def check_division_by_zero(val):
+    if isinstance(val, np.ndarray):
+        if not np.all(val):
+            raise ZeroDivisionError("divide by zero encountered")
+    elif isinstance(val, (int, float)):
+        if val == 0:
+            raise ZeroDivisionError("divide by zero encountered")
+
+
+def check_pow(val, degree):
+    try:
+        temp = np.power(val, degree)
+        if np.any(np.isnan(temp)):
+            raise ValueError("invalid inputs for pow()")
+    except ValueError as e:
+        raise ValueError(e)
+
+
+def check_log(val, base):
+    if base <= 0:
+        raise ValueError(f"invalid base {base} for log")
+    if isinstance(val, np.ndarray):
+        if np.any(val <= 0):
+            raise ValueError(f"invalid value {val} for log")
+    elif isinstance(val, (int, float)):
+        if val <= 0:
+            raise ValueError(f"invalid value {val} for log")
+
 #     logging.basicConfig(level=logging.INFO)
 #     if level == logging.INFO:
 #         logging.info(information)
