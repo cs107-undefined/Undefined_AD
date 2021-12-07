@@ -1,3 +1,7 @@
+import sys
+# # temp solution for directory.
+sys.path.append("./src/")
+
 import numpy as np
 import math
 from undefined.Utils import check_division_by_zero, check_pow

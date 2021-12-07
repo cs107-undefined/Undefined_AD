@@ -3,6 +3,7 @@ import sys
 # # temp solution for directory.
 sys.path.append("./src/")
 
+
 from types import LambdaType
 import numpy as np
 from undefined.Calculator import *
