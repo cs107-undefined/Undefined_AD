@@ -1,14 +1,12 @@
 
+from undefined.GraphGenerator import GraphGenerator
+from undefined.UDFunction import UDFunction
+from undefined.Calculator import *
+import numpy as np
+from types import LambdaType
 import sys
 # # temp solution for directory.
 sys.path.append("./src/")
-
-
-from types import LambdaType
-import numpy as np
-from undefined.Calculator import *
-from undefined.UDFunction import UDFunction
-from undefined.GraphGenerator import GraphGenerator
 
 
 def trace(f, mode='forward', graph=False, **kwargs):
@@ -180,4 +178,3 @@ def trace(f, mode='forward', graph=False, **kwargs):
     # f = [f1, f2]
     # print(trace(f, x=np.array([[2, 2]])))
     # print(trace(f, mode = 'reverse', x=np.array([[2, 2]])))
-
