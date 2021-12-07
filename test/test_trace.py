@@ -2,7 +2,7 @@
 import unittest
 import sys
 
-sys.path.append("/Users/xinran/Desktop/Harvard/Courses/cs107/cs107-FinalProject/src/")
+sys.path.append("./src/")
 from undefined.API import trace
 from undefined.UDFunction import UDFunction
 from undefined.Calculator import sin, cos, exp, tan, sqrt, log
