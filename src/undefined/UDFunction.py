@@ -469,7 +469,11 @@ class UDFunction:
             return self.val >= other
         else:
             raise TypeError("Need a UDFunction object to compare")
-
+    
+    def __round__(self, digit):
+        '''overwrite the round method.
+        '''
+        return round(self.val, digit)
 
 # if __name__ == "__main__":
 #     alpha = 2.0

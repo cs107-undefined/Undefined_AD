@@ -1,15 +1,15 @@
-
+import sys
+# # temp solution for directory.
+sys.path.append("./src/")
 from undefined.GraphGenerator import GraphGenerator
 from undefined.UDFunction import UDFunction
 from undefined.Calculator import *
 import numpy as np
 from types import LambdaType
-import sys
-# # temp solution for directory.
-sys.path.append("./src/")
 
 
-def trace(f, mode='forward', graph=False, **kwargs):
+
+def trace(f, mode='forward', plot=False, **kwargs):
     """trace function in undefined's API
 
     Args:
@@ -85,7 +85,7 @@ def trace(f, mode='forward', graph=False, **kwargs):
                     "variable type not in (int, float, np.ndarray).")
         g = f(**variables)
         udgenerator = GraphGenerator(g, variables)
-        if graph:
+        if plot == True:
             udgenerator.generate_graph()
             print(udgenerator.generate_str())
         return g.val, [udgenerator.generate_derivative(var_name) for var_name in variables.keys()]
@@ -103,48 +103,48 @@ def trace(f, mode='forward', graph=False, **kwargs):
 #     raise NotImplementedError
 
 
-# if __name__ == "__main__":
-#     f1 = lambda x, y: sqrt(exp(x*y)) + cos(np.array([1, 2]))
-#     f2 = lambda x, y: log(exp(x*y), 2)
-#     f3 = lambda x, y: x - x * y
-#     f4 = lambda x, y: x - 3 * (x - y) / 2
-#     f5 = lambda x, y: (x - 1) / (y * 2) - x / 2
-#     print(trace(f3, x = 1, y = 2))
-#     print(trace(f3, mode='reverse', x = 1, y = 2))
-#     print(trace(f4, x = 1, y = 2))
-#     print(trace(f4, mode='reverse', x = 1, y = 2))
-#     print(trace(f5, x = 1, y = 2))
-#     print(trace(f5, mode='reverse', x = 1, y = 2))
-    # x = UDFunction(np.array([[2, 2]]), np.array([[1, 1], [0, 0]]))
-    # y = UDFunction(np.array([[1, 1]]), np.array([[0, 0], [1, 1]]))
-    # print("1. test vector inputs:")
-    # print("manual:")
-    # print("f1:")
-    # print(str(sqrt(exp(x*y))))
-    # print("f2:")
-    # print(str(log(exp(x*y), 2)))
-    # print("using trace() function:")
-    # print("f1:")
-    # print(trace(f1, x=np.array([[2, 2]]), y=np.array([[1, 1]])))
-    # print("f2:")
-    # print(trace(f2, x=np.array([[2, 2]]), y=np.array([[1, 1]])))
-    # print()
+if __name__ == "__main__":
+    f1 = lambda x, y: sqrt(exp(x*y)) + cos(np.array([1, 2]))
+    f2 = lambda x, y: log(exp(x*y), 2)
+    f3 = lambda x, y: x - x * y
+    f4 = lambda x, y: x - 3 * (x - y) / 2
+    f5 = lambda x, y: (x - 1) / (y * 2) - x / 2
+    print(trace(f3, x = 1, y = 2))
+    print(trace(f3, mode='reverse', x = 1, y = 2))
+    print(trace(f4, x = 1, y = 2))
+    print(trace(f4, mode='reverse', graph=True, x = 1, y = 2))
+    print(trace(f5, x = 1, y = 2))
+    print(trace(f5, mode='reverse', x = 1, y = 2))
+    x = UDFunction(np.array([[2, 2]]), np.array([[1, 1], [0, 0]]))
+    y = UDFunction(np.array([[1, 1]]), np.array([[0, 0], [1, 1]]))
+    print("1. test vector inputs:")
+    print("manual:")
+    print("f1:")
+    print(str(sqrt(exp(x*y))))
+    print("f2:")
+    print(str(log(exp(x*y), 2)))
+    print("using trace() function:")
+    print("f1:")
+    print(trace(f1, x=np.array([[2, 2]]), y=np.array([[1, 1]])))
+    print("f2:")
+    print(trace(f2, x=np.array([[2, 2]]), y=np.array([[1, 1]])))
+    print()
 
-    # print("2. test vector functions on scalar inputs:")
-    # f = [f1, f2, f3]
-    # print(trace(f, x=2, y=1))
+    print("2. test vector functions on scalar inputs:")
+    f = [f1, f2, f3]
+    print(trace(f, x=2, y=1))
 
-    # print("3. Test different user input:")
-    # try:
-    #     trace(sum, x=1)
-    # except TypeError as e:
-    #     print(e)
-    # print(trace(f3, 'forward', x=np.array([[2, 2]]), y=np.array([[1, 1]])))
-    # print(trace(f3, x=np.array([[2, 2]]), y=np.array([[1, 1]])))
-    # print(trace(f3, mode='forward', x=np.array(
-    #     [[2, 2]]), y=np.array([[1, 1]])))
-    # print(trace(f3, mode='forward', x=np.array(
-    #     [[2, 2]]), y=np.array([[1, 1]])))
+    print("3. Test different user input:")
+    try:
+        trace(sum, x=1)
+    except TypeError as e:
+        print(e)
+    print(trace(f3, 'forward', x=np.array([[2, 2]]), y=np.array([[1, 1]])))
+    print(trace(f3, x=np.array([[2, 2]]), y=np.array([[1, 1]])))
+    print(trace(f3, mode='forward', x=np.array(
+        [[2, 2]]), y=np.array([[1, 1]])))
+    print(trace(f3, mode='forward', x=np.array(
+        [[2, 2]]), y=np.array([[1, 1]])))
 
     # # x = UDFunction(np.array([2,2]), np.array([[1,1],[0,0]]))
     # # y = UDFunction(np.array([1,1]), np.array([[0,0],[1,1]]))
