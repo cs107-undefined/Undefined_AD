@@ -47,9 +47,19 @@ class UDGraph:
 
 
     def __str__(self):
+        """[summary]
+
+        Returns:
+            [type]: [description]
+        """
         return f"{self._func}\n".replace("UDPrimitive.","") + f"Value:{self.val}\n"
 
     def __repr__(self):
+        """[summary]
+
+        Returns:
+            [type]: [description]
+        """
         res = f'Computational Graph ({self.val}, {self._func})'
         for parent in self._parents:
             res += '\n|\n|<-(parent)-' + \
@@ -513,6 +523,15 @@ class UDGraph:
 class GeneratorHelper:
     @classmethod
     def _var(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Returns:
+            [type]: [description]
+        """
         if variable is not udgraph:
             if isinstance(udgraph._val, np.ndarray):
                 return np.zeros(udgraph._valshape)
@@ -526,6 +545,15 @@ class GeneratorHelper:
 
     @classmethod
     def _add(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Returns:
+            [type]: [description]
+        """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
             return GraphGenerator.function_dic[g1._func](g1, variable)
@@ -535,6 +563,15 @@ class GeneratorHelper:
 
     @classmethod
     def _radd(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Returns:
+            [type]: [description]
+        """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
             return GraphGenerator.function_dic[g1._func](g1, variable)
@@ -544,6 +581,15 @@ class GeneratorHelper:
 
     @classmethod
     def _mul(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Returns:
+            [type]: [description]
+        """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
             return udgraph._params["constant"] * GraphGenerator.function_dic[g1._func](g1, variable)
@@ -553,6 +599,15 @@ class GeneratorHelper:
 
     @classmethod
     def _rmul(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Returns:
+            [type]: [description]
+        """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
             return udgraph._params["constant"] * GraphGenerator.function_dic[g1._func](g1, variable)
@@ -562,11 +617,29 @@ class GeneratorHelper:
 
     @classmethod
     def _neg(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Returns:
+            [type]: [description]
+        """
         g1 = udgraph._parents[0]
         return -1 * GraphGenerator.function_dic[g1._func](g1, variable)
 
     @classmethod
     def _sub(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Returns:
+            [type]: [description]
+        """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
             return GraphGenerator.function_dic[g1._func](g1, variable)
@@ -576,6 +649,15 @@ class GeneratorHelper:
 
     @classmethod
     def _rsub(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Returns:
+            [type]: [description]
+        """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
             return -1 * GraphGenerator.function_dic[g1._func](g1, variable)
@@ -585,6 +667,15 @@ class GeneratorHelper:
 
     @classmethod
     def _truediv(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Returns:
+            [type]: [description]
+        """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
             return GraphGenerator.function_dic[g1._func](g1, variable) / udgraph._params["constant"]
@@ -594,6 +685,15 @@ class GeneratorHelper:
 
     @classmethod
     def _rtruediv(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Returns:
+            [type]: [description]
+        """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
             return -1 * udgraph._params["constant"] * GraphGenerator.function_dic[g1._func](g1, variable) / (g1._val * g1._val)
@@ -603,6 +703,15 @@ class GeneratorHelper:
 
     @classmethod
     def _floordiv(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Returns:
+            [type]: [description]
+        """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
             return GraphGenerator.function_dic[g1._func](g1, variable) // udgraph._params["constant"]
@@ -612,6 +721,15 @@ class GeneratorHelper:
 
     @classmethod
     def _rfloordiv(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Returns:
+            [type]: [description]
+        """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
             return GraphGenerator.function_dic[g1._func](g1, variable) // udgraph._params["constant"]
@@ -621,6 +739,15 @@ class GeneratorHelper:
 
     @classmethod
     def _pow(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Returns:
+            [type]: [description]
+        """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
             if isinstance(g1._val, np.ndarray):
@@ -661,6 +788,15 @@ class GeneratorHelper:
 
     @classmethod
     def _rpow(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Returns:
+            [type]: [description]
+        """
         if len(udgraph._parents) == 1:
             return math.log(udgraph._params["degree"]) * udgraph._val * GraphGenerator.function_dic[g1._func](g1, variable)
         else:
@@ -696,6 +832,18 @@ class GeneratorHelper:
 
     @classmethod
     def _cos(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Raises:
+            TypeError: [description]
+
+        Returns:
+            [type]: [description]
+        """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
             return - 1 * math.sin(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable)
@@ -706,6 +854,18 @@ class GeneratorHelper:
 
     @classmethod
     def _sin(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Raises:
+            TypeError: [description]
+
+        Returns:
+            [type]: [description]
+        """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
             return math.cos(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable)
@@ -716,6 +876,18 @@ class GeneratorHelper:
 
     @classmethod
     def _tan(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Raises:
+            TypeError: [description]
+
+        Returns:
+            [type]: [description]
+        """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
             return (1 / (math.cos(g1._val)) ** 2) * GraphGenerator.function_dic[g1._func](g1, variable)
@@ -725,7 +897,83 @@ class GeneratorHelper:
             raise TypeError("unsupported attribute type.")
 
     @classmethod
+    def _arccos(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Raises:
+            TypeError: [description]
+
+        Returns:
+            [type]: [description]
+        """
+        g1 = udgraph._parents[0]
+        if isinstance(g1._val, (int, float)):
+            return (-1 / math.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable)
+        elif isinstance(g1._val, np.ndarray):
+            return (-1 / np.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable)
+        else:
+            raise TypeError("unsupported attribute type.")
+
+    @classmethod
+    def _arcsin(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Raises:
+            TypeError: [description]
+
+        Returns:
+            [type]: [description]
+        """
+        g1 = udgraph._parents[0]
+        if isinstance(g1._val, (int, float)):
+            return (1 / math.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable)
+        elif isinstance(g1._val, np.ndarray):
+            return (1 / np.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable)
+        else:
+            raise TypeError("unsupported attribute type.")
+
+    @classmethod
+    def _arctan(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Raises:
+            TypeError: [description]
+
+        Returns:
+            [type]: [description]
+        """
+        g1 = udgraph._parents[0]
+        if isinstance(g1._val, (int, float, np.ndarray)):
+            return (1 / (1 + g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable)
+        else:
+            raise TypeError("unsupported attribute type.")
+
+    @classmethod
     def _sqrt(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Raises:
+            TypeError: [description]
+
+        Returns:
+            [type]: [description]
+        """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
             return 0.5 * math.pow(g1._val, -0.5) * GraphGenerator.function_dic[g1._func](g1, variable)
@@ -736,6 +984,18 @@ class GeneratorHelper:
 
     @classmethod
     def _exp(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Raises:
+            TypeError: [description]
+
+        Returns:
+            [type]: [description]
+        """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
             return math.exp(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable)
@@ -746,6 +1006,15 @@ class GeneratorHelper:
 
     @classmethod
     def _log(self, udgraph: UDGraph, variable: UDGraph):
+        """[summary]
+
+        Args:
+            udgraph (UDGraph): [description]
+            variable (UDGraph): [description]
+
+        Returns:
+            [type]: [description]
+        """
         g1 = udgraph._parents[0]
         return 1 / (math.log(udgraph._params["base"]) * g1._val) * GraphGenerator.function_dic[g1._func](g1, variable)
 
@@ -772,14 +1041,29 @@ class GraphGenerator:
         UDPrimitive.SQRT: GeneratorHelper._sqrt,
         UDPrimitive.EXP: GeneratorHelper._exp,
         UDPrimitive.LOG: GeneratorHelper._log,
+        UDPrimitive.ACOS: GeneratorHelper._arccos,
+        UDPrimitive.ASIN: GeneratorHelper._arcsin,
+        UDPrimitive.ATAN: GeneratorHelper._arctan,
     }
 
     def __init__(self, g, variables):
+        """[summary]
+
+        Args:
+            g ([type]): [description]
+            variables ([type]): [description]
+        """
         self._udgraph = g
         self._variables = variables
         self._nxgraph = None
 
     def _generate_inner(self, g:UDGraph, nxgraph:nx.DiGraph):
+        """[summary]
+
+        Args:
+            g (UDGraph): [description]
+            nxgraph (nx.DiGraph): [description]
+        """
         for parent in g._parents:
             nxgraph.add_edge(parent, g)
         for k, v in g._params.items():
@@ -788,7 +1072,11 @@ class GraphGenerator:
             self._generate_inner(parent, nxgraph)
 
     def generate_graph(self):
-        # TODO: generate the visualization graph
+        """
+        generate the visualization graph
+
+        """
+
         if not self._nxgraph:
             self._nxgraph = nx.DiGraph()
             self._generate_inner(self._udgraph, self._nxgraph)
@@ -796,9 +1084,25 @@ class GraphGenerator:
         plt.savefig(f"{time()}.png")
 
     def generate_str(self):
+        """[summary]
+
+        Returns:
+            [type]: [description]
+        """
         return repr(self._udgraph)
 
     def generate_derivative(self, var_name):
+        """[summary]
+
+        Args:
+            var_name ([type]): [description]
+
+        Raises:
+            TypeError: [description]
+
+        Returns:
+            [type]: [description]
+        """
         if var_name not in self._variables.keys():
             # TODO: check der(x of x)
             raise TypeError("variable not defined in function")

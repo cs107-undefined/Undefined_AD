@@ -1,9 +1,10 @@
+import sys
+# # temp solution for directory.
+sys.path.append("./src/")
 from undefined.Utils import check_division_by_zero, check_pow
 import math
 import numpy as np
-import sys
-# # temp solution for directory.
-sys.path.append("/Users/xinran/Desktop/Harvard/Courses/cs107/cs107-FinalProject/src/")
+
 
 
 class UDFunction:

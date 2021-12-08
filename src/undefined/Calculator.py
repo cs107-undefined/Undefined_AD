@@ -1,12 +1,13 @@
+import numpy as np
 import sys
 # # temp solution for directory.
 sys.path.append("./src/")
-
-from undefined.Utils import UDPrimitive, check_division_by_zero, check_log, check_pow
-from undefined.GraphGenerator import UDGraph
-from undefined.UDFunction import UDFunction
 import math
-import numpy as np
+from undefined.UDFunction import UDFunction
+from undefined.GraphGenerator import UDGraph
+from undefined.Utils import UDPrimitive, check_division_by_zero, check_log, check_pow, check_arc
+
+
 
 def cos(udobject):
     """calculate the cosine operation of input
@@ -147,10 +148,229 @@ def tan(udobject):
     elif isinstance(udobject, np.ndarray):
         check_division_by_zero(np.cos(udobject))
         return np.tan(udobject)
-    
+
     elif isinstance(udobject, (int, float)):
         check_division_by_zero(math.cos(udobject))
         return math.tan(udobject)
+
+    else:
+        raise TypeError("unsupported attribute type.")
+
+
+def sinh(udobject):
+    """[summary]
+
+    Args:
+        udobject ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    return (exp(udobject) - exp(-udobject)) / 2
+
+
+def cosh(udobject):
+    """[summary]
+
+    Args:
+        udobject ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    return (exp(udobject) + exp(-udobject)) / 2
+
+
+def tanh(udobject):
+    """[summary]
+
+    Args:
+        udobject ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    return sinh(udobject) / cosh(udobject)
+
+
+def coth(udobject):
+    """[summary]
+
+    Args:
+        udobject ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    return cosh(udobject) / sinh(udobject)
+
+
+def sech(udobject):
+    """[summary]
+
+    Args:
+        udobject ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    return 1 / cosh(udobject)
+
+
+def csch(udobject):
+    """[summary]
+
+    Args:
+        udobject ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    return 1 / sinh(udobject)
+
+
+def arccos(udobject):
+    """[summary]
+
+    Args:
+        udobject ([type]): [description]
+
+    Raises:
+        TypeError: [description]
+        TypeError: [description]
+        TypeError: [description]
+
+    Returns:
+        [type]: [description]
+    """
+    if isinstance(udobject, UDFunction):
+        check_arc(udobject._val)
+        if isinstance(udobject._val, (int, float)):
+            new_val = math.acos(udobject._val)
+            new_der = (-1 / math.sqrt(1 - udobject._val**2)) * udobject._der
+        elif isinstance(udobject._val, np.ndarray):
+            new_val = np.acos(udobject._val)
+            new_der = (-1 / np.sqrt(1 - udobject._val**2)) * udobject._der
+        else:
+            raise TypeError("unsupported attribute type.")
+        return UDFunction(new_val, new_der)
+
+    elif isinstance(udobject, UDGraph):
+        check_arc(udobject._val)
+        new_func = UDPrimitive.ACOS
+        if isinstance(udobject._val, (int, float)):
+            new_val = math.acos(udobject._val)
+        elif isinstance(udobject._val, np.ndarray):
+            new_val = np.acos(udobject._val)
+        else:
+            raise TypeError("unsupported attribute type.")
+        udgraph = UDGraph(new_val, new_func)
+        udgraph._parents.append(udobject)
+        return udgraph
+
+    elif isinstance(udobject, np.ndarray):
+        check_arc(udobject)
+        return np.acos(udobject)
+
+    elif isinstance(udobject, (int, float)):
+        check_arc(udobject)
+        return math.acos(udobject)
+
+    else:
+        raise TypeError("unsupported attribute type.")
+
+
+def arcsin(udobject):
+    """[summary]
+
+    Args:
+        udobject ([type]): [description]
+
+    Raises:
+        TypeError: [description]
+        TypeError: [description]
+        TypeError: [description]
+
+    Returns:
+        [type]: [description]
+    """
+    if isinstance(udobject, UDFunction):
+        check_arc(udobject._val)
+        if isinstance(udobject._val, (int, float)):
+            new_val = math.asin(udobject._val)
+            new_der = (1 / math.sqrt(1 - udobject._val**2)) * udobject._der
+        elif isinstance(udobject._val, np.ndarray):
+            new_val = np.asin(udobject._val)
+            new_der = (1 / np.sqrt(1 - udobject._val**2)) * udobject._der
+        else:
+            raise TypeError("unsupported attribute type.")
+        return UDFunction(new_val, new_der)
+    elif isinstance(udobject, UDGraph):
+        check_arc(udobject._val)
+        new_func = UDPrimitive.ASIN
+        if isinstance(udobject._val, (int, float)):
+            new_val = math.asin(udobject._val)
+        elif isinstance(udobject._val, np.ndarray):
+            new_val = np.asin(udobject._val)
+        else:
+            raise TypeError("unsupported attribute type.")
+        udgraph = UDGraph(new_val, new_func)
+        udgraph._parents.append(udobject)
+        return udgraph
+
+    elif isinstance(udobject, np.ndarray):
+        check_arc(udobject)
+        return np.asin(udobject)
+
+    elif isinstance(udobject, (int, float)):
+        check_arc(udobject)
+        return math.asin(udobject)
+
+    else:
+        raise TypeError("unsupported attribute type.")
+
+
+def arctan(udobject):
+    """[summary]
+
+    Args:
+        udobject ([type]): [description]
+
+    Raises:
+        TypeError: [description]
+        TypeError: [description]
+        TypeError: [description]
+
+    Returns:
+        [type]: [description]
+    """
+    if isinstance(udobject, UDFunction):
+        if isinstance(udobject._val, (int, float)):
+            new_val = math.atan(udobject._val)
+            new_der = (1 / (1 + udobject._val ** 2)) * udobject._der
+        elif isinstance(udobject._val, np.ndarray):
+            new_val = np.atan(udobject._val)
+            new_der = (1 / (1 + udobject._val ** 2)) * udobject._der
+        else:
+            raise TypeError("unsupported attribute type.")
+        return UDFunction(new_val, new_der)
+    elif isinstance(udobject, UDGraph):
+        new_func = UDPrimitive.ATAN
+        if isinstance(udobject._val, (int, float)):
+            new_val = math.atan(udobject._val)
+        elif isinstance(udobject._val, np.ndarray):
+            new_val = np.atan(udobject._val)
+        else:
+            raise TypeError("unsupported attribute type.")
+        udgraph = UDGraph(new_val, new_func)
+        udgraph._parents.append(udobject)
+        return udgraph
+
+    elif isinstance(udobject, np.ndarray):
+        return np.atan(udobject)
+
+    elif isinstance(udobject, (int, float)):
+        return math.atan(udobject)
 
     else:
         raise TypeError("unsupported attribute type.")
@@ -256,7 +476,11 @@ def exp(udobject):
         raise TypeError("unsupported attribute type.")
 
 
-def log(udobject, base = math.e):
+def standard_logistic(udobject):
+    return 1 / (1 + exp(-udobject))
+
+
+def log(udobject, base=math.e):
     """calculate the log of input
 
     Args:
@@ -309,9 +533,21 @@ def log(udobject, base = math.e):
         raise TypeError("unsupported attribute type.")
 
 
-# if __name__ == "__main__":
-#     beta = 3.0
-#     x = UDGraph(2)
-#     y = UDGraph(2)
-#     f = sin(x)**0.5 + cos(exp(y) + cos(2)) + log(y, 4) / x
-#     print(f)
+if __name__ == "__main__":
+    beta = 3.0
+    x = UDFunction(2)
+    y = UDFunction(2)
+    f = sin(x)**0.5 + cos(exp(y) + cos(2)) + log(y, 4) / x
+    f1 = sinh(f)
+    f2 = cosh(f)
+    f3 = tanh(f)
+    f4 = csch(f)
+    f5 = coth(f)
+    f6 = sech(f)
+    print(f)
+    print(f1)
+    print(f2)
+    print(f3)
+    print(f4)
+    print(f5)
+    print(f6)

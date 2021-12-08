@@ -1,10 +1,7 @@
 # import logging
 from enum import Enum
 from datetime import datetime
-from typing import final
 import numpy as np
-from numpy.lib.arraysetops import isin
-from numpy.lib.index_tricks import nd_grid
 
 
 class UDPrimitive(Enum):
@@ -28,15 +25,32 @@ class UDPrimitive(Enum):
     SQRT = 17
     EXP = 18
     LOG = 19
+    ACOS = 20
+    ASIN = 21
+    ATAN = 22
 
 
 def time():
+    """[summary]
+
+    Returns:
+        [type]: [description]
+    """
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S:%f")
     return current_time
 
 
 def check_division_by_zero(val):
+    """[summary]
+
+    Args:
+        val ([type]): [description]
+
+    Raises:
+        ZeroDivisionError: [description]
+        ZeroDivisionError: [description]
+    """
     if isinstance(val, np.ndarray):
         if not np.all(val):
             raise ZeroDivisionError("divide by zero encountered")
@@ -46,6 +60,16 @@ def check_division_by_zero(val):
 
 
 def check_pow(val, degree):
+    """[summary]
+
+    Args:
+        val ([type]): [description]
+        degree ([type]): [description]
+
+    Raises:
+        ValueError: [description]
+        ValueError: [description]
+    """
     try:
         temp = np.power(val, degree)
         if np.any(np.isnan(temp)):
@@ -55,6 +79,17 @@ def check_pow(val, degree):
 
 
 def check_log(val, base):
+    """[summary]
+
+    Args:
+        val ([type]): [description]
+        base ([type]): [description]
+
+    Raises:
+        ValueError: [description]
+        ValueError: [description]
+        ValueError: [description]
+    """
     if base <= 0:
         raise ValueError(f"invalid base {base} for log")
     if isinstance(val, np.ndarray):
@@ -64,6 +99,25 @@ def check_log(val, base):
         if val <= 0:
             raise ValueError(f"invalid value {val} for log")
 
+
+def check_arc(val):
+    """[summary]
+
+    Args:
+        val ([type]): [description]
+
+    Raises:
+        ValueError: [description]
+        ValueError: [description]
+    """
+    if isinstance(val, np.ndarray):
+        if not np.all(val > -1 and val < 1):
+            raise ValueError(
+                f"invalid values {val}, which should all be within (-1, 1)")
+    elif isinstance(val, (int, float)):
+        if not (val > -1 and val < 1):
+            raise ValueError(
+                f"invalid value {val}, which should be within (-1, 1)")
 #     logging.basicConfig(level=logging.INFO)
 #     if level == logging.INFO:
 #         logging.info(information)
