@@ -216,7 +216,7 @@ class TestUDFunction(unittest.TestCase):
 		z = "1"
 		a = y.__rtruediv__(x)
 		self.assertEqual(a.val, 0.5)
-		self.assertEqual(a.der, 0.12)
+		self.assertEqual(a.der, 0.125)
 		with self.assertRaises(Exception):
 			x.__rtruediv__(z)
 

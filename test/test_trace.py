@@ -84,10 +84,10 @@ class TestTrace(unittest.TestCase):
 
     def test_reverse(self):
         result1 = trace(self.f1, mode = "reverse", x = 2)
-        self.assertEqual(result1, (1.58, [-0.3278445959597162]))
+        self.assertEqual(result1, (1.58, [-0.328]))
 
-        result1 = trace(self.f2, mode = "reverse", x = 2)
-        # self.assertEqual(result1, (1.58, [-0.3278445959597162]))
+        # result1 = trace(self.f2, mode = "reverse", x = 2)
+        # # self.assertEqual(result1, (1.58, [-0.3278445959597162]))
 
 if __name__ == "__main__":
     unittest.main()

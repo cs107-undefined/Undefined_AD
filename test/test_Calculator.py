@@ -57,7 +57,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(round(self.f4.val, 2), -0.76)
         self.assertEqual(round(self.f4.der, 2), -1.31)
 
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(TypeError):
             self.f45 = cal.sin(2*x) + x 
         
         self.assertEqual(cal.sin(np.array([np.pi/2])), 1)
@@ -97,7 +97,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(round(self.f6.val, 2), 1.16)
         self.assertEqual(round(self.f6.der, 2), 4.68)
 
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(TypeError):
             self.f47 = cal.tan(2*x) + x 
         
         self.assertEqual(cal.tan(np.array([0])), 0)
@@ -116,7 +116,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(round(self.f8.val, 2), 3.41)
         self.assertEqual(round(self.f8.der, 2), 2.71)
 
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(TypeError):
             self.f48 = cal.sqrt(2*x) + x 
         
         self.assertEqual(cal.sqrt(np.array([4])), 2)
@@ -136,7 +136,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(round(self.f10.val, 2), 0.28)
         self.assertEqual(round(self.f10.der, 2), -0.72)
 
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(TypeError):
             self.f49 = cal.exp(2*x) + x 
         
         self.assertEqual(cal.exp(np.array([1])), np.e)
@@ -158,7 +158,7 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(round(self.f13.val, 2), 0)
         self.assertEqual(round(self.f13.der, 2), 1.44)
 
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(TypeError):
             self.f50 = cal.log(2*x, 2) + x 
         
         self.assertEqual(cal.log(np.array([1]), np.e), 0)
