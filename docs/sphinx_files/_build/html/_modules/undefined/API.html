@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>undefined.API &mdash; Undefined - an automatic differentiation tool 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Undefined - an automatic differentiation tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How to use Undefined</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Organization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../organization.html">Testing and Software Organization</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">code docstrings:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">undefined</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Undefined - an automatic differentiation tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>undefined.API</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for undefined.API</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="c1"># # temp solution for directory.</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;./src/&quot;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">undefined.GraphGenerator</span> <span class="kn">import</span> <span class="n">GraphGenerator</span>
+<span class="kn">from</span> <span class="nn">undefined.UDFunction</span> <span class="kn">import</span> <span class="n">UDFunction</span>
+<span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">LambdaType</span>
+
+
+
+<div class="viewcode-block" id="trace"><a class="viewcode-back" href="../../undefined.html#undefined.API.trace">[docs]</a><span class="k">def</span> <span class="nf">trace</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;trace function in undefined&#39;s API</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f (function): user defined function</span>
+<span class="sd">        mode (str, optional): Automatic Differenciation mode. Defaults to &#39;forward&#39;.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        NotImplementedError: raised if mode is set to reverse</span>
+<span class="sd">        AttributeError: raised if other form of modes are given</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (any, any): tuple of the values and derivatives</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="n">vals</span><span class="p">,</span> <span class="n">ders</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">f_</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">val</span><span class="p">,</span> <span class="n">der</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">f_</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            <span class="n">ders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">der</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vals</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">ders</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">LambdaType</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;cannot handle non lambda functions.&quot;</span><span class="p">)</span>
+    <span class="n">num_variables</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">variables</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">varnames</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;forward&#39;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">varname</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">varnames</span><span class="p">):</span>
+            <span class="n">variable</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="c1"># vector input</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;only support vector inputs of shape (1,n), invalid input </span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s2"> has shape </span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="c1"># single vector input</span>
+                <span class="k">if</span> <span class="n">num_variables</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDFunction</span><span class="p">(</span>
+                        <span class="n">variable</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+                <span class="c1"># multiple vector inputs</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">seed_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                        <span class="p">(</span><span class="n">num_variables</span><span class="p">,</span> <span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+                    <span class="n">seed_vector</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">seed_vector</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="c1"># single scalar input</span>
+                <span class="k">if</span> <span class="n">num_variables</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">variable</span><span class="p">)</span>
+                <span class="c1"># multiple scalar inputs</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">seed_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_variables</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+                    <span class="n">seed_vector</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">seed_vector</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                    <span class="s2">&quot;variable type not in (int, float, np.ndarray).&quot;</span><span class="p">)</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="o">**</span><span class="n">variables</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">der</span>
+
+    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;reverse&#39;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">varname</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">varnames</span><span class="p">):</span>
+            <span class="n">variable</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;only support vector inputs of shape (1, ), invalid input </span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s2"> has shape </span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDGraph</span><span class="p">(</span><span class="n">variable</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDGraph</span><span class="p">(</span><span class="n">variable</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                    <span class="s2">&quot;variable type not in (int, float, np.ndarray).&quot;</span><span class="p">)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="o">**</span><span class="n">variables</span><span class="p">)</span>
+        <span class="n">udgenerator</span> <span class="o">=</span> <span class="n">GraphGenerator</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">udgenerator</span><span class="o">.</span><span class="n">generate_str</span><span class="p">())</span>
+            <span class="n">udgenerator</span><span class="o">.</span><span class="n">generate_graph</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="p">[</span><span class="n">udgenerator</span><span class="o">.</span><span class="n">generate_derivative</span><span class="p">(</span><span class="n">var_name</span><span class="p">)</span> <span class="k">for</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="n">variables</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;unsupported mode.&quot;</span><span class="p">)</span></div>
+
+<span class="c1"># def stack_trace(f_vector, mode = &#39;forward&#39;):</span>
+<span class="c1">#     &quot;&quot;&quot;[summary]</span>
+
+<span class="c1">#     Args:</span>
+<span class="c1">#         f_vector (list): list of user defined functions</span>
+<span class="c1">#         mode (str, optional): Automatic Differenciation mode. Defaults to &#39;forward&#39;.</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     raise NotImplementedError</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>
+    <span class="n">f2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">log</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">f3</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+    <span class="n">f4</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">f5</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f3</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f3</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;reverse&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f4</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f4</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;reverse&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f5</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f5</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;reverse&#39;</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="c1"># x = UDFunction(np.array([[2, 2]]), np.array([[1, 1], [0, 0]]))</span>
+    <span class="c1"># y = UDFunction(np.array([[1, 1]]), np.array([[0, 0], [1, 1]]))</span>
+    <span class="c1"># print(&quot;1. test vector inputs:&quot;)</span>
+    <span class="c1"># print(&quot;manual:&quot;)</span>
+    <span class="c1"># print(&quot;f1:&quot;)</span>
+    <span class="c1"># print(str(sqrt(exp(x*y))))</span>
+    <span class="c1"># print(&quot;f2:&quot;)</span>
+    <span class="c1"># print(str(log(exp(x*y), 2)))</span>
+    <span class="c1"># print(&quot;using trace() function:&quot;)</span>
+    <span class="c1"># print(&quot;f1:&quot;)</span>
+    <span class="c1"># print(trace(f1, x=np.array([[2, 2]]), y=np.array([[1, 1]])))</span>
+    <span class="c1"># print(&quot;f2:&quot;)</span>
+    <span class="c1"># print(trace(f2, x=np.array([[2, 2]]), y=np.array([[1, 1]])))</span>
+    <span class="c1"># print()</span>
+
+    <span class="c1"># print(&quot;2. test vector functions on scalar inputs:&quot;)</span>
+    <span class="c1"># f = [f1, f2, f3]</span>
+    <span class="c1"># print(trace(f, x=2, y=1))</span>
+
+    <span class="c1"># print(&quot;3. Test different user input:&quot;)</span>
+    <span class="c1"># try:</span>
+    <span class="c1">#     trace(sum, x=1)</span>
+    <span class="c1"># except TypeError as e:</span>
+    <span class="c1">#     print(e)</span>
+    <span class="c1"># print(trace(f3, &#39;forward&#39;, x=np.array([[2, 2]]), y=np.array([[1, 1]])))</span>
+    <span class="c1"># print(trace(f3, x=np.array([[2, 2]]), y=np.array([[1, 1]])))</span>
+    <span class="c1"># print(trace(f3, mode=&#39;forward&#39;, x=np.array(</span>
+    <span class="c1">#     [[2, 2]]), y=np.array([[1, 1]])))</span>
+    <span class="c1"># print(trace(f3, mode=&#39;forward&#39;, x=np.array(</span>
+    <span class="c1">#     [[2, 2]]), y=np.array([[1, 1]])))</span>
+
+    <span class="c1"># # x = UDFunction(np.array([2,2]), np.array([[1,1],[0,0]]))</span>
+    <span class="c1"># # y = UDFunction(np.array([1,1]), np.array([[0,0],[1,1]]))</span>
+    <span class="c1"># print(&quot;4. test scalar funciton on scalar inputs:&quot;)</span>
+    <span class="c1"># x = UDFunction(1, np.array([1, 0]))</span>
+    <span class="c1"># y = UDFunction(2, np.array([0, 1]))</span>
+    <span class="c1"># print(&quot;manual:&quot;)</span>
+    <span class="c1"># print(&quot;f1:&quot;)</span>
+    <span class="c1"># print(str(sqrt(exp(x*y))))</span>
+    <span class="c1"># print(&quot;f2:&quot;)</span>
+    <span class="c1"># print(str(log(exp(x*y), 2)))</span>
+    <span class="c1"># print(&quot;using trace() function:&quot;)</span>
+    <span class="c1"># print(&quot;f1:&quot;)</span>
+    <span class="c1"># print(trace(f1, x=1, y=2))</span>
+    <span class="c1"># print(trace(f1, mode = &#39;reverse&#39;, x=1, y=2))</span>
+    <span class="c1"># print(&quot;f2:&quot;)</span>
+    <span class="c1"># print(trace(f2, x=1, y=2))</span>
+    <span class="c1"># print(trace(f2, mode = &#39;reverse&#39;, x=1, y=2))</span>
+    <span class="c1"># print()</span>
+
+    <span class="c1"># print(&quot;5. test complex functions on vector input:&quot;)</span>
+    <span class="c1"># def f1(x): return sin((1 / x + 1)**2)</span>
+    <span class="c1"># def f2(x): return log((tan(sin(x + 10 / x)) + cos(2 / x))**2, 3)</span>
+    <span class="c1"># print(&quot;using trace() function:&quot;)</span>
+    <span class="c1"># print(&quot;f1:&quot;)</span>
+    <span class="c1"># print(trace(f1, x=1))</span>
+    <span class="c1"># print(trace(f1, mode = &#39;reverse&#39;, x=1))</span>
+    <span class="c1"># print(&quot;f2:&quot;)</span>
+    <span class="c1"># print(trace(f2, x=1))</span>
+    <span class="c1"># print(trace(f2, mode = &#39;reverse&#39;, x=1))</span>
+    <span class="c1"># f = [f1, f2]</span>
+    <span class="c1"># print(trace(f, x=np.array([[2, 2]])))</span>
+    <span class="c1"># print(trace(f, mode = &#39;reverse&#39;, x=np.array([[2, 2]])))</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Xinran Tang, Renhao Luo, Chelse Swoopes, Shijia Zhang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

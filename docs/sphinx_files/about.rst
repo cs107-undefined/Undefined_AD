@@ -48,13 +48,13 @@ Computational graph node for binary elementary funciton:
 
 .. image:: ../resources/computational_graph_1.png
     :width: 600
-    :alt: alternate text
+    :alt: computational_graph_1
 
 The computational graph grows once the computations become more complex:
 
 .. image:: ../resources/computational_graph_2.png
     :width: 600
-    :alt: alternate text
+    :alt: computational_graph_2
 
 2.4 Automatic Differencation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

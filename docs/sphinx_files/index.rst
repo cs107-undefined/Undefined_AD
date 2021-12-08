@@ -12,42 +12,45 @@ Welcome to Undefined - an automatic differentiation tool's documentation!
 Features
 --------
 
-Be awesome!
+Be awesome and fast automatic differentiation calculation!!!
 
-implementation of the ``forward`` and ``reverse`` mode of automatic differentiation
+Implementation of the ``forward`` and ``reverse`` mode of automatic differentiation
 
-build computational graphs in the ``reverse`` mode
+Build computational graphs in the ``reverse`` mode
 
-Introduction and Background
+Link to the project `Github page <https://github.com/cs107-undefined/cs107-FinalProject>`_.
+
+About
 ----------------------------------
 
 .. toctree::
    :maxdepth: 3
-   :caption: Introduction and Background
 
    about
 
-Interact with Undefined
+Getting started
 ---------------------------------
 
 .. toctree::
    :maxdepth: 3
-   :caption: How to use Undefined
 
    usage
 
 
+Software Organization
+-----------------------
+.. toctree::
+   :maxdepth: 3
+
+   organization
 
 
-Installation
-------------
+Implemetation
+---------------
+.. toctree::
+   :maxdepth: 3
 
-Install ``undefined`` by running:
-
-.. code-block::
-   :linenos:
-   
-   pip install undefined 
+   implementation
 
 
 
@@ -56,21 +59,19 @@ Source Code Details
 
 .. toctree::
    :maxdepth: 3
-   :caption: code docstrings:
 
    modules
 
 
+Licensing
+-----------
+We will use the ``MIT`` license for open source software development so that other people who are interested in our software will have access to contribute. 
 
-
-
-
-
+Instinction for our choice: We want it to be simple and permissive.
+Under the ``MIT`` license, anyone can contribute to this project by adding functionality, debug, or customerize it to meet their needs. 
+Please see the ``LICENCE`` file in your github for details.
 
 ..
-   Indices and tables
+   Search
    ==================
-
-   * :ref:`genindex`
-   * :ref:`modindex`
    * :ref:`search`

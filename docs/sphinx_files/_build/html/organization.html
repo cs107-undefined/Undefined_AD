@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testing and Software Organization &mdash; Undefined - an automatic differentiation tool 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Implementation" href="implementation.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Undefined - an automatic differentiation tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How to use Undefined</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Organization</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Testing and Software Organization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#test-undefined">4.1 Test <code class="docutils literal notranslate"><span class="pre">Undefined</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-directory-structure-looks-like-the-following">4.2 The directory structure looks like the following</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">implementation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">code docstrings:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">undefined</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Undefined - an automatic differentiation tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Testing and Software Organization</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/organization.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="testing-and-software-organization">
+<h1>Testing and Software Organization<a class="headerlink" href="#testing-and-software-organization" title="Permalink to this headline"></a></h1>
+<section id="test-undefined">
+<h2>4.1 Test <code class="docutils literal notranslate"><span class="pre">Undefined</span></code><a class="headerlink" href="#test-undefined" title="Permalink to this headline"></a></h2>
+<p>Both <code class="docutils literal notranslate"><span class="pre">TravisCI</span></code> and <code class="docutils literal notranslate"><span class="pre">CodeCov</span></code> will be used for testing suit monitoring, and the package will be uploaded to <code class="docutils literal notranslate"><span class="pre">PyPI</span></code> by following the instructions given in class.</p>
+<p><code class="docutils literal notranslate"><span class="pre">src</span></code> folder is where we house our core modules, which include the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">UDFunction.py</span></code>: We overload the operators in this file, such as <code class="docutils literal notranslate"><span class="pre">__add__</span></code>.
+<code class="docutils literal notranslate"><span class="pre">Calculator.py</span></code>: We defined the calculation of <code class="docutils literal notranslate"><span class="pre">sin</span></code>, <code class="docutils literal notranslate"><span class="pre">cos</span></code>, <code class="docutils literal notranslate"><span class="pre">tan</span></code>, <code class="docutils literal notranslate"><span class="pre">sqrt</span></code>, and <code class="docutils literal notranslate"><span class="pre">exp</span></code>.
+<code class="docutils literal notranslate"><span class="pre">API.py</span></code>: We defined the <code class="docutils literal notranslate"><span class="pre">trace</span></code> function here to wrap all the calculation required for the users defined function.</p>
+<p><code class="docutils literal notranslate"><span class="pre">test</span></code> folder is where we house our test suits, which contains a test file for each python files inside the <code class="docutils literal notranslate"><span class="pre">src</span></code> folder.</p>
+<p>We developed a bash script to run all the tests. You can test them by using the following examples:</p>
+<p>Assuming your current directory is the <code class="docutils literal notranslate"><span class="pre">undefined</span></code> root directory, you can run the following codes to run the test cases we developed for <code class="docutils literal notranslate"><span class="pre">Undefined</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># run test suits in your command line terminal</span>
+<span class="linenos">2</span><span class="n">bash</span> <span class="n">test</span><span class="o">/</span><span class="n">run_tests</span><span class="o">.</span><span class="n">sh</span> <span class="n">coverage</span>
+</pre></div>
+</div>
+<p>And you will see the following as output:</p>
+<a class="reference internal image-reference" href="_images/milestone2_test_success.png"><img alt="success_test" src="_images/milestone2_test_success.png" style="width: 600px;" /></a>
+</section>
+<section id="the-directory-structure-looks-like-the-following">
+<h2>4.2 The directory structure looks like the following<a class="headerlink" href="#the-directory-structure-looks-like-the-following" title="Permalink to this headline"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span>.
+<span class="linenos">  2</span>├── LICENSE
+<span class="linenos">  3</span>├── README.md
+<span class="linenos">  4</span>├── __init__.py
+<span class="linenos">  5</span>├── codecov.yml
+<span class="linenos">  6</span>├── dist
+<span class="linenos">  7</span>│   ├── undefined-1.0.0-py3-none-any.whl
+<span class="linenos">  8</span>│   └── undefined-1.0.0.tar.gz
+<span class="linenos">  9</span>├── docs
+<span class="linenos"> 10</span>│   ├── README.md
+<span class="linenos"> 11</span>│   ├── milestone_docs
+<span class="linenos"> 12</span>│   │   ├── milestone1.ipynb
+<span class="linenos"> 13</span>│   │   ├── milestone2.ipynb
+<span class="linenos"> 14</span>│   │   └── milestone2_progress.ipynb
+<span class="linenos"> 15</span>│   ├── resources
+<span class="linenos"> 16</span>│   │   ├── computational_graph_1.png
+<span class="linenos"> 17</span>│   │   ├── computational_graph_2.png
+<span class="linenos"> 18</span>│   │   └── milestone2_test_success.png
+<span class="linenos"> 19</span>│   └── sphinx_files
+<span class="linenos"> 20</span>│       ├── Makefile
+<span class="linenos"> 21</span>│       ├── _build
+<span class="linenos"> 22</span>│       │   ├── doctrees
+<span class="linenos"> 23</span>│       │   │   ├── README.doctree
+<span class="linenos"> 24</span>│       │   │   ├── about.doctree
+<span class="linenos"> 25</span>│       │   │   ├── cs107-FinalProject.doctree
+<span class="linenos"> 26</span>│       │   │   ├── cs107-FinalProject.test.doctree
+<span class="linenos"> 27</span>│       │   │   ├── environment.pickle
+<span class="linenos"> 28</span>│       │   │   ├── index.doctree
+<span class="linenos"> 29</span>│       │   │   ├── modules.doctree
+<span class="linenos"> 30</span>│       │   │   ├── undefined.doctree
+<span class="linenos"> 31</span>│       │   │   └── usage.doctree
+<span class="linenos"> 32</span>│       │   └── html
+<span class="linenos"> 33</span>│       │       ├── README.html
+<span class="linenos"> 34</span>│       │       ├── _images
+<span class="linenos"> 35</span>│       │       │   ├── computational_graph_1.png
+<span class="linenos"> 36</span>│       │       │   └── computational_graph_2.png
+<span class="linenos"> 37</span>│       │       ├── _sources
+<span class="linenos"> 38</span>│       │       │   ├── README.md.txt
+<span class="linenos"> 39</span>│       │       │   ├── about.rst.txt
+<span class="linenos"> 40</span>│       │       │   ├── cs107-FinalProject.rst.txt
+<span class="linenos"> 41</span>│       │       │   ├── cs107-FinalProject.test.rst.txt
+<span class="linenos"> 42</span>│       │       │   ├── index.rst.txt
+<span class="linenos"> 43</span>│       │       │   ├── modules.rst.txt
+<span class="linenos"> 44</span>│       │       │   ├── undefined.rst.txt
+<span class="linenos"> 45</span>│       │       │   └── usage.rst.txt
+<span class="linenos"> 46</span>│       │       ├── _static
+<span class="linenos"> 47</span>│       │       │   ├── alabaster.css
+<span class="linenos"> 48</span>│       │       │   ├── basic.css
+<span class="linenos"> 49</span>│       │       │   ├── css
+<span class="linenos"> 50</span>│       │       │   │   ├── badge_only.css
+<span class="linenos"> 51</span>│       │       │   │   ├── fonts
+<span class="linenos"> 52</span>│       │       │   │   │   ├── Roboto-Slab-Bold.woff
+<span class="linenos"> 53</span>│       │       │   │   │   ├── Roboto-Slab-Bold.woff2
+<span class="linenos"> 54</span>│       │       │   │   │   ├── Roboto-Slab-Regular.woff
+<span class="linenos"> 55</span>│       │       │   │   │   ├── Roboto-Slab-Regular.woff2
+<span class="linenos"> 56</span>│       │       │   │   │   ├── fontawesome-webfont.eot
+<span class="linenos"> 57</span>│       │       │   │   │   ├── fontawesome-webfont.svg
+<span class="linenos"> 58</span>│       │       │   │   │   ├── fontawesome-webfont.ttf
+<span class="linenos"> 59</span>│       │       │   │   │   ├── fontawesome-webfont.woff
+<span class="linenos"> 60</span>│       │       │   │   │   ├── fontawesome-webfont.woff2
+<span class="linenos"> 61</span>│       │       │   │   │   ├── lato-bold-italic.woff
+<span class="linenos"> 62</span>│       │       │   │   │   ├── lato-bold-italic.woff2
+<span class="linenos"> 63</span>│       │       │   │   │   ├── lato-bold.woff
+<span class="linenos"> 64</span>│       │       │   │   │   ├── lato-bold.woff2
+<span class="linenos"> 65</span>│       │       │   │   │   ├── lato-normal-italic.woff
+<span class="linenos"> 66</span>│       │       │   │   │   ├── lato-normal-italic.woff2
+<span class="linenos"> 67</span>│       │       │   │   │   ├── lato-normal.woff
+<span class="linenos"> 68</span>│       │       │   │   │   └── lato-normal.woff2
+<span class="linenos"> 69</span>│       │       │   │   └── theme.css
+<span class="linenos"> 70</span>│       │       │   ├── custom.css
+<span class="linenos"> 71</span>│       │       │   ├── doctools.js
+<span class="linenos"> 72</span>│       │       │   ├── documentation_options.js
+<span class="linenos"> 73</span>│       │       │   ├── file.png
+<span class="linenos"> 74</span>│       │       │   ├── jquery-3.5.1.js
+<span class="linenos"> 75</span>│       │       │   ├── jquery.js
+<span class="linenos"> 76</span>│       │       │   ├── js
+<span class="linenos"> 77</span>│       │       │   │   ├── badge_only.js
+<span class="linenos"> 78</span>│       │       │   │   ├── html5shiv-printshiv.min.js
+<span class="linenos"> 79</span>│       │       │   │   ├── html5shiv.min.js
+<span class="linenos"> 80</span>│       │       │   │   └── theme.js
+<span class="linenos"> 81</span>│       │       │   ├── language_data.js
+<span class="linenos"> 82</span>│       │       │   ├── minus.png
+<span class="linenos"> 83</span>│       │       │   ├── plus.png
+<span class="linenos"> 84</span>│       │       │   ├── pygments.css
+<span class="linenos"> 85</span>│       │       │   ├── searchtools.js
+<span class="linenos"> 86</span>│       │       │   ├── underscore-1.13.1.js
+<span class="linenos"> 87</span>│       │       │   └── underscore.js
+<span class="linenos"> 88</span>│       │       ├── about.html
+<span class="linenos"> 89</span>│       │       ├── cs107-FinalProject.html
+<span class="linenos"> 90</span>│       │       ├── cs107-FinalProject.test.html
+<span class="linenos"> 91</span>│       │       ├── genindex.html
+<span class="linenos"> 92</span>│       │       ├── index.html
+<span class="linenos"> 93</span>│       │       ├── modules.html
+<span class="linenos"> 94</span>│       │       ├── objects.inv
+<span class="linenos"> 95</span>│       │       ├── py-modindex.html
+<span class="linenos"> 96</span>│       │       ├── search.html
+<span class="linenos"> 97</span>│       │       ├── searchindex.js
+<span class="linenos"> 98</span>│       │       ├── undefined.html
+<span class="linenos"> 99</span>│       │       └── usage.html
+<span class="linenos">100</span>│       ├── _static
+<span class="linenos">101</span>│       ├── _templates
+<span class="linenos">102</span>│       ├── about.rst
+<span class="linenos">103</span>│       ├── conf.py
+<span class="linenos">104</span>│       ├── index.rst
+<span class="linenos">105</span>│       ├── make.bat
+<span class="linenos">106</span>│       ├── modules.rst
+<span class="linenos">107</span>│       ├── undefined.rst
+<span class="linenos">108</span>│       └── usage.rst
+<span class="linenos">109</span>├── htmlcov
+<span class="linenos">110</span>│   ├── coverage_html.js
+<span class="linenos">111</span>│   ├── d_40be0abedfd3bebf_API_py.html
+<span class="linenos">112</span>│   ├── d_40be0abedfd3bebf_Calculator_py.html
+<span class="linenos">113</span>│   ├── d_40be0abedfd3bebf_GraphGenerator_py.html
+<span class="linenos">114</span>│   ├── d_40be0abedfd3bebf_UDFunction_py.html
+<span class="linenos">115</span>│   ├── d_40be0abedfd3bebf_Utils_py.html
+<span class="linenos">116</span>│   ├── d_40be0abedfd3bebf___init___py.html
+<span class="linenos">117</span>│   ├── d_40be0abedfd3bebf___main___py.html
+<span class="linenos">118</span>│   ├── favicon_32.png
+<span class="linenos">119</span>│   ├── index.html
+<span class="linenos">120</span>│   ├── keybd_closed.png
+<span class="linenos">121</span>│   ├── keybd_open.png
+<span class="linenos">122</span>│   ├── status.json
+<span class="linenos">123</span>│   └── style.css
+<span class="linenos">124</span>├── pyproject.toml
+<span class="linenos">125</span>├── requirements.txt
+<span class="linenos">126</span>├── setup.cfg
+<span class="linenos">127</span>├── src
+<span class="linenos">128</span>│   ├── undefined
+<span class="linenos">129</span>│   │   ├── API.py
+<span class="linenos">130</span>│   │   ├── Calculator.py
+<span class="linenos">131</span>│   │   ├── GraphGenerator.py
+<span class="linenos">132</span>│   │   ├── UDFunction.py
+<span class="linenos">133</span>│   │   ├── Utils.py
+<span class="linenos">134</span>│   │   ├── __init__.py
+<span class="linenos">135</span>│   │   ├── __main__.py
+<span class="linenos">136</span>│   │   └── __pycache__
+<span class="linenos">137</span>│   │       ├── API.cpython-38.pyc
+<span class="linenos">138</span>│   │       ├── Calculator.cpython-38.pyc
+<span class="linenos">139</span>│   │       ├── GraphGenerator.cpython-38.pyc
+<span class="linenos">140</span>│   │       ├── UDFunction.cpython-38.pyc
+<span class="linenos">141</span>│   │       ├── Utils.cpython-38.pyc
+<span class="linenos">142</span>│   │       └── __init__.cpython-38.pyc
+<span class="linenos">143</span>│   └── undefined.egg-info
+<span class="linenos">144</span>│       ├── PKG-INFO
+<span class="linenos">145</span>│       ├── SOURCES.txt
+<span class="linenos">146</span>│       ├── dependency_links.txt
+<span class="linenos">147</span>│       ├── requires.txt
+<span class="linenos">148</span>│       └── top_level.txt
+<span class="linenos">149</span>└── <span class="nb">test</span>
+<span class="linenos">150</span>    ├── __init__.py
+<span class="linenos">151</span>    ├── __main__.py
+<span class="linenos">152</span>    ├── __pycache__
+<span class="linenos">153</span>    │   ├── __init__.cpython-38.pyc
+<span class="linenos">154</span>    │   ├── test_API.cpython-38.pyc
+<span class="linenos">155</span>    │   ├── test_Calculator.cpython-38.pyc
+<span class="linenos">156</span>    │   ├── test_UDFunction.cpython-38.pyc
+<span class="linenos">157</span>    │   └── test_trace.cpython-38.pyc
+<span class="linenos">158</span>    ├── run_tests.sh
+<span class="linenos">159</span>    ├── test_API.py
+<span class="linenos">160</span>    ├── test_Calculator.py
+<span class="linenos">161</span>    ├── test_UDFunction.py
+<span class="linenos">162</span>    └── test_trace.py
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="implementation.html" class="btn btn-neutral float-right" title="Implementation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Xinran Tang, Renhao Luo, Chelse Swoopes, Shijia Zhang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

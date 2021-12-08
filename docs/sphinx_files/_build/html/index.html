@@ -37,15 +37,18 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
-<ul>
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">How to use Undefined</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">code docstrings:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="organization.html">Testing and Software Organization</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+</ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">undefined</a></li>
 </ul>
@@ -78,14 +81,14 @@
 <h1>Welcome to Undefined - an automatic differentiation tool’s documentation!<a class="headerlink" href="#welcome-to-undefined-an-automatic-differentiation-tool-s-documentation" title="Permalink to this headline"></a></h1>
 <section id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline"></a></h2>
-<p>Be awesome!</p>
-<p>implementation of the <code class="docutils literal notranslate"><span class="pre">forward</span></code> and <code class="docutils literal notranslate"><span class="pre">reverse</span></code> mode of automatic differentiation</p>
-<p>build computational graphs in the <code class="docutils literal notranslate"><span class="pre">reverse</span></code> mode</p>
+<p>Be awesome and fast automatic differentiation calculation!!!</p>
+<p>Implementation of the <code class="docutils literal notranslate"><span class="pre">forward</span></code> and <code class="docutils literal notranslate"><span class="pre">reverse</span></code> mode of automatic differentiation</p>
+<p>Build computational graphs in the <code class="docutils literal notranslate"><span class="pre">reverse</span></code> mode</p>
+<p>Link to the project <a class="reference external" href="https://github.com/cs107-undefined/cs107-FinalProject">Github page</a>.</p>
 </section>
-<section id="introduction-and-background">
-<h2>Introduction and Background<a class="headerlink" href="#introduction-and-background" title="Permalink to this headline"></a></h2>
+<section id="about">
+<h2>About<a class="headerlink" href="#about" title="Permalink to this headline"></a></h2>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="about.html#introduction">1. Introduction</a></li>
@@ -101,10 +104,9 @@
 </ul>
 </div>
 </section>
-<section id="interact-with-undefined">
-<h2>Interact with Undefined<a class="headerlink" href="#interact-with-undefined" title="Permalink to this headline"></a></h2>
+<section id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">How to use Undefined</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#how-to-use-undefined">3. How to use <code class="docutils literal notranslate"><span class="pre">Undefined</span></code></a><ul>
@@ -117,17 +119,33 @@
 </ul>
 </div>
 </section>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
-<p>Install <code class="docutils literal notranslate"><span class="pre">undefined</span></code> by running:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">pip</span> <span class="n">install</span> <span class="n">undefined</span>
-</pre></div>
+<section id="software-organization">
+<h2>Software Organization<a class="headerlink" href="#software-organization" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="organization.html">Testing and Software Organization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="organization.html#test-undefined">4.1 Test <code class="docutils literal notranslate"><span class="pre">Undefined</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="organization.html#the-directory-structure-looks-like-the-following">4.2 The directory structure looks like the following</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="implemetation">
+<h2>Implemetation<a class="headerlink" href="#implemetation" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="implementation.html#core-data-structure">5.1 Core Data Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implementation.html#core-classes">5.2 Core Classes</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </section>
 <section id="source-code-details">
 <h2>Source Code Details<a class="headerlink" href="#source-code-details" title="Permalink to this headline"></a></h2>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">code docstrings:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">undefined</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="undefined.html">undefined package</a><ul>
@@ -144,6 +162,13 @@
 </li>
 </ul>
 </div>
+</section>
+<section id="licensing">
+<h2>Licensing<a class="headerlink" href="#licensing" title="Permalink to this headline"></a></h2>
+<p>We will use the <code class="docutils literal notranslate"><span class="pre">MIT</span></code> license for open source software development so that other people who are interested in our software will have access to contribute.</p>
+<p>Instinction for our choice: We want it to be simple and permissive.
+Under the <code class="docutils literal notranslate"><span class="pre">MIT</span></code> license, anyone can contribute to this project by adding functionality, debug, or customerize it to meet their needs.
+Please see the <code class="docutils literal notranslate"><span class="pre">LICENCE</span></code> file in your github for details.</p>
 </section>
 </section>
 
