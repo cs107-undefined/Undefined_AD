@@ -1,5 +1,6 @@
 import unittest
 import sys
+import numpy as np
 sys.path.append("./src/")
 
 from undefined.UDFunction import UDFunction
@@ -54,6 +55,8 @@ class TestUDFunction(unittest.TestCase):
 		self.f22 = 4*x**3
 		self.f23 = 4**2
 		self.f50 = exp(sin(x)) - cos(x**0.5) * sin((cos(x)**2.0 + x**2.0)**0.5)
+		self.f60 = 2**x
+		
 
 		
 
@@ -255,22 +258,64 @@ class TestUDFunction(unittest.TestCase):
 			x.__rfloordiv__(z)
 
 	def test_power(self):
+
 		self.assertEqual(self.f22.val, 32)
 		self.assertEqual(self.f22.der, 48)
 
 		self.assertEqual(round(self.f50.val, 2), 2.34)
-		self.assertEqual(round(self.f50.der, 2), -0.64)
+		self.assertEqual(round(self.f50.der, 2), -0.64) # Value check
 
 		with self.assertRaises(Exception):
 			self.f23.val
 		with self.assertRaises(Exception):
 			self.f23.der
 
+		# test other as ndarray
+		a = 2.0
+		x = UDFunction(a)
+		y = UDFunction(np.array(a))
+		self.f51 = x**y
+		self.assertEqual(self.f51.val,4)
+		self.assertEqual(self.f51.der,6.773)
+
+
+		# test self/other both ndarray
+		x = UDFunction(np.ndarray(2))
+		y = UDFunction(np.ndarray(2))
+
+		self.f52 = x ** y
+		self.assertEqual(self.f52.val[0],4)
+		self.assertEqual(self.f52.der[0],6.773)
+
+		# raise value error
+		x = UDFunction(np.ndarray(2))
+		y = UDFunction(np.ndarray(3))
+		
+		
+		with self.assertRaises(ValueError):
+			x**y
+			
+		# self.assertEqual(self.f52.val[0],4)
+		# self.assertEqual(self.f52.der[0],6.773)
+
+		# self is array, other is int/float
+
+		x = UDFunction(np.array(2))
+		y = UDFunction(2)
+
+		self.f53 = x ** y
+		self.assertEqual(self.f53.val,4)
+		self.assertEqual(self.f53.der,6.773)
+
+		self.assertEqual(self.f60.val, 4)
+		self.assertEqual(self.f60.der, 2.773)
+
+
 	def test_eq(self):
 		self.assertTrue(self.f22 == 32)
 		self.assertTrue(self.f19 == -1)
 		self.assertTrue(round(self.f25, 2) == 171)
-		self.assertTrue(round(self.f20, 2) == 2.67)
+		self.assertTrue(round(self.f20, 2) == 2.67) 
 
 		self.assertTrue(self.f22 == self.f22)
 		self.assertTrue(self.f11 == self.f13)
