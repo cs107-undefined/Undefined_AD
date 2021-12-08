@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage &mdash; Undefined - an automatic differentiation tool 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="undefined" href="modules.html" />
+    <link rel="prev" title="About" href="about.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Undefined - an automatic differentiation tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How to use Undefined</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-use-undefined">3. How to use <code class="docutils literal notranslate"><span class="pre">Undefined</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#forward-model">3.1 Forward Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reverse-model">3.2 Reverse Model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">code docstrings:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">undefined</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Undefined - an automatic differentiation tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Usage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h1>
+<section id="how-to-use-undefined">
+<h2>3. How to use <code class="docutils literal notranslate"><span class="pre">Undefined</span></code><a class="headerlink" href="#how-to-use-undefined" title="Permalink to this headline"></a></h2>
+<p>This is the recommended usage. The users can interact with the package at their discretion.</p>
+<p>Download our wheel file (<code class="docutils literal notranslate"><span class="pre">undefined-1.0.0-py3-none-any.whl</span></code>) from the Github page. <code class="docutils literal notranslate"><span class="pre">Link</span> <span class="pre">&lt;https://github.com/cs107-undefined/cs107-FinalProject/releases/tag/v1.0.0&gt;</span></code>
+And save the file into your working directory.</p>
+<p>Then, <code class="docutils literal notranslate"><span class="pre">undefined</span></code> provided esay installation by running this following command (Assuming your current directory is the working directory, which contains the wheel file):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>pip install undefined-1.0.0-py3-none-any.whl
+</pre></div>
+</div>
+<p>Users should import the package by the following in their Python script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
+</pre></div>
+</div>
+<p>Also, if the users are planning to use the exponential and trig functions, they should do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">sqrt</span>
+</pre></div>
+</div>
+<p><strong>Note:</strong> Our package will not work with the functions in other libraries, such as np.sin. Please use our customized functions.</p>
+<p>Once imported successfully, users can calculate the derivative of a given function by using the syntax from the section below.</p>
+<section id="forward-model">
+<h3>3.1 Forward Model<a class="headerlink" href="#forward-model" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function will calculate the derivative, which will intake a user defined function using <code class="docutils literal notranslate"><span class="pre">lambda</span></code>, the mode (default is <strong>forward</strong> mode), and associated values. The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function will return the derivatives of the function.</p>
+<p>Here, we showed a demo with <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> -&gt; <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>:</p>
+<p><strong>*Note:*</strong>
+In our design, the users do not need to instantiate an <code class="docutils literal notranslate"><span class="pre">undefined</span></code> object. They can just develop the function using Python build-in <code class="docutils literal notranslate"><span class="pre">lambda</span></code>, and we will not accept other types of input functions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># R -&gt; R implementation</span>
+<span class="linenos"> 2</span><span class="c1"># assuming undefined has been installed.</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
+<span class="linenos"> 5</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">sqrt</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># define the user input function using lambda</span>
+<span class="linenos"> 8</span><span class="n">f1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># calculate the derivative when x = 2 and y = 1 for the input function</span>
+<span class="linenos">11</span><span class="n">output_f1</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="c1"># print out the forward mode derivative</span>
+<span class="linenos">14</span><span class="nb">print</span><span class="p">(</span><span class="n">output_f1</span><span class="p">)</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="c1"># output summary results for f1</span>
+<span class="linenos">17</span><span class="o">&gt;&gt;&gt;</span><span class="n">value</span><span class="p">:</span> <span class="mf">3.72</span>
+<span class="linenos">18</span><span class="o">&gt;&gt;&gt;</span><span class="n">derivative</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.359</span> <span class="mf">2.718</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The users can also access the Jacobian results by using the <code class="docutils literal notranslate"><span class="pre">val</span></code> for the function value and <code class="docutils literal notranslate"><span class="pre">der</span></code> for the function’s derivative value(s).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># use val to access the function value</span>
+<span class="linenos">2</span><span class="nb">print</span><span class="p">(</span><span class="n">output_f1</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+<span class="linenos">3</span><span class="o">&gt;&gt;&gt;</span><span class="mf">3.72</span>
+<span class="linenos">4</span>
+<span class="linenos">5</span><span class="c1"># use der to access the derivative value of the function</span>
+<span class="linenos">6</span><span class="o">&gt;&gt;&gt;</span><span class="n">array</span><span class="p">([</span><span class="mf">1.359</span><span class="p">,</span> <span class="mf">2.718</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function can also handle multiple dimensional calculation. Assume we need to calculate <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> -&gt; <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, we will input the values for <span class="math notranslate nohighlight">\({x}\)</span> and <span class="math notranslate nohighlight">\({y}\)</span>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sqrt</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># user defined function</span>
+<span class="linenos"> 5</span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># call the trace function in undefined, and provide input x = 1 and y = 4</span>
+<span class="linenos"> 8</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">4</span><span class="p">))</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># the function will return the 1st derivative when x = 1 and y = 4.</span>
+<span class="linenos">11</span><span class="o">&gt;&gt;&gt;</span> <span class="n">value</span><span class="p">:</span> <span class="mf">6.0</span>
+<span class="linenos">12</span><span class="o">&gt;&gt;&gt;</span> <span class="n">derivative</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.</span>   <span class="mf">0.25</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Our function will handle other multiple dimensional calculations, including <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> -&gt; <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> -&gt; <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. The difference will be the number of input values.</p>
+</section>
+<section id="reverse-model">
+<h3>3.2 Reverse Model<a class="headerlink" href="#reverse-model" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function will also be able to calculate derivatives in reverse mode by specifying the <code class="docutils literal notranslate"><span class="pre">mode</span></code> parameters. Take the example below as a demo.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="about.html" class="btn btn-neutral float-left" title="About" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral float-right" title="undefined" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Xinran Tang, Renhao Luo, Chelse Swoopes, Shijia Zhang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
