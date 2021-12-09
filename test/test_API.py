@@ -53,8 +53,8 @@ class TestAPI(unittest.TestCase):
 
         self.assertEqual(str(trace(self.f1, x = 2)), '(4, 1)')
         self.assertEqual(str(trace(self.f1, mode = 'forward', x = 2)), '(4, 1)')
-        print(trace(self.f3,mode='reverse',x=np.array([[2, 2]]), y=np.array([[1, 1]]))) 
-        print(trace(self.f3,mode='reverse',plot = True, x=2, y=3))
+        # print(trace(self.f3,mode='reverse',x=np.array([[2, 2]]), y=np.array([[1, 1]]))) 
+        # print(trace(self.f3,mode='reverse',plot = True, x=2, y=3))
         # with self.assertRaises(TypeError) as context:
         #     trace(self.f1, mode = 'undefined', x = 2)
 

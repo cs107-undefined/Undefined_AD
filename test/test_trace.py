@@ -56,7 +56,7 @@ class TestTrace(unittest.TestCase):
         with self.assertRaises(TypeError):
             trace(f22(2), x = 2)
         f300 = lambda x: 2*x + sqrt(x)
-        print(trace([self.f1, f300], x = np.array([[1, 2]])))
+        # print(trace([self.f1, f300], x = np.array([[1, 2]])))
 
     
     def test_forward_trace(self):
@@ -86,31 +86,30 @@ class TestTrace(unittest.TestCase):
 
     def test_reverse(self):
         result1 = trace(self.f1, mode = "reverse", x = 2)
-        # print(result1)
+
         self.assertEqual(result1, (1.58, [-0.328]))
 
-# <<<<<<< HEAD
-        result2 = trace(self.f2,mode = "reverse",plot = True,x = 2)
+        result2 = trace(self.f2,mode = "reverse", x = 2)
         self.assertEqual(result2,(135.54, [485.77]))
 
         self.function_ =  lambda x: x+1
 
-        result3 = trace(self.function_,mode = "reverse",plot =  True,x = 2)
+        result3 = trace(self.function_,mode = "reverse", x = 2)
         self.assertEqual(result3,(3, [1]))
 
 
         self.function_2 = lambda x:3*x - 1
-        result4 = trace(self.function_2,mode = "reverse",plot =  True,x = 2)
+        result4 = trace(self.function_2,mode = "reverse", x = 2)
         self.assertEqual(result4,(5, [3]))
 
 
         self.function_3 = lambda x:1 - x*3
-        result5 = trace(self.function_3,mode = "reverse",plot =  True,x = 2)
+        result5 = trace(self.function_3,mode = "reverse",x = 2)
         self.assertEqual(result5,(-5, [-3]))
 
         self.function_4 =  lambda x: 1 + x
 
-        result6 = trace(self.function_4,mode = "reverse",plot =  True,x = 2)
+        result6 = trace(self.function_4,mode = "reverse", x = 2)
         self.assertEqual(result6,(3, [1]))
 
 
@@ -159,12 +158,17 @@ class TestTrace(unittest.TestCase):
         result19 =  trace(self.f103,mode = "reverse",x = 2)
         self.assertEqual(result19,(-1, [-1]))
 
+    def test_multiple_function(self):
+        f1 = lambda x: sqrt(exp(sin(x)))
+        f2 = lambda x: 2*x + sqrt(x)
 
+        self.assertEqual(trace([f1, f2], x = np.array([[1, 2]]))[1].tolist(), [[[0.411, -0.328]], [[ 2.5  ,  2.354]]])
+
+        # f3 = lambda x, y: x**2 + 2**y
+        # f4 = lambda x, y: 
 
         # result1 = trace(self.f2, mode = "reverse", x = 2)
         # # self.assertEqual(result1, (1.58, [-0.3278445959597162]))
 
-# =======
-# >>>>>>> 35396b2991ee285b274024c1a0322905f18265ef
 if __name__ == "__main__":
     unittest.main()
