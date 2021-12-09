@@ -1,3 +1,4 @@
+from typing import Type
 import unittest
 import sys
 # import undefined
@@ -12,13 +13,39 @@ import numpy as np
 class TestCalculator(unittest.TestCase):
     # TODO: arccos, arcsin, ..., not tested!!!!
     def setUp(self):
+        self.a = 2
+        self.b = - 1.11
+        self.c = 99999.99
+        self.d = -99999.99
+        self.e = np.array([[self.a,self.b]])
+        self.f = np.array([[self.a,self.b,self.c,self.d]])
+        self.g = math.pi / 2
+        self.h = math.e
+        self.j = np.array([[self.a, self.b, self.g, self.h]])
+        self.s = "str"
 
-        alpha = 2.0
-        beta  = 3.0
+        self.af = UDFunction(self.a)
+        self.bf = UDFunction(self.b)
+        self.cf = UDFunction(self.c)
+        self.df = UDFunction(self.d)
+        self.ef = UDFunction(self.e)
+        self.ff = UDFunction(self.f)
+        self.gf = UDFunction(self.g)
+        self.hf = UDFunction(self.h)
+        self.jf = UDFunction(self.j)
 
-        a = 1.0
-        x = UDFunction(a)
 
+        self.ag = UDGraph(self.a)
+        self.bg = UDGraph(self.b)
+        self.cg = UDGraph(self.c)
+        self.dg = UDGraph(self.d)
+        self.eg = UDGraph(self.e)
+        self.fg = UDGraph(self.f)
+        self.gg = UDGraph(self.g)
+        self.hg = UDGraph(self.h)
+        self.jg = UDGraph(self.j)
+
+        x = UDFunction(1.0)
         # test cosine
         self.f1 = cal.cos(x)
         self.f2 = cal.cos(2*x + 1)
@@ -46,8 +73,133 @@ class TestCalculator(unittest.TestCase):
         self.f13 = cal.log(x, 2)
         self.f1000 = cal.log(x, np.e)
 
+    def assertListAlmostEqual(self, o1, o2):
+        for i, o in enumerate(o1):
+            if round(o, 2) != o2[i]:
+                return False
+        return True
 
-    def test_sine(self):
+    def test_cos(self):
+        self.assertEqual(round(cal.cos(self.a), 2), - 0.42)
+        self.assertEqual(round(cal.cos(self.b), 2), 0.44)
+        self.assertEqual(round(cal.cos(self.c), 2), - 1.00)
+        self.assertEqual(round(cal.cos(self.d), 2), - 1.00)
+        
+        self.assertListAlmostEqual(cal.cos(self.e)[0], [-0.42,0.44])
+        self.assertListAlmostEqual(cal.cos(self.f)[0], [-1.00,-1.00])
+        
+        self.assertEqual(round(cal.cos(self.g), 2), 0.00)
+        self.assertEqual(round(cal.cos(self.h), 2), -0.91) 
+        self.assertListAlmostEqual(cal.cos(self.j)[0], [-0.42, 0.44, 0.00, -0.91])
+        
+        with self.assertRaises(TypeError):
+            cal.cos(self.s)
+
+        self.assertEqual(cal.cos(self.af).val, - 0.42)
+        self.assertEqual(cal.cos(self.bf).val, 0.44)
+        self.assertEqual(cal.cos(self.cf).val, - 1.00)
+        self.assertEqual(cal.cos(self.df).val, - 1.00)
+        
+        self.assertListAlmostEqual(cal.cos(self.ef).val[0], [-0.42,0.44])
+        self.assertListAlmostEqual(cal.cos(self.ff).val[0], [-1.00,-1.00])
+
+        self.assertEqual(cal.cos(self.gf).val, 0.00)
+        self.assertEqual(cal.cos(self.hf).val, -0.91)
+        self.assertListAlmostEqual(cal.cos(self.jf).val[0], [-0.42, 0.44, 0.00, -0.91])
+
+        
+        self.assertEqual(cal.cos(self.ag).val, - 0.42)
+        self.assertEqual(cal.cos(self.bg).val, 0.44)
+        self.assertEqual(cal.cos(self.cg).val, - 1.00)
+        self.assertEqual(cal.cos(self.dg).val, - 1.00)
+        
+        self.assertListAlmostEqual(cal.cos(self.eg).val[0], [-0.42,0.44])
+        self.assertListAlmostEqual(cal.cos(self.fg).val[0], [-1.00,-1.00])
+
+        self.assertEqual(cal.cos(self.gg).val, 0.00)
+        self.assertEqual(cal.cos(self.hg).val, -0.91)
+        self.assertListAlmostEqual(cal.cos(self.jg).val[0], [-0.42, 0.44, 0.00, -0.91])
+
+    def test_sin(self):
+        self.assertEqual(round(cal.sin(self.a), 2), 0.91)
+        self.assertEqual(round(cal.sin(self.b), 2), - 0.90)
+        self.assertEqual(round(cal.sin(self.c), 2), 0.05)
+        self.assertEqual(round(cal.sin(self.d), 2), - 0.05)
+        
+        self.assertListAlmostEqual(cal.sin(self.e)[0], [0.91,- 0.90])
+        self.assertListAlmostEqual(cal.sin(self.f)[0], [0.05,-0.05])
+        self.assertEqual(round(cal.sin(self.g), 2), 1.00)
+        self.assertEqual(round(cal.sin(self.h), 2), 0.41) 
+        self.assertListAlmostEqual(cal.sin(self.j)[0], [-0.42, 0.44, 1.00, 0.41])
+        
+        with self.assertRaises(TypeError):
+            cal.sin(self.s)
+
+        self.assertEqual(cal.sin(self.af).val, 0.91)
+        self.assertEqual(cal.sin(self.bf).val, - 0.90)
+        self.assertEqual(cal.sin(self.cf).val, 0.05)
+        self.assertEqual(cal.sin(self.df).val, - 0.05)
+        
+        self.assertListAlmostEqual(cal.sin(self.ef).val[0], [0.91,- 0.90])
+        self.assertListAlmostEqual(cal.sin(self.ff).val[0], [0.05,-0.05])
+        self.assertEqual(cal.sin(self.gf).val, 1.00)
+        self.assertEqual(cal.sin(self.hf).val, 0.41)
+        self.assertListAlmostEqual(cal.sin(self.jf).val[0], [-0.42, 0.44, 1.00, 0.41])
+
+        self.assertEqual(cal.sin(self.ag).val, 0.91)
+        self.assertEqual(cal.sin(self.bg).val, - 0.90)
+        self.assertEqual(cal.sin(self.cg).val, 0.05)
+        self.assertEqual(cal.sin(self.dg).val, - 0.05)
+        
+        self.assertListAlmostEqual(cal.sin(self.eg).val[0], [0.91,- 0.90])
+        self.assertListAlmostEqual(cal.sin(self.fg).val[0], [0.05,-0.05])
+        self.assertEqual(cal.sin(self.gg).val, 1.00)
+        self.assertEqual(cal.sin(self.hg).val, 0.41)
+        self.assertListAlmostEqual(cal.sin(self.jg).val[0], [-0.42, 0.44, 1.00, 0.41])
+
+    def test_tan(self):
+        self.assertEqual(round(cal.tan(self.a), 2), -2.19)
+        self.assertEqual(round(cal.tan(self.b), 2), - 2.01)
+        self.assertEqual(round(cal.tan(self.c), 2), - 0.05)
+        self.assertEqual(round(cal.tan(self.d), 2), 0.05)
+        
+        self.assertListAlmostEqual(cal.tan(self.e)[0], [-2.19,- 2.01])
+        self.assertListAlmostEqual(cal.tan(self.f)[0], [- 0.05,0.05])
+        with self.assertRaises(TypeError):
+            cal.tan(self.s)
+        with self.assertRaises(ZeroDivisionError):
+            cal.tan(self.g)
+        self.assertEqual(round(cal.tan(self.h), 2), -0.45)
+        with self.assertRaises(ZeroDivisionError):
+            cal.tan(self.j)
+
+        self.assertEqual(cal.tan(self.af).val,  -2.19)
+        self.assertEqual(cal.tan(self.bf).val, - 2.01)
+        self.assertEqual(cal.tan(self.cf).val, - 0.05)
+        self.assertEqual(cal.tan(self.df).val, 0.05)
+        
+        self.assertListAlmostEqual(cal.tan(self.ef).val[0], [-2.19,- 2.01])
+        self.assertListAlmostEqual(cal.tan(self.ff).val[0], [- 0.05,0.05])
+        with self.assertRaises(ZeroDivisionError):
+            cal.tan(self.gf)
+        self.assertEqual(cal.tan(self.hf).val, -0.45)
+        with self.assertRaises(ZeroDivisionError):
+            cal.tan(self.jf)
+
+        self.assertEqual(cal.tan(self.ag).val,  -2.19)
+        self.assertEqual(cal.tan(self.bg).val, - 2.01)
+        self.assertEqual(cal.tan(self.cg).val, - 0.05)
+        self.assertEqual(cal.tan(self.dg).val, 0.05)
+        
+        self.assertListAlmostEqual(cal.tan(self.eg).val[0], [-2.19,- 2.01])
+        self.assertListAlmostEqual(cal.tan(self.fg).val[0], [- 0.05,0.05])
+        with self.assertRaises(ZeroDivisionError):
+            cal.tan(self.gg)
+        self.assertEqual(cal.tan(self.hg).val, -0.45)
+        with self.assertRaises(ZeroDivisionError):
+            cal.tan(self.jg)
+    
+    def test_sine_integration(self):
 
         a = "2.0"
         x = UDFunction(a)
@@ -77,7 +229,7 @@ class TestCalculator(unittest.TestCase):
             cal.sin(UDGraph("3/np.pi"))
 
     
-    def test_cosine(self):
+    def test_cosine_integration(self):
         a = "2.0"
         x = UDFunction(a)
 
@@ -106,7 +258,7 @@ class TestCalculator(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.f0001 = cal.cos(UDGraph(a))
 
-    def test_tangent(self):
+    def test_tangent_integration(self):
 
         a = "2.0"
         x = UDFunction(a)
@@ -137,7 +289,7 @@ class TestCalculator(unittest.TestCase):
             self.f0001 = cal.tan(UDGraph(a))
 
     
-    def test_sqrt(self):
+    def test_sqrt_integration(self):
         a = "2.0"
         x = UDFunction(a)
         y = UDFunction(UDGraph("abc"))
@@ -165,7 +317,7 @@ class TestCalculator(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.f000 = cal.sqrt("3/np.pi")
 
-    def test_exp(self):
+    def test_exp_integration(self):
 
         a = "2.0"
         x = UDFunction(a)
@@ -191,7 +343,7 @@ class TestCalculator(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.f000 = cal.exp("3/np.pi")
 
-    def test_log(self):
+    def test_log_integration(self):
         a = "2.0"
         x = UDFunction(a)
         y = UDGraph(1)
@@ -224,7 +376,7 @@ class TestCalculator(unittest.TestCase):
 
 
 
-    def test_hs(self):
+    def test_hs_integration(self):
         a = 1
         x = UDFunction(a)
 
@@ -260,21 +412,13 @@ class TestCalculator(unittest.TestCase):
 
 
 
-
-
-    def test_arc(self):
+    def test_arc_integration(self):
 
         a = 0.5
         x = UDFunction(a)
         b = "0.5"
         y = UDFunction(b)
-
-
-        
         # test arccos
-
-
-
 
         self.assertEqual(round(cal.arccos(x),2), 1.05)
         self.assertEqual(round(cal.arccos(0.5),2), 1.05)
