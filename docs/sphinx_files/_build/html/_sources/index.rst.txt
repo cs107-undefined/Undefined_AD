@@ -14,9 +14,13 @@ Features
 
 Be awesome and fast automatic differentiation calculation!!!
 
-Implementation of the ``forward`` and ``reverse`` mode of automatic differentiation
+- We utilized the dual number approach in the forward mode to achieve fast computation. 
 
-Build computational graphs in the ``reverse`` mode
+- In the reverse mode, we implemented a two-step approach to recover the partial derivative, and eventually trace backwards for the final derivative results. For details about the implementation, refer to our *implementation* section.
+
+Implementation of the ``forward`` and ``reverse`` mode to automatically calculate derivative.
+
+Build computational graphs in the ``reverse`` mode.
 
 Link to the project `Github page <https://github.com/cs107-undefined/cs107-FinalProject>`_.
 

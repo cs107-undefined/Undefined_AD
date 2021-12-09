@@ -82,8 +82,12 @@
 <section id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline"></a></h2>
 <p>Be awesome and fast automatic differentiation calculation!!!</p>
-<p>Implementation of the <code class="docutils literal notranslate"><span class="pre">forward</span></code> and <code class="docutils literal notranslate"><span class="pre">reverse</span></code> mode of automatic differentiation</p>
-<p>Build computational graphs in the <code class="docutils literal notranslate"><span class="pre">reverse</span></code> mode</p>
+<ul class="simple">
+<li><p>We utilized the dual number approach in the forward mode to achieve fast computation.</p></li>
+<li><p>In the reverse mode, we implemented a two-step approach to recover the partial derivative, and eventually trace backwards for the final derivative results. For details about the implementation, refer to our <em>implementation</em> section.</p></li>
+</ul>
+<p>Implementation of the <code class="docutils literal notranslate"><span class="pre">forward</span></code> and <code class="docutils literal notranslate"><span class="pre">reverse</span></code> mode to automatically calculate derivative.</p>
+<p>Build computational graphs in the <code class="docutils literal notranslate"><span class="pre">reverse</span></code> mode.</p>
 <p>Link to the project <a class="reference external" href="https://github.com/cs107-undefined/cs107-FinalProject">Github page</a>.</p>
 </section>
 <section id="about">
@@ -139,8 +143,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="implementation.html#core-data-structure">5.1 Core Data Structure</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="implementation.html#forward-model">Forward Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="implementation.html#reverse-model">Reverse Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="implementation.html#forward-mode">Forward Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="implementation.html#reverse-mode">Reverse Mode</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="implementation.html#core-classes">5.2 Core Classes</a></li>
