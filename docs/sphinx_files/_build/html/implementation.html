@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Implementation &mdash; Undefined - an automatic differentiation tool 1.0.0 documentation</title>
@@ -40,27 +40,27 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
-<ul>
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">How to use Undefined</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Organization</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="organization.html">Testing and Software Organization</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">implementation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Implementation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#core-data-structure">5.1 Core Data Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#core-data-structure">5.1 Core Data Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#forward-model">Forward Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reverse-model">Reverse Model</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#core-classes">5.2 Core Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#external-dependencies">5.3 External Dependencies</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">code docstrings:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">undefined</a></li>
 </ul>
@@ -94,14 +94,22 @@
 <p>Here, we describe the implementation details of <code class="docutils literal notranslate"><span class="pre">Undefined</span></code> on how we achieve the automatic differentiation.</p>
 <section id="core-data-structure">
 <h2>5.1 Core Data Structure<a class="headerlink" href="#core-data-structure" title="Permalink to this headline"></a></h2>
-<p>To calculate the derivative in <code class="docutils literal notranslate"><span class="pre">forward</span></code> mode, we used the dual number approach. In the <code class="docutils literal notranslate"><span class="pre">`UDFunction`</span></code> class inside the <code class="docutils literal notranslate"><span class="pre">UDFunction.py</span></code>, we overloaded the operators and accommdated the dual number (as the core data structure) approach following the formula below:</p>
+<p>(Insert the workflow here)</p>
+<section id="forward-model">
+<h3>Forward Model<a class="headerlink" href="#forward-model" title="Permalink to this headline"></a></h3>
+<p>To calculate the derivative in <code class="docutils literal notranslate"><span class="pre">forward</span></code> mode, we used the dual number approach. In the <code class="docutils literal notranslate"><span class="pre">`UDFunction`</span></code> class inside the <code class="docutils literal notranslate"><span class="pre">UDFunction.py</span></code>, we overloaded the operators and accommodated the dual number (as the core data structure) approach following the formula below:</p>
 <p><span class="math notranslate nohighlight">\({z}_j = {v}_j + D_p v_j \epsilon\)</span></p>
 <p>where <span class="math notranslate nohighlight">\({v}_j\)</span> is the real part corresponding to the primal trace, and the <span class="math notranslate nohighlight">\({D_p v_j}\)</span> is the dual part corresponding to the tangent trace.</p>
-<p>(Reverse mode)</p>
+</section>
+<section id="reverse-model">
+<h3>Reverse Model<a class="headerlink" href="#reverse-model" title="Permalink to this headline"></a></h3>
+<p>In the reverse model, we implemented a tree structure (<code class="docutils literal notranslate"><span class="pre">udgraph</span></code>) to store the intermediate values.</p>
+</section>
 </section>
 <section id="core-classes">
 <h2>5.2 Core Classes<a class="headerlink" href="#core-classes" title="Permalink to this headline"></a></h2>
-<p>We used <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">math</span></code> libraries to help with the math and used <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">networkx</span></code> libraries for plot the computational graph.</p>
+<p>We used <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">math</span></code> libraries to help with the math and used <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">networkx</span></code> libraries for plot the computational graph.
+The methods and descriptions below are only included the major functions. Helper functions are not included. Please refer to the source code for all detailed function description.</p>
 <p><strong>API.py:</strong></p>
 <p>This class contains methods that can be called by the users. Such as <code class="docutils literal notranslate"><span class="pre">trace()</span></code>.</p>
 <table class="docutils align-default">
@@ -151,7 +159,7 @@
 <li><p>Methods:</p></li>
 </ul>
 <p><strong>Calculator.py:</strong></p>
-<p>This class contains util functions to perform elementary functions calculation on UDFunction such as $sin$, $sqrt$, $log$, $exp$, which cannot be implemented by overloaded functions in UDFunction.</p>
+<p>This class contains functions to perform elementary functions calculation on UDFunction such as sin, sqrt, log, exp, which cannot be implemented by overloaded functions in UDFunction.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 30%" />
@@ -185,6 +193,10 @@
 </table>
 <p><strong>GraphGenerator.py:</strong></p>
 <p><strong>Utils.py:</strong></p>
+</section>
+<section id="external-dependencies">
+<h2>5.3 External Dependencies<a class="headerlink" href="#external-dependencies" title="Permalink to this headline"></a></h2>
+<p>We are planning to include one python file to include the codes for computing the derivative, and have another file with all the testing files. Both <code class="docutils literal notranslate"><span class="pre">TravisCI</span></code> and <code class="docutils literal notranslate"><span class="pre">CodeCov</span></code> will be used for testing suit monitoring. The CI status and the code coverage are reflected in our github repository. The package will be uploaded and distributed via <code class="docutils literal notranslate"><span class="pre">PyPI</span></code> . We will use the <code class="docutils literal notranslate"><span class="pre">NetworkX</span></code> package for constructing the visualization for the computational graph.</p>
 </section>
 </section>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About &mdash; Undefined - an automatic differentiation tool 1.0.0 documentation</title>
@@ -40,29 +40,28 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
-<ul class="current">
+              <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">About</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction">1. Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#background">2. Background</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#chain-rule-formula">2.1 Chain Rule Formula</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#elementary-funciton">2.2 Elementary Funciton</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#elementary-function">2.2 Elementary Function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#computational-graph">2.3 Computational Graph</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#automatic-differencation">2.4 Automatic Differencation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#automatic-differentiation">2.4 Automatic Differentiation</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">How to use Undefined</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Organization</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="organization.html">Testing and Software Organization</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">code docstrings:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+</ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">undefined</a></li>
 </ul>
@@ -115,23 +114,23 @@
 </ol>
 <p><span class="math notranslate nohighlight">\(\frac{dh}{dt} = \frac{\partial h}{\partial u}\frac{du}{dt} + \frac{\partial h}{\partial v}\frac{dv}{dt}\)</span></p>
 </section>
-<section id="elementary-funciton">
-<h3>2.2 Elementary Funciton<a class="headerlink" href="#elementary-funciton" title="Permalink to this headline"></a></h3>
+<section id="elementary-function">
+<h3>2.2 Elementary Function<a class="headerlink" href="#elementary-function" title="Permalink to this headline"></a></h3>
 <ol class="arabic simple">
 <li><p>Unary elementary function examples: <code class="docutils literal notranslate"><span class="pre">sin(x)</span></code>, <code class="docutils literal notranslate"><span class="pre">cos(x)</span></code></p></li>
-<li><p>Binary elemnetary function examples: <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">+</span> <span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">*</span> <span class="pre">y</span></code></p></li>
+<li><p>Binary elementary function examples: <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">+</span> <span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">*</span> <span class="pre">y</span></code></p></li>
 </ol>
 </section>
 <section id="computational-graph">
 <h3>2.3 Computational Graph<a class="headerlink" href="#computational-graph" title="Permalink to this headline"></a></h3>
 <p>A computational graph is a directed graph where the nodes correspond to elementary functions or variables.</p>
-<p>Computational graph node for binary elementary funciton:</p>
+<p>Computational graph node for binary elementary function:</p>
 <a class="reference internal image-reference" href="_images/computational_graph_1.png"><img alt="computational_graph_1" src="_images/computational_graph_1.png" style="width: 600px;" /></a>
 <p>The computational graph grows once the computations become more complex:</p>
 <a class="reference internal image-reference" href="_images/computational_graph_2.png"><img alt="computational_graph_2" src="_images/computational_graph_2.png" style="width: 600px;" /></a>
 </section>
-<section id="automatic-differencation">
-<h3>2.4 Automatic Differencation<a class="headerlink" href="#automatic-differencation" title="Permalink to this headline"></a></h3>
+<section id="automatic-differentiation">
+<h3>2.4 Automatic Differentiation<a class="headerlink" href="#automatic-differentiation" title="Permalink to this headline"></a></h3>
 <p>Suppose we have the gradients of the function defined as following:</p>
 <p><span class="math notranslate nohighlight">\(f(x, y) = \cos(5x + 7y)e^{-x}\)</span></p>
 <p>Assume we will calculate the partial derivative for x first, <span class="math notranslate nohighlight">\(\frac{\partial f}{\partial x}\)</span>, we will apply the product rule first:</p>
@@ -141,7 +140,7 @@
 <p>If we would have to calculate <span class="math notranslate nohighlight">\(\frac{\partial f}{\partial y}\)</span>, we only need to use the chain rule:</p>
 <p><span class="math notranslate nohighlight">\(\frac{\partial f}{\partial y} = -7\sin(5x + 7y)e^{-x}\)</span></p>
 <p>Computing this function is simple, but AD will become handy when we have to compute the derivative for complicated equations.</p>
-<p>There are many advantages of AD compared to other ways (numerical differentiation and symbolic differentiation) to calculate derivative automatically. One of the biggest advantage of AD is that AD calculates to machine precision and comsumes efficientively than the other two methods.</p>
+<p>There are many advantages of AD compared to other ways (numerical differentiation and symbolic differentiation) to calculate derivative automatically. One of the biggest advantage of AD is that AD calculates to machine precision and consumes efficiently than the other two methods.</p>
 </section>
 </section>
 </section>

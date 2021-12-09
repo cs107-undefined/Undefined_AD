@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Usage &mdash; Undefined - an automatic differentiation tool 1.0.0 documentation</title>
@@ -40,26 +40,27 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
-<ul>
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">How to use Undefined</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-use-undefined">3. How to use <code class="docutils literal notranslate"><span class="pre">Undefined</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#forward-model">3.1 Forward Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#reverse-model">3.2 Reverse Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#forward-model-demo">3.1 Forward Model Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reverse-model-demo">3.2 Reverse Model Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiple-vectors-inputs-and-outputs">3.3 Multiple Vectors Inputs and Outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#debugging">3.4 Debugging</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Organization</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="organization.html">Testing and Software Organization</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">code docstrings:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+</ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">undefined</a></li>
 </ul>
@@ -95,7 +96,7 @@
 <p>This is the recommended usage. The users can interact with the package at their discretion.</p>
 <p>Download our wheel file (<code class="docutils literal notranslate"><span class="pre">undefined-1.0.0-py3-none-any.whl</span></code>) from the Github page. <code class="docutils literal notranslate"><span class="pre">Link</span> <span class="pre">&lt;https://github.com/cs107-undefined/cs107-FinalProject/releases/tag/v1.0.0&gt;</span></code>
 And save the file into your working directory.</p>
-<p>Then, <code class="docutils literal notranslate"><span class="pre">undefined</span></code> provided esay installation by running this following command (Assuming your current directory is the working directory, which contains the wheel file):</p>
+<p>Then, <code class="docutils literal notranslate"><span class="pre">undefined</span></code> provided easy installation by running this following command (Assuming your current directory is the working directory, which contains the wheel file):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>pip install undefined-1.0.0-py3-none-any.whl
 </pre></div>
 </div>
@@ -109,8 +110,9 @@ And save the file into your working directory.</p>
 </div>
 <p><strong>Note:</strong> Our package will not work with the functions in other libraries, such as np.sin. Please use our customized functions.</p>
 <p>Once imported successfully, users can calculate the derivative of a given function by using the syntax from the section below.</p>
-<section id="forward-model">
-<h3>3.1 Forward Model<a class="headerlink" href="#forward-model" title="Permalink to this headline"></a></h3>
+<p>Here, we will demo the R -&gt; R cases in the 3.1 and 3.2 to illustrate the basic usage of <code class="docutils literal notranslate"><span class="pre">Undefined</span></code>. In 3.3, we will demo the higher order inputs and outputs.</p>
+<section id="forward-model-demo">
+<h3>3.1 Forward Model Demo<a class="headerlink" href="#forward-model-demo" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function will calculate the derivative, which will intake a user defined function using <code class="docutils literal notranslate"><span class="pre">lambda</span></code>, the mode (default is <strong>forward</strong> mode), and associated values. The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function will return the derivatives of the function.</p>
 <p>Here, we showed a demo with <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> -&gt; <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>:</p>
 <p><strong>*Note:*</strong>
@@ -161,9 +163,163 @@ In our design, the users do not need to instantiate an <code class="docutils lit
 </div>
 <p>Our function will handle other multiple dimensional calculations, including <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> -&gt; <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> -&gt; <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. The difference will be the number of input values.</p>
 </section>
-<section id="reverse-model">
-<h3>3.2 Reverse Model<a class="headerlink" href="#reverse-model" title="Permalink to this headline"></a></h3>
+<section id="reverse-model-demo">
+<h3>3.2 Reverse Model Demo<a class="headerlink" href="#reverse-model-demo" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function will also be able to calculate derivatives in reverse mode by specifying the <code class="docutils literal notranslate"><span class="pre">mode</span></code> parameters. Take the example below as a demo.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">sin</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># user defined function</span>
+<span class="linenos"> 5</span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># call the trace function in reverse mode, and provide input x = 2</span>
+<span class="linenos"> 8</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;reverse&quot;</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># the function will return the function value and the derivative when x = 2.</span>
+<span class="linenos">11</span><span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="mf">1.58</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.328</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>In the example, we can see that our reverse mode can output the function and the derivative values rounded in 3 decimal places, if applicable.
+Another feature we developed in our reverse mode is to output the computational graph.</p>
+<p>First, let’s look at the tree structure we generated. I will use the same function as example.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">sin</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># user defined function</span>
+<span class="linenos"> 5</span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># call the trace function in reverse mode, and provide input x = 2</span>
+<span class="linenos"> 8</span><span class="c1"># set plot equals to True so that it will generate the computational graph</span>
+<span class="linenos"> 9</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;reverse&quot;</span><span class="p">,</span> <span class="n">plot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># Output: the function will return the function value and the derivative when x = 2.</span>
+<span class="linenos">12</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mf">1.58</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">SQRT</span><span class="p">)</span>
+<span class="linenos">13</span><span class="o">|</span>
+<span class="linenos">14</span><span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mf">2.48</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">EXP</span><span class="p">)</span>
+<span class="linenos">15</span><span class="o">|</span>      <span class="o">|</span>
+<span class="linenos">16</span><span class="o">|</span>      <span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mf">0.91</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">SIN</span><span class="p">)</span>
+<span class="linenos">17</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>
+<span class="linenos">18</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">VAR</span><span class="p">)</span>
+<span class="linenos">19</span><span class="p">(</span><span class="mf">1.58</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.328</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Moreover, the reverse mode will auto save the plot to your current working directory. The associated graph generated from the function above is shown below.</p>
+<a class="reference internal image-reference" href="_images/reverse_mode_example1.png"><img alt="reverse_mode_example1" src="_images/reverse_mode_example1.png" style="width: 600px;" /></a>
+<p>From the graph above, we can see that the graph correctly reflects to computation from the VAR to SIN to EXP and to SQRT.</p>
+<p>Undefined, like the name suggested, has unlimited boundary. Let’s try a complicated example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">sin</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># user defined function</span>
+<span class="linenos"> 5</span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">6</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">tan</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># call the trace function in reverse mode, and provide input x = 2</span>
+<span class="linenos"> 8</span><span class="c1"># set plot equals to True so that it will generate the computational graph</span>
+<span class="linenos"> 9</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;reverse&quot;</span><span class="p">,</span> <span class="n">plot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># Output: the function will return the function value and the derivative when x = 1, y = 2.</span>
+<span class="linenos">12</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mf">1.95</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">ADD</span><span class="p">)</span>
+<span class="linenos">13</span><span class="o">|</span>
+<span class="linenos">14</span><span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">MUL</span><span class="p">)</span>
+<span class="linenos">15</span><span class="o">|</span>      <span class="o">|</span>
+<span class="linenos">16</span><span class="o">|</span>      <span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">EXP</span><span class="p">)</span>
+<span class="linenos">17</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>
+<span class="linenos">18</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">RSUB</span><span class="p">)</span>
+<span class="linenos">19</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>
+<span class="linenos">20</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">RMUL</span><span class="p">)</span>
+<span class="linenos">21</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>
+<span class="linenos">22</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">VAR</span><span class="p">)</span>
+<span class="linenos">23</span><span class="o">|</span>      <span class="o">|</span>
+<span class="linenos">24</span><span class="o">|</span>      <span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="o">-</span><span class="mf">6.8</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">TAN</span><span class="p">)</span>
+<span class="linenos">25</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>
+<span class="linenos">26</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">ADD</span><span class="p">)</span>
+<span class="linenos">27</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>
+<span class="linenos">28</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">RMUL</span><span class="p">)</span>
+<span class="linenos">29</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>
+<span class="linenos">30</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">VAR</span><span class="p">)</span>
+<span class="linenos">31</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>
+<span class="linenos">32</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">RMUL</span><span class="p">)</span>
+<span class="linenos">33</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>
+<span class="linenos">34</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>      <span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">VAR</span><span class="p">)</span>
+<span class="linenos">35</span><span class="o">|</span>
+<span class="linenos">36</span><span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">MUL</span><span class="p">)</span>
+<span class="linenos">37</span><span class="o">|</span>      <span class="o">|</span>
+<span class="linenos">38</span><span class="o">|</span>      <span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">POW</span><span class="p">)</span>
+<span class="linenos">39</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|</span>
+<span class="linenos">40</span><span class="o">|</span>      <span class="o">|</span>      <span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">VAR</span><span class="p">)</span>
+<span class="linenos">41</span><span class="o">|</span>      <span class="o">|</span>
+<span class="linenos">42</span><span class="o">|</span>      <span class="o">|&lt;-</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span><span class="o">-</span><span class="n">Computational</span> <span class="n">Graph</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">VAR</span><span class="p">)</span>
+<span class="linenos">43</span><span class="p">(</span><span class="mf">1.95</span><span class="p">,</span> <span class="p">[</span><span class="mf">5.548</span><span class="p">,</span> <span class="mf">1.637</span><span class="p">])</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/reverse_mode_example2.png"><img alt="reverse_mode_example2" src="_images/reverse_mode_example2.png" style="width: 600px;" /></a>
+<p>From the results above, we can see that that undefined package can handle complicated functions. However, we do have some limitations. We will discuss that in the section below.
+<strong>Of note</strong>: as we used the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> library to achieve the graph, the graph will be different even if you run the same code twice or many different times.</p>
+</section>
+<section id="multiple-vectors-inputs-and-outputs">
+<h3>3.3 Multiple Vectors Inputs and Outputs<a class="headerlink" href="#multiple-vectors-inputs-and-outputs" title="Permalink to this headline"></a></h3>
+<p>Here, I will use the forward mode to demo how to use <code class="docutils literal notranslate"><span class="pre">Undefined</span></code> using multiple inputs. The reverse mode would result the same.</p>
+<p><span class="math notranslate nohighlight">\(\mathbb{R}^m -&gt; \mathbb{R}\)</span></p>
+<p>This means that we will need to calculate for multiple x input for the same function. We designed our function to use <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code> to take multiple inputs.
+See the example below on how to pass in multiple inputs. Note: you will need to use the <strong>double bracket</strong>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sqrt</span>
+<span class="linenos"> 3</span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># user defined function</span>
+<span class="linenos"> 6</span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># call the trace function in undefined, and provide input x = 1 and 2.</span>
+<span class="linenos"> 9</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]]))</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># Output</span>
+<span class="linenos">12</span><span class="p">(</span><span class="n">array</span><span class="p">([[</span><span class="mf">3.</span>  <span class="p">,</span> <span class="mf">5.41</span><span class="p">]]),</span> <span class="n">array</span><span class="p">([[</span><span class="mf">2.5</span>  <span class="p">,</span> <span class="mf">2.354</span><span class="p">]]))</span>
+</pre></div>
+</div>
+<p>In the output above, the first array shows the function values after plugin the x values. The second array is the derivative values.
+Note: when applying <span class="math notranslate nohighlight">\(\mathbb{R}^m -&gt; \mathbb{R}\)</span>, we assume that users will provide equal number of values for all variables in the equation.</p>
+<p><span class="math notranslate nohighlight">\(\mathbb{R} -&gt; \mathbb{R}^n\)</span></p>
+<p>This means that we will need to calculate for a single x input for the multiple functions. In this case, we designed our function to use a list to take multiple functions as inputs.
+See the example below on how to pass in multiple functions as input.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">sin</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># user defined functions</span>
+<span class="linenos"> 5</span><span class="n">f1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<span class="linenos"> 6</span><span class="n">f2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># call the trace function in undefined, and provide input functions f1 and f2, and the x value.</span>
+<span class="linenos"> 9</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">([</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">],</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># Output</span>
+<span class="linenos">12</span><span class="p">(</span><span class="n">array</span><span class="p">([</span><span class="mf">1.58</span><span class="p">,</span> <span class="mf">5.41</span><span class="p">]),</span> <span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.328</span><span class="p">,</span>  <span class="mf">2.354</span><span class="p">]))</span>
+</pre></div>
+</div>
+<p>In the output above, the first array represents the function values and the second array represents the derivative values. I bet you have noticed already that the two functions I used here are the same ones I used in the previous demo. Check out the values with the previous demo and you will see the values are the same.</p>
+<p><span class="math notranslate nohighlight">\(\mathbb{R}^m -&gt; \mathbb{R}^n\)</span></p>
+<p>This means that we will need to calculate for multiple x inputs for the multiple functions. It is the combination of both conditions above.
+See the example below on how to pass in multiple functions and values as input.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">sin</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># user defined functions</span>
+<span class="linenos"> 5</span><span class="n">f1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<span class="linenos"> 6</span><span class="n">f2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># call the trace function in undefined, and provide input functions f1 and f2, and the x value.</span>
+<span class="linenos"> 9</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">([</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">],</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">]])))</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># Output</span>
+<span class="linenos">12</span><span class="p">(</span><span class="n">array</span><span class="p">([[[</span><span class="mf">1.52</span><span class="p">,</span> <span class="mf">1.58</span><span class="p">]],</span> <span class="p">[[</span><span class="mf">3.</span>  <span class="p">,</span> <span class="mf">5.41</span><span class="p">]]]),</span> <span class="n">array</span><span class="p">([[[</span> <span class="mf">0.411</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.328</span><span class="p">]],</span> <span class="p">[[</span> <span class="mf">2.5</span>  <span class="p">,</span>  <span class="mf">2.354</span><span class="p">]]]))</span>
+</pre></div>
+</div>
+<p>In the output above, the first array represents the function values and the second array represents the derivative values.
+The first 2D list in the first tuple is the function value from the first function, and the first 2D list in the second tuple is the derivative from the first section. The second 2D list corresponding to the second function from the input.</p>
+</section>
+<section id="debugging">
+<h3>3.4 Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline"></a></h3>
+<p>Since the forward model does not store the intermediate values, we recommend the users to use reverse mode for their debugging propose. We offer the tree structure and the computational graph as output to facilitate with the process.
+Moreover, we also provide the source codes for the users to examine our workflow. Please refer to the <strong>Source Code Details</strong> section.</p>
 </section>
 </section>
 </section>

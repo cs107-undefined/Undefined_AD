@@ -67,8 +67,8 @@ Licensing
 -----------
 We will use the ``MIT`` license for open source software development so that other people who are interested in our software will have access to contribute. 
 
-Instinction for our choice: We want it to be simple and permissive.
-Under the ``MIT`` license, anyone can contribute to this project by adding functionality, debug, or customerize it to meet their needs. 
+Reason for our choice: We want it to be simple and permissive.
+Under the ``MIT`` license, anyone can contribute to this project by adding functionality, debug, or customize it to meet their needs. 
 Please see the ``LICENCE`` file in your github for details.
 
 ..

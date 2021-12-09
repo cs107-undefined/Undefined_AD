@@ -25,6 +25,7 @@ class TestTrace(unittest.TestCase):
         self.f11 = lambda x: cos(exp(2*x))
         self.f12 = lambda x, y: log(1-6*x) * tan(4*x + 2*y)
         self.f13 = lambda x: log(6*x, 10) * tan(4*x)
+        self.f1000 = lambda x, y: exp(1-6*x) * tan(4*x + 2*y) + x**2*y
     
     def assertNumpyArraysEqual(self, o1, o2):
         if o1.shape != o2.shape:
@@ -54,7 +55,9 @@ class TestTrace(unittest.TestCase):
             return x+cos(2*x)
         with self.assertRaises(TypeError):
             trace(f22(2), x = 2)
-        
+        f300 = lambda x: 2*x + sqrt(x)
+        print(trace([self.f1, f300], x = np.array([[1, 2]])))
+
     
     def test_forward_trace(self):
         result1 = trace(self.f1, x = np.array([[2]]))
@@ -80,6 +83,11 @@ class TestTrace(unittest.TestCase):
         self.assertNumpyArraysEqual(trace([self.f1, self.f2], x = 2)[0], np.array([1.58, 135.54]))
         self.assertNumpyArraysEqual(trace([self.f1, self.f2], x = 2)[1], np.array([-3.2800e-01,  4.8577e+02]))
 
+
+    def test_reverse(self):
+        result1 = trace(self.f1, mode = "reverse", x = 2)
+        # print(result1)
+        self.assertEqual(result1, (1.58, [-0.328]))
 
 if __name__ == "__main__":
     unittest.main()
