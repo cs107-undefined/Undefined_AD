@@ -90,7 +90,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __mul__(self, other):
@@ -116,7 +116,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __radd__(self, other):
@@ -141,7 +141,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __rmul__(self, other):
@@ -167,7 +167,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __neg__(self):
@@ -203,7 +203,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __rsub__(self, other):
@@ -229,7 +229,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __truediv__(self, other):
@@ -258,7 +258,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __rtruediv__(self, other):
@@ -285,7 +285,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __floordiv__(self, other):  # self // other
@@ -314,7 +314,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __rfloordiv__(self, other):
@@ -341,7 +341,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return udgraph
 
 
@@ -365,7 +365,7 @@ class UDGraph:
                 if isinstance(other._val, np.ndarray):
                     if other._val.shape[0] != self._val.shape[0]:
                         raise ValueError(
-                            f"operands could not be broadcast together with shapes {other._val.shape} {self._val.shape}")
+                            f"error raised by undefined: operands could not be broadcast together with shapes {other._val.shape} {self._val.shape}")
                     else:
                         new_val = self._val ** other._val
                 else:
@@ -405,7 +405,7 @@ class UDGraph:
                 if isinstance(self._val, np.ndarray):
                     if other._val.shape[0] != self._val.shape[0]:
                         raise ValueError(
-                            f"operands could not be broadcast together with shapes {other._val.shape} {self._val.shape}")
+                            f"error raised by undefined: operands could not be broadcast together with shapes {other._val.shape} {self._val.shape}")
                     else:
                         new_val = other._val ** self._val
                 else:
@@ -420,7 +420,7 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["base"] = other
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return udgraph
     def __eq__(self, other):
         """compare whether the two UDGraph objects have the same values.
@@ -436,7 +436,7 @@ class UDGraph:
         elif isinstance(other, (int, float)):
             return self.val == other
         else:
-            raise TypeError("Need a UDGraph object to compare")
+            raise TypeError("error raised by undefined: Need a UDGraph object to compare")
     
     def __ne__(self, other):
         """compare whether the two UDGraph objects have different values.
@@ -450,7 +450,7 @@ class UDGraph:
         elif isinstance(other, (int, float)):
             return self.val != other
         else:
-            raise TypeError("Need a UDGraph object to compare")
+            raise TypeError("error raised by undefined: Need a UDGraph object to compare")
     
     def __lt__(self, other):
         """overload the < operator
@@ -465,7 +465,7 @@ class UDGraph:
         elif isinstance(other, (int, float)):
             return self.val < other
         else:
-            raise TypeError("Need a UDGraph object to compare")
+            raise TypeError("error raised by undefined: Need a UDGraph object to compare")
     
     def __gt__(self, other):
         """overload the > operator
@@ -480,7 +480,7 @@ class UDGraph:
         elif isinstance(other, (int, float)):
             return self.val > other
         else:
-            raise TypeError("Need a UDGraph object to compare")
+            raise TypeError("error raised by undefined: Need a UDGraph object to compare")
     
     def __le__(self, other):
         """overload the > operator
@@ -495,7 +495,7 @@ class UDGraph:
         elif isinstance(other, (int, float)):
             return self.val <= other
         else:
-            raise TypeError("Need a UDGraph object to compare")
+            raise TypeError("error raised by undefined: Need a UDGraph object to compare")
 
     def __ge__(self, other):
         """overload the > operator
@@ -510,7 +510,7 @@ class UDGraph:
         elif isinstance(other, (int, float)):
             return self.val >= other
         else:
-            raise TypeError("Need a UDGraph object to compare")
+            raise TypeError("error raised by undefined: Need a UDGraph object to compare")
 
     def __hash__(self):
         """hash function for udgraph
@@ -559,6 +559,7 @@ class GeneratorHelper:
             return GraphGenerator.function_dic[g1._func](g1, variable)
         else:  # len == 2
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
+
             return GraphGenerator.function_dic[g1._func](g1, variable) + GraphGenerator.function_dic[g2._func](g2, variable)
 
     @classmethod
@@ -760,14 +761,14 @@ class GeneratorHelper:
 
             if isinstance(g2._val, np.ndarray):
                 if isinstance(g1._val, np.ndarray):
-                    der1 = udgraph._params["degree"] * np.power(
-                        g1._val, udgraph._params["degree"] - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
+                    der1 = g2._val * np.power(
+                        g1._val, g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
                     der2 = np.log(g1._val) * udgraph._val * \
                         GraphGenerator.function_dic[g2._func](g2, variable)
                     return der1 + der2
                 else:
-                    der1 = udgraph._params["degree"] * g1._val ** (
-                        udgraph._params["degree"] - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
+                    der1 = g2._val * g1._val ** (
+                        g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
                     der2 = math.log(g1._val) * udgraph._val * \
                         GraphGenerator.function_dic[g2._func](g2, variable)
                     return der1 + der2
@@ -780,8 +781,8 @@ class GeneratorHelper:
                         GraphGenerator.function_dic[g2._func](g2, variable)
                     return der1 + der2
                 else:
-                    der1 = udgraph._params["degree"] * g1._val ** (
-                        udgraph._params["degree"] - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
+                    der1 = g2._val * g1._val ** (
+                        g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
                     der2 = math.log(g1._val) * udgraph._val * \
                         GraphGenerator.function_dic[g2._func](g2, variable)
                     return der1 + der2
@@ -798,20 +799,21 @@ class GeneratorHelper:
             [type]: [description]
         """
         if len(udgraph._parents) == 1:
-            return math.log(udgraph._params["degree"]) * udgraph._val * GraphGenerator.function_dic[g1._func](g1, variable)
+            g1 = udgraph._parents[0]
+            return math.log(udgraph._params["base"]) * udgraph._val * GraphGenerator.function_dic[g1._func](g1, variable)
         else:
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
 
             if isinstance(g2._val, np.ndarray):
                 if isinstance(g1._val, np.ndarray):
-                    der1 = udgraph._params["degree"] * np.power(
-                        g1._val, udgraph._params["degree"] - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
+                    der1 = g2._val * np.power(
+                        g1._val, g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
                     der2 = np.log(g1._val) * udgraph._val * \
                         GraphGenerator.function_dic[g2._func](g2, variable)
                     return der1 + der2
                 else:
-                    der1 = udgraph._params["degree"] * g1._val ** (
-                        udgraph._params["degree"] - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
+                    der1 = g2._val * g1._val ** (
+                        g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
                     der2 = math.log(g1._val) * udgraph._val * \
                         GraphGenerator.function_dic[g2._func](g2, variable)
                     return der1 + der2
@@ -824,8 +826,8 @@ class GeneratorHelper:
                         GraphGenerator.function_dic[g2._func](g2, variable)
                     return der1 + der2
                 else:
-                    der1 = udgraph._params["degree"] * g1._val ** (
-                        udgraph._params["degree"] - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
+                    der1 = g2._val * g1._val ** (
+                        g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
                     der2 = math.log(g1._val) * udgraph._val * \
                         GraphGenerator.function_dic[g2._func](g2, variable)
                     return der1 + der2
@@ -850,7 +852,7 @@ class GeneratorHelper:
         elif isinstance(g1._val, np.ndarray):
             return -1 * np.sin(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
     def _sin(self, udgraph: UDGraph, variable: UDGraph):
@@ -872,7 +874,7 @@ class GeneratorHelper:
         elif isinstance(g1._val, np.ndarray):
             return np.cos(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
     def _tan(self, udgraph: UDGraph, variable: UDGraph):
@@ -894,7 +896,7 @@ class GeneratorHelper:
         elif isinstance(g1._val, np.ndarray):
             return (1 / (np.cos(g1._val)) ** 2) * GraphGenerator.function_dic[g1._func](g1, variable)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
     def _arccos(self, udgraph: UDGraph, variable: UDGraph):
@@ -916,7 +918,7 @@ class GeneratorHelper:
         elif isinstance(g1._val, np.ndarray):
             return (-1 / np.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
     def _arcsin(self, udgraph: UDGraph, variable: UDGraph):
@@ -938,7 +940,7 @@ class GeneratorHelper:
         elif isinstance(g1._val, np.ndarray):
             return (1 / np.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
     def _arctan(self, udgraph: UDGraph, variable: UDGraph):
@@ -958,7 +960,7 @@ class GeneratorHelper:
         if isinstance(g1._val, (int, float, np.ndarray)):
             return (1 / (1 + g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
     def _sqrt(self, udgraph: UDGraph, variable: UDGraph):
@@ -980,7 +982,7 @@ class GeneratorHelper:
         elif isinstance(g1._val, np.ndarray):
             return 0.5 * np.power(g1._val, -0.5) * GraphGenerator.function_dic[g1._func](g1, variable)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
     def _exp(self, udgraph: UDGraph, variable: UDGraph):
@@ -1002,7 +1004,7 @@ class GeneratorHelper:
         elif isinstance(g1._val, np.ndarray):
             return np.exp(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
     def _log(self, udgraph: UDGraph, variable: UDGraph):
@@ -1105,7 +1107,7 @@ class GraphGenerator:
         """
         if var_name not in self._variables.keys():
             # TODO: check der(x of x)
-            raise TypeError("variable not defined in function")
+            raise TypeError("error raised by undefined: variable not defined in function")
         # TODO: check if variable address does not change
         # TODO: check if variable is UDGraph
 

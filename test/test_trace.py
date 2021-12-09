@@ -37,19 +37,19 @@ class TestTrace(unittest.TestCase):
         pass
 
     def test_forward(self):
+        # Please do not use string for testing any more!!!!
         result1 = trace(self.f1, x = 2)
         self.assertEqual(result1, (1.58, -0.328))
         self.assertEqual(trace(self.f2, x = 3), (9331.210, 46749.434))
         self.assertEqual(trace(self.f3, x = 3), (0.40, -15137.189))
         self.assertEqual(trace(self.f4, x = 3), (0.35, -0.003))
     
-        self.assertEqual(str(trace(self.f5, x = 2, y = 3)), "(0.0, array([0.003, 0.002]))")
-        print(trace(self.f7, x = 1, y = 2, z = 3))
-        self.assertEqual(str(trace(self.f7, x = 1, y = 2, z = 3)), "(0.01, array([ 0.007,  0.027, -0.04 ]))")
+        self.assertEqual(trace(self.f5, x = 2, y = 3), (0.0, [[0.003], [0.002]]))
+        self.assertEqual(trace(self.f7, x = 1, y = 2, z = 3), (0.01, [ [0.007],  [0.027], [-0.04] ]))
 
         self.assertEqual(trace(self.f8, x = 3), (10.16, 6.139))
         self.assertEqual(trace(self.f10, x = 2), (1.79, 0.5))
-        self.assertEqual(str(trace(self.f9, x = 5, y = 3)), "(125, array([ 75.  , 201.18]))")
+        self.assertEqual(trace(self.f9, x = 5, y = 3), (125, [[75.  ], [201.18]]))
 
         def f22(x):
             return x+cos(2*x)
@@ -63,7 +63,6 @@ class TestTrace(unittest.TestCase):
         result1 = trace(self.f1, x = np.array([[2]]))
         self.assertEqual(result1, (np.array([[1.58]]), np.array([[-0.328]])))
         self.assertEqual(trace(self.f2, x = np.array([[3]])), (np.array([[9331.21]]), np.array([[46749.434]])))
-        # print(trace(self.f5, x = np.array([[2]]), y = np.array([[3]]))) # raise error
         self.assertEqual(trace(self.f8, x = np.array([[3]])), (np.array([[10.16]]), np.array([[6.139]]))) # raise error
         self.assertEqual(trace(self.f11, x = np.array([[2]])), (np.array([[-0.37]]), np.array([[101.418]])))
         # print(trace(self.f12, x = np.array([[2]]), y = np.array([[5]]))) # raise error
@@ -76,7 +75,7 @@ class TestTrace(unittest.TestCase):
 
         self.assertNumpyArraysEqual(trace(self.f1, x = np.array([[1, 2]]))[0], np.array([[1.52, 1.58]]))
         
-        self.assertNumpyArraysEqual(trace(self.f1, x = np.array([[1, 2]]))[1], np.array([[ 0.411, -0.328]]))
+        self.assertEqual(trace(self.f1, x = np.array([[1, 2]]))[1], [[ 0.411, -0.328]])
 
         with self.assertRaises(TypeError):
             trace(self.f1, x="2")
@@ -89,10 +88,6 @@ class TestTrace(unittest.TestCase):
         result1 = trace(self.f1, mode = "reverse", x = 2)
         # print(result1)
         self.assertEqual(result1, (1.58, [-0.328]))
-
-        # print(trace(self.f1000, mode="reverse", plot=True, x = 1, y = 2))
-        # result1 = trace(self.f2, mode = "reverse", x = 2)
-        # # self.assertEqual(result1, (1.58, [-0.3278445959597162]))
 
 if __name__ == "__main__":
     unittest.main()
