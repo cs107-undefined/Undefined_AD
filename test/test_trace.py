@@ -23,7 +23,7 @@ class TestTrace(unittest.TestCase):
         self.f10 = lambda x: log(x*3, np.e)
         self.f9 = lambda x, y: x**y
         self.f11 = lambda x: cos(exp(2*x))
-        self.f12 = lambda x, y: log(1-6*x) * tan(4*x + 2*y)
+        self.f12 = lambda x, y: log(1 + 6*x) * tan(4*x + 2*y)
         self.f13 = lambda x: log(6*x, 10) * tan(4*x)
     
     def assertNumpyArraysEqual(self, o1, o2):
@@ -85,6 +85,77 @@ class TestTrace(unittest.TestCase):
     def test_reverse(self):
         result1 = trace(self.f1, mode = "reverse", x = 2)
         self.assertEqual(result1, (1.58, [-0.328]))
+
+        result2 = trace(self.f2,mode = "reverse",plot = True,x = 2)
+        self.assertEqual(result2,(135.54, [485.77]))
+
+        self.function_ =  lambda x: x+1
+
+        result3 = trace(self.function_,mode = "reverse",plot =  True,x = 2)
+        self.assertEqual(result3,(3, [1]))
+
+
+        self.function_2 = lambda x:3*x - 1
+        result4 = trace(self.function_2,mode = "reverse",plot =  True,x = 2)
+        self.assertEqual(result4,(5, [3]))
+
+
+        self.function_3 = lambda x:1 - x*3
+        result5 = trace(self.function_3,mode = "reverse",plot =  True,x = 2)
+        self.assertEqual(result5,(-5, [-3]))
+
+        self.function_4 =  lambda x: 1 + x
+
+        result6 = trace(self.function_4,mode = "reverse",plot =  True,x = 2)
+        self.assertEqual(result6,(3, [1]))
+
+
+
+        result7 = trace(self.f5,mode = "reverse",x = 2 , y = 1)
+        self.assertEqual(result6,(3, [1]))
+
+        result8 = trace(self.f6,mode = "reverse",x = 2)
+        self.assertEqual(result8,(0.11, [-0.0]))
+
+        result9 = trace(self.f7,mode = "reverse",x = 2 ,y = 1, z = 3)
+        self.assertEqual(result6,(3, [1]))
+
+
+        # result10 = trace(self.f8,mode = "reverse",x = 2)
+        # self.assertEqual(result10,(3, [1]))
+
+        # result11 = trace(self.f9,mode = "reverse",x = 2,y =1)
+        # self.assertEqual(result11,(3, [1]))
+
+        result12 = trace(self.f10,mode = "reverse",x = 2)
+        self.assertEqual(result12,(1.79, [0.5]))
+
+        result13 = trace(self.f11,mode = "reverse",x = 2)
+        self.assertEqual(result13,(-0.37, [101.418]))
+
+        result14 = trace(self.f12,mode = "reverse",x = 2, y = 1)
+        self.assertEqual(result14,(1.66, [14.872, 7.286]))
+
+        result15 = trace(self.f13,mode = "reverse",x = 2)
+        self.assertEqual(result15,(-7.34, [202.429]))  
+
+        self.f100 = lambda x: 1+x**2
+        result16 = trace(self.f100,mode = "reverse",x = 2)
+        self.assertEqual(result16,(5, [4]))
+
+        self. f101 = lambda x,y: x*y
+        result17 = trace(self.f101,mode = "reverse",x = 2,y =  1)
+        self.assertEqual(result17,(2, [1, 2]))
+
+        self.f102  =  lambda x,y:-x*y
+        result18  =  trace(self.f102,mode = "reverse",x = 2,y = 1)
+        self.assertEqual(result18,(-2, [-1, -2]))
+
+        self.f103 =  lambda x: - x + 1
+        result19 =  trace(self.f103,mode = "reverse",x = 2)
+        self.assertEqual(result19,(-1, [-1]))
+
+
 
         # result1 = trace(self.f2, mode = "reverse", x = 2)
         # # self.assertEqual(result1, (1.58, [-0.3278445959597162]))

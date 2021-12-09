@@ -249,7 +249,7 @@ def arccos(udobject):
             new_val = math.acos(udobject._val)
             new_der = (-1 / math.sqrt(1 - udobject._val**2)) * udobject._der
         elif isinstance(udobject._val, np.ndarray):
-            new_val = np.acos(udobject._val)
+            new_val = np.arccos(udobject._val)
             new_der = (-1 / np.sqrt(1 - udobject._val**2)) * udobject._der
         else:
             raise TypeError("unsupported attribute type.")
@@ -261,7 +261,7 @@ def arccos(udobject):
         if isinstance(udobject._val, (int, float)):
             new_val = math.acos(udobject._val)
         elif isinstance(udobject._val, np.ndarray):
-            new_val = np.acos(udobject._val)
+            new_val = np.arccos(udobject._val)
         else:
             raise TypeError("unsupported attribute type.")
         udgraph = UDGraph(new_val, new_func)
@@ -270,7 +270,7 @@ def arccos(udobject):
 
     elif isinstance(udobject, np.ndarray):
         check_arc(udobject)
-        return np.acos(udobject)
+        return np.arccos(udobject)
 
     elif isinstance(udobject, (int, float)):
         check_arc(udobject)
@@ -300,7 +300,7 @@ def arcsin(udobject):
             new_val = math.asin(udobject._val)
             new_der = (1 / math.sqrt(1 - udobject._val**2)) * udobject._der
         elif isinstance(udobject._val, np.ndarray):
-            new_val = np.asin(udobject._val)
+            new_val = np.arcsin(udobject._val)
             new_der = (1 / np.sqrt(1 - udobject._val**2)) * udobject._der
         else:
             raise TypeError("unsupported attribute type.")
@@ -311,7 +311,7 @@ def arcsin(udobject):
         if isinstance(udobject._val, (int, float)):
             new_val = math.asin(udobject._val)
         elif isinstance(udobject._val, np.ndarray):
-            new_val = np.asin(udobject._val)
+            new_val = np.arcsin(udobject._val)
         else:
             raise TypeError("unsupported attribute type.")
         udgraph = UDGraph(new_val, new_func)
@@ -320,7 +320,7 @@ def arcsin(udobject):
 
     elif isinstance(udobject, np.ndarray):
         check_arc(udobject)
-        return np.asin(udobject)
+        return np.arcsin(udobject)
 
     elif isinstance(udobject, (int, float)):
         check_arc(udobject)
@@ -349,7 +349,7 @@ def arctan(udobject):
             new_val = math.atan(udobject._val)
             new_der = (1 / (1 + udobject._val ** 2)) * udobject._der
         elif isinstance(udobject._val, np.ndarray):
-            new_val = np.atan(udobject._val)
+            new_val = np.arctan(udobject._val)
             new_der = (1 / (1 + udobject._val ** 2)) * udobject._der
         else:
             raise TypeError("unsupported attribute type.")
@@ -359,7 +359,7 @@ def arctan(udobject):
         if isinstance(udobject._val, (int, float)):
             new_val = math.atan(udobject._val)
         elif isinstance(udobject._val, np.ndarray):
-            new_val = np.atan(udobject._val)
+            new_val = np.arctan(udobject._val)
         else:
             raise TypeError("unsupported attribute type.")
         udgraph = UDGraph(new_val, new_func)
@@ -367,7 +367,7 @@ def arctan(udobject):
         return udgraph
 
     elif isinstance(udobject, np.ndarray):
-        return np.atan(udobject)
+        return np.arctan(udobject)
 
     elif isinstance(udobject, (int, float)):
         return math.atan(udobject)
@@ -533,21 +533,21 @@ def log(udobject, base=math.e):
         raise TypeError("unsupported attribute type.")
 
 
-if __name__ == "__main__":
-    beta = 3.0
-    x = UDFunction(2)
-    y = UDFunction(2)
-    f = sin(x)**0.5 + cos(exp(y) + cos(2)) + log(y, 4) / x
-    f1 = sinh(f)
-    f2 = cosh(f)
-    f3 = tanh(f)
-    f4 = csch(f)
-    f5 = coth(f)
-    f6 = sech(f)
-    print(f)
-    print(f1)
-    print(f2)
-    print(f3)
-    print(f4)
-    print(f5)
-    print(f6)
+# if __name__ == "__main__":
+    # beta = 3.0
+    # x = UDFunction(2)
+    # y = UDFunction(2)
+    # f = sin(x)**0.5 + cos(exp(y) + cos(2)) + log(y, 4) / x
+    # f1 = sinh(f)
+    # f2 = cosh(f)
+    # f3 = tanh(f)
+    # f4 = csch(f)
+    # f5 = coth(f)
+    # f6 = sech(f)
+    # print(f)
+    # print(f1)
+    # print(f2)
+    # print(f3)
+    # print(f4)
+    # print(f5)
+    # print(f6)
