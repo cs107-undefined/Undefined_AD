@@ -14,8 +14,6 @@ Here, we describe the implementation details of ``Undefined`` on how we achieve 
 Here is the general workflow in our main function and how they connect with other .py files.
 The two main branches in the implementation are the "forward mode" and "reverse mode". We will discuss in details below. 
 
-Another feature we have is to use the ``UDPremitive`` object, which is a ``enum`` type to calculate the 
-
 
 Forward Mode
 ^^^^^^^^^^^^^^^^^
@@ -42,13 +40,13 @@ In the forward pass, we computes the primal value :math:`v_j` and he partial der
 This partial derivatives here are the factors that show up in the chain rule, but it's not the chain rule itself. Given the unique way of the implementation in reverse mode, we are not explicitly calculating the chain rule in the forward pass, but calculate it throughout the ways when we build up the computational graph. 
 
 For example, in the forward pass, given the function :math:`v_j = sin(v_j)`, we calculate :math:`\frac{\partial v_j}{\partial v_i} = cos(v_i)`. 
-In the reverse model, we implemented a tree structure (``udgraph``) to store the parent and child intermediate results. 
+In the reverse model, we implemented a graph structure (``UDGraph``) to store the parent and child intermediate results. 
 
 **Reverse pass**
 
 In the reverse pass, we reconstruct the chain rule that we ignored in the forward pass. The goal is to compute each node of :math:`v_i`:
 
-:math:`v_i = \frac{\partial f}{\partial v_i} = \sum_{j a child of i} \frac{\partial f}{\partial v_j} \frac{\partial v_j}{\partial v_i} = \sum_{j a child of i} v_j \frac{\partial v_j}{\partial v_i}`
+:math:`v_i = \frac{\partial f}{\partial v_i} = \sum_{j\ a\ child\ of\ i} \frac{\partial f}{\partial v_j} \frac{\partial v_j}{\partial v_i} = \sum_{j\ a\ child\ of\ i} v_j \frac{\partial v_j}{\partial v_i}`
 
 The :math:`\frac{\partial v_j}{\partial v_i}` was calculated during the forward pass, so in the reverse pass, we just need to initialize :math:`v_i = 0` and update the values as we iterate over each parental and child node with the following equation:
 
@@ -61,7 +59,8 @@ To deal with this, we know the initial value of the adjoint :math:`v_{n-m]`:
 
 which we need to get started as in the reverse pass we traverse the computational graph backwards, from the right, which is the outputs to the left which is the inputs. 
 
-One thing to note is that mathematically, we only work with numerical values, not with formulae or overladed operators. However, to automatically save the intermediate values, we modified the operators for the reverse mode so that we can save the intermediate values as we do the calculation.
+In the reverse mode, we used the ``UDPremitive`` class serving as a look up table to help us to calculate the derivative in the reverse mode. 
+One thing to note is that mathematically, we only work with numerical values, not with formulae or overladed operators. However, to automatically build the computational graph structure, we modified the operators for the reverse mode so that we can save the intermediate values as we do the calculation.
 This is implemented in the ``GraphGenerator.py`` file. 
 
 5.2 Core Classes
@@ -72,16 +71,12 @@ The methods and descriptions below are only included the **major functions**. He
 
 
 **API.py:**
+This class contains methods that can be called by the users, the *trace* function. Here is the default setting for the trace function.
 
-This class contains methods that can be called by the users. Such as ``trace()``.
+.. code-block:: 
+    :linenos:
 
-+--------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------+
-| Method                               | Description                                                                                                                                      |
-+======================================+==================================================================================================================================================+
-| trace(lambda_function, mode          | given a user defined function, calculate the derivative using auto differentiation. Default mode is forward. plot only works when mode="reverse" |
-| = 'forward', plot = False, **kwargs) |                                                                                                                                                  |
-+--------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------+
-
+    trace(lambda_function, mode="forward", plot=False, **kwargs) 
 
 **UDFunction.py:**
 
@@ -145,8 +140,13 @@ This class contains functions to perform elementary functions calculation on UDF
 +----------------------------+----------------------------------------------------------------+
 | exp(udobject)              | exponential performed on udobject                              |
 +----------------------------+----------------------------------------------------------------+
-| log(udobject, base=np.e)   | logarithms of base: base. Default base is np.e                 |
+| log(udobject, base=numpy.e)| logarithms of base: base. Default base is np.e.                |
 +----------------------------+----------------------------------------------------------------+
+| standard_logistic(udobject)| standard logistic                                              |
++----------------------------+----------------------------------------------------------------+
+
+One thing to note for log is that we do not support other log functions from other library, such as np.log2().
+In that case, you will need to do ``log(user_defined_function, 2)`` for our program to work. 
 
 Moreover, we also have extended our math operations to additional trig functions.
 
@@ -174,7 +174,7 @@ Moreover, we also have extended our math operations to additional trig functions
 
 **GraphGenerator.py:**
 
-For the reverse mode, we defined our class named ``UDGraph``. In this class, we modified the Dunder/Magic methods mentioned above so that it will start building the computational tree structure spontaneously as the computation goes. 
+For the reverse mode, we defined our class named ``UDGraph``. In this class, we modified the Dunder/Magic methods mentioned above so that it will start building the computational graph structure spontaneously as the computation goes. 
 The methods included in this class are:
 
 __add__ and __radd__
@@ -200,9 +200,9 @@ __lt__ and __gt__
 
 __le__ and __ge__ 
 
-To achieve building the tree, we also created a class called ``GeneratorHelper`` class to help build the tree.
+To achieve building the graph structure, we also created a class called ``GeneratorHelper`` class to help build the graph structure.
 
-Another class we developed in this file is the ``GraphGenerator``, which will facilitate generating the output figure and the print out the tree as outputs. Refer to the reverse mode demo section. 
+Another class we developed in this file is the ``GraphGenerator``, which will facilitate generating the output figure and the print out the graph structure as outputs. Refer to the reverse mode demo section. 
 
 **Utils.py:**
 

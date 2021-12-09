@@ -15,7 +15,7 @@ Both ``TravisCI`` and ``CodeCov`` will be used for testing suit monitoring, and 
 
 ``test`` folder is where we house our test suits, which contains a test file for each python files inside the ``src`` folder. 
 
-We developed a bash script to run all the tests. You can test them by using the following examples:
+We developed a bash script to run all the tests, including the tests written under unit test concept and the integration test concept. You can test them by using the following examples:
 
 Assuming your current directory is the ``undefined`` root directory, you can run the following codes to run the test cases we developed for ``Undefined``.
 

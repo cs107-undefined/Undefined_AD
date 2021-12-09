@@ -97,7 +97,6 @@
 <a class="reference internal image-reference" href="_images/undefined_workflow.png"><img alt="undefined_workflow" src="_images/undefined_workflow.png" style="width: 600px;" /></a>
 <p>Here is the general workflow in our main function and how they connect with other .py files.
 The two main branches in the implementation are the “forward mode” and “reverse mode”. We will discuss in details below.</p>
-<p>Another feature we have is to use the <code class="docutils literal notranslate"><span class="pre">UDPremitive</span></code> object, which is a <code class="docutils literal notranslate"><span class="pre">enum</span></code> type to calculate the</p>
 <section id="forward-mode">
 <h3>Forward Mode<a class="headerlink" href="#forward-mode" title="Permalink to this headline"></a></h3>
 <p>To calculate the derivative in <code class="docutils literal notranslate"><span class="pre">forward</span></code> mode, we used the dual number approach. In the <code class="docutils literal notranslate"><span class="pre">`UDFunction`</span></code> class inside the <code class="docutils literal notranslate"><span class="pre">UDFunction.py</span></code>, we overloaded the operators and accommodated the dual number (as the core data structure) approach following the formula below:</p>
@@ -114,17 +113,18 @@ The partial derivatives describe the _sensitivity_ of the output with respect to
 <p>In the forward pass, we computes the primal value <span class="math notranslate nohighlight">\(v_j\)</span> and he partial derivatives <span class="math notranslate nohighlight">\(\frac{\partial v_j}{\partial v_i}\)</span> with respect to its parent nodes <span class="math notranslate nohighlight">\(v_i\)</span>.
 This partial derivatives here are the factors that show up in the chain rule, but it’s not the chain rule itself. Given the unique way of the implementation in reverse mode, we are not explicitly calculating the chain rule in the forward pass, but calculate it throughout the ways when we build up the computational graph.</p>
 <p>For example, in the forward pass, given the function <span class="math notranslate nohighlight">\(v_j = sin(v_j)\)</span>, we calculate <span class="math notranslate nohighlight">\(\frac{\partial v_j}{\partial v_i} = cos(v_i)\)</span>.
-In the reverse model, we implemented a tree structure (<code class="docutils literal notranslate"><span class="pre">udgraph</span></code>) to store the parent and child intermediate results.</p>
+In the reverse model, we implemented a graph structure (<code class="docutils literal notranslate"><span class="pre">UDGraph</span></code>) to store the parent and child intermediate results.</p>
 <p><strong>Reverse pass</strong></p>
 <p>In the reverse pass, we reconstruct the chain rule that we ignored in the forward pass. The goal is to compute each node of <span class="math notranslate nohighlight">\(v_i\)</span>:</p>
-<p><span class="math notranslate nohighlight">\(v_i = \frac{\partial f}{\partial v_i} = \sum_{j a child of i} \frac{\partial f}{\partial v_j} \frac{\partial v_j}{\partial v_i} = \sum_{j a child of i} v_j \frac{\partial v_j}{\partial v_i}\)</span></p>
+<p><span class="math notranslate nohighlight">\(v_i = \frac{\partial f}{\partial v_i} = \sum_{j\ a\ child\ of\ i} \frac{\partial f}{\partial v_j} \frac{\partial v_j}{\partial v_i} = \sum_{j\ a\ child\ of\ i} v_j \frac{\partial v_j}{\partial v_i}\)</span></p>
 <p>The <span class="math notranslate nohighlight">\(\frac{\partial v_j}{\partial v_i}\)</span> was calculated during the forward pass, so in the reverse pass, we just need to initialize <span class="math notranslate nohighlight">\(v_i = 0\)</span> and update the values as we iterate over each parental and child node with the following equation:</p>
 <p><span class="math notranslate nohighlight">\(v_i = v_i + \frac{\partial f}{\partial v_j} \frac{\partial v_j}{\partial v_i} = v_i + v_j \frac{\partial v_j}{\partial v_i}\)</span></p>
 <p>Lastly, once we reached to the last intermediate step, we will have <span class="math notranslate nohighlight">\(v_{n-m} = f(x)\)</span> with <span class="math notranslate nohighlight">\(x \in \mathbb{R}\)</span> and this last node do not have children.
 To deal with this, we know the initial value of the adjoint <span class="math notranslate nohighlight">\(v_{n-m]\)</span>:</p>
 <p><span class="math notranslate nohighlight">\(v_{n-m} = \frac{\partial f}{\partial v_{n-m}} = \frac{\partial v_{n-m}}{\partial v_{n-m}} = 1\)</span></p>
 <p>which we need to get started as in the reverse pass we traverse the computational graph backwards, from the right, which is the outputs to the left which is the inputs.</p>
-<p>One thing to note is that mathematically, we only work with numerical values, not with formulae or overladed operators. However, to automatically save the intermediate values, we modified the operators for the reverse mode so that we can save the intermediate values as we do the calculation.
+<p>In the reverse mode, we used the <code class="docutils literal notranslate"><span class="pre">UDPremitive</span></code> class serving as a look up table to help us to calculate the derivative in the reverse mode.
+One thing to note is that mathematically, we only work with numerical values, not with formulae or overladed operators. However, to automatically build the computational graph structure, we modified the operators for the reverse mode so that we can save the intermediate values as we do the calculation.
 This is implemented in the <code class="docutils literal notranslate"><span class="pre">GraphGenerator.py</span></code> file.</p>
 </section>
 </section>
@@ -132,25 +132,11 @@ This is implemented in the <code class="docutils literal notranslate"><span clas
 <h2>5.2 Core Classes<a class="headerlink" href="#core-classes" title="Permalink to this headline"></a></h2>
 <p>We used <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">math</span></code> libraries to help with the math and used <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">networkx</span></code> libraries for plot the computational graph.
 The methods and descriptions below are only included the <strong>major functions</strong>. Helper functions are not included. Please refer to the source code for all detailed function description.</p>
-<p><strong>API.py:</strong></p>
-<p>This class contains methods that can be called by the users. Such as <code class="docutils literal notranslate"><span class="pre">trace()</span></code>.</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 21%" />
-<col style="width: 79%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Method</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>trace(lambda_function, mode
-= ‘forward’, plot = False, <a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs)</p></td>
-<td><p>given a user defined function, calculate the derivative using auto differentiation. Default mode is forward. plot only works when mode=”reverse”</p></td>
-</tr>
-</tbody>
-</table>
+<p><strong>API.py:</strong>
+This class contains methods that can be called by the users, the <em>trace</em> function. Here is the default setting for the trace function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">trace</span><span class="p">(</span><span class="n">lambda_function</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;forward&quot;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
 <p><strong>UDFunction.py:</strong></p>
 <p>This class wraps the core data structure in our library. Objects instantiated from this class are the most basic computing units in our library.</p>
 <ul class="simple">
@@ -221,11 +207,16 @@ The methods and descriptions below are only included the <strong>major functions
 <tr class="row-even"><td><p>exp(udobject)</p></td>
 <td><p>exponential performed on udobject</p></td>
 </tr>
-<tr class="row-odd"><td><p>log(udobject, base=np.e)</p></td>
-<td><p>logarithms of base: base. Default base is np.e</p></td>
+<tr class="row-odd"><td><p>log(udobject, base=numpy.e)</p></td>
+<td><p>logarithms of base: base. Default base is np.e.</p></td>
+</tr>
+<tr class="row-even"><td><p>standard_logistic(udobject)</p></td>
+<td><p>standard logistic</p></td>
 </tr>
 </tbody>
 </table>
+<p>One thing to note for log is that we do not support other log functions from other library, such as np.log2().
+In that case, you will need to do <code class="docutils literal notranslate"><span class="pre">log(user_defined_function,</span> <span class="pre">2)</span></code> for our program to work.</p>
 <p>Moreover, we also have extended our math operations to additional trig functions.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -268,7 +259,7 @@ The methods and descriptions below are only included the <strong>major functions
 </tbody>
 </table>
 <p><strong>GraphGenerator.py:</strong></p>
-<p>For the reverse mode, we defined our class named <code class="docutils literal notranslate"><span class="pre">UDGraph</span></code>. In this class, we modified the Dunder/Magic methods mentioned above so that it will start building the computational tree structure spontaneously as the computation goes.
+<p>For the reverse mode, we defined our class named <code class="docutils literal notranslate"><span class="pre">UDGraph</span></code>. In this class, we modified the Dunder/Magic methods mentioned above so that it will start building the computational graph structure spontaneously as the computation goes.
 The methods included in this class are:</p>
 <p>__add__ and __radd__</p>
 <p>__sub__ and __rsub__</p>
@@ -281,8 +272,8 @@ The methods included in this class are:</p>
 <p>__eg__ and __ne__</p>
 <p>__lt__ and __gt__</p>
 <p>__le__ and __ge__</p>
-<p>To achieve building the tree, we also created a class called <code class="docutils literal notranslate"><span class="pre">GeneratorHelper</span></code> class to help build the tree.</p>
-<p>Another class we developed in this file is the <code class="docutils literal notranslate"><span class="pre">GraphGenerator</span></code>, which will facilitate generating the output figure and the print out the tree as outputs. Refer to the reverse mode demo section.</p>
+<p>To achieve building the graph structure, we also created a class called <code class="docutils literal notranslate"><span class="pre">GeneratorHelper</span></code> class to help build the graph structure.</p>
+<p>Another class we developed in this file is the <code class="docutils literal notranslate"><span class="pre">GraphGenerator</span></code>, which will facilitate generating the output figure and the print out the graph structure as outputs. Refer to the reverse mode demo section.</p>
 <p><strong>Utils.py:</strong></p>
 <p>We defined our <code class="docutils literal notranslate"><span class="pre">Enum</span></code> type of class here, the <code class="docutils literal notranslate"><span class="pre">UDPrimitive</span></code>.</p>
 </section>

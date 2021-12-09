@@ -18,6 +18,8 @@ Be awesome and fast automatic differentiation calculation!!!
 
 - In the reverse mode, we implemented a two-step approach to recover the partial derivative, and eventually trace backwards for the final derivative results. For details about the implementation, refer to our *implementation* section.
 
+- Our design of the software is friendly for the users in command-line interaction, and our codes are well encapsulated and modularized.
+
 Implementation of the ``forward`` and ``reverse`` mode to automatically calculate derivative.
 
 Build computational graphs in the ``reverse`` mode.

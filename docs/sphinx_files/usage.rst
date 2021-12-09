@@ -124,7 +124,7 @@ The ``trace`` function will also be able to calculate derivatives in reverse mod
 In the example, we can see that our reverse mode can output the function and the derivative values rounded in 3 decimal places, if applicable. 
 Another feature we developed in our reverse mode is to output the computational graph.
 
-First, let's look at the tree structure we generated. I will use the same function as example.
+First, let's look at the graph structure we generated. I will use the same function as example.
 
 .. code-block:: 
     :linenos:
@@ -296,5 +296,6 @@ For example, in the :math:`\mathbb{R}^m -> \mathbb{R}^n`, the users could input 
 3.4 Debugging
 ^^^^^^^^^^^^^^^
 
-Since the forward model does not store the intermediate values, we recommend the users to use reverse mode for their debugging propose. We offer the tree structure and the computational graph as output to facilitate with the process. 
+Since the forward model does not store the intermediate values, we recommend the users to use reverse mode for their debugging propose. We offer the graph structure and the computational graph as output to facilitate with the process. 
 Moreover, we also provide the source codes for the users to examine our workflow. Please refer to the **Source Code Details** section.
+Since our design is encapsulated and modularized, it is easy for the users to spot the possible error(s).

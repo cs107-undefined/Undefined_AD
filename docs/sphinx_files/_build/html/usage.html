@@ -181,7 +181,7 @@ In our design, the users do not need to instantiate an <code class="docutils lit
 </div>
 <p>In the example, we can see that our reverse mode can output the function and the derivative values rounded in 3 decimal places, if applicable.
 Another feature we developed in our reverse mode is to output the computational graph.</p>
-<p>First, let’s look at the tree structure we generated. I will use the same function as example.</p>
+<p>First, let’s look at the graph structure we generated. I will use the same function as example.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
 <span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">sin</span>
 <span class="linenos"> 3</span>
@@ -319,8 +319,9 @@ For example, in the <span class="math notranslate nohighlight">\(\mathbb{R}^m -&
 </section>
 <section id="debugging">
 <h3>3.4 Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline"></a></h3>
-<p>Since the forward model does not store the intermediate values, we recommend the users to use reverse mode for their debugging propose. We offer the tree structure and the computational graph as output to facilitate with the process.
-Moreover, we also provide the source codes for the users to examine our workflow. Please refer to the <strong>Source Code Details</strong> section.</p>
+<p>Since the forward model does not store the intermediate values, we recommend the users to use reverse mode for their debugging propose. We offer the graph structure and the computational graph as output to facilitate with the process.
+Moreover, we also provide the source codes for the users to examine our workflow. Please refer to the <strong>Source Code Details</strong> section.
+Since our design is encapsulated and modularized, it is easy for the users to spot the possible error(s).</p>
 </section>
 </section>
 </section>
