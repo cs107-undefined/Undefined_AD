@@ -1,4 +1,6 @@
 import sys
+
+from numpy.core.fromnumeric import var
 # # temp solution for directory.
 sys.path.append("./src/")
 from undefined.GraphGenerator import GraphGenerator
@@ -32,10 +34,13 @@ def trace(f, mode='forward', plot=False, **kwargs):
 
         return np.array(vals), np.stack(ders)
     elif type(f) is not LambdaType:
-        raise TypeError("cannot handle non lambda functions.")
+        raise TypeError("error raised by undefined: cannot handle non lambda functions.")
+    fix_len = -1
     num_variables = len(kwargs)
     variables = {}
     varnames = f.__code__.co_varnames
+    if len(varnames) != num_variables:
+        raise AttributeError("error raised by undefined: inconsistent number of variables.")
     if mode == 'forward':
         for i, varname in enumerate(varnames):
             variable = kwargs[varname]
@@ -43,15 +48,21 @@ def trace(f, mode='forward', plot=False, **kwargs):
                 # vector input
                 if len(variable.shape) <= 1 or variable.shape[0] != 1:
                     raise TypeError(
-                        f"only support vector inputs of shape (1,n), invalid input {varname} has shape {variable.shape}")
+                        f"error raised by undefined: only support vector inputs of shape (1,n), invalid input {varname} has shape {variable.shape}")
                 # single vector input
                 if num_variables == 1:
                     variables[varname] = UDFunction(
                         variable, np.ones(variable.shape))
                 # multiple vector inputs
                 else:
+                    # check if all the vector inputs has the same len
+                    if fix_len != -1:
+                        if fix_len != variable.shape[1]:
+                            raise AttributeError("error raised by undefined: cannot handle multiple vector inputs with different lengths")
+                    else:
+                        fix_len = variable.shape[1]
                     seed_vector = np.zeros(
-                        (num_variables, variable.shape[1]), dtype=int)
+                        (num_variables, fix_len), dtype=int)
                     seed_vector[i, :] += 1
                     variables[varname] = UDFunction(variable, seed_vector)
 
@@ -61,14 +72,15 @@ def trace(f, mode='forward', plot=False, **kwargs):
                     variables[varname] = UDFunction(variable)
                 # multiple scalar inputs
                 else:
-                    seed_vector = np.zeros(num_variables, dtype=int)
-                    seed_vector[i] = 1
+                    seed_vector = np.zeros((num_variables,1), dtype=int)
+                    seed_vector[i,:] = 1
                     variables[varname] = UDFunction(variable, seed_vector)
             else:
                 raise TypeError(
-                    "variable type not in (int, float, np.ndarray).")
+                    "error raised by undefined: variable type not in (int, float, np.ndarray).")
+
         f = f(**variables)
-        return f.val, f.der
+        return f.val, f.der.tolist() if type(f.der) is np.ndarray else f.der
 
     elif mode == 'reverse':
         for i, varname in enumerate(varnames):
@@ -76,33 +88,36 @@ def trace(f, mode='forward', plot=False, **kwargs):
             if isinstance(variable, np.ndarray):
                 if variable.shape[0] != 1 or variable.shape[0] != 1:
                     raise TypeError(
-                        f"only support vector inputs of shape (1, ), invalid input {varname} has shape {variable.shape}")
+                        f"error raised by undefined: only support vector inputs of shape (1, ), invalid input {varname} has shape {variable.shape}")
                 variables[varname] = UDGraph(variable)
             elif isinstance(variable, (int, float)):
                 variables[varname] = UDGraph(variable)
             else:
                 raise TypeError(
-                    "variable type not in (int, float, np.ndarray).")
+                    "error raised by undefined: variable type not in (int, float, np.ndarray).")
         g = f(**variables)
         udgenerator = GraphGenerator(g, variables)
         if plot:
             print(udgenerator.generate_str())
             udgenerator.generate_graph()
-        return g.val, [udgenerator.generate_derivative(var_name) for var_name in variables.keys()]
 
+        res_der = []
+        for var_name in variables.keys():
+            res_var = udgenerator.generate_derivative(var_name)
+            if type(res_var) is np.ndarray:
+                res_der.append(res_var.tolist()[0])
+            elif type(res_var) is not list:
+                res_der.append([res_var])
+            else:
+                res_der.append(res_der)
+        if len(res_der) == 1 and len(res_der[0]) == 1:
+            return g.val, res_der[0][0]
+        return g.val, res_der
     else:
-        raise AttributeError("unsupported mode.")
-
-# def stack_trace(f_vector, mode = 'forward'):
-#     """[summary]
-
-#     Args:
-#         f_vector (list): list of user defined functions
-#         mode (str, optional): Automatic Differenciation mode. Defaults to 'forward'.
-#     """
-#     raise NotImplementedError
+        raise AttributeError("error raised by undefined: unsupported mode.")
 
 
+# <<<<<<< HEAD
 # if __name__ == "__main__":
 #     f1 = lambda x, y: sqrt(exp(x*y)) + cos(np.array([1, 2]))
 #     f2 = lambda x, y: log(exp(x*y), 2)
@@ -115,6 +130,31 @@ def trace(f, mode='forward', plot=False, **kwargs):
 #     print(trace(f4, mode='reverse', plot=True, x = 1, y = 2))
 #     print(trace(f5, x = 1, y = 2))
 #     print(trace(f5, mode='reverse', x = 1, y = 2))
+# =======
+# if __name__ == "__main__":
+#     f0 = lambda x: sin(exp(2**x))
+#     f1 = lambda x: sqrt(x)
+#     f11 = lambda y: sqrt(y)
+#     f12 = lambda x, y: sqrt(x) + sqrt(y)
+#     f2 = lambda x, y: log(exp(x**y), 2)
+#     f3 = lambda x, y: x - x * y
+#     f4 = lambda x, y: x - 3 * (x - y) / 2
+#     f5 = lambda x, y: (x - 1) / (y * 2) - x / 2
+#     print(trace(f1, x = np.array([[10,1]]))[1])
+#     print(trace(f1, mode = 'reverse', x = np.array([[10,1]]))[1])
+#     print("*")
+#     print(trace(f11, y = 2)[1])
+#     print(trace(f11, mode = 'reverse',  y = 2)[1])
+#     print("**")
+#     print(trace(f12, x = np.array([[10,1]]),y = 2)[1])
+#     print(trace(f12, mode = 'reverse', x = np.array([[10,1]]), y=2)[1])
+#     print(trace(f3, x = 1, y = 2))
+#     print(trace(f3, mode='reverse', x = 1, y = 2))
+#     print(trace(f4, x = 1, y = 2))
+#     print(trace(f4, mode='reverse', x = 1, y = 2))
+#     print(trace(f5, x = 1, y = 2))
+#     print(trace(f5, mode='reverse', x = 1, y = 2))
+# >>>>>>> 35396b2991ee285b274024c1a0322905f18265ef
     # x = UDFunction(np.array([[2, 2]]), np.array([[1, 1], [0, 0]]))
     # y = UDFunction(np.array([[1, 1]]), np.array([[0, 0], [1, 1]]))
     # print("1. test vector inputs:")

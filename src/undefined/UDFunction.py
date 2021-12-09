@@ -75,7 +75,7 @@ class UDFunction:
             new_val = self._val + other
             new_der = self._der
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __mul__(self, other):
@@ -95,7 +95,7 @@ class UDFunction:
             new_val = self._val * other
             new_der = self._der * other
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __radd__(self, other):
@@ -114,7 +114,7 @@ class UDFunction:
             new_val = self._val + other
             new_der = self._der
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __rmul__(self, other):
@@ -134,7 +134,7 @@ class UDFunction:
             new_val = self._val * other
             new_der = self._der * other
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __neg__(self):
@@ -164,7 +164,7 @@ class UDFunction:
             new_val = self._val - other
             new_der = self._der
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __rsub__(self, other):
@@ -184,7 +184,7 @@ class UDFunction:
             new_val = other - self._val
             new_der = - self._der
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __truediv__(self, other):
@@ -208,7 +208,7 @@ class UDFunction:
             new_val = self._val / other
             new_der = self._der / other
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __rtruediv__(self, other):
@@ -230,7 +230,7 @@ class UDFunction:
             new_val = other / self._val
             new_der = - 1 * other * self._der / (self._val * self._val)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __floordiv__(self, other):  # self // other
@@ -254,7 +254,7 @@ class UDFunction:
             new_val = self._val // other
             new_der = self._der // other
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __rfloordiv__(self, other):
@@ -276,7 +276,7 @@ class UDFunction:
             new_val = other // self._val
             new_der = - 1 * other * self._der // (self._val * self._val)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     def __pow__(self, other):
@@ -309,7 +309,7 @@ class UDFunction:
                 if isinstance(other._val, np.ndarray):
                     if other._val.shape[0] != self._val.shape[0]:
                         raise ValueError(
-                            f"operands could not be broadcast together with shapes {other._val.shape} {self._val.shape}")
+                            f"error raised by undefined: operands could not be broadcast together with shapes {other._val.shape} {self._val.shape}")
                     else:
                         new_val = self._val ** other._val
                         new_der_1 = other._val * \
@@ -359,7 +359,7 @@ class UDFunction:
                 if isinstance(self._val, np.ndarray):
                     if other._val.shape[0] != self._val.shape[0]:
                         raise ValueError(
-                            f"operands could not be broadcast together with shapes {other._val.shape} {self._val.shape}")
+                            f"error raised by undefined: operands could not be broadcast together with shapes {other._val.shape} {self._val.shape}")
                     else:
                         new_val = other._val ** self._val
                         new_der_1 = np.log(other._val) * new_val * self._der
@@ -377,7 +377,7 @@ class UDFunction:
             new_der = math.log(other) * new_val * self._der
 
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
 
         return UDFunction(new_val, new_der)
 
@@ -395,7 +395,7 @@ class UDFunction:
         elif isinstance(other, (int, float)):
             return self.val == other
         else:
-            raise TypeError("Need a UDFunction object to compare")
+            raise TypeError("error raised by undefined: Need a UDFunction object to compare")
 
     def __ne__(self, other):
         """compare whether the two UDFunction objects have different values.
@@ -409,7 +409,7 @@ class UDFunction:
         elif isinstance(other, (int, float)):
             return self.val != other
         else:
-            raise TypeError("Need a UDFunction object to compare")
+            raise TypeError("error raised by undefined: Need a UDFunction object to compare")
 
     def __lt__(self, other):
         """overload the < operator
@@ -424,7 +424,7 @@ class UDFunction:
         elif isinstance(other, (int, float)):
             return self.val < other
         else:
-            raise TypeError("Need a UDFunction object to compare")
+            raise TypeError("error raised by undefined: Need a UDFunction object to compare")
 
     def __gt__(self, other):
         """overload the > operator
@@ -439,7 +439,7 @@ class UDFunction:
         elif isinstance(other, (int, float)):
             return self.val > other
         else:
-            raise TypeError("Need a UDFunction object to compare")
+            raise TypeError("error raised by undefined: Need a UDFunction object to compare")
 
     def __le__(self, other):
         """overload the > operator
@@ -454,7 +454,7 @@ class UDFunction:
         elif isinstance(other, (int, float)):
             return self.val <= other
         else:
-            raise TypeError("Need a UDFunction object to compare")
+            raise TypeError("error raised by undefined: Need a UDFunction object to compare")
 
     def __ge__(self, other):
         """overload the > operator
@@ -469,7 +469,7 @@ class UDFunction:
         elif isinstance(other, (int, float)):
             return self.val >= other
         else:
-            raise TypeError("Need a UDFunction object to compare")
+            raise TypeError("error raised by undefined: Need a UDFunction object to compare")
     
     def __round__(self, digit):
         '''overwrite the round method.

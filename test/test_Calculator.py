@@ -10,7 +10,7 @@ import numpy as np
 
 
 class TestCalculator(unittest.TestCase):
-
+    # TODO: arccos, arcsin, ..., not tested!!!!
     def setUp(self):
 
         alpha = 2.0

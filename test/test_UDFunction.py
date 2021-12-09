@@ -279,9 +279,15 @@ class TestUDFunction(unittest.TestCase):
 		self.assertEqual(self.f51.der,6.773)
 
 
-		# test self/other both ndarray
-		x = UDFunction(np.array([a]))
-		y = UDFunction(np.array([a]))
+# <<<<<<< HEAD
+# 		# test self/other both ndarray
+# 		x = UDFunction(np.array([a]))
+# 		y = UDFunction(np.array([a]))
+# =======
+		# test self/other both ndarray # should not expect inputs like this:y = UDFunction(np.array(2)) !!!!
+		x = UDFunction(np.array([[2]]))
+		y = UDFunction(np.array([[2]]))
+# >>>>>>> 35396b2991ee285b274024c1a0322905f18265ef
 
 		self.f52 = x ** y
 		self.assertEqual(self.f52.val[0],4.0)

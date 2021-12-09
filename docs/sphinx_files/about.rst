@@ -32,19 +32,19 @@ When we have multiple coordinates, the chain rule formula will change:
 :math:`\frac{dh}{dt} = \frac{\partial h}{\partial u}\frac{du}{dt} + \frac{\partial h}{\partial v}\frac{dv}{dt}`
 
 
-2.2 Elementary Funciton
+2.2 Elementary Function
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 (1) Unary elementary function examples: ``sin(x)``, ``cos(x)``
 
-(2) Binary elemnetary function examples: ``x + y``, ``x * y``
+(2) Binary elementary function examples: ``x + y``, ``x * y``
 
 2.3 Computational Graph
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A computational graph is a directed graph where the nodes correspond to elementary functions or variables.
 
-Computational graph node for binary elementary funciton:
+Computational graph node for binary elementary function:
 
 .. image:: ../resources/computational_graph_1.png
     :width: 600
@@ -56,7 +56,7 @@ The computational graph grows once the computations become more complex:
     :width: 600
     :alt: computational_graph_2
 
-2.4 Automatic Differencation
+2.4 Automatic Differentiation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Suppose we have the gradients of the function defined as following:
@@ -77,4 +77,4 @@ If we would have to calculate :math:`\frac{\partial f}{\partial y}`, we only nee
 
 Computing this function is simple, but AD will become handy when we have to compute the derivative for complicated equations. 
 
-There are many advantages of AD compared to other ways (numerical differentiation and symbolic differentiation) to calculate derivative automatically. One of the biggest advantage of AD is that AD calculates to machine precision and comsumes efficientively than the other two methods. 
+There are many advantages of AD compared to other ways (numerical differentiation and symbolic differentiation) to calculate derivative automatically. One of the biggest advantage of AD is that AD calculates to machine precision and consumes efficiently than the other two methods. 

@@ -32,7 +32,7 @@ def cos(udobject):
             new_val = np.cos(udobject._val)
             new_der = -1 * np.sin(udobject._val) * udobject._der
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     elif isinstance(udobject, UDGraph):
@@ -42,7 +42,7 @@ def cos(udobject):
         elif isinstance(udobject._val, np.ndarray):
             new_val = np.cos(udobject._val)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         udgraph = UDGraph(new_val, new_func)
         udgraph._parents.append(udobject)
         return udgraph
@@ -54,7 +54,7 @@ def cos(udobject):
         return math.cos(udobject)
 
     else:
-        raise TypeError("unsupported attribute type.")
+        raise TypeError("error raised by undefined: unsupported attribute type.")
 
 
 def sin(udobject):
@@ -80,7 +80,7 @@ def sin(udobject):
             new_val = np.sin(udobject._val)
             new_der = np.cos(udobject._val) * udobject._der
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
     elif isinstance(udobject, UDGraph):
         new_func = UDPrimitive.SIN
@@ -89,7 +89,7 @@ def sin(udobject):
         elif isinstance(udobject._val, np.ndarray):
             new_val = np.sin(udobject._val)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         udgraph = UDGraph(new_val, new_func)
         udgraph._parents.append(udobject)
         return udgraph
@@ -101,7 +101,7 @@ def sin(udobject):
         return math.sin(udobject)
 
     else:
-        raise TypeError("unsupported attribute type.")
+        raise TypeError("error raised by undefined: unsupported attribute type.")
 
 
 def tan(udobject):
@@ -129,7 +129,7 @@ def tan(udobject):
             new_val = np.tan(udobject._val)
             new_der = (1 / (np.cos(udobject._val)) ** 2) * udobject._der
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
     elif isinstance(udobject, UDGraph):
         new_func = UDPrimitive.TAN
@@ -140,7 +140,7 @@ def tan(udobject):
             check_division_by_zero(np.cos(udobject._val))
             new_val = np.tan(udobject._val)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         udgraph = UDGraph(new_val, new_func)
         udgraph._parents.append(udobject)
         return udgraph
@@ -154,7 +154,7 @@ def tan(udobject):
         return math.tan(udobject)
 
     else:
-        raise TypeError("unsupported attribute type.")
+        raise TypeError("error raised by undefined: unsupported attribute type.")
 
 
 def sinh(udobject):
@@ -252,7 +252,7 @@ def arccos(udobject):
             new_val = np.arccos(udobject._val)
             new_der = (-1 / np.sqrt(1 - udobject._val**2)) * udobject._der
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     elif isinstance(udobject, UDGraph):
@@ -263,7 +263,7 @@ def arccos(udobject):
         elif isinstance(udobject._val, np.ndarray):
             new_val = np.arccos(udobject._val)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         udgraph = UDGraph(new_val, new_func)
         udgraph._parents.append(udobject)
         return udgraph
@@ -277,7 +277,7 @@ def arccos(udobject):
         return math.acos(udobject)
 
     else:
-        raise TypeError("unsupported attribute type.")
+        raise TypeError("error raised by undefined: unsupported attribute type.")
 
 
 def arcsin(udobject):
@@ -303,7 +303,7 @@ def arcsin(udobject):
             new_val = np.arcsin(udobject._val)
             new_der = (1 / np.sqrt(1 - udobject._val**2)) * udobject._der
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
     elif isinstance(udobject, UDGraph):
         check_arc(udobject._val)
@@ -313,7 +313,7 @@ def arcsin(udobject):
         elif isinstance(udobject._val, np.ndarray):
             new_val = np.arcsin(udobject._val)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         udgraph = UDGraph(new_val, new_func)
         udgraph._parents.append(udobject)
         return udgraph
@@ -327,7 +327,7 @@ def arcsin(udobject):
         return math.asin(udobject)
 
     else:
-        raise TypeError("unsupported attribute type.")
+        raise TypeError("error raised by undefined: unsupported attribute type.")
 
 
 def arctan(udobject):
@@ -352,7 +352,7 @@ def arctan(udobject):
             new_val = np.arctan(udobject._val)
             new_der = (1 / (1 + udobject._val ** 2)) * udobject._der
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
     elif isinstance(udobject, UDGraph):
         new_func = UDPrimitive.ATAN
@@ -361,7 +361,7 @@ def arctan(udobject):
         elif isinstance(udobject._val, np.ndarray):
             new_val = np.arctan(udobject._val)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         udgraph = UDGraph(new_val, new_func)
         udgraph._parents.append(udobject)
         return udgraph
@@ -373,7 +373,7 @@ def arctan(udobject):
         return math.atan(udobject)
 
     else:
-        raise TypeError("unsupported attribute type.")
+        raise TypeError("error raised by undefined: unsupported attribute type.")
 
 
 def sqrt(udobject):
@@ -400,7 +400,7 @@ def sqrt(udobject):
             new_val = np.sqrt(udobject._val)
             new_der = 0.5 * np.power(udobject._val, -0.5) * udobject._der
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     elif isinstance(udobject, UDGraph):
@@ -411,7 +411,7 @@ def sqrt(udobject):
         elif isinstance(udobject._val, np.ndarray):
             new_val = np.sqrt(udobject._val)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         udgraph = UDGraph(new_val, new_func)
         udgraph._parents.append(udobject)
         return udgraph
@@ -425,7 +425,7 @@ def sqrt(udobject):
         return math.sqrt(udobject)
 
     else:
-        raise TypeError("unsupported attribute type.")
+        raise TypeError("error raised by undefined: unsupported attribute type.")
 
 
 def exp(udobject):
@@ -451,7 +451,7 @@ def exp(udobject):
             new_val = np.exp(udobject._val)
             new_der = np.exp(udobject._val) * udobject._der
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     elif isinstance(udobject, UDGraph):
@@ -461,7 +461,7 @@ def exp(udobject):
         elif isinstance(udobject._val, np.ndarray):
             new_val = np.exp(udobject._val)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         udgraph = UDGraph(new_val, new_func)
         udgraph._parents.append(udobject)
         return udgraph
@@ -473,7 +473,7 @@ def exp(udobject):
         return math.exp(udobject)
 
     else:
-        raise TypeError("unsupported attribute type.")
+        raise TypeError("error raised by undefined: unsupported attribute type.")
 
 
 def standard_logistic(udobject):
@@ -504,7 +504,7 @@ def log(udobject, base=math.e):
             new_val = new_val / math.log(base)
             new_der = 1 / (math.log(base) * udobject._val) * udobject._der
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         return UDFunction(new_val, new_der)
 
     elif isinstance(udobject, UDGraph):
@@ -515,7 +515,7 @@ def log(udobject, base=math.e):
         elif isinstance(udobject._val, np.ndarray):
             new_val = np.log(udobject._val) / math.log(base)
         else:
-            raise TypeError("unsupported attribute type.")
+            raise TypeError("error raised by undefined: unsupported attribute type.")
         udgraph = UDGraph(new_val, new_func)
         udgraph._parents.append(udobject)
         udgraph._params["base"] = base
@@ -530,7 +530,7 @@ def log(udobject, base=math.e):
         return math.log(udobject, base)
 
     else:
-        raise TypeError("unsupported attribute type.")
+        raise TypeError("error raised by undefined: unsupported attribute type.")
 
 
 # if __name__ == "__main__":
