@@ -14,10 +14,3 @@ coverage.xml
 # ignore the coverage html
 htmlcov
 
-
-# ignore sphinx files
-docs/_*
-docs/*.rst
-docs/conf.py
-docs/make.bat
-docs/Makefile

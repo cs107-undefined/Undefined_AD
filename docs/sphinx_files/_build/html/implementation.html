@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Implementation &mdash; Undefined - an automatic differentiation tool 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="undefined" href="modules.html" />
+    <link rel="prev" title="Testing and Software Organization" href="organization.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Undefined - an automatic differentiation tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How to use Undefined</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Organization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="organization.html">Testing and Software Organization</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">implementation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#core-data-structure">5.1 Core Data Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#core-classes">5.2 Core Classes</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">code docstrings:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">undefined</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Undefined - an automatic differentiation tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Implementation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/implementation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="implementation">
+<h1>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline"></a></h1>
+<p>Here, we describe the implementation details of <code class="docutils literal notranslate"><span class="pre">Undefined</span></code> on how we achieve the automatic differentiation.</p>
+<section id="core-data-structure">
+<h2>5.1 Core Data Structure<a class="headerlink" href="#core-data-structure" title="Permalink to this headline"></a></h2>
+<p>To calculate the derivative in <code class="docutils literal notranslate"><span class="pre">forward</span></code> mode, we used the dual number approach. In the <code class="docutils literal notranslate"><span class="pre">`UDFunction`</span></code> class inside the <code class="docutils literal notranslate"><span class="pre">UDFunction.py</span></code>, we overloaded the operators and accommdated the dual number (as the core data structure) approach following the formula below:</p>
+<p><span class="math notranslate nohighlight">\({z}_j = {v}_j + D_p v_j \epsilon\)</span></p>
+<p>where <span class="math notranslate nohighlight">\({v}_j\)</span> is the real part corresponding to the primal trace, and the <span class="math notranslate nohighlight">\({D_p v_j}\)</span> is the dual part corresponding to the tangent trace.</p>
+<p>(Reverse mode)</p>
+</section>
+<section id="core-classes">
+<h2>5.2 Core Classes<a class="headerlink" href="#core-classes" title="Permalink to this headline"></a></h2>
+<p>We used <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">math</span></code> libraries to help with the math and used <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">networkx</span></code> libraries for plot the computational graph.</p>
+<p><strong>API.py:</strong></p>
+<p>This class contains methods that can be called by the users. Such as <code class="docutils literal notranslate"><span class="pre">trace()</span></code>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 73%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>trace(lambda_function, mode=’forward’)</p></td>
+<td><p>given a user defined function, calculate the derivative using auto differentiation. Default mode is forward.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>UDFunction.py:</strong></p>
+<p>This class wraps the core data structure in our library. Objects instanciated from this class are the most basic computing units in our library.</p>
+<ul class="simple">
+<li><p>Name Attributes:</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name Attribute</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>values</p></td>
+<td><p>values of a elementary function</p></td>
+</tr>
+<tr class="row-odd"><td><p>derivatives</p></td>
+<td><p>derivatives of a elementary function</p></td>
+</tr>
+<tr class="row-even"><td><p>shape</p></td>
+<td><p>a tuple that declares the shape of values attribute</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Methods:</p></li>
+</ul>
+<p><strong>Calculator.py:</strong></p>
+<p>This class contains util functions to perform elementary functions calculation on UDFunction such as $sin$, $sqrt$, $log$, $exp$, which cannot be implemented by overloaded functions in UDFunction.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cos(UDFunction)</p></td>
+<td><p>calculate cos value of a UDFunction</p></td>
+</tr>
+<tr class="row-odd"><td><p>sin(UDFunction)</p></td>
+<td><p>calculate sin value of a UDFunction</p></td>
+</tr>
+<tr class="row-even"><td><p>tan(UDFunction)</p></td>
+<td><p>is calculated tan by using sin(UDFunction) and cos(UDFunction)</p></td>
+</tr>
+<tr class="row-odd"><td><p>sqrt(UDFunction)</p></td>
+<td><p>square root performed on UDFunction</p></td>
+</tr>
+<tr class="row-even"><td><p>exp(UDFunction)</p></td>
+<td><p>exponential performed on UDFunction</p></td>
+</tr>
+<tr class="row-odd"><td><p>log(UDFunction, base=np.e)</p></td>
+<td><p>logarithms of base: base. Default base is np.e</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>GraphGenerator.py:</strong></p>
+<p><strong>Utils.py:</strong></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="organization.html" class="btn btn-neutral float-left" title="Testing and Software Organization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral float-right" title="undefined" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Xinran Tang, Renhao Luo, Chelse Swoopes, Shijia Zhang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
