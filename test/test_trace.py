@@ -70,7 +70,6 @@ class TestTrace(unittest.TestCase):
             trace(self.f1, x=np.array([]))
         
         # test multiple x values at the same time
-
         self.assertNumpyArraysEqual(trace(self.f1, x = np.array([[1, 2]]))[0], np.array([[1.52, 1.58]]))
         
         self.assertNumpyArraysEqual(trace(self.f1, x = np.array([[1, 2]]))[1], np.array([[ 0.411, -0.328]]))
@@ -82,12 +81,9 @@ class TestTrace(unittest.TestCase):
         self.assertNumpyArraysEqual(trace([self.f1, self.f2], x = 2)[1], np.array([-3.2800e-01,  4.8577e+02]))
 
 
-    def test_reverse(self):
-        result1 = trace(self.f1, mode = "reverse", x = 2)
-        self.assertEqual(result1, (1.58, [-0.3278445959597162]))
-
-        result1 = trace(self.f2, mode = "reverse", x = 2)
-        # self.assertEqual(result1, (1.58, [-0.3278445959597162]))
+    # def test_reverse(self):
+    #     result1 = trace(self.f1, mode = "reverse", x = 2)
+    #     self.assertEqual(result1, (1.58, [-0.3278445959597162]))
 
 if __name__ == "__main__":
     unittest.main()

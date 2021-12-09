@@ -3,6 +3,7 @@
 # Ignore ipynb checkpoints
 .ipynb_checkpoints
 .idea
+.vscode
 test/__pycache__/
 src/undefined/__pycache__/
 
