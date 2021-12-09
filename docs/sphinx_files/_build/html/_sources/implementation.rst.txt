@@ -7,7 +7,14 @@ Here, we describe the implementation details of ``Undefined`` on how we achieve 
 -------------------------
 
 
-(Insert the workflow here)
+.. image:: ../resources/undefined_workflow.png
+    :width: 600
+    :alt: undefined_workflow
+
+Here is the general workflow in our main function and how they connect with other .py files.
+The two main branches in the implementation are the "forward mode" and "reverse mode". We will discuss in details below. 
+
+Another feature we have is to use the ``UDPremitive`` object, which is a ``enum`` type to calculate the 
 
 
 Forward Model
@@ -45,7 +52,7 @@ This class contains methods that can be called by the users. Such as ``trace()``
 
 **UDFunction.py:**
 
-This class wraps the core data structure in our library. Objects instanciated from this class are the most basic computing units in our library.
+This class wraps the core data structure in our library. Objects instantiated from this class are the most basic computing units in our library.
 
 - Name Attributes:
 

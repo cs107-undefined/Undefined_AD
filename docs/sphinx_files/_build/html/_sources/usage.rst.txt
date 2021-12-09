@@ -241,7 +241,6 @@ See the example below on how to pass in multiple inputs. Note: you will need to 
     (array([[3.  , 5.41]]), array([[2.5  , 2.354]]))
 
 In the output above, the first array shows the function values after plugin the x values. The second array is the derivative values. 
-Note: when applying :math:`\mathbb{R}^m -> \mathbb{R}`, we assume that users will provide equal number of values for all variables in the equation. 
 
 :math:`\mathbb{R} -> \mathbb{R}^n`
 
@@ -281,14 +280,18 @@ See the example below on how to pass in multiple functions and values as input.
     f1 = lambda x: sqrt(exp(sin(x)))
     f2 = lambda x: 2*x + sqrt(x)
 
-    # call the trace function in undefined, and provide input functions f1 and f2, and the x value.
-    print(trace([f1, f2], x = np.array([[2]])))
+    # call the trace function in undefined, and provide input functions f1 and f2, and the x values.
+    print(trace([f1, f2], x = np.array([[1, 2]])))
 
     # Output
     (array([[[1.52, 1.58]], [[3.  , 5.41]]]), array([[[ 0.411, -0.328]], [[ 2.5  ,  2.354]]]))
 
 In the output above, the first array represents the function values and the second array represents the derivative values.
 The first 2D list in the first tuple is the function value from the first function, and the first 2D list in the second tuple is the derivative from the first section. The second 2D list corresponding to the second function from the input. 
+
+**Note:** To maximize the flexibility for the users, our function can take a mixture as input, meaning the number of input values for variables do not need to be the same. 
+For example, in the :math:`\mathbb{R}^m -> \mathbb{R}^n`, the users could input a function of x and y and give 3 values for x and 1 value for y. Our function would still work. 
+
 
 3.4 Debugging
 ^^^^^^^^^^^^^^^

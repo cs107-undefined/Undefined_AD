@@ -35,19 +35,18 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
-<ul>
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">How to use Undefined</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Organization</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../organization.html">Testing and Software Organization</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">code docstrings:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../implementation.html">Implementation</a></li>
+</ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">undefined</a></li>
 </ul>
@@ -169,7 +168,7 @@
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">udgraph</span>
 
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
@@ -195,7 +194,7 @@
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">udgraph</span>
 
     <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
@@ -220,7 +219,7 @@
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">udgraph</span>
 
     <span class="k">def</span> <span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
@@ -246,7 +245,7 @@
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">udgraph</span>
 
     <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -282,7 +281,7 @@
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">udgraph</span>
 
     <span class="k">def</span> <span class="fm">__rsub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
@@ -308,7 +307,7 @@
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">udgraph</span>
 
     <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
@@ -337,7 +336,7 @@
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">udgraph</span>
 
     <span class="k">def</span> <span class="fm">__rtruediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
@@ -364,7 +363,7 @@
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">udgraph</span>
 
     <span class="k">def</span> <span class="fm">__floordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>  <span class="c1"># self // other</span>
@@ -393,7 +392,7 @@
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">udgraph</span>
 
     <span class="k">def</span> <span class="fm">__rfloordiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
@@ -420,7 +419,7 @@
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">udgraph</span>
 
 
@@ -444,7 +443,7 @@
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
                     <span class="k">if</span> <span class="n">other</span><span class="o">.</span><span class="n">_val</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_val</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                            <span class="sa">f</span><span class="s2">&quot;operands could not be broadcast together with shapes </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">_val</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_val</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                            <span class="sa">f</span><span class="s2">&quot;error raised by undefined: operands could not be broadcast together with shapes </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">_val</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_val</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">new_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_val</span> <span class="o">**</span> <span class="n">other</span><span class="o">.</span><span class="n">_val</span>
                 <span class="k">else</span><span class="p">:</span>
@@ -484,7 +483,7 @@
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
                     <span class="k">if</span> <span class="n">other</span><span class="o">.</span><span class="n">_val</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_val</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                            <span class="sa">f</span><span class="s2">&quot;operands could not be broadcast together with shapes </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">_val</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_val</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                            <span class="sa">f</span><span class="s2">&quot;error raised by undefined: operands could not be broadcast together with shapes </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">_val</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_val</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">new_val</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">_val</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">_val</span>
                 <span class="k">else</span><span class="p">:</span>
@@ -499,7 +498,7 @@
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;base&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">udgraph</span>
     <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;compare whether the two UDGraph objects have the same values.</span>
@@ -515,7 +514,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Need a UDGraph object to compare&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: Need a UDGraph object to compare&quot;</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;compare whether the two UDGraph objects have different values.</span>
@@ -529,7 +528,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">!=</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Need a UDGraph object to compare&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: Need a UDGraph object to compare&quot;</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;overload the &lt; operator</span>
@@ -544,7 +543,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Need a UDGraph object to compare&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: Need a UDGraph object to compare&quot;</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;overload the &gt; operator</span>
@@ -559,7 +558,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&gt;</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Need a UDGraph object to compare&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: Need a UDGraph object to compare&quot;</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;overload the &gt; operator</span>
@@ -574,7 +573,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&lt;=</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Need a UDGraph object to compare&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: Need a UDGraph object to compare&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;overload the &gt; operator</span>
@@ -589,7 +588,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&gt;=</span> <span class="n">other</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Need a UDGraph object to compare&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: Need a UDGraph object to compare&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;hash function for udgraph</span>
@@ -638,6 +637,7 @@
             <span class="k">return</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>  <span class="c1"># len == 2</span>
             <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
             <span class="k">return</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span> <span class="o">+</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
@@ -839,14 +839,14 @@
 
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g2</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-                    <span class="n">der1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span>
-                        <span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
+                    <span class="n">der1</span> <span class="o">=</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span>
+                        <span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
                     <span class="n">der2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> \
                         <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
                     <span class="k">return</span> <span class="n">der1</span> <span class="o">+</span> <span class="n">der2</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">der1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span> <span class="o">**</span> <span class="p">(</span>
-                        <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
+                    <span class="n">der1</span> <span class="o">=</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span> <span class="o">**</span> <span class="p">(</span>
+                        <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
                     <span class="n">der2</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> \
                         <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
                     <span class="k">return</span> <span class="n">der1</span> <span class="o">+</span> <span class="n">der2</span>
@@ -859,8 +859,8 @@
                         <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
                     <span class="k">return</span> <span class="n">der1</span> <span class="o">+</span> <span class="n">der2</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">der1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span> <span class="o">**</span> <span class="p">(</span>
-                        <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
+                    <span class="n">der1</span> <span class="o">=</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span> <span class="o">**</span> <span class="p">(</span>
+                        <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
                     <span class="n">der2</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> \
                         <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
                     <span class="k">return</span> <span class="n">der1</span> <span class="o">+</span> <span class="n">der2</span>
@@ -877,20 +877,21 @@
 <span class="sd">            [type]: [description]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
+            <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;base&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g2</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-                    <span class="n">der1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span>
-                        <span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
+                    <span class="n">der1</span> <span class="o">=</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span>
+                        <span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
                     <span class="n">der2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> \
                         <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
                     <span class="k">return</span> <span class="n">der1</span> <span class="o">+</span> <span class="n">der2</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">der1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span> <span class="o">**</span> <span class="p">(</span>
-                        <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
+                    <span class="n">der1</span> <span class="o">=</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span> <span class="o">**</span> <span class="p">(</span>
+                        <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
                     <span class="n">der2</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> \
                         <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
                     <span class="k">return</span> <span class="n">der1</span> <span class="o">+</span> <span class="n">der2</span>
@@ -903,8 +904,8 @@
                         <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
                     <span class="k">return</span> <span class="n">der1</span> <span class="o">+</span> <span class="n">der2</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">der1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span> <span class="o">**</span> <span class="p">(</span>
-                        <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;degree&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
+                    <span class="n">der1</span> <span class="o">=</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span> <span class="o">**</span> <span class="p">(</span>
+                        <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
                     <span class="n">der2</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> \
                         <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
                     <span class="k">return</span> <span class="n">der1</span> <span class="o">+</span> <span class="n">der2</span>
@@ -929,7 +930,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_sin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">):</span>
@@ -951,7 +952,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_tan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">):</span>
@@ -973,7 +974,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_arccos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">):</span>
@@ -995,7 +996,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_arcsin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">):</span>
@@ -1017,7 +1018,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_arctan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">):</span>
@@ -1037,7 +1038,7 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
             <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">):</span>
@@ -1059,7 +1060,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_exp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">):</span>
@@ -1081,7 +1082,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;unsupported attribute type.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">):</span>
@@ -1184,7 +1185,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">var_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_variables</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="c1"># TODO: check der(x of x)</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;variable not defined in function&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: variable not defined in function&quot;</span><span class="p">)</span>
         <span class="c1"># TODO: check if variable address does not change</span>
         <span class="c1"># TODO: check if variable is UDGraph</span>
 

@@ -276,8 +276,7 @@ See the example below on how to pass in multiple inputs. Note: you will need to 
 <span class="linenos">12</span><span class="p">(</span><span class="n">array</span><span class="p">([[</span><span class="mf">3.</span>  <span class="p">,</span> <span class="mf">5.41</span><span class="p">]]),</span> <span class="n">array</span><span class="p">([[</span><span class="mf">2.5</span>  <span class="p">,</span> <span class="mf">2.354</span><span class="p">]]))</span>
 </pre></div>
 </div>
-<p>In the output above, the first array shows the function values after plugin the x values. The second array is the derivative values.
-Note: when applying <span class="math notranslate nohighlight">\(\mathbb{R}^m -&gt; \mathbb{R}\)</span>, we assume that users will provide equal number of values for all variables in the equation.</p>
+<p>In the output above, the first array shows the function values after plugin the x values. The second array is the derivative values.</p>
 <p><span class="math notranslate nohighlight">\(\mathbb{R} -&gt; \mathbb{R}^n\)</span></p>
 <p>This means that we will need to calculate for a single x input for the multiple functions. In this case, we designed our function to use a list to take multiple functions as inputs.
 See the example below on how to pass in multiple functions as input.</p>
@@ -306,8 +305,8 @@ See the example below on how to pass in multiple functions and values as input.<
 <span class="linenos"> 5</span><span class="n">f1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
 <span class="linenos"> 6</span><span class="n">f2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="linenos"> 7</span>
-<span class="linenos"> 8</span><span class="c1"># call the trace function in undefined, and provide input functions f1 and f2, and the x value.</span>
-<span class="linenos"> 9</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">([</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">],</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">]])))</span>
+<span class="linenos"> 8</span><span class="c1"># call the trace function in undefined, and provide input functions f1 and f2, and the x values.</span>
+<span class="linenos"> 9</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">([</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">],</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])))</span>
 <span class="linenos">10</span>
 <span class="linenos">11</span><span class="c1"># Output</span>
 <span class="linenos">12</span><span class="p">(</span><span class="n">array</span><span class="p">([[[</span><span class="mf">1.52</span><span class="p">,</span> <span class="mf">1.58</span><span class="p">]],</span> <span class="p">[[</span><span class="mf">3.</span>  <span class="p">,</span> <span class="mf">5.41</span><span class="p">]]]),</span> <span class="n">array</span><span class="p">([[[</span> <span class="mf">0.411</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.328</span><span class="p">]],</span> <span class="p">[[</span> <span class="mf">2.5</span>  <span class="p">,</span>  <span class="mf">2.354</span><span class="p">]]]))</span>
@@ -315,6 +314,8 @@ See the example below on how to pass in multiple functions and values as input.<
 </div>
 <p>In the output above, the first array represents the function values and the second array represents the derivative values.
 The first 2D list in the first tuple is the function value from the first function, and the first 2D list in the second tuple is the derivative from the first section. The second 2D list corresponding to the second function from the input.</p>
+<p><strong>Note:</strong> To maximize the flexibility for the users, our function can take a mixture as input, meaning the number of input values for variables do not need to be the same.
+For example, in the <span class="math notranslate nohighlight">\(\mathbb{R}^m -&gt; \mathbb{R}^n\)</span>, the users could input a function of x and y and give 3 values for x and 1 value for y. Our function would still work.</p>
 </section>
 <section id="debugging">
 <h3>3.4 Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline"></a></h3>

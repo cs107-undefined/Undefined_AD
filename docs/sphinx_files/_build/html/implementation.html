@@ -94,7 +94,10 @@
 <p>Here, we describe the implementation details of <code class="docutils literal notranslate"><span class="pre">Undefined</span></code> on how we achieve the automatic differentiation.</p>
 <section id="core-data-structure">
 <h2>5.1 Core Data Structure<a class="headerlink" href="#core-data-structure" title="Permalink to this headline"></a></h2>
-<p>(Insert the workflow here)</p>
+<a class="reference internal image-reference" href="_images/undefined_workflow.png"><img alt="undefined_workflow" src="_images/undefined_workflow.png" style="width: 600px;" /></a>
+<p>Here is the general workflow in our main function and how they connect with other .py files.
+The two main branches in the implementation are the “forward mode” and “reverse mode”. We will discuss in details below.</p>
+<p>Another feature we have is to use the <code class="docutils literal notranslate"><span class="pre">UDPremitive</span></code> object, which is a <code class="docutils literal notranslate"><span class="pre">enum</span></code> type to calculate the</p>
 <section id="forward-model">
 <h3>Forward Model<a class="headerlink" href="#forward-model" title="Permalink to this headline"></a></h3>
 <p>To calculate the derivative in <code class="docutils literal notranslate"><span class="pre">forward</span></code> mode, we used the dual number approach. In the <code class="docutils literal notranslate"><span class="pre">`UDFunction`</span></code> class inside the <code class="docutils literal notranslate"><span class="pre">UDFunction.py</span></code>, we overloaded the operators and accommodated the dual number (as the core data structure) approach following the formula below:</p>
@@ -129,7 +132,7 @@ The methods and descriptions below are only included the major functions. Helper
 </tbody>
 </table>
 <p><strong>UDFunction.py:</strong></p>
-<p>This class wraps the core data structure in our library. Objects instanciated from this class are the most basic computing units in our library.</p>
+<p>This class wraps the core data structure in our library. Objects instantiated from this class are the most basic computing units in our library.</p>
 <ul class="simple">
 <li><p>Name Attributes:</p></li>
 </ul>
