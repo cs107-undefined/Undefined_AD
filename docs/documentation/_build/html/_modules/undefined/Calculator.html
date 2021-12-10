@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>undefined.Calculator &mdash; Undefined - an automatic differentiation tool 1.0.0 documentation</title>
+  <title>undefined.Calculator &mdash; Undefined - an automatic differentiation tool 2.0.2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -14,6 +15,7 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/tabs.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -35,18 +37,27 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Software Organization</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../organization.html">Testing and Software Organization</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../implementation.html">Implementation</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Broader Impact and Future Directions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../statement.html">Broader Impact and Future Directions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code details</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">undefined</a></li>
 </ul>
@@ -193,7 +204,7 @@
 <span class="sd">        TypeError:raised if input is not compatiable with tangent operation</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        if input is udfunction object,update val and der by tangenr operation.</span>
+<span class="sd">        if input is udfunction object,update val and der by tangent operation.</span>
 <span class="sd">        if input is UDGraph object,update notes and function by tangent operation.</span>
 <span class="sd">        if input is int,float,ndarray object,update them in tangent operation by their own types. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -236,90 +247,90 @@
 
 
 <div class="viewcode-block" id="sinh"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.sinh">[docs]</a><span class="k">def</span> <span class="nf">sinh</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
+    <span class="sd">&quot;&quot;&quot;calculate the sinh operation of input</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        udobject ([type]): [description]</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        [type]: [description]</span>
+<span class="sd">        The result from the sinh operation. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span> <span class="o">-</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">udobject</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span></div>
 
 
 <div class="viewcode-block" id="cosh"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.cosh">[docs]</a><span class="k">def</span> <span class="nf">cosh</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
+    <span class="sd">&quot;&quot;&quot;calculate the cosh operation of input</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        udobject ([type]): [description]</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        [type]: [description]</span>
+<span class="sd">        The result from the cosh operation. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span> <span class="o">+</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">udobject</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span></div>
 
 
 <div class="viewcode-block" id="tanh"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.tanh">[docs]</a><span class="k">def</span> <span class="nf">tanh</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
+    <span class="sd">&quot;&quot;&quot;calculate the tanh operation of input</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        udobject ([type]): [description]</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        [type]: [description]</span>
+<span class="sd">        The result from the tanh operation. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">sinh</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span> <span class="o">/</span> <span class="n">cosh</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="coth"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.coth">[docs]</a><span class="k">def</span> <span class="nf">coth</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
+    <span class="sd">&quot;&quot;&quot;calculate the coth operation of input</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        udobject ([type]): [description]</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        [type]: [description]</span>
+<span class="sd">        The result from the coth operation. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">cosh</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span> <span class="o">/</span> <span class="n">sinh</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="sech"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.sech">[docs]</a><span class="k">def</span> <span class="nf">sech</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
+    <span class="sd">&quot;&quot;&quot;calculate the sech operation of input</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        udobject ([type]): [description]</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        [type]: [description]</span>
+<span class="sd">        The result from the sech operation. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">cosh</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="csch"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.csch">[docs]</a><span class="k">def</span> <span class="nf">csch</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
+    <span class="sd">&quot;&quot;&quot;calculate the csch operation of input</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        udobject ([type]): [description]</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        [type]: [description]</span>
+<span class="sd">        The result from the csch operation. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">sinh</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="arccos"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.arccos">[docs]</a><span class="k">def</span> <span class="nf">arccos</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
+    <span class="sd">&quot;&quot;&quot;calculate the arccos operation of input</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        udobject ([type]): [description]</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        TypeError: [description]</span>
-<span class="sd">        TypeError: [description]</span>
-<span class="sd">        TypeError: [description]</span>
+<span class="sd">        TypeError:raised if input is not compatiable with arccos operation</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        [type]: [description]</span>
+<span class="sd">        if input is udfunction object,update val and der by arccos operation.</span>
+<span class="sd">        if input is UDGraph object,update notes and function by arccos operation.</span>
+<span class="sd">        if input is int,float,ndarray object,update them in arccos operation by their own types. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDFunction</span><span class="p">):</span>
         <span class="n">check_arc</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
@@ -359,18 +370,18 @@
 
 
 <div class="viewcode-block" id="arcsin"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.arcsin">[docs]</a><span class="k">def</span> <span class="nf">arcsin</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
+    <span class="sd">&quot;&quot;&quot;calculate the arcsin operation of input</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        udobject ([type]): [description]</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        TypeError: [description]</span>
-<span class="sd">        TypeError: [description]</span>
-<span class="sd">        TypeError: [description]</span>
+<span class="sd">        TypeError:raised if input is not compatiable with arcsin operation</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        [type]: [description]</span>
+<span class="sd">        if input is udfunction object,update val and der by arcsin operation.</span>
+<span class="sd">        if input is UDGraph object,update notes and function by arcsin operation.</span>
+<span class="sd">        if input is int,float,ndarray object,update them in arcsin operation by their own types. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDFunction</span><span class="p">):</span>
         <span class="n">check_arc</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
@@ -409,18 +420,18 @@
 
 
 <div class="viewcode-block" id="arctan"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.arctan">[docs]</a><span class="k">def</span> <span class="nf">arctan</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
+    <span class="sd">&quot;&quot;&quot;calculate the arctan operation of input</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        udobject ([type]): [description]</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        TypeError: [description]</span>
-<span class="sd">        TypeError: [description]</span>
-<span class="sd">        TypeError: [description]</span>
+<span class="sd">        TypeError:raised if input is not compatiable with arctan operation</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        [type]: [description]</span>
+<span class="sd">        if input is udfunction object,update val and der by arctan operation.</span>
+<span class="sd">        if input is UDGraph object,update notes and function by arctan operation.</span>
+<span class="sd">        if input is int,float,ndarray object,update them in arctan operation by their own types.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDFunction</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
@@ -555,13 +566,14 @@
 
 
 <div class="viewcode-block" id="standard_logistic"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.standard_logistic">[docs]</a><span class="k">def</span> <span class="nf">standard_logistic</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
+    <span class="sd">&quot;&quot;&quot;this is the function we calculate the standard logistic. </span>
+<span class="sd">    It is different than the log() function</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        udobject ([type]): [description]</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        [type]: [description]</span>
+<span class="sd">        return the standard logistic results.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">udobject</span><span class="p">))</span></div>
 
@@ -618,25 +630,6 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span></div>
 
-
-<span class="c1"># if __name__ == &quot;__main__&quot;:</span>
-    <span class="c1"># beta = 3.0</span>
-    <span class="c1"># x = UDFunction(2)</span>
-    <span class="c1"># y = UDFunction(2)</span>
-    <span class="c1"># f = sin(x)**0.5 + cos(exp(y) + cos(2)) + log(y, 4) / x</span>
-    <span class="c1"># f1 = sinh(f)</span>
-    <span class="c1"># f2 = cosh(f)</span>
-    <span class="c1"># f3 = tanh(f)</span>
-    <span class="c1"># f4 = csch(f)</span>
-    <span class="c1"># f5 = coth(f)</span>
-    <span class="c1"># f6 = sech(f)</span>
-    <span class="c1"># print(f)</span>
-    <span class="c1"># print(f1)</span>
-    <span class="c1"># print(f2)</span>
-    <span class="c1"># print(f3)</span>
-    <span class="c1"># print(f4)</span>
-    <span class="c1"># print(f5)</span>
-    <span class="c1"># print(f6)</span>
 </pre></div>
 
            </div>

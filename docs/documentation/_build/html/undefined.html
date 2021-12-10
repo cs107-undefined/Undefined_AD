@@ -37,17 +37,25 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Software Organization</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="organization.html">Testing and Software Organization</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Broader Impact and Future Directions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="statement.html">Broader Impact and Future Directions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Code details</span></p>
 <ul class="current">
@@ -101,25 +109,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.API.trace">
 <span class="sig-prename descclassname"><span class="pre">undefined.API.</span></span><span class="sig-name descname"><span class="pre">trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'forward'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/API.html#trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.API.trace" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>This is the main function that the users will interact with.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>f ([type]): [description]
-mode (str, optional): [description]. Defaults to ‘forward’.
-seeds ([type], optional): [description]. Defaults to None.
-plot (bool, optional): [description]. Defaults to False.</p>
+<dt>Args:</dt><dd><p>f ([LambdaType]): [This is the user defined function. Use list if there are multiple input functions]
+mode (str, optional): Defaults to ‘forward’. Determine with mode to use to calculate the derivatives.
+seeds ([type], optional): Defaults to None. Used to calculate the Jacobian matrix
+plot (bool, optional):  Defaults to False. Need to use in combination with “reverse” mode. If True, it will save the computational graph to your current working directory.</p>
 </dd>
-<dt>Raises:</dt><dd><p>TypeError: [description]
-AttributeError: [description]
-TypeError: [description]
-AttributeError: [description]
-TypeError: [description]
-AttributeError: [description]
-TypeError: [description]
-TypeError: [description]
-TypeError: [description]
-AttributeError: [description]</p>
+<dt>Raises:</dt><dd><p>Errors will raise if unlawful inputs are given.</p>
 </dd>
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><p>The function values and the derivatives results will be saved in a tuple as the output.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -130,15 +129,15 @@ AttributeError: [description]</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.Calculator.arccos">
 <span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">arccos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#arccos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.arccos" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>calculate the arccos operation of input</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>udobject ([type]): [description]</p>
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
 </dd>
-<dt>Raises:</dt><dd><p>TypeError: [description]
-TypeError: [description]
-TypeError: [description]</p>
+<dt>Raises:</dt><dd><p>TypeError:raised if input is not compatiable with arccos operation</p>
 </dd>
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by arccos operation.
+if input is UDGraph object,update notes and function by arccos operation.
+if input is int,float,ndarray object,update them in arccos operation by their own types.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -146,15 +145,15 @@ TypeError: [description]</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.Calculator.arcsin">
 <span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">arcsin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#arcsin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.arcsin" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>calculate the arcsin operation of input</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>udobject ([type]): [description]</p>
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
 </dd>
-<dt>Raises:</dt><dd><p>TypeError: [description]
-TypeError: [description]
-TypeError: [description]</p>
+<dt>Raises:</dt><dd><p>TypeError:raised if input is not compatiable with arcsin operation</p>
 </dd>
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by arcsin operation.
+if input is UDGraph object,update notes and function by arcsin operation.
+if input is int,float,ndarray object,update them in arcsin operation by their own types.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -162,15 +161,15 @@ TypeError: [description]</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.Calculator.arctan">
 <span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">arctan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#arctan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.arctan" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>calculate the arctan operation of input</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>udobject ([type]): [description]</p>
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
 </dd>
-<dt>Raises:</dt><dd><p>TypeError: [description]
-TypeError: [description]
-TypeError: [description]</p>
+<dt>Raises:</dt><dd><p>TypeError:raised if input is not compatiable with arctan operation</p>
 </dd>
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by arctan operation.
+if input is UDGraph object,update notes and function by arctan operation.
+if input is int,float,ndarray object,update them in arctan operation by their own types.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -198,11 +197,11 @@ if input is int,float,ndarray object,update them in cosine operation by their ow
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.Calculator.cosh">
 <span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">cosh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#cosh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.cosh" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>calculate the cosh operation of input</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>udobject ([type]): [description]</p>
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
 </dd>
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><p>The result from the cosh operation.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -210,11 +209,11 @@ if input is int,float,ndarray object,update them in cosine operation by their ow
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.Calculator.coth">
 <span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">coth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#coth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.coth" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>calculate the coth operation of input</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>udobject ([type]): [description]</p>
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
 </dd>
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><p>The result from the coth operation.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -222,11 +221,11 @@ if input is int,float,ndarray object,update them in cosine operation by their ow
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.Calculator.csch">
 <span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">csch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#csch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.csch" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>calculate the csch operation of input</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>udobject ([type]): [description]</p>
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
 </dd>
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><p>The result from the csch operation.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -270,11 +269,11 @@ if input is int,float,ndarray object,update them in log operation by their own t
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.Calculator.sech">
 <span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">sech</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#sech"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.sech" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>calculate the sech operation of input</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>udobject ([type]): [description]</p>
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
 </dd>
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><p>The result from the sech operation.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -302,11 +301,11 @@ if input is int,float,ndarray object,update them in sin operation by their own t
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.Calculator.sinh">
 <span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">sinh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#sinh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.sinh" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>calculate the sinh operation of input</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>udobject ([type]): [description]</p>
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
 </dd>
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><p>The result from the sinh operation.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -334,11 +333,12 @@ if input is int,float,ndarray object,update them in square root operation by the
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.Calculator.standard_logistic">
 <span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">standard_logistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#standard_logistic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.standard_logistic" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>this is the function we calculate the standard logistic. 
+It is different than the log() function</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>udobject ([type]): [description]</p>
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
 </dd>
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><p>return the standard logistic results.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -356,7 +356,7 @@ if input is int,float,ndarray object,update them in square root operation by the
 <div><p>TypeError:raised if input is not compatiable with tangent operation</p>
 </div></blockquote>
 <dl class="simple">
-<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by tangenr operation.
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by tangent operation.
 if input is UDGraph object,update notes and function by tangent operation.
 if input is int,float,ndarray object,update them in tangent operation by their own types.</p>
 </dd>
@@ -366,11 +366,11 @@ if input is int,float,ndarray object,update them in tangent operation by their o
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.Calculator.tanh">
 <span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">tanh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#tanh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.tanh" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>calculate the tanh operation of input</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>udobject ([type]): [description]</p>
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
 </dd>
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><p>The result from the tanh operation.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -773,7 +773,7 @@ if input is int,float,ndarray object,update them in square root operation by the
 <div><p>TypeError:raised if input is not compatiable with tangent operation</p>
 </div></blockquote>
 <dl class="simple">
-<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by tangenr operation.
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by tangent operation.
 if input is UDGraph object,update notes and function by tangent operation.
 if input is int,float,ndarray object,update them in tangent operation by their own types.</p>
 </dd>
@@ -783,25 +783,16 @@ if input is int,float,ndarray object,update them in tangent operation by their o
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.trace">
 <span class="sig-prename descclassname"><span class="pre">undefined.</span></span><span class="sig-name descname"><span class="pre">trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'forward'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/API.html#trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.trace" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>This is the main function that the users will interact with.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>f ([type]): [description]
-mode (str, optional): [description]. Defaults to ‘forward’.
-seeds ([type], optional): [description]. Defaults to None.
-plot (bool, optional): [description]. Defaults to False.</p>
+<dt>Args:</dt><dd><p>f ([LambdaType]): [This is the user defined function. Use list if there are multiple input functions]
+mode (str, optional): Defaults to ‘forward’. Determine with mode to use to calculate the derivatives.
+seeds ([type], optional): Defaults to None. Used to calculate the Jacobian matrix
+plot (bool, optional):  Defaults to False. Need to use in combination with “reverse” mode. If True, it will save the computational graph to your current working directory.</p>
 </dd>
-<dt>Raises:</dt><dd><p>TypeError: [description]
-AttributeError: [description]
-TypeError: [description]
-AttributeError: [description]
-TypeError: [description]
-AttributeError: [description]
-TypeError: [description]
-TypeError: [description]
-TypeError: [description]
-AttributeError: [description]</p>
+<dt>Raises:</dt><dd><p>Errors will raise if unlawful inputs are given.</p>
 </dd>
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><p>The function values and the derivatives results will be saved in a tuple as the output.</p>
 </dd>
 </dl>
 </dd></dl>
