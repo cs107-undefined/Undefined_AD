@@ -157,6 +157,35 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(cal.sin(self.hg).val, 0.41)
         self.assertListAlmostEqual(cal.sin(self.jg).val[0], [-0.42, 0.44, 1.00, 0.41])
 
+    def test_sqrt(self):
+        self.assertEqual(round(cal.sqrt(self.a), 2), 1.41)
+        with self.assertRaises(ValueError):
+            cal.sqrt(self.b)
+        with self.assertRaises(ValueError):
+            cal.sqrt(self.e)
+        with self.assertRaises(ValueError):
+            cal.sqrt(self.f)
+
+        with self.assertRaises(TypeError):
+            cal.sqrt(self.s)
+        self.assertEqual(round(cal.sqrt(self.g), 2), 1.25)
+
+        self.assertEqual(cal.sqrt(self.af).val,  1.41)
+        with self.assertRaises(ValueError):
+            cal.sqrt(self.bf)
+        
+        with self.assertRaises(ValueError):
+            cal.sqrt(self.ef)
+        with self.assertRaises(ValueError):
+            cal.sqrt(self.ff)
+        self.assertEqual(cal.sqrt(self.ag).val,  1.41)
+        with self.assertRaises(ValueError):
+            cal.sqrt(self.bg)
+        with self.assertRaises(ValueError):
+            cal.sqrt(self.eg)
+        with self.assertRaises(ValueError):
+            cal.sqrt(self.fg)
+
     def test_tan(self):
         self.assertEqual(round(cal.tan(self.a), 2), -2.19)
         self.assertEqual(round(cal.tan(self.b), 2), - 2.01)
@@ -198,6 +227,37 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(cal.tan(self.hg).val, -0.45)
         with self.assertRaises(ZeroDivisionError):
             cal.tan(self.jg)
+    
+    def test_log(self):
+        self.assertEqual(round(cal.log(self.a), 2), 0.69)
+        self.assertEqual(round(cal.log(self.a, 10), 2), 0.30)
+        with self.assertRaises(ValueError):
+            cal.log(self.b)
+        with self.assertRaises(ValueError):
+            cal.log(self.e)
+        with self.assertRaises(ValueError):
+            cal.log(self.f)
+
+        with self.assertRaises(TypeError):
+            cal.log(self.s)
+        self.assertEqual(round(cal.log(self.g), 2), 0.45)
+        self.assertEqual(cal.log(self.af).val,  0.69)
+        self.assertEqual(cal.log(self.af, 10).val,  0.30)
+        with self.assertRaises(ValueError):
+            cal.log(self.bf)
+        
+        with self.assertRaises(ValueError):
+            cal.log(self.ef)
+        with self.assertRaises(ValueError):
+            cal.log(self.ff)
+        self.assertEqual(cal.log(self.ag).val,  0.69)
+        self.assertEqual(cal.log(self.ag, 10).val,  0.30)
+        with self.assertRaises(ValueError):
+            cal.log(self.bg)
+        with self.assertRaises(ValueError):
+            cal.log(self.eg)
+        with self.assertRaises(ValueError):
+            cal.log(self.fg)
     
     def test_sine_integration(self):
 
@@ -321,8 +381,11 @@ class TestCalculator(unittest.TestCase):
 
         a = "2.0"
         x = UDFunction(a)
+        x1 = UDFunction(1)
         y = UDGraph(np.array([1]))
+        f_logist = cal.standard_logistic(x1)
 
+        self.assertEqual(f_logist.val, 0.73)
         self.assertEqual(round(self.f9.val, 2), 2.72)
         self.assertEqual(round(self.f9.der, 2), 2.72)
 
@@ -342,6 +405,8 @@ class TestCalculator(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             self.f000 = cal.exp("3/np.pi")
+
+
 
     def test_log_integration(self):
         a = "2.0"
@@ -373,7 +438,6 @@ class TestCalculator(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             self.f000 = cal.log(b)
-
 
 
     def test_hs_integration(self):
@@ -412,14 +476,18 @@ class TestCalculator(unittest.TestCase):
 
 
 
-    def test_arc_integration(self):
+    def test_arc(self):
 
         a = 0.5
         x = UDFunction(a)
         b = "0.5"
         y = UDFunction(b)
         # test arccos
-
+        c = 99
+        z1 = UDFunction(c)
+        z2 = UDFunction(np.array([[a,c,c]]))
+        z3 = UDGraph(c)
+        z4 = UDGraph(np.array([[a,c,c]]))
         self.assertEqual(round(cal.arccos(x),2), 1.05)
         self.assertEqual(round(cal.arccos(0.5),2), 1.05)
         self.assertEqual(np.round(cal.arccos(UDFunction(np.array([0.5]))).val), 1)
@@ -427,8 +495,22 @@ class TestCalculator(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             cal.arccos(y)
-
-
+        with self.assertRaises(ValueError):
+            cal.arccos(c)
+        with self.assertRaises(ValueError):
+            cal.arccos(z1)
+        with self.assertRaises(ValueError):
+            cal.arccos(z2)
+        with self.assertRaises(ValueError):
+            cal.arcsin(c)
+        with self.assertRaises(ValueError):
+            cal.arcsin(z1)
+        with self.assertRaises(ValueError):
+            cal.arcsin(z2)
+        with self.assertRaises(ValueError):
+            cal.arcsin(z3)
+        with self.assertRaises(ValueError):
+            cal.arcsin(z4)
         with self.assertRaises(TypeError):
             self.f000 = cal.arccos("3/np.pi")
 
@@ -443,9 +525,7 @@ class TestCalculator(unittest.TestCase):
         with self.assertRaises(TypeError):
             cal.arccos(UDGraph("3/np.pi"))
 
-
         # test arcsin
-
 
         self.assertEqual(round(cal.arcsin(x),2), 0.52)
         self.assertEqual(round(cal.arcsin(0.5),2), 0.52)
