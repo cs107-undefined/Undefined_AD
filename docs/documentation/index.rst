@@ -55,6 +55,12 @@ Link to the project `Github page <https://github.com/cs107-undefined/cs107-Final
 
    implementation
 
+.. toctree::
+   :maxdepth: 3
+   :caption: Broader Impact and Future Directions
+
+   statement
+
 
 .. toctree::
    :maxdepth: 3

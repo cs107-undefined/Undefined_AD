@@ -38,7 +38,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Introduction and Backgroud</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 </ul>
@@ -54,9 +54,13 @@
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Implemetation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Broader Impact and Future Directions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="statement.html">Broader Impact and Future Directions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Code details</span></p>
 <ul>
@@ -94,11 +98,16 @@
 <p>Both <code class="docutils literal notranslate"><span class="pre">TravisCI</span></code> and <code class="docutils literal notranslate"><span class="pre">CodeCov</span></code> will be used for testing suit monitoring, and the package is available in <code class="docutils literal notranslate"><span class="pre">PyPI</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">src</span></code> folder is where we house our core modules, which include the following:</p>
 <p><code class="docutils literal notranslate"><span class="pre">UDFunction.py</span></code>: We overload the operators in this file, such as <code class="docutils literal notranslate"><span class="pre">__add__</span></code>.
-<code class="docutils literal notranslate"><span class="pre">Calculator.py</span></code>: We defined the calculation of <code class="docutils literal notranslate"><span class="pre">sin</span></code>, <code class="docutils literal notranslate"><span class="pre">cos</span></code>, <code class="docutils literal notranslate"><span class="pre">tan</span></code>, <code class="docutils literal notranslate"><span class="pre">sqrt</span></code>, and <code class="docutils literal notranslate"><span class="pre">exp</span></code>.
+<code class="docutils literal notranslate"><span class="pre">GraphGenerator.py</span></code>: This is where we mainly achieved the reverse mode.
+<code class="docutils literal notranslate"><span class="pre">Calculator.py</span></code>: We defined the calculation, such as <code class="docutils literal notranslate"><span class="pre">sin</span></code>, <code class="docutils literal notranslate"><span class="pre">cos</span></code>, <code class="docutils literal notranslate"><span class="pre">tan</span></code>, <code class="docutils literal notranslate"><span class="pre">sqrt</span></code>, and <code class="docutils literal notranslate"><span class="pre">exp</span></code>.
+<code class="docutils literal notranslate"><span class="pre">Utils.py</span></code>: This file contains the helper functions.
 <code class="docutils literal notranslate"><span class="pre">API.py</span></code>: We defined the <code class="docutils literal notranslate"><span class="pre">trace</span></code> function here to wrap all the calculation required for the users defined function.</p>
 <p><code class="docutils literal notranslate"><span class="pre">test</span></code> folder is where we house our test suits, which contains a test file for each python files inside the <code class="docutils literal notranslate"><span class="pre">src</span></code> folder.
 We have developed the test based on the unit test concept and the integration concept, meaning we tested for the basic functionality and also tested if functions could work with other functions in the same defined function.</p>
 <p>We developed a bash script to run all the tests, including the tests written under unit test concept and the integration test concept. You can test them by using the following examples:</p>
+<p>Because we provided a command-line friendly user interface, we expect the consumer and the developers to interact with the package in the same way.
+Moreover, the developers could index our derivative results for their subsequent use.
+Since we distributed the package via <code class="docutils literal notranslate"><span class="pre">PyPI</span></code>, we provided an easy installation for both consumers and developers in modern computers.</p>
 <p>Assuming your current directory is the <code class="docutils literal notranslate"><span class="pre">undefined</span></code> root directory, you can run the following codes to run the test cases we developed for <code class="docutils literal notranslate"><span class="pre">Undefined</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># run test suits in your command line terminal</span>
 <span class="linenos">2</span><span class="n">bash</span> <span class="n">test</span><span class="o">/</span><span class="n">run_tests</span><span class="o">.</span><span class="n">sh</span> <span class="n">coverage</span>

@@ -9,7 +9,9 @@ Both ``TravisCI`` and ``CodeCov`` will be used for testing suit monitoring, and 
 ``src`` folder is where we house our core modules, which include the following:
 
 ``UDFunction.py``: We overload the operators in this file, such as ``__add__``.
-``Calculator.py``: We defined the calculation of ``sin``, ``cos``, ``tan``, ``sqrt``, and ``exp``. 
+``GraphGenerator.py``: This is where we mainly achieved the reverse mode. 
+``Calculator.py``: We defined the calculation, such as ``sin``, ``cos``, ``tan``, ``sqrt``, and ``exp``. 
+``Utils.py``: This file contains the helper functions. 
 ``API.py``: We defined the ``trace`` function here to wrap all the calculation required for the users defined function. 
 
 
@@ -17,6 +19,10 @@ Both ``TravisCI`` and ``CodeCov`` will be used for testing suit monitoring, and 
 We have developed the test based on the unit test concept and the integration concept, meaning we tested for the basic functionality and also tested if functions could work with other functions in the same defined function. 
 
 We developed a bash script to run all the tests, including the tests written under unit test concept and the integration test concept. You can test them by using the following examples:
+
+Because we provided a command-line friendly user interface, we expect the consumer and the developers to interact with the package in the same way.
+Moreover, the developers could index our derivative results for their subsequent use. 
+Since we distributed the package via ``PyPI``, we provided an easy installation for both consumers and developers in modern computers.
 
 Assuming your current directory is the ``undefined`` root directory, you can run the following codes to run the test cases we developed for ``Undefined``.
 

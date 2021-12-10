@@ -24,6 +24,9 @@ To calculate the derivative in ``forward`` mode, we used the dual number approac
 
 where :math:`{v}_j` is the real part corresponding to the primal trace, and the :math:`{D_p v_j}` is the dual part corresponding to the tangent trace.
 
+5.2 Extension Implementation
+------------------------------------
+
 Reverse Mode
 ^^^^^^^^^^^^^^^
 
@@ -63,7 +66,7 @@ In the reverse mode, we used the ``UDPremitive`` class serving as a look up tabl
 One thing to note is that mathematically, we only work with numerical values, not with formulae or overladed operators. However, to automatically build the computational graph structure, we modified the operators for the reverse mode so that we can save the intermediate values as we do the calculation.
 This is implemented in the ``GraphGenerator.py`` file. 
 
-5.2 Core Classes
+5.3 Core Classes
 ------------------
 
 We used ``numpy`` and ``math`` libraries to help with the math and used ``matplotlib`` and ``networkx`` libraries for plot the computational graph. 
@@ -72,11 +75,12 @@ The methods and descriptions below are only included the **major functions**. He
 
 **API.py:**
 This class contains methods that can be called by the users, the *trace* function. Here is the default setting for the trace function.
+The default mode is the "forward" mode, the default seeds = None, and plot = False. 
 
 .. code-block:: 
     :linenos:
 
-    trace(lambda_function, mode="forward", plot=False, **kwargs) 
+    trace(lambda_function, mode="forward", seeds = None, plot=False, **kwargs) 
 
 **UDFunction.py:**
 
@@ -209,7 +213,7 @@ Another class we developed in this file is the ``GraphGenerator``, which will fa
 We defined our ``Enum`` type of class here, the ``UDPrimitive``. 
 
 
-5.3 External Dependencies
+5.4 External Dependencies
 ------------------------------
 
 We are planning to include one python file to include the codes for computing the derivative, and have another file with all the testing files. Both ``TravisCI`` and ``CodeCov`` will be used for testing suit monitoring. The CI status and the code coverage are reflected in our github repository. The package will be uploaded and distributed via ``PyPI`` . We will use the ``NetworkX`` package for constructing the visualization for the computational graph.

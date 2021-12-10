@@ -40,22 +40,20 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Introduction and Backgroud</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#how-to-use-undefined">3. How to use <code class="docutils literal notranslate"><span class="pre">Undefined</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#forward-mode-demo">3.1 Forward Mode Demo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#reverse-mode-extension-functionality-demo">3.2 Reverse Mode (Extension Functionality) Demo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#multiple-vectors-inputs-and-outputs">3.3 Multiple Vectors Inputs and Outputs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#seeds-vector-option">3.4 Seeds Vector option</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#a-few-tips">3.5 A Few Tips</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#debugging">3.6 Debugging</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-use-undefined">3. How to use <code class="docutils literal notranslate"><span class="pre">Undefined</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#forward-mode-demo">3.1 Forward Mode Demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reverse-mode-demo-our-extension">3.2 Reverse Mode Demo (Our Extension)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multiple-vectors-inputs-and-outputs">3.3 Multiple Vectors Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seeds-vector-option">3.4 Seeds Vector option</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-few-tips">3.5 A Few Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging">3.6 Debugging</a></li>
 </ul>
 </li>
 </ul>
@@ -63,9 +61,13 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="organization.html">Testing and Software Organization</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Implemetation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Broader Impact and Future Directions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="statement.html">Broader Impact and Future Directions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Code details</span></p>
 <ul>
@@ -102,12 +104,12 @@
 <h2>3. How to use <code class="docutils literal notranslate"><span class="pre">Undefined</span></code><a class="headerlink" href="#how-to-use-undefined" title="Permalink to this headline"></a></h2>
 <p>This is the recommended usage. The users can interact with the package at their discretion.</p>
 <p>We have published our package to the PyPI, so people can easily install the package via pip command. We recommend you use a Python version 3.8 or newer.</p>
-<p>Our package name on PyPi is <code class="docutils literal notranslate"><span class="pre">undefined_AD</span></code>, where AD stands for automatic differentiation.</p>
-<p>Then, <code class="docutils literal notranslate"><span class="pre">undefined</span></code> provided easy installation by running this following command (Assuming your current directory is the working directory, which contains the wheel file):</p>
+<p>Our package name on PyPI is <code class="docutils literal notranslate"><span class="pre">undefined_AD</span></code>, where AD stands for automatic differentiation.</p>
+<p>Then, <code class="docutils literal notranslate"><span class="pre">undefined</span></code> provided easy installation by running this following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>pip install undefined_AD
 </pre></div>
 </div>
-<p>Users should import the package by the following in their Python script:</p>
+<p>Users should import the API to interact with our package by the following in their Python script. Details about the <code class="docutils literal notranslate"><span class="pre">trace</span></code> function can be found below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
 </pre></div>
 </div>
@@ -119,8 +121,9 @@
 <p><strong>Note:</strong> Our package will not work with the functions in other libraries, such as np.sin. Please use our customized functions.</p>
 <p>Once imported successfully, users can calculate the derivative of a given function by using the syntax from the section below.</p>
 <p>Here, we will demo the R -&gt; R cases in the 3.1 and 3.2 to illustrate the basic usage of <code class="docutils literal notranslate"><span class="pre">Undefined</span></code>. In 3.3, we will demo the higher order inputs and outputs.</p>
+</div>
 <div class="section" id="forward-mode-demo">
-<h3>3.1 Forward Mode Demo<a class="headerlink" href="#forward-mode-demo" title="Permalink to this headline"></a></h3>
+<h2>3.1 Forward Mode Demo<a class="headerlink" href="#forward-mode-demo" title="Permalink to this headline"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function will calculate the derivative, which will intake a user defined function using <code class="docutils literal notranslate"><span class="pre">lambda</span></code>, the mode (default is <strong>forward</strong> mode), and associated values. The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function will return the derivatives of the function.</p>
 <p>Here, we showed a demo with <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> -&gt; <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>:</p>
 <p><strong>*Note:*</strong>
@@ -157,8 +160,8 @@ In our design, the users do not need to instantiate an <code class="docutils lit
 <p>In the derivative results, the order is the same as the lambda function’s variable order. In this case, the first is the partial derivative for x and the other one is for y.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function can also handle multiple dimensional calculation. Refer to section 3.3 below.</p>
 </div>
-<div class="section" id="reverse-mode-extension-functionality-demo">
-<h3>3.2 Reverse Mode (Extension Functionality) Demo<a class="headerlink" href="#reverse-mode-extension-functionality-demo" title="Permalink to this headline"></a></h3>
+<div class="section" id="reverse-mode-demo-our-extension">
+<h2>3.2 Reverse Mode Demo (Our Extension)<a class="headerlink" href="#reverse-mode-demo-our-extension" title="Permalink to this headline"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function will also be able to calculate derivatives in reverse mode by specifying the <code class="docutils literal notranslate"><span class="pre">mode</span></code> parameters. Take the example below as a demo.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
 <span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">sin</span>
@@ -251,7 +254,7 @@ Another feature we developed in our reverse mode is to output the computational 
 <p><strong>Of note</strong>: as we used the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> library to achieve the graph, the graph will be different even if you run the same code twice or many different times.</p>
 </div>
 <div class="section" id="multiple-vectors-inputs-and-outputs">
-<h3>3.3 Multiple Vectors Inputs and Outputs<a class="headerlink" href="#multiple-vectors-inputs-and-outputs" title="Permalink to this headline"></a></h3>
+<h2>3.3 Multiple Vectors Inputs and Outputs<a class="headerlink" href="#multiple-vectors-inputs-and-outputs" title="Permalink to this headline"></a></h2>
 <p>Here, I will use the forward mode to demo how to use <code class="docutils literal notranslate"><span class="pre">Undefined</span></code> using multiple inputs. The reverse mode would result the same.</p>
 <p><span class="math notranslate nohighlight">\(\mathbb{R}^m -&gt; \mathbb{R}\)</span></p>
 <p>This means that we will need to calculate for multiple x input for the same function. We designed our function to use <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code> to take multiple inputs.
@@ -331,7 +334,7 @@ The second array represents the derivative value. The first list represent the d
 and the second list is the derivative value of f4 when x = 1, y = 4 with respect to x and y. The last two lists represent when x = 2, y = 4 for derivative values for f3 and f4 in that order.</p>
 </div>
 <div class="section" id="seeds-vector-option">
-<h3>3.4 Seeds Vector option<a class="headerlink" href="#seeds-vector-option" title="Permalink to this headline"></a></h3>
+<h2>3.4 Seeds Vector option<a class="headerlink" href="#seeds-vector-option" title="Permalink to this headline"></a></h2>
 <p>Since we used the Jacobian matrix, we provided the option for the users to define their own seed vector to decide which partial derivatives they want to take for the input function(s).
 You can use the <code class="docutils literal notranslate"><span class="pre">seeds</span></code> option in both <code class="docutils literal notranslate"><span class="pre">forward</span></code> and <code class="docutils literal notranslate"><span class="pre">reverse</span></code> modes.
 See the examples below on to use interact with <code class="docutils literal notranslate"><span class="pre">seeds</span></code> argument.</p>
@@ -406,7 +409,7 @@ However, you can define whatever projection you want in our package. See how you
 </div></div>
 </div>
 <div class="section" id="a-few-tips">
-<h3>3.5 A Few Tips<a class="headerlink" href="#a-few-tips" title="Permalink to this headline"></a></h3>
+<h2>3.5 A Few Tips<a class="headerlink" href="#a-few-tips" title="Permalink to this headline"></a></h2>
 <p>Although our package is smart and can handle many different scenarios and cases, there are exceptions.</p>
 <ul class="simple">
 <li><p>We cannot unpack more number of input variables than the user defined functions have. For example, if the user defined function is the following:</p></li>
@@ -427,12 +430,11 @@ However, there is chance that we did not cover every case. So please do not be s
 </ul>
 </div>
 <div class="section" id="debugging">
-<h3>3.6 Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline"></a></h3>
+<h2>3.6 Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline"></a></h2>
 <p>When there is an issue occurred, do not panic! It is expected. We offer a few words here when you have to debug the program.</p>
 <p>Since the forward model does not store the intermediate values, we recommend the users to use reverse mode for their debugging propose. We offer the graph structure and the computational graph as output to facilitate with the process.
 Moreover, we also provide the source codes for the users to examine our workflow. Please refer to the <strong>Code Details</strong> section.
 Since our design is encapsulated and modularized, it is easy for the users to spot the possible error(s).</p>
-</div>
 </div>
 </div>
 

@@ -20,7 +20,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="undefined" href="modules.html" />
+    <link rel="next" title="Broader Impact and Future Directions" href="statement.html" />
     <link rel="prev" title="Testing and Software Organization" href="organization.html" /> 
 </head>
 
@@ -39,27 +39,39 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Software Organization</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="organization.html">Testing and Software Organization</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Implementation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#core-data-structure">5.1 Core Data Structure</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#forward-mode">Forward Mode</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#extension-implementation">5.2 Extension Implementation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#reverse-mode">Reverse Mode</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#core-classes">5.2 Core Classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#external-dependencies">5.3 External Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#core-classes">5.3 Core Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#external-dependencies">5.4 External Dependencies</a></li>
 </ul>
 </li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Broader Impact and Future Directions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="statement.html">Broader Impact and Future Directions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code details</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">undefined</a></li>
 </ul>
@@ -102,6 +114,9 @@ The two main branches in the implementation are the “forward mode” and “re
 <p><span class="math notranslate nohighlight">\({z}_j = {v}_j + D_p v_j \epsilon\)</span></p>
 <p>where <span class="math notranslate nohighlight">\({v}_j\)</span> is the real part corresponding to the primal trace, and the <span class="math notranslate nohighlight">\({D_p v_j}\)</span> is the dual part corresponding to the tangent trace.</p>
 </div>
+</div>
+<div class="section" id="extension-implementation">
+<h2>5.2 Extension Implementation<a class="headerlink" href="#extension-implementation" title="Permalink to this headline"></a></h2>
 <div class="section" id="reverse-mode">
 <h3>Reverse Mode<a class="headerlink" href="#reverse-mode" title="Permalink to this headline"></a></h3>
 <p>The reverse mode calculates the partial derivatives of the i-th output <span class="math notranslate nohighlight">\(f_i\)</span> with respect to the n variables <span class="math notranslate nohighlight">\(v_{j-m} = x_j\)</span> with j = 1,2,…,n by traversing the computational graph backwards.
@@ -128,12 +143,13 @@ This is implemented in the <code class="docutils literal notranslate"><span clas
 </div>
 </div>
 <div class="section" id="core-classes">
-<h2>5.2 Core Classes<a class="headerlink" href="#core-classes" title="Permalink to this headline"></a></h2>
+<h2>5.3 Core Classes<a class="headerlink" href="#core-classes" title="Permalink to this headline"></a></h2>
 <p>We used <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">math</span></code> libraries to help with the math and used <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">networkx</span></code> libraries for plot the computational graph.
 The methods and descriptions below are only included the <strong>major functions</strong>. Helper functions are not included. Please refer to the source code for all detailed function description.</p>
 <p><strong>API.py:</strong>
-This class contains methods that can be called by the users, the <em>trace</em> function. Here is the default setting for the trace function.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">trace</span><span class="p">(</span><span class="n">lambda_function</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;forward&quot;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+This class contains methods that can be called by the users, the <em>trace</em> function. Here is the default setting for the trace function.
+The default mode is the “forward” mode, the default seeds = None, and plot = False.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">trace</span><span class="p">(</span><span class="n">lambda_function</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;forward&quot;</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>UDFunction.py:</strong></p>
@@ -277,7 +293,7 @@ The methods included in this class are:</p>
 <p>We defined our <code class="docutils literal notranslate"><span class="pre">Enum</span></code> type of class here, the <code class="docutils literal notranslate"><span class="pre">UDPrimitive</span></code>.</p>
 </div>
 <div class="section" id="external-dependencies">
-<h2>5.3 External Dependencies<a class="headerlink" href="#external-dependencies" title="Permalink to this headline"></a></h2>
+<h2>5.4 External Dependencies<a class="headerlink" href="#external-dependencies" title="Permalink to this headline"></a></h2>
 <p>We are planning to include one python file to include the codes for computing the derivative, and have another file with all the testing files. Both <code class="docutils literal notranslate"><span class="pre">TravisCI</span></code> and <code class="docutils literal notranslate"><span class="pre">CodeCov</span></code> will be used for testing suit monitoring. The CI status and the code coverage are reflected in our github repository. The package will be uploaded and distributed via <code class="docutils literal notranslate"><span class="pre">PyPI</span></code> . We will use the <code class="docutils literal notranslate"><span class="pre">NetworkX</span></code> package for constructing the visualization for the computational graph.
 Lastly, we used the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">math</span></code> libraries to help with the math calculation.</p>
 </div>
@@ -288,7 +304,7 @@ Lastly, we used the <code class="docutils literal notranslate"><span class="pre"
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="organization.html" class="btn btn-neutral float-left" title="Testing and Software Organization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="modules.html" class="btn btn-neutral float-right" title="undefined" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="statement.html" class="btn btn-neutral float-right" title="Broader Impact and Future Directions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

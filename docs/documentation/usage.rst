@@ -40,7 +40,7 @@ Once imported successfully, users can calculate the derivative of a given functi
 Here, we will demo the R -> R cases in the 3.1 and 3.2 to illustrate the basic usage of ``Undefined``. In 3.3, we will demo the higher order inputs and outputs.
 
 3.1 Forward Mode Demo
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------
 
 The ``trace`` function will calculate the derivative, which will intake a user defined function using ``lambda``, the mode (default is **forward** mode), and associated values. The ``trace`` function will return the derivatives of the function.
 
@@ -88,8 +88,8 @@ In the derivative results, the order is the same as the lambda function's variab
 The ``trace`` function can also handle multiple dimensional calculation. Refer to section 3.3 below.
 
 
-3.2 Reverse Mode (Extension Functionality) Demo 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3.2 Reverse Mode Demo (Our Extension)
+----------------------------------------
 
 The ``trace`` function will also be able to calculate derivatives in reverse mode by specifying the ``mode`` parameters. Take the example below as a demo.
 
@@ -203,7 +203,8 @@ From the results above, we can see that that undefined package can handle compli
 **Of note**: as we used the ``networkx`` library to achieve the graph, the graph will be different even if you run the same code twice or many different times.
 
 3.3 Multiple Vectors Inputs and Outputs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------------
+
 Here, I will use the forward mode to demo how to use ``Undefined`` using multiple inputs. The reverse mode would result the same. 
 
 :math:`\mathbb{R}^m -> \mathbb{R}`
@@ -303,7 +304,7 @@ The second array represents the derivative value. The first list represent the d
 and the second list is the derivative value of f4 when x = 1, y = 4 with respect to x and y. The last two lists represent when x = 2, y = 4 for derivative values for f3 and f4 in that order.
 
 3.4 Seeds Vector option
-^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 Since we used the Jacobian matrix, we provided the option for the users to define their own seed vector to decide which partial derivatives they want to take for the input function(s).
 You can use the ``seeds`` option in both ``forward`` and ``reverse`` modes. 
@@ -400,7 +401,7 @@ However, you can define whatever projection you want in our package. See how you
 
 
 3.5 A Few Tips
-^^^^^^^^^^^^^^^^
+----------------------
 
 Although our package is smart and can handle many different scenarios and cases, there are exceptions. 
 
@@ -429,7 +430,7 @@ In this case, we will not throw an error, but no guarantee the results are legit
 
 
 3.6 Debugging
-^^^^^^^^^^^^^^^
+------------------
 
 When there is an issue occurred, do not panic! It is expected. We offer a few words here when you have to debug the program. 
 
