@@ -1,6 +1,5 @@
 import sys
 
-from numpy.core.fromnumeric import var
 # # temp solution for directory.
 sys.path.append("./src/")
 from undefined.GraphGenerator import GraphGenerator
@@ -11,19 +10,42 @@ from types import LambdaType
 
 
 
-def trace(f, mode='forward', plot=False, **kwargs):
-    """trace function in undefined's API
+def trace(f, mode='forward', seeds=None, plot=False, **kwargs):
+    # """trace function in undefined's API
+
+    # Args:
+    #     f (function): user defined function
+    #     mode (str, optional): Automatic Differenciation mode. Defaults to 'forward'.
+
+    # Raises:
+    #     NotImplementedError: raised if mode is set to reverse
+    #     AttributeError: raised if other form of modes are given
+
+    # Returns:
+    #     (any, any): tuple of the values and derivatives
+    # """
+    """[summary]
 
     Args:
-        f (function): user defined function
-        mode (str, optional): Automatic Differenciation mode. Defaults to 'forward'.
+        f ([type]): [description]
+        mode (str, optional): [description]. Defaults to 'forward'.
+        seeds ([type], optional): [description]. Defaults to None.
+        plot (bool, optional): [description]. Defaults to False.
 
     Raises:
-        NotImplementedError: raised if mode is set to reverse
-        AttributeError: raised if other form of modes are given
+        TypeError: [description]
+        AttributeError: [description]
+        TypeError: [description]
+        AttributeError: [description]
+        TypeError: [description]
+        AttributeError: [description]
+        TypeError: [description]
+        TypeError: [description]
+        TypeError: [description]
+        AttributeError: [description]
 
     Returns:
-        (any, any): tuple of the values and derivatives
+        [type]: [description]
     """
     if type(f) is list:
         vals, ders = [], []
@@ -44,16 +66,23 @@ def trace(f, mode='forward', plot=False, **kwargs):
     if mode == 'forward':
         for i, varname in enumerate(varnames):
             variable = kwargs[varname]
+            
             if isinstance(variable, np.ndarray):
-                # vector input
+                # 【【vector input】】
                 if len(variable.shape) <= 1 or variable.shape[0] != 1:
                     raise TypeError(
                         f"error raised by undefined: only support vector inputs of shape (1,n), invalid input {varname} has shape {variable.shape}")
-                # single vector input
+                # 【single vector input】
                 if num_variables == 1:
+                    if seeds is not None:
+                        if type(seeds) not in (int, float):
+                            raise TypeError("error raised by undefined: incorrect type of seed vector, expect int or float")
+                        seed = seeds
+                    else:
+                        seed = 1
                     variables[varname] = UDFunction(
-                        variable, np.ones(variable.shape))
-                # multiple vector inputs
+                        variable, np.ones(variable.shape) * seed)
+                # 【multiple vector inputs】
                 else:
                     # check if all the vector inputs has the same len
                     if fix_len != -1:
@@ -61,19 +90,42 @@ def trace(f, mode='forward', plot=False, **kwargs):
                             raise AttributeError("error raised by undefined: cannot handle multiple vector inputs with different lengths")
                     else:
                         fix_len = variable.shape[1]
-                    seed_vector = np.zeros(
+                    if seeds is not None:
+                        seed = seeds[i]
+                        if type(seed) is not np.ndarray:
+                            raise TypeError("error raised by undefined: at least one seed vector incorrectly defined")
+                        if len(seed) != num_variables:
+                            raise AttributeError(f"error raised by undefined: incorrect shape for seed vectors, expect ({num_variables, num_variables})")
+                        seed_vector = seed.reshape(num_variables,1) * np.ones(
                         (num_variables, fix_len), dtype=int)
-                    seed_vector[i, :] += 1
+                    else:
+                        seed_vector = np.zeros(
+                        (num_variables, fix_len), dtype=int)
+                        seed_vector[i, :] += 1
                     variables[varname] = UDFunction(variable, seed_vector)
 
             elif isinstance(variable, (int, float)):
-                # single scalar input
+                # 【【single scalar input】】
                 if num_variables == 1:
-                    variables[varname] = UDFunction(variable)
-                # multiple scalar inputs
+                    if seeds is not None:
+                        if type(seeds) not in (int, float):
+                            raise TypeError("error raised by undefined: incorrect type of seed vector, expect int or float")
+                        seed = seeds
+                        variables[varname] = UDFunction(variable, seed)
+                    else:
+                        variables[varname] = UDFunction(variable)
+                # 【【multiple scalar inputs】】
                 else:
-                    seed_vector = np.zeros((num_variables,1), dtype=int)
-                    seed_vector[i,:] = 1
+                    if seeds is not None:
+                        seed = seeds[i]
+                        if type(seeds) is not np.ndarray:
+                            raise TypeError("error raised by undefined: incorrect type of seed vectors, expect numpy.ndarray")
+                        if len(seed) != num_variables:
+                            raise AttributeError(f"error raised by undefined: incorrect shape for seed vector, expect ({num_variables, num_variables})")
+                        seed_vector = seed.reshape(num_variables,1)
+                    else:
+                        seed_vector = np.zeros((num_variables,1), dtype=int)
+                        seed_vector[i,:] = 1
                     variables[varname] = UDFunction(variable, seed_vector)
             else:
                 raise TypeError(
@@ -89,14 +141,33 @@ def trace(f, mode='forward', plot=False, **kwargs):
                 if variable.shape[0] != 1 or variable.shape[0] != 1:
                     raise TypeError(
                         f"error raised by undefined: only support vector inputs of shape (1, ), invalid input {varname} has shape {variable.shape}")
-                variables[varname] = UDGraph(variable)
+                variables[varname] = UDGraph(variable, varname = varname)
             elif isinstance(variable, (int, float)):
-                variables[varname] = UDGraph(variable)
+                variables[varname] = UDGraph(variable, varname = varname)
             else:
                 raise TypeError(
                     "error raised by undefined: variable type not in (int, float, np.ndarray).")
         g = f(**variables)
-        udgenerator = GraphGenerator(g, variables)
+        # check format of seeds
+        seeds_dic = {}
+        if seeds is not None:
+            if num_variables == 1:
+                # single input
+                if type(seeds) not in (int, float):
+                    raise TypeError("error raised by undefined: incorrect type of seed vector, expect int or float")
+                seeds_dic[varnames[i]] = {varnames[i]:seeds}
+            else:
+                # multiple inputs
+                if type(seeds) is not np.ndarray:
+                    raise TypeError("error raised by undefined: incorrect type of seed vectors, expect numpy.ndarray")
+                if seeds.shape[0] != num_variables or seeds.shape[1] != num_variables :
+                    raise AttributeError(f"error raised by undefined: incorrect shape for seed vector, expect ({num_variables, num_variables})")
+
+                for i in range(num_variables):
+                    seeds_dic[varnames[i]] = {}
+                    for j in range(num_variables):
+                        seeds_dic[varnames[i]][varnames[j]] = seeds[i][j]
+        udgenerator = GraphGenerator(g, variables, seeds_dic)
         if plot:
             print(udgenerator.generate_str())
             udgenerator.generate_graph()
@@ -110,6 +181,8 @@ def trace(f, mode='forward', plot=False, **kwargs):
                 res_der.append([res_var])
             else:
                 res_der.append(res_der)
+
+        # 【single scalar input】
         if len(res_der) == 1 and len(res_der[0]) == 1:
             return g.val, res_der[0][0]
         return g.val, res_der
@@ -131,23 +204,23 @@ def trace(f, mode='forward', plot=False, **kwargs):
 #     print(trace(f5, x = 1, y = 2))
 #     print(trace(f5, mode='reverse', x = 1, y = 2))
 # =======
-# if __name__ == "__main__":
-#     f0 = lambda x: sin(exp(2**x))
-#     f1 = lambda x: sqrt(x)
-#     f11 = lambda y: sqrt(y)
-#     f12 = lambda x, y: sqrt(x) + sqrt(y)
-#     f2 = lambda x, y: log(exp(x**y), 2)
-#     f3 = lambda x, y: x - x * y
-#     f4 = lambda x, y: x - 3 * (x - y) / 2
-#     f5 = lambda x, y: (x - 1) / (y * 2) - x / 2
-#     print(trace(f1, x = np.array([[10,1]]))[1])
-#     print(trace(f1, mode = 'reverse', x = np.array([[10,1]]))[1])
+if __name__ == "__main__":
+    f0 = lambda x: sin(exp(2**x))
+    f1 = lambda x: sqrt(x)
+    f11 = lambda y: sqrt(y)
+    f12 = lambda x, y: sqrt(x) + sqrt(y)
+    f2 = lambda x, y: log(exp(x**y), 2)
+    f3 = lambda x, y: x - x * y
+    f4 = lambda x, y: x - 3 * (x - y) / 2
+    f5 = lambda x, y: (x - 1) / (y * 2) - x / 2
+    print(trace(f1, seeds = 1, x = np.array([[10,1]]))[1])
+    print(trace(f1, mode = 'reverse', seeds = 1, plot=True, x = np.array([[10,1]]))[1])
 #     print("*")
 #     print(trace(f11, y = 2)[1])
 #     print(trace(f11, mode = 'reverse',  y = 2)[1])
 #     print("**")
-#     print(trace(f12, x = np.array([[10,1]]),y = 2)[1])
-#     print(trace(f12, mode = 'reverse', x = np.array([[10,1]]), y=2)[1])
+    print(trace(f12, seeds= np.array([[1,2],[0,1]]), x = 1,y = 2)[1])
+    print(trace(f12, mode = 'reverse', x = 1, y=2)[1])
 #     print(trace(f3, x = 1, y = 2))
 #     print(trace(f3, mode='reverse', x = 1, y = 2))
 #     print(trace(f4, x = 1, y = 2))

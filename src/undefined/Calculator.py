@@ -477,6 +477,14 @@ def exp(udobject):
 
 
 def standard_logistic(udobject):
+    """[summary]
+
+    Args:
+        udobject ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
     return 1 / (1 + exp(-udobject))
 
 

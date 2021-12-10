@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 
 class UDGraph:
-    def __init__(self, val, func=UDPrimitive.VAR):
+    def __init__(self, val, func=UDPrimitive.VAR, varname = "intermediate"):
         # TODO
         """
         This class is where we overload all the operators, which will be used to calculate the derivatives.
@@ -22,6 +22,7 @@ class UDGraph:
         """
         self._val = val
         self._func = func
+        self._varname = varname
         if hasattr(self._val, 'shape'):
             self._valshape = self._val.shape
         else:
@@ -518,11 +519,11 @@ class UDGraph:
         Returns:
             int: hash value for udgraph
         """
-        return hash((self._val, self._func))
+        return hash((str(self._val), self._func))
 
 class GeneratorHelper:
     @classmethod
-    def _var(self, udgraph: UDGraph, variable: UDGraph):
+    def _var(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -532,19 +533,26 @@ class GeneratorHelper:
         Returns:
             [type]: [description]
         """
-        if variable is not udgraph:
+        if len(seed_dic) > 0:
+            seed = seed_dic[udgraph._varname][variable._varname]
             if isinstance(udgraph._val, np.ndarray):
-                return np.zeros(udgraph._valshape)
+                return seed * np.ones(udgraph._valshape)
             else:
-                return 0
+                return seed
         else:
-            if isinstance(udgraph._val, np.ndarray):
-                return np.ones(udgraph._valshape)
+            if variable._varname is not udgraph._varname:
+                if isinstance(udgraph._val, np.ndarray):
+                    return np.zeros(udgraph._valshape)
+                else:
+                    return 0
             else:
-                return 1
+                if isinstance(udgraph._val, np.ndarray):
+                    return np.ones(udgraph._valshape)
+                else:
+                    return 1
 
     @classmethod
-    def _add(self, udgraph: UDGraph, variable: UDGraph):
+    def _add(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -556,14 +564,14 @@ class GeneratorHelper:
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
-            return GraphGenerator.function_dic[g1._func](g1, variable)
+            return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:  # len == 2
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
 
-            return GraphGenerator.function_dic[g1._func](g1, variable) + GraphGenerator.function_dic[g2._func](g2, variable)
+            return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) + GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
 
     @classmethod
-    def _radd(self, udgraph: UDGraph, variable: UDGraph):
+    def _radd(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -575,13 +583,13 @@ class GeneratorHelper:
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
-            return GraphGenerator.function_dic[g1._func](g1, variable)
+            return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:  # len == 2
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
-            return GraphGenerator.function_dic[g1._func](g1, variable) + GraphGenerator.function_dic[g2._func](g2, variable)
+            return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) + GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
 
     @classmethod
-    def _mul(self, udgraph: UDGraph, variable: UDGraph):
+    def _mul(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -593,13 +601,13 @@ class GeneratorHelper:
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
-            return udgraph._params["constant"] * GraphGenerator.function_dic[g1._func](g1, variable)
+            return udgraph._params["constant"] * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:  # len == 2
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
-            return GraphGenerator.function_dic[g1._func](g1, variable) * g2._val + GraphGenerator.function_dic[g2._func](g2, variable) * g1._val
+            return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val + GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val
 
     @classmethod
-    def _rmul(self, udgraph: UDGraph, variable: UDGraph):
+    def _rmul(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -611,13 +619,13 @@ class GeneratorHelper:
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
-            return udgraph._params["constant"] * GraphGenerator.function_dic[g1._func](g1, variable)
+            return udgraph._params["constant"] * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:  # len == 2
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
-            return GraphGenerator.function_dic[g1._func](g1, variable) * g2._val + GraphGenerator.function_dic[g2._func](g2, variable) * g1._val
+            return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val + GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val
 
     @classmethod
-    def _neg(self, udgraph: UDGraph, variable: UDGraph):
+    def _neg(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -628,10 +636,10 @@ class GeneratorHelper:
             [type]: [description]
         """
         g1 = udgraph._parents[0]
-        return -1 * GraphGenerator.function_dic[g1._func](g1, variable)
+        return -1 * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
 
     @classmethod
-    def _sub(self, udgraph: UDGraph, variable: UDGraph):
+    def _sub(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -643,13 +651,13 @@ class GeneratorHelper:
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
-            return GraphGenerator.function_dic[g1._func](g1, variable)
+            return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:  # len == 2
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
-            return GraphGenerator.function_dic[g1._func](g1, variable) - GraphGenerator.function_dic[g2._func](g2, variable)
+            return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
 
     @classmethod
-    def _rsub(self, udgraph: UDGraph, variable: UDGraph):
+    def _rsub(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -661,13 +669,13 @@ class GeneratorHelper:
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
-            return -1 * GraphGenerator.function_dic[g1._func](g1, variable)
+            return -1 * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:  # len == 2
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
-            return GraphGenerator.function_dic[g1._func](g1, variable) - GraphGenerator.function_dic[g2._func](g2, variable)
+            return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
 
     @classmethod
-    def _truediv(self, udgraph: UDGraph, variable: UDGraph):
+    def _truediv(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -679,13 +687,13 @@ class GeneratorHelper:
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
-            return GraphGenerator.function_dic[g1._func](g1, variable) / udgraph._params["constant"]
+            return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) / udgraph._params["constant"]
         else:  # len == 2
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
-            return (GraphGenerator.function_dic[g1._func](g1, variable) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable) * g1._val) / (g2._val * g2._val)
+            return (GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val) / (g2._val * g2._val)
 
     @classmethod
-    def _rtruediv(self, udgraph: UDGraph, variable: UDGraph):
+    def _rtruediv(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -697,13 +705,13 @@ class GeneratorHelper:
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
-            return -1 * udgraph._params["constant"] * GraphGenerator.function_dic[g1._func](g1, variable) / (g1._val * g1._val)
+            return -1 * udgraph._params["constant"] * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) / (g1._val * g1._val)
         else:  # len == 2
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
-            return (GraphGenerator.function_dic[g1._func](g1, variable) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable) * g1._val) / (g2._val * g2._val)
+            return (GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val) / (g2._val * g2._val)
 
     @classmethod
-    def _floordiv(self, udgraph: UDGraph, variable: UDGraph):
+    def _floordiv(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -715,13 +723,13 @@ class GeneratorHelper:
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
-            return GraphGenerator.function_dic[g1._func](g1, variable) // udgraph._params["constant"]
+            return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) // udgraph._params["constant"]
         else:  # len == 2
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
-            return (GraphGenerator.function_dic[g1._func](g1, variable) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable) * g1._val) // (g2._val * g2._val)
+            return (GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val) // (g2._val * g2._val)
 
     @classmethod
-    def _rfloordiv(self, udgraph: UDGraph, variable: UDGraph):
+    def _rfloordiv(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -733,13 +741,13 @@ class GeneratorHelper:
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
-            return GraphGenerator.function_dic[g1._func](g1, variable) // udgraph._params["constant"]
+            return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) // udgraph._params["constant"]
         else:  # len == 2
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
-            return (GraphGenerator.function_dic[g1._func](g1, variable) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable) * g1._val) // (g2._val * g2._val)
+            return (GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val) // (g2._val * g2._val)
 
     @classmethod
-    def _pow(self, udgraph: UDGraph, variable: UDGraph):
+    def _pow(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -752,9 +760,9 @@ class GeneratorHelper:
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
             if isinstance(g1._val, np.ndarray):
-                return udgraph._params["degree"] * np.power(g1._val, udgraph._params["degree"] - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
+                return udgraph._params["degree"] * np.power(g1._val, udgraph._params["degree"] - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
             else:
-                return udgraph._params["degree"] * g1._val ** (udgraph._params["degree"] - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
+                return udgraph._params["degree"] * g1._val ** (udgraph._params["degree"] - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
 
         else:  # len == 2
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
@@ -762,33 +770,33 @@ class GeneratorHelper:
             if isinstance(g2._val, np.ndarray):
                 if isinstance(g1._val, np.ndarray):
                     der1 = g2._val * np.power(
-                        g1._val, g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
+                        g1._val, g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
                     der2 = np.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable)
+                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
                     return der1 + der2
                 else:
                     der1 = g2._val * g1._val ** (
-                        g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
+                        g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
                     der2 = math.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable)
+                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
                     return der1 + der2
             else:  # g2._val is int
                 if isinstance(g1._val, np.ndarray):
                     der1 = g2._val * \
                         np.power(g1._val, g2._val - 1) * \
-                        GraphGenerator.function_dic[g1._func](g1, variable)
+                        GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
                     der2 = np.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable)
+                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
                     return der1 + der2
                 else:
                     der1 = g2._val * g1._val ** (
-                        g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
+                        g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
                     der2 = math.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable)
+                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
                     return der1 + der2
 
     @classmethod
-    def _rpow(self, udgraph: UDGraph, variable: UDGraph):
+    def _rpow(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -800,40 +808,40 @@ class GeneratorHelper:
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
-            return math.log(udgraph._params["base"]) * udgraph._val * GraphGenerator.function_dic[g1._func](g1, variable)
+            return math.log(udgraph._params["base"]) * udgraph._val * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
 
             if isinstance(g2._val, np.ndarray):
                 if isinstance(g1._val, np.ndarray):
                     der1 = g2._val * np.power(
-                        g1._val, g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
+                        g1._val, g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
                     der2 = np.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable)
+                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
                     return der1 + der2
                 else:
                     der1 = g2._val * g1._val ** (
-                        g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
+                        g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
                     der2 = math.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable)
+                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
                     return der1 + der2
             else:  # g2._val is int
                 if isinstance(g1._val, np.ndarray):
                     der1 = g2._val * \
                         np.power(g1._val, g2._val - 1) * \
-                        GraphGenerator.function_dic[g1._func](g1, variable)
+                        GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
                     der2 = np.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable)
+                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
                     return der1 + der2
                 else:
                     der1 = g2._val * g1._val ** (
-                        g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable)
+                        g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
                     der2 = math.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable)
+                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
                     return der1 + der2
 
     @classmethod
-    def _cos(self, udgraph: UDGraph, variable: UDGraph):
+    def _cos(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -848,14 +856,14 @@ class GeneratorHelper:
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
-            return - 1 * math.sin(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable)
+            return - 1 * math.sin(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         elif isinstance(g1._val, np.ndarray):
-            return -1 * np.sin(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable)
+            return -1 * np.sin(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
             raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _sin(self, udgraph: UDGraph, variable: UDGraph):
+    def _sin(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -870,14 +878,14 @@ class GeneratorHelper:
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
-            return math.cos(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable)
+            return math.cos(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         elif isinstance(g1._val, np.ndarray):
-            return np.cos(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable)
+            return np.cos(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
             raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _tan(self, udgraph: UDGraph, variable: UDGraph):
+    def _tan(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -892,14 +900,14 @@ class GeneratorHelper:
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
-            return (1 / (math.cos(g1._val)) ** 2) * GraphGenerator.function_dic[g1._func](g1, variable)
+            return (1 / (math.cos(g1._val)) ** 2) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         elif isinstance(g1._val, np.ndarray):
-            return (1 / (np.cos(g1._val)) ** 2) * GraphGenerator.function_dic[g1._func](g1, variable)
+            return (1 / (np.cos(g1._val)) ** 2) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
             raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _arccos(self, udgraph: UDGraph, variable: UDGraph):
+    def _arccos(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -914,14 +922,14 @@ class GeneratorHelper:
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
-            return (-1 / math.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable)
+            return (-1 / math.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         elif isinstance(g1._val, np.ndarray):
-            return (-1 / np.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable)
+            return (-1 / np.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
             raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _arcsin(self, udgraph: UDGraph, variable: UDGraph):
+    def _arcsin(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -936,14 +944,14 @@ class GeneratorHelper:
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
-            return (1 / math.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable)
+            return (1 / math.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         elif isinstance(g1._val, np.ndarray):
-            return (1 / np.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable)
+            return (1 / np.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
             raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _arctan(self, udgraph: UDGraph, variable: UDGraph):
+    def _arctan(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -958,12 +966,12 @@ class GeneratorHelper:
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float, np.ndarray)):
-            return (1 / (1 + g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable)
+            return (1 / (1 + g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
             raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _sqrt(self, udgraph: UDGraph, variable: UDGraph):
+    def _sqrt(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -978,14 +986,14 @@ class GeneratorHelper:
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
-            return 0.5 * math.pow(g1._val, -0.5) * GraphGenerator.function_dic[g1._func](g1, variable)
+            return 0.5 * math.pow(g1._val, -0.5) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         elif isinstance(g1._val, np.ndarray):
-            return 0.5 * np.power(g1._val, -0.5) * GraphGenerator.function_dic[g1._func](g1, variable)
+            return 0.5 * np.power(g1._val, -0.5) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
             raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _exp(self, udgraph: UDGraph, variable: UDGraph):
+    def _exp(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -1000,14 +1008,14 @@ class GeneratorHelper:
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
-            return math.exp(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable)
+            return math.exp(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         elif isinstance(g1._val, np.ndarray):
-            return np.exp(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable)
+            return np.exp(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
             raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _log(self, udgraph: UDGraph, variable: UDGraph):
+    def _log(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
         """[summary]
 
         Args:
@@ -1018,7 +1026,7 @@ class GeneratorHelper:
             [type]: [description]
         """
         g1 = udgraph._parents[0]
-        return 1 / (math.log(udgraph._params["base"]) * g1._val) * GraphGenerator.function_dic[g1._func](g1, variable)
+        return 1 / (math.log(udgraph._params["base"]) * g1._val) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
 
 
 class GraphGenerator:
@@ -1048,7 +1056,7 @@ class GraphGenerator:
         UDPrimitive.ATAN: GeneratorHelper._arctan,
     }
 
-    def __init__(self, g, variables):
+    def __init__(self, g, variables, seeds_dic):
         """[summary]
 
         Args:
@@ -1058,6 +1066,7 @@ class GraphGenerator:
         self._udgraph = g
         self._variables = variables
         self._nxgraph = None
+        self._seeds_dic = seeds_dic
 
     def _generate_inner(self, g:UDGraph, nxgraph:nx.DiGraph):
         """[summary]
@@ -1098,6 +1107,7 @@ class GraphGenerator:
 
         Args:
             var_name ([type]): [description]
+            seed_dic ([type]): [description]
 
         Raises:
             TypeError: [description]
@@ -1112,4 +1122,4 @@ class GraphGenerator:
         # TODO: check if variable is UDGraph
 
         variable = self._variables[var_name]
-        return np.round(GraphGenerator.function_dic[self._udgraph._func](self._udgraph, variable), 3)
+        return np.round(GraphGenerator.function_dic[self._udgraph._func](self._udgraph, variable, self._seeds_dic), 3)

@@ -52,10 +52,10 @@ def check_division_by_zero(val):
         ZeroDivisionError: [description]
     """
     if isinstance(val, np.ndarray):
-        if not np.all(val):
+        if not np.all(np.round(val, 7)):
             raise ZeroDivisionError("error raised by undefined: divide by zero encountered")
     elif isinstance(val, (int, float)):
-        if val == 0:
+        if round(val,7) == 0:
             raise ZeroDivisionError("error raised by undefined: divide by zero encountered")
 
 
