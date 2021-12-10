@@ -72,11 +72,12 @@ The methods and descriptions below are only included the **major functions**. He
 
 **API.py:**
 This class contains methods that can be called by the users, the *trace* function. Here is the default setting for the trace function.
+The default mode is the "forward" mode, the default seeds = None, and plot = False. 
 
 .. code-block:: 
     :linenos:
 
-    trace(lambda_function, mode="forward", plot=False, **kwargs) 
+    trace(lambda_function, mode="forward", seeds = None, plot=False, **kwargs) 
 
 **UDFunction.py:**
 

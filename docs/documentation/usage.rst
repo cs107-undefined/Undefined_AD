@@ -8,16 +8,16 @@ This is the recommended usage. The users can interact with the package at their 
 
 We have published our package to the PyPI, so people can easily install the package via pip command. We recommend you use a Python version 3.8 or newer. 
 
-Our package name on PyPi is ``undefined_AD``, where AD stands for automatic differentiation.
+Our package name on PyPI is ``undefined_AD``, where AD stands for automatic differentiation.
 
-Then, ``undefined`` provided easy installation by running this following command (Assuming your current directory is the working directory, which contains the wheel file):
+Then, ``undefined`` provided easy installation by running this following command:
 
 .. code-block:: bash
     :linenos:
     
     pip install undefined_AD
 
-Users should import the package by the following in their Python script:
+Users should import the API to interact with our package by the following in their Python script. Details about the ``trace`` function can be found below:
 
 .. code-block:: 
     :linenos:

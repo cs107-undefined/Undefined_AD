@@ -29,7 +29,7 @@ Link to the project `Github page <https://github.com/cs107-undefined/cs107-Final
 
 .. toctree::
    :maxdepth: 3
-   :caption: Introduction and Backgroud
+   :caption: Introduction and Background
 
    about
 
@@ -51,7 +51,7 @@ Link to the project `Github page <https://github.com/cs107-undefined/cs107-Final
 
 .. toctree::
    :maxdepth: 3
-   :caption: Implemetation
+   :caption: Implementation
 
    implementation
 
@@ -69,7 +69,7 @@ We will use the ``MIT`` license for open source software development so that oth
 
 Reason for our choice: We want it to be simple and permissive.
 Under the ``MIT`` license, anyone can contribute to this project by adding functionality, debug, or customize it to meet their needs. 
-Please see the ``LICENCE`` file in your github for details.
+Please see the ``LICENSE`` file in your github for details.
 
 ..
    Search
