@@ -5,6 +5,8 @@ tests=(
        test/test_UDFunction.py
        test/test_Calculator.py
        test/test_API.py
+       test/test_graph_generator_operation.py
+       test/test_trace.py
 )
 
 
