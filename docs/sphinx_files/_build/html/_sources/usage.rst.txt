@@ -289,8 +289,57 @@ See the example below on how to pass in multiple functions and values as input.
 In the output above, the first array represents the function values and the second array represents the derivative values.
 The first 2D list in the first tuple is the function value from the first function, and the first 2D list in the second tuple is the derivative from the first section. The second 2D list corresponding to the second function from the input. 
 
-**Note:** To maximize the flexibility for the users, our function can take a mixture as input, meaning the number of input values for variables do not need to be the same. 
-For example, in the :math:`\mathbb{R}^m -> \mathbb{R}^n`, the users could input a function of x and y and give 3 values for x and 1 value for y. Our function would still work. 
+**Additional Demo**
+To maximize the flexibility for the users, our function can take a mixture as input, meaning the number of input values for variables do not need to be the same. 
+For example, in the :math:`\mathbb{R}^m -> \mathbb{R}^n`, the users could input a function of x and y and give 2 values for x and 1 value for y. Our function would still work. See the example below:
+
+.. code-block:: 
+    :linenos:
+
+    from undefined.API import trace
+    from undefined.Calculator import sqrt, exp, sin
+
+    # user defined functions
+    f3 = lambda x, y: x**2 + 2**y
+    f4 = lambda x, y: 2*x - 2/y
+
+    # call the trace function in undefined, and provide input functions f3 and f4, and the x and y values.
+    print(trace([f3, f4], x = np.array([[1,2]]), y = 4)
+
+    # Output
+    (array([[[17. , 20. ]], [[ 1.5,  3.5]]]), array([[[ 2.,  4.], [11.09 , 11.09 ]], [[ 2.,  2.], [ 0.125,  0.125]]]))
+
+When there are multiple input variables, in this case x and y, our program will order the results in the same order that it's been passed into the function. 
+In this case, the first item in the first list in the first array represents the function value from the f3 when x = 1 y = 4, and the second item is from f3 when x = 2, y = 4, etc. 
+The second array represents the derivative value. The first list represent the derivative value of f3 when x = 1, y = 4 with respect to x and y, 
+and the second list is the derivative value of f4 when x = 1, y = 4 with respect to x and y. The last two lists represent when x = 2, y = 4 for derivative values for f3 and f4 in that order.
+
+
+**Attention**
+
+Although our package is smart and can handle many different scenarios and cases, there are exceptions. 
+
+- We cannot unpack more number of input variables than the user defined functions have. For example, if the user defined function is the following:
+
+.. code-block:: 
+    :linenos:
+
+    f = lambda x, y: x + exp(x)
+
+Then the user passed additional variable into the ``trace`` function:
+
+.. code-block:: 
+    :linenos:
+
+    trace(f, mode = "reverse", x = 2, y = 3)
+
+In this case, we will not throw an error, but no guarantee the results are legit because the inputs does not make sense. So, please double check!
+
+- If you are using the ``forward`` mode, set the ``plot = True`` will not work as we do not store the intermediate values in the forward mode. 
+
+- We have tested our package with extreme values and edge cases to increase the robustness of our package. However, there is chance that we did not cover every case. So please do not be surprised if your goal is the break the package and see an error.
+
+
 
 
 3.4 Debugging

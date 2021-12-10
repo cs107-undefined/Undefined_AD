@@ -78,3 +78,8 @@ If we would have to calculate :math:`\frac{\partial f}{\partial y}`, we only nee
 Computing this function is simple, but AD will become handy when we have to compute the derivative for complicated equations. 
 
 There are many advantages of AD compared to other ways (numerical differentiation and symbolic differentiation) to calculate derivative automatically. One of the biggest advantage of AD is that AD calculates to machine precision and consumes efficiently than the other two methods. 
+
+Here, we provided two different ways to calculate the derivative automatically, the ``forward`` and the ``reverse`` modes. 
+Generally speaking, one of the key elements in the forward mode is the Jacobian matrix :math:`J = \frac{\partial f_i}{\partial x_j}`, which is a matrix containing the partial derivatives of all the outputs with respect to all the inputs. 
+If :math:`f` has a one-dimensional output, the Jacobian matrix is just the gradient. The solution of systems of equations requires differentiation of a vector-function of multiple variables.
+Later in the implementation section, you will see how you can change seed from the Jacobian matrix so that you can control which derivative you want to take. 

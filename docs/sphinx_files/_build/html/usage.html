@@ -314,8 +314,44 @@ See the example below on how to pass in multiple functions and values as input.<
 </div>
 <p>In the output above, the first array represents the function values and the second array represents the derivative values.
 The first 2D list in the first tuple is the function value from the first function, and the first 2D list in the second tuple is the derivative from the first section. The second 2D list corresponding to the second function from the input.</p>
-<p><strong>Note:</strong> To maximize the flexibility for the users, our function can take a mixture as input, meaning the number of input values for variables do not need to be the same.
-For example, in the <span class="math notranslate nohighlight">\(\mathbb{R}^m -&gt; \mathbb{R}^n\)</span>, the users could input a function of x and y and give 3 values for x and 1 value for y. Our function would still work.</p>
+<p><strong>Additional Demo</strong>
+To maximize the flexibility for the users, our function can take a mixture as input, meaning the number of input values for variables do not need to be the same.
+For example, in the <span class="math notranslate nohighlight">\(\mathbb{R}^m -&gt; \mathbb{R}^n\)</span>, the users could input a function of x and y and give 2 values for x and 1 value for y. Our function would still work. See the example below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">sin</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># user defined functions</span>
+<span class="linenos"> 5</span><span class="n">f3</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">**</span><span class="n">y</span>
+<span class="linenos"> 6</span><span class="n">f4</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span><span class="o">/</span><span class="n">y</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># call the trace function in undefined, and provide input functions f3 and f4, and the x and y values.</span>
+<span class="linenos"> 9</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">([</span><span class="n">f3</span><span class="p">,</span> <span class="n">f4</span><span class="p">],</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]]),</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># Output</span>
+<span class="linenos">12</span><span class="p">(</span><span class="n">array</span><span class="p">([[[</span><span class="mf">17.</span> <span class="p">,</span> <span class="mf">20.</span> <span class="p">]],</span> <span class="p">[[</span> <span class="mf">1.5</span><span class="p">,</span>  <span class="mf">3.5</span><span class="p">]]]),</span> <span class="n">array</span><span class="p">([[[</span> <span class="mf">2.</span><span class="p">,</span>  <span class="mf">4.</span><span class="p">],</span> <span class="p">[</span><span class="mf">11.09</span> <span class="p">,</span> <span class="mf">11.09</span> <span class="p">]],</span> <span class="p">[[</span> <span class="mf">2.</span><span class="p">,</span>  <span class="mf">2.</span><span class="p">],</span> <span class="p">[</span> <span class="mf">0.125</span><span class="p">,</span>  <span class="mf">0.125</span><span class="p">]]]))</span>
+</pre></div>
+</div>
+<p>When there are multiple input variables, in this case x and y, our program will order the results in the same order that it’s been passed into the function.
+In this case, the first item in the first list in the first array represents the function value from the f3 when x = 1 y = 4, and the second item is from f3 when x = 2, y = 4, etc.
+The second array represents the derivative value. The first list represent the derivative value of f3 when x = 1, y = 4 with respect to x and y,
+and the second list is the derivative value of f4 when x = 1, y = 4 with respect to x and y. The last two lists represent when x = 2, y = 4 for derivative values for f3 and f4 in that order.</p>
+<p><strong>Attention</strong></p>
+<p>Although our package is smart and can handle many different scenarios and cases, there are exceptions.</p>
+<ul class="simple">
+<li><p>We cannot unpack more number of input variables than the user defined functions have. For example, if the user defined function is the following:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then the user passed additional variable into the <code class="docutils literal notranslate"><span class="pre">trace</span></code> function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;reverse&quot;</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this case, we will not throw an error, but no guarantee the results are legit because the inputs does not make sense. So, please double check!</p>
+<ul class="simple">
+<li><p>If you are using the <code class="docutils literal notranslate"><span class="pre">forward</span></code> mode, set the <code class="docutils literal notranslate"><span class="pre">plot</span> <span class="pre">=</span> <span class="pre">True</span></code> will not work as we do not store the intermediate values in the forward mode.</p></li>
+<li><p>We have tested our package with extreme values and edge cases to increase the robustness of our package. However, there is chance that we did not cover every case. So please do not be surprised if your goal is the break the package and see an error.</p></li>
+</ul>
 </section>
 <section id="debugging">
 <h3>3.4 Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline"></a></h3>
