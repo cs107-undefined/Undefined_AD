@@ -67,7 +67,46 @@ class TestAPI(unittest.TestCase):
         with self.assertRaises(AttributeError):
             trace(self.f2, seeds = np.array([[1,3,2],[1,3,2],[2,3,3]]), x=np.array(
                 [[2, 3]]), y=np.array([[1, 2]]))
-    #def test_trace_with_vector_inputs_with_seeds(self):
+    
+    def test_trace_with_incompatible_seeds_reverse(self):
+        with self.assertRaises(AttributeError):
+            trace(self.f2, seeds = np.array([[1,3,2],[1,3,2],[2,3,3]]), mode = "reverse", x=np.array(
+                [[2, 3]]), y=np.array([[1, 2]]))
+
+    def test_trace_with_scalar_inputs_seeds(self):
+        with self.assertRaises(TypeError):
+            trace(self.f1, seeds = np.array([[1,0]]), x=1)
+        self.assertEqual(trace(self.f1, seeds = 2, x=1), (3,2))
+        self.assertEqual(trace(self.f2, seeds = np.array([[1,0],[0,1]]), x=2, y=999)[1], [[1], [1]])
+        with self.assertRaises(TypeError):
+            trace(self.f2, seeds = 1, x=2, y=999)
+        with self.assertRaises(TypeError):
+            trace(self.f2, seeds = "seed", x=2, y=999)
+        with self.assertRaises(TypeError):
+            trace(self.f2, seeds = np.array([[1,0],[0,1]]), x="2", y=999)
+        with self.assertRaises(AttributeError):
+            trace(self.f2, seeds = np.array([[1],[0]]), x=2, y=999)
+
+    def test_trace_with_scalar_inputs_seeds_reverse(self):
+        with self.assertRaises(TypeError):
+            trace(self.f1, seeds = np.array([[1,0]]), mode='reverse', x=1)
+        self.assertEqual(trace(self.f1, seeds = 2, mode='reverse', x=1), (3,2))
+        self.assertEqual(trace(self.f2, seeds = np.array([[1,0],[0,1]]), mode='reverse', x=2, y=999)[1], [[1], [1]])
+        with self.assertRaises(TypeError):
+            trace(self.f2, seeds = 1, mode='reverse', x=2, y=999)
+        with self.assertRaises(TypeError):
+            trace(self.f2, seeds = "seed", mode='reverse', x=2, y=999)
+        with self.assertRaises(TypeError):
+            trace(self.f2, seeds = np.array([[1,0],[0,1]]), mode='reverse', x="2", y=999)
+        with self.assertRaises(AttributeError):
+            trace(self.f2, seeds = np.array([[1],[0]]), mode='reverse', x=2, y=999)
+    
+    def test_trace_with_vector_inputs_seeds(self):
+        self.assertEqual(trace(self.f2, seeds = np.array([[1,0],[0,1]]), x=np.array([[2, 3]]), y=np.array([[1, 2]]))[1], [[1, 1], [1, 1]])
+    
+    def test_trace_with_vector_inputs_seeds_reverse(self):
+        self.assertEqual(trace(self.f2, seeds = np.array([[1,0],[0,1]]), mode='reverse', x=np.array([[2, 3]]), y=np.array([[1, 2]]))[1], [[1, 1], [1, 1]])
+
     def test_trace_with_different_moded(self):
         self.assertEqual(trace(self.f1, x=2), (4, 1))
         self.assertEqual(trace(self.f1, mode='forward', x=2), (4, 1))
@@ -111,10 +150,18 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(trace(self.f3, mode='reverse', x=np.array(
             [[2, 2]]), y=np.array([[4, 4]]))[1], [[2., 2.], [0.25, 0.25]])
 
-    def test_trace_single_vector_inputs(self):
+    def test_trace_single_vector_input(self):
         self.assertEqual(trace(self.f1, x=np.array([[2, 2]]))[1], [[1, 1]])
+        with self.assertRaises(TypeError):
+            trace(self.f1, x=np.array([]))
 
+    def test_trace_non_lambda_function(self):
+        with self.assertRaises(TypeError):
+            trace("Function", x = 1)
 
+    def test_trace_vector_functions(self):
+        self.assertEqual(trace([self.f2,self.f3], x = 2, y = 4)[1].tolist(), [[[1.0], [1.0]], [[2.0], [0.25]]])
+    
     def test_mixed_inputs(self):
         self.assertEqual(trace(self.f3, x=np.array([[2, 2]]), y=4)[
                          0].tolist(), [[6, 6]])
@@ -125,7 +172,8 @@ class TestAPI(unittest.TestCase):
                          1], [[2., 2.], [0.25, 0.25]])
         self.assertEqual(trace(self.f3, mode='reverse', x=np.array([[2, 2]]), y=4)[
                          1], [[2., 2.], [0.25, 0.25]])
-
+        self.assertEqual(trace(self.f3, mode='reverse', x=np.array([[2, 2]]), y=np.array([[4, 4]]))[
+                         1], [[2., 2.], [0.25, 0.25]])
 
 if __name__ == "__main__":
     unittest.main()

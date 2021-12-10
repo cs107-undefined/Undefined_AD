@@ -381,9 +381,6 @@ class TestUDGraph(unittest.TestCase):
 		with self.assertRaises(TypeError):
 			self.f25 >= "self.f19"
 		
-	
-	
-
 
 # this will help to run the unittest directly. 
 if __name__ == "__main__":
