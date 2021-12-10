@@ -28,7 +28,7 @@ Assuming your current directory is the ``undefined`` root directory, you can run
 
 And you will see the following as output:
 
-.. image:: /resources/milestone2_test_success.png
+.. image:: resources/milestone2_test_success.png
     :width: 600
     :alt: success_test
 
