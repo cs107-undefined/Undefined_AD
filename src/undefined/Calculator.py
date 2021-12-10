@@ -115,7 +115,7 @@ def tan(udobject):
         TypeError:raised if input is not compatiable with tangent operation
 
     Returns:
-        if input is udfunction object,update val and der by tangenr operation.
+        if input is udfunction object,update val and der by tangent operation.
         if input is UDGraph object,update notes and function by tangent operation.
         if input is int,float,ndarray object,update them in tangent operation by their own types. 
     """
@@ -158,90 +158,90 @@ def tan(udobject):
 
 
 def sinh(udobject):
-    """[summary]
+    """calculate the sinh operation of input
 
     Args:
-        udobject ([type]): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
 
     Returns:
-        [type]: [description]
+        The result from the sinh operation. 
     """
     return (exp(udobject) - exp(-udobject)) / 2
 
 
 def cosh(udobject):
-    """[summary]
+    """calculate the cosh operation of input
 
     Args:
-        udobject ([type]): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
 
     Returns:
-        [type]: [description]
+        The result from the cosh operation. 
     """
     return (exp(udobject) + exp(-udobject)) / 2
 
 
 def tanh(udobject):
-    """[summary]
+    """calculate the tanh operation of input
 
     Args:
-        udobject ([type]): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
 
     Returns:
-        [type]: [description]
+        The result from the tanh operation. 
     """
     return sinh(udobject) / cosh(udobject)
 
 
 def coth(udobject):
-    """[summary]
+    """calculate the coth operation of input
 
     Args:
-        udobject ([type]): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
 
     Returns:
-        [type]: [description]
+        The result from the coth operation. 
     """
     return cosh(udobject) / sinh(udobject)
 
 
 def sech(udobject):
-    """[summary]
+    """calculate the sech operation of input
 
     Args:
-        udobject ([type]): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
 
     Returns:
-        [type]: [description]
+        The result from the sech operation. 
     """
     return 1 / cosh(udobject)
 
 
 def csch(udobject):
-    """[summary]
+    """calculate the csch operation of input
 
     Args:
-        udobject ([type]): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
 
     Returns:
-        [type]: [description]
+        The result from the csch operation. 
     """
     return 1 / sinh(udobject)
 
 
 def arccos(udobject):
-    """[summary]
+    """calculate the arccos operation of input
 
     Args:
-        udobject ([type]): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
 
     Raises:
-        TypeError: [description]
-        TypeError: [description]
-        TypeError: [description]
+        TypeError:raised if input is not compatiable with arccos operation
 
     Returns:
-        [type]: [description]
+        if input is udfunction object,update val and der by arccos operation.
+        if input is UDGraph object,update notes and function by arccos operation.
+        if input is int,float,ndarray object,update them in arccos operation by their own types. 
     """
     if isinstance(udobject, UDFunction):
         check_arc(udobject._val)
@@ -281,18 +281,18 @@ def arccos(udobject):
 
 
 def arcsin(udobject):
-    """[summary]
+    """calculate the arcsin operation of input
 
     Args:
-        udobject ([type]): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
 
     Raises:
-        TypeError: [description]
-        TypeError: [description]
-        TypeError: [description]
+        TypeError:raised if input is not compatiable with arcsin operation
 
     Returns:
-        [type]: [description]
+        if input is udfunction object,update val and der by arcsin operation.
+        if input is UDGraph object,update notes and function by arcsin operation.
+        if input is int,float,ndarray object,update them in arcsin operation by their own types. 
     """
     if isinstance(udobject, UDFunction):
         check_arc(udobject._val)
@@ -331,18 +331,18 @@ def arcsin(udobject):
 
 
 def arctan(udobject):
-    """[summary]
+    """calculate the arctan operation of input
 
     Args:
-        udobject ([type]): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
 
     Raises:
-        TypeError: [description]
-        TypeError: [description]
-        TypeError: [description]
+        TypeError:raised if input is not compatiable with arctan operation
 
     Returns:
-        [type]: [description]
+        if input is udfunction object,update val and der by arctan operation.
+        if input is UDGraph object,update notes and function by arctan operation.
+        if input is int,float,ndarray object,update them in arctan operation by their own types.
     """
     if isinstance(udobject, UDFunction):
         if isinstance(udobject._val, (int, float)):
@@ -477,13 +477,14 @@ def exp(udobject):
 
 
 def standard_logistic(udobject):
-    """[summary]
+    """this is the function we calculate the standard logistic. 
+    It is different than the log() function
 
     Args:
-        udobject ([type]): [description]
+        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
 
     Returns:
-        [type]: [description]
+        return the standard logistic results.
     """
     return 1 / (1 + exp(-udobject))
 
@@ -540,22 +541,3 @@ def log(udobject, base=math.e):
     else:
         raise TypeError("error raised by undefined: unsupported attribute type.")
 
-
-# if __name__ == "__main__":
-    # beta = 3.0
-    # x = UDFunction(2)
-    # y = UDFunction(2)
-    # f = sin(x)**0.5 + cos(exp(y) + cos(2)) + log(y, 4) / x
-    # f1 = sinh(f)
-    # f2 = cosh(f)
-    # f3 = tanh(f)
-    # f4 = csch(f)
-    # f5 = coth(f)
-    # f6 = sech(f)
-    # print(f)
-    # print(f1)
-    # print(f2)
-    # print(f3)
-    # print(f4)
-    # print(f5)
-    # print(f6)
