@@ -37,9 +37,9 @@ And you will see the following as output:
 4.2 The directory structure looks like the following
 --------------------------------------------------------
 
-.. code-block:: bash
+.. code-block::
     :linenos:
-    
+
     .
     ├── LICENSE
     ├── README.md
