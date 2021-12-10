@@ -3,5 +3,6 @@ wheel>=0.33.1
 numpy>=1.19.0
 sphinx==4.2.0
 sphinx_rtd_theme==1.0.0
+sphinx-tabs==3.2.0
 networkx >= 2.5.1
 matplotlib >= 3.4.3
