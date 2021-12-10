@@ -490,7 +490,8 @@ def standard_logistic(udobject):
 
 
 def log(udobject, base=math.e):
-    """calculate the log of input
+    """calculate the log of input.
+    We can handle the any bases in this log. Users can pass in the base argument. 
 
     Args:
         udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number
