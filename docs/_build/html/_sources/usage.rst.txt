@@ -340,8 +340,6 @@ In this case, we will not throw an error, but no guarantee the results are legit
 - We have tested our package with extreme values and edge cases to increase the robustness of our package. However, there is chance that we did not cover every case. So please do not be surprised if your goal is the break the package and see an error.
 
 
-
-
 3.4 Debugging
 ^^^^^^^^^^^^^^^
 
