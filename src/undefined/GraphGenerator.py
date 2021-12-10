@@ -742,7 +742,7 @@ class GeneratorHelper:
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
             return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) // udgraph._params["constant"]
-        else:  # len == 2
+        else:  # len == 2 
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
             return (GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val) // (g2._val * g2._val)
 
@@ -764,7 +764,7 @@ class GeneratorHelper:
             else:
                 return udgraph._params["degree"] * g1._val ** (udgraph._params["degree"] - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
 
-        else:  # len == 2
+        else:  # len == 2 
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
 
             if isinstance(g2._val, np.ndarray):
