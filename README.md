@@ -4,6 +4,8 @@
 
 [![codecov](https://codecov.io/gh/cs107-undefined/cs107-FinalProject/branch/final_milestone/graph/badge.svg?token=MWEZONI94C)](https://codecov.io/gh/cs107-undefined/cs107-FinalProject)
 
+[![Documentation Status](https://readthedocs.org/projects/cs107-undefined/badge/?version=latest)](https://cs107-undefined.readthedocs.io/en/latest/?badge=latest)
+
 [**DOCUMENTATION**](https://cs107-undefined.readthedocs.io/en/latest/)
 
 
