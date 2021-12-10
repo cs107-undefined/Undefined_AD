@@ -4,6 +4,7 @@ python:
 before_install:
   - pip install codecov
   - pip install coverage
+  - pip install networkx
 
 script:
   - coverage run --source=undefined -m unittest test/test_*.py
