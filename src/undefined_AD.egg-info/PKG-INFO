@@ -1,3 +1,20 @@
+Metadata-Version: 2.1
+Name: undefined-AD
+Version: 2.0.2
+Summary: Auto differetiation library
+Home-page: https://github.com/cs107-undefined/cs107-FinalProject
+Author: cs107-undefined
+Author-email: xinran_tang@g.harvard.edu
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
 # cs107-FinalProject
 
 [![Build Status](https://app.travis-ci.com/cs107-undefined/cs107-FinalProject.svg?branch=milestone2)](https://app.travis-ci.com/cs107-undefined/cs107-FinalProject)
@@ -20,3 +37,5 @@ _Renhao Luo renhao_luo@hms.harvard.edu_
 _Chelse Swoopes cswoopes@g.harvard.edu_
 
 _Shijia Zhang shijiazhang@hms.harvard.edu_
+
+
