@@ -1,7 +1,7 @@
 import sys
 
 # # temp solution for directory.
-sys.path.append("/Users/xinran/Desktop/Harvard/Courses/cs107/cs107-FinalProject/src/")
+sys.path.append("./src/")
 from undefined.GraphGenerator import GraphGenerator
 from undefined.UDFunction import UDFunction
 from undefined.Calculator import *
