@@ -6,6 +6,7 @@
   <title>undefined.API &mdash; Undefined - an automatic differentiation tool 2.0.2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -14,6 +15,7 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/tabs.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -47,6 +49,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../implementation.html">Implementation</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Code details</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">undefined</a></li>
 </ul>
@@ -89,19 +92,6 @@
 
 
 <div class="viewcode-block" id="trace"><a class="viewcode-back" href="../../undefined.html#undefined.API.trace">[docs]</a><span class="k">def</span> <span class="nf">trace</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">,</span> <span class="n">seeds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="c1"># &quot;&quot;&quot;trace function in undefined&#39;s API</span>
-
-    <span class="c1"># Args:</span>
-    <span class="c1">#     f (function): user defined function</span>
-    <span class="c1">#     mode (str, optional): Automatic Differenciation mode. Defaults to &#39;forward&#39;.</span>
-
-    <span class="c1"># Raises:</span>
-    <span class="c1">#     NotImplementedError: raised if mode is set to reverse</span>
-    <span class="c1">#     AttributeError: raised if other form of modes are given</span>
-
-    <span class="c1"># Returns:</span>
-    <span class="c1">#     (any, any): tuple of the values and derivatives</span>
-    <span class="c1"># &quot;&quot;&quot;</span>
     <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">    Args:</span>
@@ -128,7 +118,7 @@
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
         <span class="n">vals</span><span class="p">,</span> <span class="n">ders</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">f_</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">val</span><span class="p">,</span> <span class="n">der</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">f_</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">val</span><span class="p">,</span> <span class="n">der</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">f_</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">seeds</span><span class="p">,</span> <span class="n">plot</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
             <span class="n">ders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">der</span><span class="p">)</span>
 
@@ -271,6 +261,7 @@
 
 
 
+
 <span class="c1"># if __name__ == &quot;__main__&quot;:</span>
 <span class="c1">#     f1 = lambda x, y: sqrt(exp(x*y)) + cos(np.array([1, 2]))</span>
 <span class="c1">#     f2 = lambda x, y: log(exp(x*y), 2)</span>
@@ -382,6 +373,7 @@
     <span class="c1"># f = [f1, f2]</span>
     <span class="c1"># print(trace(f, x=np.array([[2, 2]])))</span>
     <span class="c1"># print(trace(f, mode = &#39;reverse&#39;, x=np.array([[2, 2]])))</span>
+
 </pre></div>
 
            </div>

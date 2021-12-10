@@ -4,7 +4,7 @@ Testing and Software Organization
 4.1 Test ``Undefined``
 ------------------------
 
-Both ``TravisCI`` and ``CodeCov`` will be used for testing suit monitoring, and the package will be uploaded to ``PyPI`` by following the instructions given in class.
+Both ``TravisCI`` and ``CodeCov`` will be used for testing suit monitoring, and the package is available in ``PyPI``.
 
 ``src`` folder is where we house our core modules, which include the following:
 
@@ -37,6 +37,8 @@ And you will see the following as output:
 4.2 The directory structure looks like the following
 --------------------------------------------------------
 
+The tree structure of the entire project folder.
+
 .. code-block::
     :linenos:
 
@@ -46,8 +48,8 @@ And you will see the following as output:
     ├── __init__.py
     ├── codecov.yml
     ├── dist
-    │   ├── undefined_AD-2.0.4-py3-none-any.whl
-    │   └── undefined_AD-2.0.4.tar.gz
+    │   ├── undefined_AD-2.1.0-py3-none-any.whl
+    │   └── undefined_AD-2.1.0.tar.gz
     ├── docs
     │   ├── documentation
     │   │   ├── Makefile
@@ -78,6 +80,7 @@ And you will see the following as output:
     │   │   │       ├── _images
     │   │   │       │   ├── computational_graph_1.png
     │   │   │       │   ├── computational_graph_2.png
+    │   │   │       │   ├── finalmilestone_test_success.png
     │   │   │       │   ├── milestone2_test_success.png
     │   │   │       │   ├── reverse_mode_example1.png
     │   │   │       │   ├── reverse_mode_example2.png
@@ -149,6 +152,8 @@ And you will see the following as output:
     │   │   │       │   ├── plus.png
     │   │   │       │   ├── pygments.css
     │   │   │       │   ├── searchtools.js
+    │   │   │       │   ├── tabs.css
+    │   │   │       │   ├── tabs.js
     │   │   │       │   ├── underscore-1.13.1.js
     │   │   │       │   └── underscore.js
     │   │   │       ├── about.html
@@ -191,13 +196,12 @@ And you will see the following as output:
     │   └── resources
     │       ├── computational_graph_1.png
     │       ├── computational_graph_2.png
-    │       ├── milestone2_test_success.png
+    │       ├── finalmilestone_test_success.png
     │       ├── reverse_mode_example1.png
     │       ├── reverse_mode_example2.png
     │       └── undefined_workflow.png
     ├── htmlcov
     │   ├── coverage_html.js
-    │   ├── d_40be0abedfd3bebf_API_py.html
     │   ├── d_40be0abedfd3bebf_Calculator_py.html
     │   ├── d_40be0abedfd3bebf_GraphGenerator_py.html
     │   ├── d_40be0abedfd3bebf_UDFunction_py.html

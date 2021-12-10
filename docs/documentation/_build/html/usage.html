@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Usage &mdash; Undefined - an automatic differentiation tool 2.0.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -15,6 +15,7 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/tabs.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
@@ -39,27 +40,34 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <p class="caption" role="heading"><span class="caption-text">Introduction and Backgroud</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-use-undefined">3. How to use <code class="docutils literal notranslate"><span class="pre">Undefined</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#forward-mode-demo">3.1 Forward Mode Demo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#reverse-mode-demo">3.2 Reverse Mode Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reverse-mode-extension-functionality-demo">3.2 Reverse Mode (Extension Functionality) Demo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#multiple-vectors-inputs-and-outputs">3.3 Multiple Vectors Inputs and Outputs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#debugging">3.4 Debugging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#seeds-vector-option">3.4 Seeds Vector option</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-few-tips">3.5 A Few Tips</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#debugging">3.6 Debugging</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Software Organization</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="organization.html">Testing and Software Organization</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Implemetation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Code details</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">undefined</a></li>
 </ul>
@@ -88,12 +96,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="usage">
+  <div class="section" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h1>
-<section id="how-to-use-undefined">
+<div class="section" id="how-to-use-undefined">
 <h2>3. How to use <code class="docutils literal notranslate"><span class="pre">Undefined</span></code><a class="headerlink" href="#how-to-use-undefined" title="Permalink to this headline"></a></h2>
 <p>This is the recommended usage. The users can interact with the package at their discretion.</p>
-<p>We have published our package to the PyPI, so people can easily install the package via pip command.</p>
+<p>We have published our package to the PyPI, so people can easily install the package via pip command. We recommend you use a Python version 3.8 or newer.</p>
+<p>Our package name on PyPi is <code class="docutils literal notranslate"><span class="pre">undefined_AD</span></code>, where AD stands for automatic differentiation.</p>
 <p>Then, <code class="docutils literal notranslate"><span class="pre">undefined</span></code> provided easy installation by running this following command (Assuming your current directory is the working directory, which contains the wheel file):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>pip install undefined_AD
 </pre></div>
@@ -102,14 +111,15 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
 </pre></div>
 </div>
-<p>Also, if the users are planning to use the exponential and trig functions, they should do:</p>
+<p>Also, if the users are planning to use the exponential and trig functions, they should import them from our package:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">sqrt</span>
 </pre></div>
 </div>
+<p>Please refer to the implementation page for a complete list of supported operations.</p>
 <p><strong>Note:</strong> Our package will not work with the functions in other libraries, such as np.sin. Please use our customized functions.</p>
 <p>Once imported successfully, users can calculate the derivative of a given function by using the syntax from the section below.</p>
 <p>Here, we will demo the R -&gt; R cases in the 3.1 and 3.2 to illustrate the basic usage of <code class="docutils literal notranslate"><span class="pre">Undefined</span></code>. In 3.3, we will demo the higher order inputs and outputs.</p>
-<section id="forward-mode-demo">
+<div class="section" id="forward-mode-demo">
 <h3>3.1 Forward Mode Demo<a class="headerlink" href="#forward-mode-demo" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function will calculate the derivative, which will intake a user defined function using <code class="docutils literal notranslate"><span class="pre">lambda</span></code>, the mode (default is <strong>forward</strong> mode), and associated values. The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function will return the derivatives of the function.</p>
 <p>Here, we showed a demo with <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> -&gt; <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>:</p>
@@ -130,39 +140,25 @@ In our design, the users do not need to instantiate an <code class="docutils lit
 <span class="linenos">13</span><span class="c1"># print out the forward mode derivative</span>
 <span class="linenos">14</span><span class="nb">print</span><span class="p">(</span><span class="n">output_f1</span><span class="p">)</span>
 <span class="linenos">15</span>
-<span class="linenos">16</span><span class="c1"># output summary results for f1</span>
-<span class="linenos">17</span><span class="o">&gt;&gt;&gt;</span><span class="n">value</span><span class="p">:</span> <span class="mf">3.72</span>
-<span class="linenos">18</span><span class="o">&gt;&gt;&gt;</span><span class="n">derivative</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.359</span> <span class="mf">2.718</span><span class="p">]</span>
+<span class="linenos">16</span><span class="c1"># output summary results for f1 ({function values}, {derivative results})</span>
+<span class="linenos">17</span><span class="p">(</span><span class="mf">3.72</span><span class="p">,</span> <span class="p">[[</span><span class="mf">1.359</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.718</span><span class="p">]])</span>
 </pre></div>
 </div>
-<p>The users can also access the Jacobian results by using the <code class="docutils literal notranslate"><span class="pre">val</span></code> for the function value and <code class="docutils literal notranslate"><span class="pre">der</span></code> for the function’s derivative value(s).</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># use val to access the function value</span>
-<span class="linenos">2</span><span class="nb">print</span><span class="p">(</span><span class="n">output_f1</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+<p>The users can also access the partial derivative (Jacobian) results by using the indexes, as the results is outputted in a <code class="docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># use index 0 to access the function value</span>
+<span class="linenos">2</span><span class="nb">print</span><span class="p">(</span><span class="n">output_f1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="linenos">3</span><span class="o">&gt;&gt;&gt;</span><span class="mf">3.72</span>
 <span class="linenos">4</span>
-<span class="linenos">5</span><span class="c1"># use der to access the derivative value of the function</span>
-<span class="linenos">6</span><span class="o">&gt;&gt;&gt;</span><span class="n">array</span><span class="p">([</span><span class="mf">1.359</span><span class="p">,</span> <span class="mf">2.718</span><span class="p">])</span>
+<span class="linenos">5</span><span class="c1"># use index 1 to access the derivative value of the function</span>
+<span class="linenos">6</span><span class="nb">print</span><span class="p">(</span><span class="n">output_f1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="linenos">7</span><span class="o">&gt;&gt;&gt;</span><span class="p">[[</span><span class="mf">1.359</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.718</span><span class="p">]]</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function can also handle multiple dimensional calculation. Assume we need to calculate <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> -&gt; <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, we will input the values for <span class="math notranslate nohighlight">\({x}\)</span> and <span class="math notranslate nohighlight">\({y}\)</span>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
-<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sqrt</span>
-<span class="linenos"> 3</span>
-<span class="linenos"> 4</span><span class="c1"># user defined function</span>
-<span class="linenos"> 5</span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-<span class="linenos"> 6</span>
-<span class="linenos"> 7</span><span class="c1"># call the trace function in undefined, and provide input x = 1 and y = 4</span>
-<span class="linenos"> 8</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">4</span><span class="p">))</span>
-<span class="linenos"> 9</span>
-<span class="linenos">10</span><span class="c1"># the function will return the 1st derivative when x = 1 and y = 4.</span>
-<span class="linenos">11</span><span class="o">&gt;&gt;&gt;</span> <span class="n">value</span><span class="p">:</span> <span class="mf">6.0</span>
-<span class="linenos">12</span><span class="o">&gt;&gt;&gt;</span> <span class="n">derivative</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.</span>   <span class="mf">0.25</span><span class="p">]</span>
-</pre></div>
+<p>In the derivative results, the order is the same as the lambda function’s variable order. In this case, the first is the partial derivative for x and the other one is for y.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function can also handle multiple dimensional calculation. Refer to section 3.3 below.</p>
 </div>
-<p>Our function will handle other multiple dimensional calculations, including <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> -&gt; <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> -&gt; <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. The difference will be the number of input values.</p>
-</section>
-<section id="reverse-mode-demo">
-<h3>3.2 Reverse Mode Demo<a class="headerlink" href="#reverse-mode-demo" title="Permalink to this headline"></a></h3>
+<div class="section" id="reverse-mode-extension-functionality-demo">
+<h3>3.2 Reverse Mode (Extension Functionality) Demo<a class="headerlink" href="#reverse-mode-extension-functionality-demo" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function will also be able to calculate derivatives in reverse mode by specifying the <code class="docutils literal notranslate"><span class="pre">mode</span></code> parameters. Take the example below as a demo.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
 <span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">sin</span>
@@ -201,7 +197,7 @@ Another feature we developed in our reverse mode is to output the computational 
 <span class="linenos">19</span><span class="p">(</span><span class="mf">1.58</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.328</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>Moreover, the reverse mode will auto save the plot to your current working directory. The associated graph generated from the function above is shown below.</p>
+<p>Moreover, the reverse mode will auto save the plot to your <strong>current working directory</strong>. The associated graph generated from the function above is shown below.</p>
 <a class="reference internal image-reference" href="_images/reverse_mode_example1.png"><img alt="reverse_mode_example1" src="_images/reverse_mode_example1.png" style="width: 600px;" /></a>
 <p>From the graph above, we can see that the graph correctly reflects to computation from the VAR to SIN to EXP and to SQRT.</p>
 <p>Undefined, like the name suggested, has unlimited boundary. Let’s try a complicated example:</p>
@@ -251,10 +247,10 @@ Another feature we developed in our reverse mode is to output the computational 
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/reverse_mode_example2.png"><img alt="reverse_mode_example2" src="_images/reverse_mode_example2.png" style="width: 600px;" /></a>
-<p>From the results above, we can see that that undefined package can handle complicated functions. However, we do have some limitations. We will discuss that in the section below.
-<strong>Of note</strong>: as we used the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> library to achieve the graph, the graph will be different even if you run the same code twice or many different times.</p>
-</section>
-<section id="multiple-vectors-inputs-and-outputs">
+<p>From the results above, we can see that that undefined package can handle complicated functions. However, we do have some limitations. We will discuss that in the section below.</p>
+<p><strong>Of note</strong>: as we used the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> library to achieve the graph, the graph will be different even if you run the same code twice or many different times.</p>
+</div>
+<div class="section" id="multiple-vectors-inputs-and-outputs">
 <h3>3.3 Multiple Vectors Inputs and Outputs<a class="headerlink" href="#multiple-vectors-inputs-and-outputs" title="Permalink to this headline"></a></h3>
 <p>Here, I will use the forward mode to demo how to use <code class="docutils literal notranslate"><span class="pre">Undefined</span></code> using multiple inputs. The reverse mode would result the same.</p>
 <p><span class="math notranslate nohighlight">\(\mathbb{R}^m -&gt; \mathbb{R}\)</span></p>
@@ -333,7 +329,84 @@ For example, in the <span class="math notranslate nohighlight">\(\mathbb{R}^m -&
 In this case, the first item in the first list in the first array represents the function value from the f3 when x = 1 y = 4, and the second item is from f3 when x = 2, y = 4, etc.
 The second array represents the derivative value. The first list represent the derivative value of f3 when x = 1, y = 4 with respect to x and y,
 and the second list is the derivative value of f4 when x = 1, y = 4 with respect to x and y. The last two lists represent when x = 2, y = 4 for derivative values for f3 and f4 in that order.</p>
-<p><strong>Attention</strong></p>
+</div>
+<div class="section" id="seeds-vector-option">
+<h3>3.4 Seeds Vector option<a class="headerlink" href="#seeds-vector-option" title="Permalink to this headline"></a></h3>
+<p>Since we used the Jacobian matrix, we provided the option for the users to define their own seed vector to decide which partial derivatives they want to take for the input function(s).
+You can use the <code class="docutils literal notranslate"><span class="pre">seeds</span></code> option in both <code class="docutils literal notranslate"><span class="pre">forward</span></code> and <code class="docutils literal notranslate"><span class="pre">reverse</span></code> modes.
+See the examples below on to use interact with <code class="docutils literal notranslate"><span class="pre">seeds</span></code> argument.</p>
+<p>Our default setting for seed is to calculate the derivatives on the functions’ projection to the given variable, so 1 for the variable.
+However, you can define whatever projection you want in our package. See how you can implement below.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">single function input</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">multiple functions input</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>In the code below, we demo the usage for seed in one single function input with various number of variables.</p>
+<p><strong>Single Variable</strong></p>
+<p>When there is only one variable, you can just use <code class="docutils literal notranslate"><span class="pre">int</span></code> to set you <code class="docutils literal notranslate"><span class="pre">seeds</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">sin</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># user defined functions.</span>
+<span class="linenos"> 5</span><span class="n">f1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span> <span class="o">+</span> <span class="mi">2</span><span class="o">**</span><span class="n">x</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1"># define the seeds in the trace function</span>
+<span class="linenos"> 8</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">))</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># output ({function value}, {derivative value})</span>
+<span class="linenos">11</span><span class="p">(</span><span class="mf">5.58</span><span class="p">,</span> <span class="mf">2.445</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Multiple Variable</strong></p>
+<p>In the case when there are multiple variables, you will need to use a <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code> to pass the seed values in the <code class="docutils literal notranslate"><span class="pre">seeds</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">f2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span> <span class="o">+</span> <span class="mi">2</span><span class="o">**</span><span class="n">y</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># define the seeds for two variable in the trace function</span>
+<span class="linenos"> 6</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f2</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="c1"># output ({function value}, {derivative value})</span>
+<span class="linenos"> 9</span><span class="p">(</span><span class="mf">3.58</span><span class="p">,</span> <span class="p">[[</span><span class="o">-</span><span class="mf">0.328</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.386</span><span class="p">]])</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1"># you could combine the seed with multiple inputs values</span>
+<span class="linenos">12</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f2</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]),</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="c1"># output ({function value}, {derivative value})</span>
+<span class="linenos">15</span><span class="p">(</span><span class="n">array</span><span class="p">([[</span><span class="mf">3.58</span><span class="p">,</span> <span class="mf">2.62</span><span class="p">]]),</span> <span class="p">[[</span><span class="o">-</span><span class="mf">0.328</span><span class="p">,</span> <span class="mf">0.088</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.386</span><span class="p">,</span> <span class="mf">1.386</span><span class="p">]])</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="c1"># you could use seeds in the reverse mode as well</span>
+<span class="linenos">18</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f2</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;reverse&quot;</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]),</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="c1"># output</span>
+<span class="linenos">21</span><span class="p">(</span><span class="n">array</span><span class="p">([[</span><span class="mf">3.58</span><span class="p">,</span> <span class="mf">2.62</span><span class="p">]]),</span> <span class="p">[[</span><span class="o">-</span><span class="mf">0.328</span><span class="p">,</span> <span class="mf">0.088</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.386</span><span class="p">,</span> <span class="mf">1.386</span><span class="p">]])</span>
+<span class="linenos">22</span><span class="c1"># it is expected that the results from forward and reverse modes are the same</span>
+</pre></div>
+</div>
+<p><em>Note:</em> You will need to use <strong>double bracket</strong> in the <code class="docutils literal notranslate"><span class="pre">numpy.array</span></code></p>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><p>Similar idea can be applied when you have multiple functions as input.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="linenos"> 3</span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># user defined functions.</span>
+<span class="linenos"> 6</span><span class="n">f1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<span class="linenos"> 7</span><span class="n">f2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">tanh</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="c1"># multiple functions as input</span>
+<span class="linenos">10</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">([</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">],</span> <span class="n">seeds</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]])))</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="c1"># Output</span>
+<span class="linenos">13</span><span class="p">(</span><span class="n">array</span><span class="p">([[[</span><span class="mf">1.52</span><span class="p">,</span> <span class="mf">1.58</span><span class="p">]],</span> <span class="p">[[</span><span class="mf">2.76</span><span class="p">,</span> <span class="mf">4.96</span><span class="p">]]]),</span> <span class="n">array</span><span class="p">([[[</span> <span class="mf">0.411</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.328</span><span class="p">]],</span> <span class="p">[[</span> <span class="mf">2.42</span> <span class="p">,</span>  <span class="mf">2.071</span><span class="p">]]]))</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="c1"># in reverse mode</span>
+<span class="linenos">16</span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">([</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">],</span> <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;reverse&quot;</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]])))</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="c1"># Output</span>
+<span class="linenos">19</span><span class="p">(</span><span class="n">array</span><span class="p">([[[</span><span class="mf">1.52</span><span class="p">,</span> <span class="mf">1.58</span><span class="p">]],</span> <span class="p">[[</span><span class="mf">2.76</span><span class="p">,</span> <span class="mf">4.96</span><span class="p">]]]),</span> <span class="n">array</span><span class="p">([[[</span> <span class="mf">0.411</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.328</span><span class="p">]],</span> <span class="p">[[</span> <span class="mf">2.42</span> <span class="p">,</span>  <span class="mf">2.071</span><span class="p">]]]))</span>
+</pre></div>
+</div>
+</div></div>
+</div>
+<div class="section" id="a-few-tips">
+<h3>3.5 A Few Tips<a class="headerlink" href="#a-few-tips" title="Permalink to this headline"></a></h3>
 <p>Although our package is smart and can handle many different scenarios and cases, there are exceptions.</p>
 <ul class="simple">
 <li><p>We cannot unpack more number of input variables than the user defined functions have. For example, if the user defined function is the following:</p></li>
@@ -348,17 +421,20 @@ and the second list is the derivative value of f4 when x = 1, y = 4 with respect
 <p>In this case, we will not throw an error, but no guarantee the results are legit because the inputs does not make sense. So, please double check!</p>
 <ul class="simple">
 <li><p>If you are using the <code class="docutils literal notranslate"><span class="pre">forward</span></code> mode, set the <code class="docutils literal notranslate"><span class="pre">plot</span> <span class="pre">=</span> <span class="pre">True</span></code> will not work as we do not store the intermediate values in the forward mode.</p></li>
-<li><p>We have tested our package with extreme values and edge cases to increase the robustness of our package. However, there is chance that we did not cover every case. So please do not be surprised if your goal is the break the package and see an error.</p></li>
+<li><p>The position of each argument in trace is important as well. Please keep in mind that <code class="docutils literal notranslate"><span class="pre">mode</span></code>, <code class="docutils literal notranslate"><span class="pre">plot</span></code> and <code class="docutils literal notranslate"><span class="pre">seeds</span></code> need to be before you input the values for the variables.</p></li>
+<li><p>We have tested our package with extreme values and edge cases to increase the robustness of our package.
+However, there is chance that we did not cover every case. So please do not be surprised if your goal is the break the package and see an error.</p></li>
 </ul>
-</section>
-<section id="debugging">
-<h3>3.4 Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline"></a></h3>
+</div>
+<div class="section" id="debugging">
+<h3>3.6 Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline"></a></h3>
+<p>When there is an issue occurred, do not panic! It is expected. We offer a few words here when you have to debug the program.</p>
 <p>Since the forward model does not store the intermediate values, we recommend the users to use reverse mode for their debugging propose. We offer the graph structure and the computational graph as output to facilitate with the process.
-Moreover, we also provide the source codes for the users to examine our workflow. Please refer to the <strong>Source Code Details</strong> section.
+Moreover, we also provide the source codes for the users to examine our workflow. Please refer to the <strong>Code Details</strong> section.
 Since our design is encapsulated and modularized, it is easy for the users to spot the possible error(s).</p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
            </div>

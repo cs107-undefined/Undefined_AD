@@ -6,7 +6,9 @@ Usage
 
 This is the recommended usage. The users can interact with the package at their discretion. 
 
-We have published our package to the PyPI, so people can easily install the package via pip command. 
+We have published our package to the PyPI, so people can easily install the package via pip command. We recommend you use a Python version 3.8 or newer. 
+
+Our package name on PyPi is ``undefined_AD``, where AD stands for automatic differentiation.
 
 Then, ``undefined`` provided easy installation by running this following command (Assuming your current directory is the working directory, which contains the wheel file):
 
@@ -22,12 +24,14 @@ Users should import the package by the following in their Python script:
 
     from undefined.API import trace
 
-Also, if the users are planning to use the exponential and trig functions, they should do:
+Also, if the users are planning to use the exponential and trig functions, they should import them from our package:
 
 .. code-block:: 
     :linenos:
 
     from undefined.Calculator import sin, cos, tan, exp, log, sqrt
+
+Please refer to the implementation page for a complete list of supported operations.
 
 **Note:** Our package will not work with the functions in other libraries, such as np.sin. Please use our customized functions.
 
@@ -63,45 +67,29 @@ In our design, the users do not need to instantiate an ``undefined`` object. The
     # print out the forward mode derivative
     print(output_f1)
 
-    # output summary results for f1
-    >>>value: 3.72
-    >>>derivative: [1.359 2.718]
+    # output summary results for f1 ({function values}, {derivative results})
+    (3.72, [[1.359], [2.718]])
 
-The users can also access the Jacobian results by using the ``val`` for the function value and ``der`` for the function's derivative value(s).
+The users can also access the partial derivative (Jacobian) results by using the indexes, as the results is outputted in a ``tuple``
 
 .. code-block:: 
     :linenos:
 
-    # use val to access the function value
-    print(output_f1.val)
+    # use index 0 to access the function value
+    print(output_f1[0])
     >>>3.72
 
-    # use der to access the derivative value of the function
-    >>>array([1.359, 2.718])
+    # use index 1 to access the derivative value of the function
+    print(output_f1[1])
+    >>>[[1.359], [2.718]]
 
-The ``trace`` function can also handle multiple dimensional calculation. Assume we need to calculate :math:`\mathbb{R}^m`` -> :math:`\mathbb{R}`, we will input the values for :math:`{x}` and :math:`{y}`. 
+In the derivative results, the order is the same as the lambda function's variable order. In this case, the first is the partial derivative for x and the other one is for y. 
 
-.. code-block:: 
-    :linenos:
-
-    from undefined.API import trace
-    from undefined.Calculator import sqrt
-
-    # user defined function
-    f = lambda x, y: 2*x + sqrt(y)
-
-    # call the trace function in undefined, and provide input x = 1 and y = 4
-    print(trace(f, x = 2, y = 4))
-
-    # the function will return the 1st derivative when x = 1 and y = 4.
-    >>> value: 6.0 
-    >>> derivative: [2.   0.25]
-
-Our function will handle other multiple dimensional calculations, including :math:`\mathbb{R}`` -> :math:`\mathbb{R}^n`, :math:`\mathbb{R}^m`` -> :math:`\mathbb{R}^n`. The difference will be the number of input values. 
+The ``trace`` function can also handle multiple dimensional calculation. Refer to section 3.3 below.
 
 
-3.2 Reverse Mode Demo
-^^^^^^^^^^^^^^^^^^^^^^^^^
+3.2 Reverse Mode (Extension Functionality) Demo 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``trace`` function will also be able to calculate derivatives in reverse mode by specifying the ``mode`` parameters. Take the example below as a demo.
 
@@ -148,7 +136,7 @@ First, let's look at the graph structure we generated. I will use the same funct
     |      |      |<-(parent)-Computational Graph (2, UDPrimitive.VAR)
     (1.58, [-0.328])
 
-Moreover, the reverse mode will auto save the plot to your current working directory. The associated graph generated from the function above is shown below.
+Moreover, the reverse mode will auto save the plot to your **current working directory**. The associated graph generated from the function above is shown below.
 
 .. image:: ../resources/reverse_mode_example1.png
     :width: 600
@@ -211,6 +199,7 @@ Undefined, like the name suggested, has unlimited boundary. Let's try a complica
     :alt: reverse_mode_example2
 
 From the results above, we can see that that undefined package can handle complicated functions. However, we do have some limitations. We will discuss that in the section below. 
+
 **Of note**: as we used the ``networkx`` library to achieve the graph, the graph will be different even if you run the same code twice or many different times.
 
 3.3 Multiple Vectors Inputs and Outputs
@@ -313,8 +302,105 @@ In this case, the first item in the first list in the first array represents the
 The second array represents the derivative value. The first list represent the derivative value of f3 when x = 1, y = 4 with respect to x and y, 
 and the second list is the derivative value of f4 when x = 1, y = 4 with respect to x and y. The last two lists represent when x = 2, y = 4 for derivative values for f3 and f4 in that order.
 
+3.4 Seeds Vector option
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Attention**
+Since we used the Jacobian matrix, we provided the option for the users to define their own seed vector to decide which partial derivatives they want to take for the input function(s).
+You can use the ``seeds`` option in both ``forward`` and ``reverse`` modes. 
+See the examples below on to use interact with ``seeds`` argument. 
+
+Our default setting for seed is to calculate the derivatives on the functions' projection to the given variable, so 1 for the variable. 
+However, you can define whatever projection you want in our package. See how you can implement below. 
+
+.. tabs::
+
+    .. tab:: single function input
+        :tabid: 1
+
+        In the code below, we demo the usage for seed in one single function input with various number of variables.
+
+        **Single Variable**
+
+        When there is only one variable, you can just use ``int`` to set you ``seeds``.
+
+        .. code-block::
+            :linenos:
+
+            from undefined.API import trace
+            from undefined.Calculator import sqrt, exp, sin
+
+            # user defined functions.
+            f1 = lambda x: sqrt(exp(sin(x))) + 2**x
+
+            # define the seeds in the trace function
+            print(trace(f1, seeds = 1, x = 2))
+
+            # output ({function value}, {derivative value})
+            (5.58, 2.445)
+        
+        **Multiple Variable**
+
+        In the case when there are multiple variables, you will need to use a ``numpy.array`` to pass the seed values in the ``seeds``. 
+
+        .. code-block::
+            :linenos:
+
+            import numpy as np
+
+            f2 = lambda x, y: sqrt(exp(sin(x))) + 2**y
+
+            # define the seeds for two variable in the trace function
+            print(trace(f2, seeds = np.array([[1, 0], [0, 1]]), x = 2, y = 1))
+
+            # output ({function value}, {derivative value})
+            (3.58, [[-0.328], [1.386]])
+
+            # you could combine the seed with multiple inputs values
+            print(trace(f2, seeds = np.array([[1, 0], [0, 1]]), x = np.array([[2, 5]]), y = 1))
+
+            # output ({function value}, {derivative value})
+            (array([[3.58, 2.62]]), [[-0.328, 0.088], [1.386, 1.386]])
+
+            # you could use seeds in the reverse mode as well
+            print(trace(f2, mode = "reverse", seeds = np.array([[1, 0], [0, 1]]), x = np.array([[2, 5]]), y = 1))
+
+            # output
+            (array([[3.58, 2.62]]), [[-0.328, 0.088], [1.386, 1.386]])
+            # it is expected that the results from forward and reverse modes are the same
+        
+        *Note:* You will need to use **double bracket** in the ``numpy.array``
+    
+    .. tab:: multiple functions input
+        :tabid: 2
+
+        Similar idea can be applied when you have multiple functions as input.
+
+        .. code-block::
+            :linenos:
+        
+            from undefined.API import trace
+            from undefined.Calculator import *
+            import numpy as np
+            
+            # user defined functions.
+            f1 = lambda x: sqrt(exp(sin(x)))
+            f2 = lambda x: 2*x + tanh(x)
+
+            # multiple functions as input
+            print(trace([f1, f2], seeds = 1, x = np.array([[1,2]])))
+
+            # Output 
+            (array([[[1.52, 1.58]], [[2.76, 4.96]]]), array([[[ 0.411, -0.328]], [[ 2.42 ,  2.071]]]))
+
+            # in reverse mode
+            print(trace([f1, f2], mode = "reverse", seeds = 1, x = np.array([[1,2]])))
+
+            # Output 
+            (array([[[1.52, 1.58]], [[2.76, 4.96]]]), array([[[ 0.411, -0.328]], [[ 2.42 ,  2.071]]]))
+
+
+3.5 A Few Tips
+^^^^^^^^^^^^^^^^
 
 Although our package is smart and can handle many different scenarios and cases, there are exceptions. 
 
@@ -334,14 +420,19 @@ Then the user passed additional variable into the ``trace`` function:
 
 In this case, we will not throw an error, but no guarantee the results are legit because the inputs does not make sense. So, please double check!
 
-- If you are using the ``forward`` mode, set the ``plot = True`` will not work as we do not store the intermediate values in the forward mode. 
+- If you are using the ``forward`` mode, set the ``plot = True`` will not work as we do not store the intermediate values in the forward mode.
 
-- We have tested our package with extreme values and edge cases to increase the robustness of our package. However, there is chance that we did not cover every case. So please do not be surprised if your goal is the break the package and see an error.
+- The position of each argument in trace is important as well. Please keep in mind that ``mode``, ``plot`` and ``seeds`` need to be before you input the values for the variables.
+
+- We have tested our package with extreme values and edge cases to increase the robustness of our package. 
+  However, there is chance that we did not cover every case. So please do not be surprised if your goal is the break the package and see an error.
 
 
-3.4 Debugging
+3.6 Debugging
 ^^^^^^^^^^^^^^^
 
+When there is an issue occurred, do not panic! It is expected. We offer a few words here when you have to debug the program. 
+
 Since the forward model does not store the intermediate values, we recommend the users to use reverse mode for their debugging propose. We offer the graph structure and the computational graph as output to facilitate with the process. 
-Moreover, we also provide the source codes for the users to examine our workflow. Please refer to the **Source Code Details** section.
+Moreover, we also provide the source codes for the users to examine our workflow. Please refer to the **Code Details** section.
 Since our design is encapsulated and modularized, it is easy for the users to spot the possible error(s).

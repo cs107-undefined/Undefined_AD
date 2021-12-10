@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Implementation &mdash; Undefined - an automatic differentiation tool 2.0.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -88,21 +88,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="implementation">
+  <div class="section" id="implementation">
 <h1>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline"></a></h1>
 <p>Here, we describe the implementation details of <code class="docutils literal notranslate"><span class="pre">Undefined</span></code> on how we achieve the automatic differentiation.</p>
-<section id="core-data-structure">
+<div class="section" id="core-data-structure">
 <h2>5.1 Core Data Structure<a class="headerlink" href="#core-data-structure" title="Permalink to this headline"></a></h2>
 <a class="reference internal image-reference" href="_images/undefined_workflow.png"><img alt="undefined_workflow" src="_images/undefined_workflow.png" style="width: 600px;" /></a>
 <p>Here is the general workflow in our main function and how they connect with other .py files.
 The two main branches in the implementation are the “forward mode” and “reverse mode”. We will discuss in details below.</p>
-<section id="forward-mode">
+<div class="section" id="forward-mode">
 <h3>Forward Mode<a class="headerlink" href="#forward-mode" title="Permalink to this headline"></a></h3>
 <p>To calculate the derivative in <code class="docutils literal notranslate"><span class="pre">forward</span></code> mode, we used the dual number approach. In the <code class="docutils literal notranslate"><span class="pre">`UDFunction`</span></code> class inside the <code class="docutils literal notranslate"><span class="pre">UDFunction.py</span></code>, we overloaded the operators and accommodated the dual number (as the core data structure) approach following the formula below:</p>
 <p><span class="math notranslate nohighlight">\({z}_j = {v}_j + D_p v_j \epsilon\)</span></p>
 <p>where <span class="math notranslate nohighlight">\({v}_j\)</span> is the real part corresponding to the primal trace, and the <span class="math notranslate nohighlight">\({D_p v_j}\)</span> is the dual part corresponding to the tangent trace.</p>
-</section>
-<section id="reverse-mode">
+</div>
+<div class="section" id="reverse-mode">
 <h3>Reverse Mode<a class="headerlink" href="#reverse-mode" title="Permalink to this headline"></a></h3>
 <p>The reverse mode calculates the partial derivatives of the i-th output <span class="math notranslate nohighlight">\(f_i\)</span> with respect to the n variables <span class="math notranslate nohighlight">\(v_{j-m} = x_j\)</span> with j = 1,2,…,n by traversing the computational graph backwards.
 The partial derivatives describe the _sensitivity_ of the output with respect to the intermediate variable <span class="math notranslate nohighlight">\(v_{j-m}\)</span>:</p>
@@ -125,9 +125,9 @@ To deal with this, we know the initial value of the adjoint <span class="math no
 <p>In the reverse mode, we used the <code class="docutils literal notranslate"><span class="pre">UDPremitive</span></code> class serving as a look up table to help us to calculate the derivative in the reverse mode.
 One thing to note is that mathematically, we only work with numerical values, not with formulae or overladed operators. However, to automatically build the computational graph structure, we modified the operators for the reverse mode so that we can save the intermediate values as we do the calculation.
 This is implemented in the <code class="docutils literal notranslate"><span class="pre">GraphGenerator.py</span></code> file.</p>
-</section>
-</section>
-<section id="core-classes">
+</div>
+</div>
+<div class="section" id="core-classes">
 <h2>5.2 Core Classes<a class="headerlink" href="#core-classes" title="Permalink to this headline"></a></h2>
 <p>We used <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">math</span></code> libraries to help with the math and used <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">networkx</span></code> libraries for plot the computational graph.
 The methods and descriptions below are only included the <strong>major functions</strong>. Helper functions are not included. Please refer to the source code for all detailed function description.</p>
@@ -275,13 +275,13 @@ The methods included in this class are:</p>
 <p>Another class we developed in this file is the <code class="docutils literal notranslate"><span class="pre">GraphGenerator</span></code>, which will facilitate generating the output figure and the print out the graph structure as outputs. Refer to the reverse mode demo section.</p>
 <p><strong>Utils.py:</strong></p>
 <p>We defined our <code class="docutils literal notranslate"><span class="pre">Enum</span></code> type of class here, the <code class="docutils literal notranslate"><span class="pre">UDPrimitive</span></code>.</p>
-</section>
-<section id="external-dependencies">
+</div>
+<div class="section" id="external-dependencies">
 <h2>5.3 External Dependencies<a class="headerlink" href="#external-dependencies" title="Permalink to this headline"></a></h2>
 <p>We are planning to include one python file to include the codes for computing the derivative, and have another file with all the testing files. Both <code class="docutils literal notranslate"><span class="pre">TravisCI</span></code> and <code class="docutils literal notranslate"><span class="pre">CodeCov</span></code> will be used for testing suit monitoring. The CI status and the code coverage are reflected in our github repository. The package will be uploaded and distributed via <code class="docutils literal notranslate"><span class="pre">PyPI</span></code> . We will use the <code class="docutils literal notranslate"><span class="pre">NetworkX</span></code> package for constructing the visualization for the computational graph.
 Lastly, we used the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">math</span></code> libraries to help with the math calculation.</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

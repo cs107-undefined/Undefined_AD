@@ -20,51 +20,45 @@ Be awesome and fast automatic differentiation calculation!!!
 
 - Our design of the software is friendly for the users in command-line interaction, and our codes are well encapsulated and modularized.
 
-Implementation of the ``forward`` and ``reverse`` mode to automatically calculate derivative.
+Implementation of the ``forward`` and ``reverse`` mode (extended feature) to automatically calculate derivative.
 
-Build computational graphs in the ``reverse`` mode.
+In the extended feature, our package can build computational graphs in the ``reverse`` mode.
 
 Link to the project `Github page <https://github.com/cs107-undefined/cs107-FinalProject>`_.
 
-About
-----------------------------------
 
 .. toctree::
    :maxdepth: 3
+   :caption: Introduction and Backgroud
 
    about
 
-Getting started
----------------------------------
 
 .. toctree::
    :maxdepth: 3
+   :caption: Getting started
+
 
    usage
 
 
-Software Organization
------------------------
 .. toctree::
    :maxdepth: 3
+   :caption: Software Organization
 
    organization
 
 
-Implemetation
----------------
 .. toctree::
    :maxdepth: 3
+   :caption: Implemetation
 
    implementation
 
 
-
-Source Code Details
----------------------
-
 .. toctree::
    :maxdepth: 3
+   :caption: Code details
 
    modules
 
