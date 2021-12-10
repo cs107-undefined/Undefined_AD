@@ -28,7 +28,7 @@ Assuming your current directory is the ``undefined`` root directory, you can run
 
 And you will see the following as output:
 
-.. image:: resources/milestone2_test_success.png
+.. image:: /resources/milestone2_test_success.png
     :width: 600
     :alt: success_test
 
@@ -49,105 +49,151 @@ And you will see the following as output:
     │   ├── undefined-1.0.0-py3-none-any.whl
     │   └── undefined-1.0.0.tar.gz
     ├── docs
+    │   ├── Makefile
     │   ├── README.md
+    │   ├── _build
+    │   │   ├── doctrees
+    │   │   │   ├── README.doctree
+    │   │   │   ├── about.doctree
+    │   │   │   ├── cs107-FinalProject.doctree
+    │   │   │   ├── cs107-FinalProject.test.doctree
+    │   │   │   ├── environment.pickle
+    │   │   │   ├── implementation.doctree
+    │   │   │   ├── index.doctree
+    │   │   │   ├── modules.doctree
+    │   │   │   ├── organization.doctree
+    │   │   │   ├── sphinx_files
+    │   │   │   │   ├── about.doctree
+    │   │   │   │   ├── implementation.doctree
+    │   │   │   │   ├── index.doctree
+    │   │   │   │   ├── modules.doctree
+    │   │   │   │   ├── organization.doctree
+    │   │   │   │   ├── undefined.doctree
+    │   │   │   │   └── usage.doctree
+    │   │   │   ├── undefined.doctree
+    │   │   │   └── usage.doctree
+    │   │   └── html
+    │   │       ├── README.html
+    │   │       ├── _images
+    │   │       │   ├── computational_graph_1.png
+    │   │       │   ├── computational_graph_2.png
+    │   │       │   ├── milestone2_test_success.png
+    │   │       │   ├── reverse_mode_example1.png
+    │   │       │   ├── reverse_mode_example2.png
+    │   │       │   └── undefined_workflow.png
+    │   │       ├── _modules
+    │   │       │   ├── index.html
+    │   │       │   └── undefined
+    │   │       │       ├── API.html
+    │   │       │       ├── Calculator.html
+    │   │       │       ├── GraphGenerator.html
+    │   │       │       ├── UDFunction.html
+    │   │       │       └── Utils.html
+    │   │       ├── _sources
+    │   │       │   ├── README.md.txt
+    │   │       │   ├── about.rst.txt
+    │   │       │   ├── cs107-FinalProject.rst.txt
+    │   │       │   ├── cs107-FinalProject.test.rst.txt
+    │   │       │   ├── implementation.rst.txt
+    │   │       │   ├── index.rst.txt
+    │   │       │   ├── modules.rst.txt
+    │   │       │   ├── organization.rst.txt
+    │   │       │   ├── sphinx_files
+    │   │       │   │   ├── about.rst.txt
+    │   │       │   │   ├── implementation.rst.txt
+    │   │       │   │   ├── index.rst.txt
+    │   │       │   │   ├── modules.rst.txt
+    │   │       │   │   ├── organization.rst.txt
+    │   │       │   │   ├── undefined.rst.txt
+    │   │       │   │   └── usage.rst.txt
+    │   │       │   ├── undefined.rst.txt
+    │   │       │   └── usage.rst.txt
+    │   │       ├── _static
+    │   │       │   ├── alabaster.css
+    │   │       │   ├── basic.css
+    │   │       │   ├── css
+    │   │       │   │   ├── badge_only.css
+    │   │       │   │   ├── fonts
+    │   │       │   │   │   ├── Roboto-Slab-Bold.woff
+    │   │       │   │   │   ├── Roboto-Slab-Bold.woff2
+    │   │       │   │   │   ├── Roboto-Slab-Regular.woff
+    │   │       │   │   │   ├── Roboto-Slab-Regular.woff2
+    │   │       │   │   │   ├── fontawesome-webfont.eot
+    │   │       │   │   │   ├── fontawesome-webfont.svg
+    │   │       │   │   │   ├── fontawesome-webfont.ttf
+    │   │       │   │   │   ├── fontawesome-webfont.woff
+    │   │       │   │   │   ├── fontawesome-webfont.woff2
+    │   │       │   │   │   ├── lato-bold-italic.woff
+    │   │       │   │   │   ├── lato-bold-italic.woff2
+    │   │       │   │   │   ├── lato-bold.woff
+    │   │       │   │   │   ├── lato-bold.woff2
+    │   │       │   │   │   ├── lato-normal-italic.woff
+    │   │       │   │   │   ├── lato-normal-italic.woff2
+    │   │       │   │   │   ├── lato-normal.woff
+    │   │       │   │   │   └── lato-normal.woff2
+    │   │       │   │   └── theme.css
+    │   │       │   ├── custom.css
+    │   │       │   ├── doctools.js
+    │   │       │   ├── documentation_options.js
+    │   │       │   ├── file.png
+    │   │       │   ├── jquery-3.5.1.js
+    │   │       │   ├── jquery.js
+    │   │       │   ├── js
+    │   │       │   │   ├── badge_only.js
+    │   │       │   │   ├── html5shiv-printshiv.min.js
+    │   │       │   │   ├── html5shiv.min.js
+    │   │       │   │   └── theme.js
+    │   │       │   ├── language_data.js
+    │   │       │   ├── minus.png
+    │   │       │   ├── plus.png
+    │   │       │   ├── pygments.css
+    │   │       │   ├── searchtools.js
+    │   │       │   ├── underscore-1.13.1.js
+    │   │       │   └── underscore.js
+    │   │       ├── about.html
+    │   │       ├── cs107-FinalProject.html
+    │   │       ├── cs107-FinalProject.test.html
+    │   │       ├── genindex.html
+    │   │       ├── implementation.html
+    │   │       ├── index.html
+    │   │       ├── modules.html
+    │   │       ├── objects.inv
+    │   │       ├── organization.html
+    │   │       ├── py-modindex.html
+    │   │       ├── search.html
+    │   │       ├── searchindex.js
+    │   │       ├── sphinx_files
+    │   │       │   ├── about.html
+    │   │       │   ├── implementation.html
+    │   │       │   ├── index.html
+    │   │       │   ├── modules.html
+    │   │       │   ├── organization.html
+    │   │       │   ├── undefined.html
+    │   │       │   └── usage.html
+    │   │       ├── undefined.html
+    │   │       └── usage.html
+    │   ├── _static
+    │   ├── _templates
+    │   ├── about.rst
+    │   ├── conf.py
+    │   ├── implementation.rst
+    │   ├── index.rst
+    │   ├── make.bat
     │   ├── milestone_docs
     │   │   ├── milestone1.ipynb
     │   │   ├── milestone2.ipynb
     │   │   └── milestone2_progress.ipynb
+    │   ├── modules.rst
+    │   ├── organization.rst
     │   ├── resources
     │   │   ├── computational_graph_1.png
     │   │   ├── computational_graph_2.png
-    │   │   └── milestone2_test_success.png
-    │   └── sphinx_files
-    │       ├── Makefile
-    │       ├── _build
-    │       │   ├── doctrees
-    │       │   │   ├── README.doctree
-    │       │   │   ├── about.doctree
-    │       │   │   ├── cs107-FinalProject.doctree
-    │       │   │   ├── cs107-FinalProject.test.doctree
-    │       │   │   ├── environment.pickle
-    │       │   │   ├── index.doctree
-    │       │   │   ├── modules.doctree
-    │       │   │   ├── undefined.doctree
-    │       │   │   └── usage.doctree
-    │       │   └── html
-    │       │       ├── README.html
-    │       │       ├── _images
-    │       │       │   ├── computational_graph_1.png
-    │       │       │   └── computational_graph_2.png
-    │       │       ├── _sources
-    │       │       │   ├── README.md.txt
-    │       │       │   ├── about.rst.txt
-    │       │       │   ├── cs107-FinalProject.rst.txt
-    │       │       │   ├── cs107-FinalProject.test.rst.txt
-    │       │       │   ├── index.rst.txt
-    │       │       │   ├── modules.rst.txt
-    │       │       │   ├── undefined.rst.txt
-    │       │       │   └── usage.rst.txt
-    │       │       ├── _static
-    │       │       │   ├── alabaster.css
-    │       │       │   ├── basic.css
-    │       │       │   ├── css
-    │       │       │   │   ├── badge_only.css
-    │       │       │   │   ├── fonts
-    │       │       │   │   │   ├── Roboto-Slab-Bold.woff
-    │       │       │   │   │   ├── Roboto-Slab-Bold.woff2
-    │       │       │   │   │   ├── Roboto-Slab-Regular.woff
-    │       │       │   │   │   ├── Roboto-Slab-Regular.woff2
-    │       │       │   │   │   ├── fontawesome-webfont.eot
-    │       │       │   │   │   ├── fontawesome-webfont.svg
-    │       │       │   │   │   ├── fontawesome-webfont.ttf
-    │       │       │   │   │   ├── fontawesome-webfont.woff
-    │       │       │   │   │   ├── fontawesome-webfont.woff2
-    │       │       │   │   │   ├── lato-bold-italic.woff
-    │       │       │   │   │   ├── lato-bold-italic.woff2
-    │       │       │   │   │   ├── lato-bold.woff
-    │       │       │   │   │   ├── lato-bold.woff2
-    │       │       │   │   │   ├── lato-normal-italic.woff
-    │       │       │   │   │   ├── lato-normal-italic.woff2
-    │       │       │   │   │   ├── lato-normal.woff
-    │       │       │   │   │   └── lato-normal.woff2
-    │       │       │   │   └── theme.css
-    │       │       │   ├── custom.css
-    │       │       │   ├── doctools.js
-    │       │       │   ├── documentation_options.js
-    │       │       │   ├── file.png
-    │       │       │   ├── jquery-3.5.1.js
-    │       │       │   ├── jquery.js
-    │       │       │   ├── js
-    │       │       │   │   ├── badge_only.js
-    │       │       │   │   ├── html5shiv-printshiv.min.js
-    │       │       │   │   ├── html5shiv.min.js
-    │       │       │   │   └── theme.js
-    │       │       │   ├── language_data.js
-    │       │       │   ├── minus.png
-    │       │       │   ├── plus.png
-    │       │       │   ├── pygments.css
-    │       │       │   ├── searchtools.js
-    │       │       │   ├── underscore-1.13.1.js
-    │       │       │   └── underscore.js
-    │       │       ├── about.html
-    │       │       ├── cs107-FinalProject.html
-    │       │       ├── cs107-FinalProject.test.html
-    │       │       ├── genindex.html
-    │       │       ├── index.html
-    │       │       ├── modules.html
-    │       │       ├── objects.inv
-    │       │       ├── py-modindex.html
-    │       │       ├── search.html
-    │       │       ├── searchindex.js
-    │       │       ├── undefined.html
-    │       │       └── usage.html
-    │       ├── _static
-    │       ├── _templates
-    │       ├── about.rst
-    │       ├── conf.py
-    │       ├── index.rst
-    │       ├── make.bat
-    │       ├── modules.rst
-    │       ├── undefined.rst
-    │       └── usage.rst
+    │   │   ├── milestone2_test_success.png
+    │   │   ├── reverse_mode_example1.png
+    │   │   ├── reverse_mode_example2.png
+    │   │   └── undefined_workflow.png
+    │   ├── undefined.rst
+    │   └── usage.rst
     ├── htmlcov
     │   ├── coverage_html.js
     │   ├── d_40be0abedfd3bebf_API_py.html
@@ -196,9 +242,11 @@ And you will see the following as output:
         │   ├── test_API.cpython-38.pyc
         │   ├── test_Calculator.cpython-38.pyc
         │   ├── test_UDFunction.cpython-38.pyc
+        │   ├── test_graph_generator_operation.cpython-38.pyc
         │   └── test_trace.cpython-38.pyc
         ├── run_tests.sh
         ├── test_API.py
         ├── test_Calculator.py
         ├── test_UDFunction.py
+        ├── test_graph_generator_operation.py
         └── test_trace.py
