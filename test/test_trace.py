@@ -6,6 +6,7 @@ sys.path.append("./src/")
 from undefined.API import trace
 from undefined.UDFunction import UDFunction
 from undefined.Calculator import sin, cos, exp, tan, sqrt, log
+from undefined.GraphGenerator import UDGraph, GeneratorHelper
 import numpy as np
 
 class TestTrace(unittest.TestCase):
@@ -21,12 +22,18 @@ class TestTrace(unittest.TestCase):
         self.f7 = lambda x, y, z: x*exp(y**2 - z**2)
         self.f8 = lambda x: log(x*3 + tan(2*x), np.e) + 2**x # raise error, need to fix __rpow__
         self.f10 = lambda x: log(x*3, np.e)
-        self.f9 = lambda x, y: x**y
+        self.f9 = lambda x, y: x**y 
         self.f11 = lambda x: cos(exp(2*x))
         self.f12 = lambda x, y: log(1 + 6*x) * tan(4*x + 2*y)
         self.f13 = lambda x: log(6*x, 10) * tan(4*x)
         self.f1000 = lambda x, y: exp(1-6*x) * tan(4*x + 2*y) + x**2*y
-    
+        self.f1001 = lambda x, y: exp(1-6*x) /tan(4*x + 2*y) + x**2*y
+        self.f1002 = lambda x, y: exp(1-6*x) //tan(4*x + 2*y) + x**2*y
+        self.f1003 = lambda x: x//192
+        self.f1004 = lambda x: x/192
+        self.f1005 = lambda x: x**2 + x**5
+        self.f1006 = lambda x: 2**x + 5**x
+        self.f1007 = lambda x,y: x**y
     def assertNumpyArraysEqual(self, o1, o2):
         if o1.shape != o2.shape:
             raise AssertionError("Shapes don't match")
@@ -83,8 +90,98 @@ class TestTrace(unittest.TestCase):
         self.assertNumpyArraysEqual(trace([self.f1, self.f2], x = 2)[0], np.array([1.58, 135.54]))
         self.assertNumpyArraysEqual(trace([self.f1, self.f2], x = 2)[1], np.array([-3.2800e-01,  4.8577e+02]))
 
-
+        
     def test_reverse(self):
+        g = UDGraph(9999.909)
+        g2 = g.__radd__(UDGraph(np.pi/2))
+        GeneratorHelper._radd(g2, g,seed_dic = {})
+
+        g = UDGraph(999.09)
+        g2 = g.__rmul__(UDGraph(np.pi/2))
+        GeneratorHelper._rmul(g2, g,seed_dic = {})
+
+        g = UDGraph(np.pi/2)
+        g2 = g.__neg__()
+        GeneratorHelper._neg(g2, g,seed_dic = {})
+
+        g = UDGraph(9999.909)
+        g2 = g.__rsub__(UDGraph(np.pi/2))
+        GeneratorHelper._rsub(g2, g,seed_dic = {})
+
+        g = UDGraph(9999.909)
+        g2 = g.__rtruediv__(UDGraph(np.pi/2))
+        GeneratorHelper._rtruediv(g2, g,seed_dic = {})
+
+        g = UDGraph(9999.909)
+        g2 = g.__rfloordiv__(UDGraph(np.pi/2))
+        GeneratorHelper._rfloordiv(g2, g,seed_dic = {})
+
+        g = UDGraph(3.5)
+        g2 = g.__rpow__(UDGraph(np.pi/2))
+        GeneratorHelper._rpow(g2, g,seed_dic = {})
+
+        g = UDGraph(3.5)
+        g2 = g.__rpow__(UDGraph(np.array([[np.pi/2]])))
+        GeneratorHelper._rpow(g2, g,seed_dic = {})
+
+        g = UDGraph(np.array(3.5))
+        g2 = g.__rpow__(UDGraph(3.5))
+        GeneratorHelper._rpow(g2, g,seed_dic = {})
+
+        g = UDGraph(np.array([[3.5]]))
+        g2 = g.__rpow__(UDGraph(np.array([[np.pi/2]])))
+        GeneratorHelper._rpow(g2, g,seed_dic = {})
+
+        self.assertEqual(repr(g),"Computational Graph ([[3.5]], UDPrimitive.VAR)")
+
+        result1001 = trace(self.f1001, mode = "reverse", x = np.pi,y = 998)
+
+        self.assertEqual(result1001, (9849.87, [[6270.619], [9.87]]))
+
+        result1002 = trace(self.f1002, mode = "reverse", x = np.pi,y = 998)
+
+        self.assertEqual(result1002, (9849.87, [[6269.619], [8.87]]))
+
+
+        result1003 = trace(self.f1003, mode = "reverse", x = 1343)
+
+        self.assertEqual(result1003, (6, 0))
+
+        result1004 = trace(self.f1004, mode = "reverse", x = 1343)
+
+        self.assertEqual(result1004, (6.99, 0.005))
+
+        result1005 = trace(self.f1005, mode = "reverse", x = 3)
+
+        self.assertEqual(result1005, (252, 411))
+
+        result1006 = trace(self.f1006, mode = "reverse", x = 5)
+
+        self.assertEqual(result1006, (3157, 5051.674))   
+
+        result1007 = trace(self.f1005, mode = "reverse", x = np.array([[1343]]))
+
+        self.assertEqual(result1005, (252, 411)) 
+
+        result1006 = trace(self.f1006, mode = "reverse", x = np.array([[3]]))
+
+        self.assertEqual(result1006, (np.array([[133]]), 206.725))  
+
+        result1007 = trace(self.f1007, mode = "reverse", x = np.array([[3]]),y = np.array([[3]]))
+
+        self.assertEqual(result1007, (np.array([[27]]), [[27.0], [29.663]]), 206.725)  
+
+        result1007 = trace(self.f1007, mode = "reverse", x = 3,y = np.array([[3]]))
+
+        self.assertEqual(result1007, (np.array([[27]]), [[27.0], [29.663]]), 206.725)
+
+        result1007 = trace(self.f1007, mode = "reverse", x = np.array([[3]]),y = 3)
+
+        self.assertEqual(result1007, (np.array([[27]]), [[27.0], [29.663]]), 206.725)   
+
+        result1007 = trace(self.f1007, mode = "reverse", x = 3,y = 3)
+
+        self.assertEqual(result1007, (np.array([[27]]), [[27.0], [29.663]]), 206.725) 
         result1 = trace(self.f1, mode = "reverse", x = 2)
 
         self.assertEqual(result1, (1.58, [-0.328]))
