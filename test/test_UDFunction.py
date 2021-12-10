@@ -139,8 +139,6 @@ class TestUDFunction(unittest.TestCase):
 		with self.assertRaises(Exception):
 			x.__radd__(z)
 
-
-
 	def test_sub_integration(self):
 
 		a = 2.0

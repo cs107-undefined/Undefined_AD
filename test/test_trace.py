@@ -163,12 +163,26 @@ class TestTrace(unittest.TestCase):
         f2 = lambda x: 2*x + sqrt(x)
 
         self.assertEqual(trace([f1, f2], x = np.array([[1, 2]]))[1].tolist(), [[[0.411, -0.328]], [[ 2.5  ,  2.354]]])
+        self.assertEqual(trace([f1, f2], x = np.array([[1, 2, 3]]))[0].tolist(), [[[1.52, 1.58, 1.07]], [[3.  , 5.41, 7.73]]])
+        self.assertEqual(trace([f1, f2], x = np.array([[1, 2, 3]]))[1].tolist(), [[[ 0.411, -0.328, -0.531]], [[ 2.5  ,  2.354,  2.289]]])
 
-        # f3 = lambda x, y: x**2 + 2**y
-        # f4 = lambda x, y: 
+    def test_multiple_variable_function(self):
+        
+        f3 = lambda x, y: x**2 + 2**y
+        f4 = lambda x, y: 2*x - 2/y
 
-        # result1 = trace(self.f2, mode = "reverse", x = 2)
-        # # self.assertEqual(result1, (1.58, [-0.3278445959597162]))
+        # print(trace([f3, f4], mode = "reverse", x = np.array([[1,2]]), y = 4))
+        self.assertEqual(trace([f3, f4], x = np.array([[1,2]]), y = 4)[0].tolist(), [[[17. , 20. ]], [[ 1.5,  3.5]]])
+        self.assertEqual(trace([f3, f4], x = np.array([[1,2]]), y = 4)[1].tolist(), [[[ 2.   ,  4.   ], [11.09 , 11.09 ]],[[ 2.   ,  2.   ],[ 0.125,  0.125]]])
+
+        self.assertEqual(trace([f3, f4], mode = "reverse", x = np.array([[1,2]]), y = 4)[0].tolist(), [[[17. , 20. ]], [[ 1.5,  3.5]]])
+        self.assertEqual(trace([f3, f4], mode = "reverse", x = np.array([[1,2]]), y = 4)[1].tolist(), [[[ 2.   ,  4.   ], [11.09 , 11.09 ]],[[ 2.   ,  2.   ],[ 0.125,  0.125]]])
+
+        self.assertEqual(trace([f3, f4], x = 4 , y = np.array([[1,2]]))[0].tolist(), [[[18., 20.]], [[ 6.,  7.]]])
+        self.assertEqual(trace([f3, f4], x = 4 , y = np.array([[1,2]]))[1].tolist(), [[[8.   , 8.   ], [1.386, 2.773]], [[2.   , 2.   ], [2.   , 0.5  ]]])
+
+        self.assertEqual(trace([f3, f4], mode = "reverse", x = 4 , y = np.array([[1,2]]))[0].tolist(), [[[18., 20.]], [[ 6.,  7.]]])
+        self.assertEqual(trace([f3, f4], mode = "reverse", x = 4 , y = np.array([[1,2]]))[1].tolist(), [[[8.   , 8.   ], [1.386, 2.773]], [[2.   , 2.   ], [2.   , 0.5  ]]])
 
 if __name__ == "__main__":
     unittest.main()
