@@ -91,6 +91,8 @@ def trace(f, mode='forward', seeds=None, plot=False, **kwargs):
                     else:
                         fix_len = variable.shape[1]
                     if seeds is not None:
+                        if type(seeds) is not np.ndarray:
+                            raise TypeError("error raised by undefined: at least one seed vector incorrectly defined")
                         seed = seeds[i]
                         if type(seed) is not np.ndarray:
                             raise TypeError("error raised by undefined: at least one seed vector incorrectly defined")
@@ -205,7 +207,7 @@ def trace(f, mode='forward', seeds=None, plot=False, **kwargs):
 #     print(trace(f5, mode='reverse', x = 1, y = 2))
 # =======
 if __name__ == "__main__":
-    f0 = lambda x: sin(exp(2**x))
+    f0 = lambda x ,y : x * y
     f1 = lambda x: sqrt(x)
     f11 = lambda y: sqrt(y)
     f12 = lambda x, y: sqrt(x) + sqrt(y)
@@ -213,8 +215,9 @@ if __name__ == "__main__":
     f3 = lambda x, y: x - x * y
     f4 = lambda x, y: x - 3 * (x - y) / 2
     f5 = lambda x, y: (x - 1) / (y * 2) - x / 2
-    print(trace(f1, seeds = 1, x = np.array([[10,1]]))[1])
-    print(trace(f1, mode = 'reverse', seeds = 1, plot=True, x = np.array([[10,1]]))[1])
+    print(trace(f0, mode = 'reverse', x = 1, y = 2))
+    # print(trace(f1, seeds = 1, x = np.array([[10,1]]))[1])
+    # print(trace(f1, mode = 'reverse', seeds = 1, plot=True, x = np.array([[10,1]]))[1])
 #     print("*")
 #     print(trace(f11, y = 2)[1])
 #     print(trace(f11, mode = 'reverse',  y = 2)[1])
