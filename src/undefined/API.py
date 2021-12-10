@@ -11,19 +11,6 @@ from types import LambdaType
 
 
 def trace(f, mode='forward', seeds=None, plot=False, **kwargs):
-    # """trace function in undefined's API
-
-    # Args:
-    #     f (function): user defined function
-    #     mode (str, optional): Automatic Differenciation mode. Defaults to 'forward'.
-
-    # Raises:
-    #     NotImplementedError: raised if mode is set to reverse
-    #     AttributeError: raised if other form of modes are given
-
-    # Returns:
-    #     (any, any): tuple of the values and derivatives
-    # """
     """[summary]
 
     Args:
@@ -50,7 +37,7 @@ def trace(f, mode='forward', seeds=None, plot=False, **kwargs):
     if type(f) is list:
         vals, ders = [], []
         for f_ in f:
-            val, der = trace(f_, mode, **kwargs)
+            val, der = trace(f_, mode, seeds, plot, **kwargs)
             vals.append(val)
             ders.append(der)
 
@@ -193,6 +180,7 @@ def trace(f, mode='forward', seeds=None, plot=False, **kwargs):
 
 
 
+
 # if __name__ == "__main__":
 #     f1 = lambda x, y: sqrt(exp(x*y)) + cos(np.array([1, 2]))
 #     f2 = lambda x, y: log(exp(x*y), 2)
@@ -304,3 +292,4 @@ def trace(f, mode='forward', seeds=None, plot=False, **kwargs):
     # f = [f1, f2]
     # print(trace(f, x=np.array([[2, 2]])))
     # print(trace(f, mode = 'reverse', x=np.array([[2, 2]])))
+
