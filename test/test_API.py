@@ -12,10 +12,22 @@ import unittest
 class TestAPI(unittest.TestCase):
 
     def setUp(self):
+        self.a = 2
+        self.b = - 1.11
+        self.c = 99999.99
+        self.d = -99999.99
+        self.e = np.array([[self.a,self.b]])
+        self.f = np.array([[self.a,self.b,self.c,self.d]])
+        self.g = math.pi / 2
+        self.h = math.e
+        self.j = np.array([[self.a, self.b, self.g, self.h]])
+        self.s = "str"
 
+        self.f0 = lambda x: sqrt(x)
         self.f1 = lambda x: x + 2
         self.f2 = lambda x, y: x + y - 1
         self.f3 = lambda x, y: 2*x + sqrt(y)
+        self.f12 = lambda x, y: sqrt(x) + sqrt(y)
 
     def test_trace_forward(self):
         # Stop using string comparing!!!!!!!
@@ -25,6 +37,21 @@ class TestAPI(unittest.TestCase):
         self.assertEqual(trace(self.f2, x=2, y=4), (5, [[1], [1]]))
         self.assertEqual(trace(self.f2, y=4, x=2), (5, [[1], [1]]))
         self.assertEqual(trace(self.f3, x=2, y=4), (6.0, [[2.], [0.25]]))
+        self.assertEqual(trace(self.f3, x=2, y=4, seeds = np.array([[2,2],[1,1]])), (6.0, [[4.25], [4.25]]))
+
+        with self.assertRaises(TypeError):
+            trace(self.f1,seeds = "1",x=np.array([[999]]))
+
+        with self.assertRaises(TypeError):
+            trace(self.f2,seeds = "1",x=np.array([[999]]),y=np.array([[99]]))
+
+        with self.assertRaises(TypeError):
+            trace(self.f2,seeds = np.array([1,2]),x=np.array([[999]]),y=np.array([[99]]))
+
+
+        self.assertEqual(trace(self.f12, seeds= np.array([[1,2],[0,1]]), x = 1,y = 2)[1],[[0.5], [1.354]])
+        self.assertEqual(trace(self.f0, seeds = 1, x = np.array([[10,1]]))[1],[[0.158, 0.5]])
+
 
     def test_trace_with_incompatible_inputs(self):
         with self.assertRaises(AttributeError):

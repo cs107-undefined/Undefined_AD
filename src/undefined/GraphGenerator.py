@@ -552,7 +552,7 @@ class GeneratorHelper:
                     return 1
 
     @classmethod
-    def _add(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _add(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -571,7 +571,7 @@ class GeneratorHelper:
             return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) + GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
 
     @classmethod
-    def _radd(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _radd(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -589,7 +589,7 @@ class GeneratorHelper:
             return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) + GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
 
     @classmethod
-    def _mul(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _mul(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -607,7 +607,7 @@ class GeneratorHelper:
             return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val + GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val
 
     @classmethod
-    def _rmul(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _rmul(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -625,7 +625,7 @@ class GeneratorHelper:
             return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val + GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val
 
     @classmethod
-    def _neg(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _neg(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -639,7 +639,7 @@ class GeneratorHelper:
         return -1 * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
 
     @classmethod
-    def _sub(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _sub(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -657,7 +657,7 @@ class GeneratorHelper:
             return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
 
     @classmethod
-    def _rsub(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _rsub(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -675,7 +675,7 @@ class GeneratorHelper:
             return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
 
     @classmethod
-    def _truediv(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _truediv(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -693,7 +693,7 @@ class GeneratorHelper:
             return (GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val) / (g2._val * g2._val)
 
     @classmethod
-    def _rtruediv(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _rtruediv(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -711,7 +711,7 @@ class GeneratorHelper:
             return (GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val) / (g2._val * g2._val)
 
     @classmethod
-    def _floordiv(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _floordiv(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -729,7 +729,7 @@ class GeneratorHelper:
             return (GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val) // (g2._val * g2._val)
 
     @classmethod
-    def _rfloordiv(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _rfloordiv(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -747,7 +747,7 @@ class GeneratorHelper:
             return (GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val) // (g2._val * g2._val)
 
     @classmethod
-    def _pow(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _pow(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -796,7 +796,7 @@ class GeneratorHelper:
                     return der1 + der2
 
     @classmethod
-    def _rpow(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _rpow(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -841,7 +841,7 @@ class GeneratorHelper:
                     return der1 + der2
 
     @classmethod
-    def _cos(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _cos(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -885,7 +885,7 @@ class GeneratorHelper:
             raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _tan(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _tan(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -907,7 +907,7 @@ class GeneratorHelper:
             raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _arccos(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _arccos(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -929,7 +929,7 @@ class GeneratorHelper:
             raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _arcsin(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _arcsin(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -951,7 +951,7 @@ class GeneratorHelper:
             raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _arctan(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _arctan(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -971,7 +971,7 @@ class GeneratorHelper:
             raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _sqrt(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _sqrt(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -993,7 +993,7 @@ class GeneratorHelper:
             raise TypeError("error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _exp(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
+    def _exp(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
         """[summary]
 
         Args:
@@ -1056,7 +1056,7 @@ class GraphGenerator:
         UDPrimitive.ATAN: GeneratorHelper._arctan,
     }
 
-    def __init__(self, g, variables, seeds_dic):
+    def __init__(self, g, variables, seeds_dic = None):
         """[summary]
 
         Args:
