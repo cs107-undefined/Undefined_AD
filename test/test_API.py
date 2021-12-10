@@ -57,7 +57,17 @@ class TestAPI(unittest.TestCase):
         with self.assertRaises(AttributeError):
             trace(self.f2, mode='undefined', x=np.array(
                 [[1, 2, 3]]), y=np.array([[1, 2]]))
+        with self.assertRaises(AttributeError):
+            trace(self.f2, x=np.array(
+                [[1, 2, 3]]), y=np.array([[1, 2]]))
+        with self.assertRaises(AttributeError):
+            trace(self.f2, x = 1, y = 2, z = 3)
 
+    def test_trace_with_incompatible_seeds(self):
+        with self.assertRaises(AttributeError):
+            trace(self.f2, seeds = np.array([[1,3,2],[1,3,2],[2,3,3]]), x=np.array(
+                [[2, 3]]), y=np.array([[1, 2]]))
+    #def test_trace_with_vector_inputs_with_seeds(self):
     def test_trace_with_different_moded(self):
         self.assertEqual(trace(self.f1, x=2), (4, 1))
         self.assertEqual(trace(self.f1, mode='forward', x=2), (4, 1))
