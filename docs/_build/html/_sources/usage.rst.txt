@@ -151,7 +151,7 @@ First, let's look at the graph structure we generated. I will use the same funct
 
 Moreover, the reverse mode will auto save the plot to your current working directory. The associated graph generated from the function above is shown below.
 
-.. image:: resources/reverse_mode_example1.png
+.. image:: /resources/reverse_mode_example1.png
     :width: 600
     :alt: reverse_mode_example1
 
@@ -207,7 +207,7 @@ Undefined, like the name suggested, has unlimited boundary. Let's try a complica
     |      |<-(parent)-Computational Graph (2, UDPrimitive.VAR)
     (1.95, [5.548, 1.637])
 
-.. image:: resources/reverse_mode_example2.png
+.. image:: /resources/reverse_mode_example2.png
     :width: 600
     :alt: reverse_mode_example2
 
