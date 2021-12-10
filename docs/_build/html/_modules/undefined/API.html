@@ -78,7 +78,6 @@
   <h1>Source code for undefined.API</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="kn">from</span> <span class="nn">numpy.core.fromnumeric</span> <span class="kn">import</span> <span class="n">var</span>
 <span class="c1"># # temp solution for directory.</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;./src/&quot;</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">undefined.GraphGenerator</span> <span class="kn">import</span> <span class="n">GraphGenerator</span>
@@ -89,19 +88,42 @@
 
 
 
-<div class="viewcode-block" id="trace"><a class="viewcode-back" href="../../undefined.html#undefined.API.trace">[docs]</a><span class="k">def</span> <span class="nf">trace</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;trace function in undefined&#39;s API</span>
+<div class="viewcode-block" id="trace"><a class="viewcode-back" href="../../undefined.html#undefined.API.trace">[docs]</a><span class="k">def</span> <span class="nf">trace</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">,</span> <span class="n">seeds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="c1"># &quot;&quot;&quot;trace function in undefined&#39;s API</span>
+
+    <span class="c1"># Args:</span>
+    <span class="c1">#     f (function): user defined function</span>
+    <span class="c1">#     mode (str, optional): Automatic Differenciation mode. Defaults to &#39;forward&#39;.</span>
+
+    <span class="c1"># Raises:</span>
+    <span class="c1">#     NotImplementedError: raised if mode is set to reverse</span>
+    <span class="c1">#     AttributeError: raised if other form of modes are given</span>
+
+    <span class="c1"># Returns:</span>
+    <span class="c1">#     (any, any): tuple of the values and derivatives</span>
+    <span class="c1"># &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        f (function): user defined function</span>
-<span class="sd">        mode (str, optional): Automatic Differenciation mode. Defaults to &#39;forward&#39;.</span>
+<span class="sd">        f ([type]): [description]</span>
+<span class="sd">        mode (str, optional): [description]. Defaults to &#39;forward&#39;.</span>
+<span class="sd">        seeds ([type], optional): [description]. Defaults to None.</span>
+<span class="sd">        plot (bool, optional): [description]. Defaults to False.</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        NotImplementedError: raised if mode is set to reverse</span>
-<span class="sd">        AttributeError: raised if other form of modes are given</span>
+<span class="sd">        TypeError: [description]</span>
+<span class="sd">        AttributeError: [description]</span>
+<span class="sd">        TypeError: [description]</span>
+<span class="sd">        AttributeError: [description]</span>
+<span class="sd">        TypeError: [description]</span>
+<span class="sd">        AttributeError: [description]</span>
+<span class="sd">        TypeError: [description]</span>
+<span class="sd">        TypeError: [description]</span>
+<span class="sd">        TypeError: [description]</span>
+<span class="sd">        AttributeError: [description]</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        (any, any): tuple of the values and derivatives</span>
+<span class="sd">        [type]: [description]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
         <span class="n">vals</span><span class="p">,</span> <span class="n">ders</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
@@ -122,16 +144,23 @@
     <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;forward&#39;</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">varname</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">varnames</span><span class="p">):</span>
             <span class="n">variable</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span>
+            
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-                <span class="c1"># vector input</span>
+                <span class="c1"># 【【vector input】】</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                         <span class="sa">f</span><span class="s2">&quot;error raised by undefined: only support vector inputs of shape (1,n), invalid input </span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s2"> has shape </span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="c1"># single vector input</span>
+                <span class="c1"># 【single vector input】</span>
                 <span class="k">if</span> <span class="n">num_variables</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">seeds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: incorrect type of seed vector, expect int or float&quot;</span><span class="p">)</span>
+                        <span class="n">seed</span> <span class="o">=</span> <span class="n">seeds</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">seed</span> <span class="o">=</span> <span class="mi">1</span>
                     <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDFunction</span><span class="p">(</span>
-                        <span class="n">variable</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
-                <span class="c1"># multiple vector inputs</span>
+                        <span class="n">variable</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="n">seed</span><span class="p">)</span>
+                <span class="c1"># 【multiple vector inputs】</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="c1"># check if all the vector inputs has the same len</span>
                     <span class="k">if</span> <span class="n">fix_len</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
@@ -139,19 +168,42 @@
                             <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: cannot handle multiple vector inputs with different lengths&quot;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">fix_len</span> <span class="o">=</span> <span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="n">seed_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                    <span class="k">if</span> <span class="n">seeds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">seed</span> <span class="o">=</span> <span class="n">seeds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: at least one seed vector incorrectly defined&quot;</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_variables</span><span class="p">:</span>
+                            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;error raised by undefined: incorrect shape for seed vectors, expect (</span><span class="si">{</span><span class="n">num_variables</span><span class="p">,</span> <span class="n">num_variables</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+                        <span class="n">seed_vector</span> <span class="o">=</span> <span class="n">seed</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">num_variables</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>
                         <span class="p">(</span><span class="n">num_variables</span><span class="p">,</span> <span class="n">fix_len</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-                    <span class="n">seed_vector</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">seed_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                        <span class="p">(</span><span class="n">num_variables</span><span class="p">,</span> <span class="n">fix_len</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+                        <span class="n">seed_vector</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+=</span> <span class="mi">1</span>
                     <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">seed_vector</span><span class="p">)</span>
 
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
-                <span class="c1"># single scalar input</span>
+                <span class="c1"># 【【single scalar input】】</span>
                 <span class="k">if</span> <span class="n">num_variables</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">variable</span><span class="p">)</span>
-                <span class="c1"># multiple scalar inputs</span>
+                    <span class="k">if</span> <span class="n">seeds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: incorrect type of seed vector, expect int or float&quot;</span><span class="p">)</span>
+                        <span class="n">seed</span> <span class="o">=</span> <span class="n">seeds</span>
+                        <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">variable</span><span class="p">)</span>
+                <span class="c1"># 【【multiple scalar inputs】】</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">seed_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_variables</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-                    <span class="n">seed_vector</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">seeds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">seed</span> <span class="o">=</span> <span class="n">seeds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: incorrect type of seed vectors, expect numpy.ndarray&quot;</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_variables</span><span class="p">:</span>
+                            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;error raised by undefined: incorrect shape for seed vector, expect (</span><span class="si">{</span><span class="n">num_variables</span><span class="p">,</span> <span class="n">num_variables</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+                        <span class="n">seed_vector</span> <span class="o">=</span> <span class="n">seed</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">num_variables</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">seed_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_variables</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+                        <span class="n">seed_vector</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">1</span>
                     <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">seed_vector</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
@@ -167,14 +219,33 @@
                 <span class="k">if</span> <span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                         <span class="sa">f</span><span class="s2">&quot;error raised by undefined: only support vector inputs of shape (1, ), invalid input </span><span class="si">{</span><span class="n">varname</span><span class="si">}</span><span class="s2"> has shape </span><span class="si">{</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDGraph</span><span class="p">(</span><span class="n">variable</span><span class="p">)</span>
+                <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDGraph</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">varname</span> <span class="o">=</span> <span class="n">varname</span><span class="p">)</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
-                <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDGraph</span><span class="p">(</span><span class="n">variable</span><span class="p">)</span>
+                <span class="n">variables</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">UDGraph</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">varname</span> <span class="o">=</span> <span class="n">varname</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                     <span class="s2">&quot;error raised by undefined: variable type not in (int, float, np.ndarray).&quot;</span><span class="p">)</span>
         <span class="n">g</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="o">**</span><span class="n">variables</span><span class="p">)</span>
-        <span class="n">udgenerator</span> <span class="o">=</span> <span class="n">GraphGenerator</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span>
+        <span class="c1"># check format of seeds</span>
+        <span class="n">seeds_dic</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">seeds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">num_variables</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># single input</span>
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: incorrect type of seed vector, expect int or float&quot;</span><span class="p">)</span>
+                <span class="n">seeds_dic</span><span class="p">[</span><span class="n">varnames</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="n">varnames</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">seeds</span><span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># multiple inputs</span>
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: incorrect type of seed vectors, expect numpy.ndarray&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">seeds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">num_variables</span> <span class="ow">or</span> <span class="n">seeds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">num_variables</span> <span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;error raised by undefined: incorrect shape for seed vector, expect (</span><span class="si">{</span><span class="n">num_variables</span><span class="p">,</span> <span class="n">num_variables</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_variables</span><span class="p">):</span>
+                    <span class="n">seeds_dic</span><span class="p">[</span><span class="n">varnames</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_variables</span><span class="p">):</span>
+                        <span class="n">seeds_dic</span><span class="p">[</span><span class="n">varnames</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="n">varnames</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="n">seeds</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">udgenerator</span> <span class="o">=</span> <span class="n">GraphGenerator</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">seeds_dic</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">udgenerator</span><span class="o">.</span><span class="n">generate_str</span><span class="p">())</span>
             <span class="n">udgenerator</span><span class="o">.</span><span class="n">generate_graph</span><span class="p">()</span>
@@ -188,6 +259,8 @@
                 <span class="n">res_der</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">res_var</span><span class="p">])</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">res_der</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res_der</span><span class="p">)</span>
+
+        <span class="c1"># 【single scalar input】</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res_der</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">res_der</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">res_der</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">res_der</span>
@@ -209,23 +282,23 @@
 <span class="c1">#     print(trace(f5, x = 1, y = 2))</span>
 <span class="c1">#     print(trace(f5, mode=&#39;reverse&#39;, x = 1, y = 2))</span>
 <span class="c1"># =======</span>
-<span class="c1"># if __name__ == &quot;__main__&quot;:</span>
-<span class="c1">#     f0 = lambda x: sin(exp(2**x))</span>
-<span class="c1">#     f1 = lambda x: sqrt(x)</span>
-<span class="c1">#     f11 = lambda y: sqrt(y)</span>
-<span class="c1">#     f12 = lambda x, y: sqrt(x) + sqrt(y)</span>
-<span class="c1">#     f2 = lambda x, y: log(exp(x**y), 2)</span>
-<span class="c1">#     f3 = lambda x, y: x - x * y</span>
-<span class="c1">#     f4 = lambda x, y: x - 3 * (x - y) / 2</span>
-<span class="c1">#     f5 = lambda x, y: (x - 1) / (y * 2) - x / 2</span>
-<span class="c1">#     print(trace(f1, x = np.array([[10,1]]))[1])</span>
-<span class="c1">#     print(trace(f1, mode = &#39;reverse&#39;, x = np.array([[10,1]]))[1])</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">f0</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sin</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">x</span><span class="p">))</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">f11</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">f12</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">f2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">log</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="n">y</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">f3</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+    <span class="n">f4</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">f5</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">]]))[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;reverse&#39;</span><span class="p">,</span> <span class="n">seeds</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">]]))[</span><span class="mi">1</span><span class="p">])</span>
 <span class="c1">#     print(&quot;*&quot;)</span>
 <span class="c1">#     print(trace(f11, y = 2)[1])</span>
 <span class="c1">#     print(trace(f11, mode = &#39;reverse&#39;,  y = 2)[1])</span>
 <span class="c1">#     print(&quot;**&quot;)</span>
-<span class="c1">#     print(trace(f12, x = np.array([[10,1]]),y = 2)[1])</span>
-<span class="c1">#     print(trace(f12, mode = &#39;reverse&#39;, x = np.array([[10,1]]), y=2)[1])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f12</span><span class="p">,</span> <span class="n">seeds</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]]),</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">(</span><span class="n">f12</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;reverse&#39;</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
 <span class="c1">#     print(trace(f3, x = 1, y = 2))</span>
 <span class="c1">#     print(trace(f3, mode=&#39;reverse&#39;, x = 1, y = 2))</span>
 <span class="c1">#     print(trace(f4, x = 1, y = 2))</span>
