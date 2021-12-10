@@ -1,8 +1,10 @@
 # cs107-FinalProject
 
-[![Build Status](https://app.travis-ci.com/cs107-undefined/cs107-FinalProject.svg?branch=milestone2)](https://app.travis-ci.com/cs107-undefined/cs107-FinalProject)
+[![Build Status](https://app.travis-ci.com/cs107-undefined/cs107-FinalProject.svg?branch=final_milestone)](https://app.travis-ci.com/cs107-undefined/cs107-FinalProject)
 
-[![codecov](https://codecov.io/gh/cs107-undefined/cs107-FinalProject/branch/milestone2/graph/badge.svg?token=MWEZONI94C)](https://codecov.io/gh/cs107-undefined/cs107-FinalProject)
+[![codecov](https://codecov.io/gh/cs107-undefined/cs107-FinalProject/branch/final_milestone/graph/badge.svg?token=MWEZONI94C)](https://codecov.io/gh/cs107-undefined/cs107-FinalProject)
+
+[![Documentation Status](https://readthedocs.org/projects/cs107-undefined/badge/?version=latest)](https://cs107-undefined.readthedocs.io/en/latest/?badge=latest)
 
 [**DOCUMENTATION**](https://cs107-undefined.readthedocs.io/en/latest/)
 

@@ -179,3 +179,117 @@ def trace(f, mode='forward', seeds=None, plot=False, **kwargs):
         raise AttributeError("error raised by undefined: unsupported mode.")
 
 
+
+
+# if __name__ == "__main__":
+#     f1 = lambda x, y: sqrt(exp(x*y)) + cos(np.array([1, 2]))
+#     f2 = lambda x, y: log(exp(x*y), 2)
+#     f3 = lambda x, y: x - x * y
+#     f4 = lambda x, y: x - 3 * (x - y) / 2
+#     f5 = lambda x, y: (x - 1) / (y * 2) - x / 2
+#     print(trace(f3, x = 1, y = 2))
+#     print(trace(f3, mode='reverse', plot=True, x = 1, y = 2))
+#     print(trace(f4, x = 1, y = 2))
+#     print(trace(f4, mode='reverse', plot=True, x = 1, y = 2))
+#     print(trace(f5, x = 1, y = 2))
+#     print(trace(f5, mode='reverse', x = 1, y = 2))
+#     print(trace([f3,f4,f5], x = 1, y = 2))
+#     print("======================")
+
+#     print(trace([f3,f4,f5], mode='reverse', x = 1, y = 2))
+#     print("======================")
+#     print(trace([f3,f4,f5], plot=True, x = 1, y = 2))
+#     print("======================")
+
+#     print(trace([f3,f4,f5], x = np.array([[1, 1]]), y = np.array([[2, 2]])))
+#     print("======================")
+#     print(trace([f3,f4,f5],mode='reverse',  x = np.array([[1, 1]]), y = np.array([[2, 2]])))
+# if __name__ == "__main__":
+#     f0 = lambda x ,y : x * y
+#     f1 = lambda x: sqrt(x)
+#     f11 = lambda y: sqrt(y)
+#     f12 = lambda x, y: sqrt(x) + sqrt(y)
+#     f2 = lambda x, y: log(exp(x**y), 2)
+#     f3 = lambda x, y: x - x * y
+#     f4 = lambda x, y: x - 3 * (x - y) / 2
+#     f5 = lambda x, y: (x - 1) / (y * 2) - x / 2
+#     print(trace(f0, mode = 'reverse', x = 1, y = 2))
+#     # print(trace(f1, seeds = 1, x = np.array([[10,1]]))[1])
+#     # print(trace(f1, mode = 'reverse', seeds = 1, plot=True, x = np.array([[10,1]]))[1])
+# #     print("*")
+# #     print(trace(f11, y = 2)[1])
+# #     print(trace(f11, mode = 'reverse',  y = 2)[1])
+# #     print("**")
+#     print(trace(f12, seeds= np.array([[1,2],[0,1]]), x = 1,y = 2)[1])
+#     print(trace(f12, mode = 'reverse', x = 1, y=2)[1])
+#     print(trace(f3, x = 1, y = 2))
+#     print(trace(f3, mode='reverse', x = 1, y = 2))
+#     print(trace(f4, x = 1, y = 2))
+#     print(trace(f4, mode='reverse', x = 1, y = 2))
+#     print(trace(f5, x = 1, y = 2))
+#     print(trace(f5, mode='reverse', x = 1, y = 2))
+# >>>>>>> 35396b2991ee285b274024c1a0322905f18265ef
+    # x = UDFunction(np.array([[2, 2]]), np.array([[1, 1], [0, 0]]))
+    # y = UDFunction(np.array([[1, 1]]), np.array([[0, 0], [1, 1]]))
+    # print("1. test vector inputs:")
+    # print("manual:")
+    # print("f1:")
+    # print(str(sqrt(exp(x*y))))
+    # print("f2:")
+    # print(str(log(exp(x*y), 2)))
+    # print("using trace() function:")
+    # print("f1:")
+    # print(trace(f1, x=np.array([[2, 2]]), y=np.array([[1, 1]])))
+    # print("f2:")
+    # print(trace(f2, x=np.array([[2, 2]]), y=np.array([[1, 1]])))
+    # print()
+
+    # print("2. test vector functions on scalar inputs:")
+    # f = [f1, f2, f3]
+    # print(trace(f, x=2, y=1))
+
+    # print("3. Test different user input:")
+    # try:
+    #     trace(sum, x=1)
+    # except TypeError as e:
+    #     print(e)
+    # print(trace(f3, 'forward', x=np.array([[2, 2]]), y=np.array([[1, 1]])))
+    # print(trace(f3, x=np.array([[2, 2]]), y=np.array([[1, 1]])))
+    # print(trace(f3, mode='forward', x=np.array(
+    #     [[2, 2]]), y=np.array([[1, 1]])))
+    # print(trace(f3, mode='forward', x=np.array(
+    #     [[2, 2]]), y=np.array([[1, 1]])))
+
+    # # x = UDFunction(np.array([2,2]), np.array([[1,1],[0,0]]))
+    # # y = UDFunction(np.array([1,1]), np.array([[0,0],[1,1]]))
+    # print("4. test scalar funciton on scalar inputs:")
+    # x = UDFunction(1, np.array([1, 0]))
+    # y = UDFunction(2, np.array([0, 1]))
+    # print("manual:")
+    # print("f1:")
+    # print(str(sqrt(exp(x*y))))
+    # print("f2:")
+    # print(str(log(exp(x*y), 2)))
+    # print("using trace() function:")
+    # print("f1:")
+    # print(trace(f1, x=1, y=2))
+    # print(trace(f1, mode = 'reverse', x=1, y=2))
+    # print("f2:")
+    # print(trace(f2, x=1, y=2))
+    # print(trace(f2, mode = 'reverse', x=1, y=2))
+    # print()
+
+    # print("5. test complex functions on vector input:")
+    # def f1(x): return sin((1 / x + 1)**2)
+    # def f2(x): return log((tan(sin(x + 10 / x)) + cos(2 / x))**2, 3)
+    # print("using trace() function:")
+    # print("f1:")
+    # print(trace(f1, x=1))
+    # print(trace(f1, mode = 'reverse', x=1))
+    # print("f2:")
+    # print(trace(f2, x=1))
+    # print(trace(f2, mode = 'reverse', x=1))
+    # f = [f1, f2]
+    # print(trace(f, x=np.array([[2, 2]])))
+    # print(trace(f, mode = 'reverse', x=np.array([[2, 2]])))
+

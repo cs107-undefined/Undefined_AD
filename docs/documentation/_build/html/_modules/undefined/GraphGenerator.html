@@ -630,7 +630,7 @@
                     <span class="k">return</span> <span class="mi">1</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -649,7 +649,7 @@
             <span class="k">return</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">+</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_radd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_radd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -667,7 +667,7 @@
             <span class="k">return</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">+</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -685,7 +685,7 @@
             <span class="k">return</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">*</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">+</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">*</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_rmul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_rmul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -703,7 +703,7 @@
             <span class="k">return</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">*</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">+</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">*</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_neg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_neg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -717,7 +717,7 @@
         <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_sub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_sub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -735,7 +735,7 @@
             <span class="k">return</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">-</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_rsub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_rsub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -753,7 +753,7 @@
             <span class="k">return</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">-</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_truediv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_truediv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -771,7 +771,7 @@
             <span class="k">return</span> <span class="p">(</span><span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">*</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">-</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">*</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_rtruediv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_rtruediv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -789,7 +789,7 @@
             <span class="k">return</span> <span class="p">(</span><span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">*</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">-</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">*</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_floordiv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_floordiv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -807,7 +807,7 @@
             <span class="k">return</span> <span class="p">(</span><span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">*</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">-</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">*</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">//</span> <span class="p">(</span><span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_rfloordiv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_rfloordiv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -825,7 +825,7 @@
             <span class="k">return</span> <span class="p">(</span><span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">*</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">-</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g2</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g2</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span> <span class="o">*</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">//</span> <span class="p">(</span><span class="n">g2</span><span class="o">.</span><span class="n">_val</span> <span class="o">*</span> <span class="n">g2</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_pow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_pow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -874,7 +874,7 @@
                     <span class="k">return</span> <span class="n">der1</span> <span class="o">+</span> <span class="n">der2</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_rpow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_rpow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -919,7 +919,7 @@
                     <span class="k">return</span> <span class="n">der1</span> <span class="o">+</span> <span class="n">der2</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_cos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_cos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -963,7 +963,7 @@
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_tan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_tan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -985,7 +985,7 @@
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_arccos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_arccos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -1007,7 +1007,7 @@
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_arcsin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_arcsin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -1029,7 +1029,7 @@
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_arctan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_arctan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -1049,7 +1049,7 @@
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -1071,7 +1071,7 @@
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_exp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_exp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>
@@ -1134,7 +1134,7 @@
         <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">ATAN</span><span class="p">:</span> <span class="n">GeneratorHelper</span><span class="o">.</span><span class="n">_arctan</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">seeds_dic</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">seeds_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;[summary]</span>
 
 <span class="sd">        Args:</span>

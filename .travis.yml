@@ -1,10 +1,9 @@
 language: python
 python:
-  - "3.6"
+  - "3.8"
 before_install:
   - pip install codecov
   - pip install coverage
-  - pip install networkx
 
 script:
   - coverage run --source=undefined -m unittest test/test_*.py
