@@ -193,29 +193,29 @@ def trace(f, mode='forward', seeds=None, plot=False, **kwargs):
 
 
 
-if __name__ == "__main__":
-    f1 = lambda x, y: sqrt(exp(x*y)) + cos(np.array([1, 2]))
-    f2 = lambda x, y: log(exp(x*y), 2)
-    f3 = lambda x, y: x - x * y
-    f4 = lambda x, y: x - 3 * (x - y) / 2
-    f5 = lambda x, y: (x - 1) / (y * 2) - x / 2
-    print(trace(f3, x = 1, y = 2))
-    print(trace(f3, mode='reverse', plot=True, x = 1, y = 2))
-    print(trace(f4, x = 1, y = 2))
-    print(trace(f4, mode='reverse', plot=True, x = 1, y = 2))
-    print(trace(f5, x = 1, y = 2))
-    print(trace(f5, mode='reverse', x = 1, y = 2))
-    print(trace([f3,f4,f5], x = 1, y = 2))
-    print("======================")
+# if __name__ == "__main__":
+#     f1 = lambda x, y: sqrt(exp(x*y)) + cos(np.array([1, 2]))
+#     f2 = lambda x, y: log(exp(x*y), 2)
+#     f3 = lambda x, y: x - x * y
+#     f4 = lambda x, y: x - 3 * (x - y) / 2
+#     f5 = lambda x, y: (x - 1) / (y * 2) - x / 2
+#     print(trace(f3, x = 1, y = 2))
+#     print(trace(f3, mode='reverse', plot=True, x = 1, y = 2))
+#     print(trace(f4, x = 1, y = 2))
+#     print(trace(f4, mode='reverse', plot=True, x = 1, y = 2))
+#     print(trace(f5, x = 1, y = 2))
+#     print(trace(f5, mode='reverse', x = 1, y = 2))
+#     print(trace([f3,f4,f5], x = 1, y = 2))
+#     print("======================")
 
-    print(trace([f3,f4,f5], mode='reverse', x = 1, y = 2))
-    print("======================")
-    print(trace([f3,f4,f5], plot=True, x = 1, y = 2))
-    print("======================")
+#     print(trace([f3,f4,f5], mode='reverse', x = 1, y = 2))
+#     print("======================")
+#     print(trace([f3,f4,f5], plot=True, x = 1, y = 2))
+#     print("======================")
 
-    print(trace([f3,f4,f5], x = np.array([[1, 1]]), y = np.array([[2, 2]])))
-    print("======================")
-    print(trace([f3,f4,f5],mode='reverse',  x = np.array([[1, 1]]), y = np.array([[2, 2]])))
+#     print(trace([f3,f4,f5], x = np.array([[1, 1]]), y = np.array([[2, 2]])))
+#     print("======================")
+#     print(trace([f3,f4,f5],mode='reverse',  x = np.array([[1, 1]]), y = np.array([[2, 2]])))
 # if __name__ == "__main__":
 #     f0 = lambda x ,y : x * y
 #     f1 = lambda x: sqrt(x)
