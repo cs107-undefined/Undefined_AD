@@ -46,13 +46,13 @@ A computational graph is a directed graph where the nodes correspond to elementa
 
 Computational graph node for binary elementary function:
 
-.. image:: resources/computational_graph_1.png
+.. image:: ../resources/computational_graph_1.png
     :width: 600
     :alt: computational_graph_1
 
 The computational graph grows once the computations become more complex:
 
-.. image:: resources/computational_graph_2.png
+.. image:: ../resources/computational_graph_2.png
     :width: 600
     :alt: computational_graph_2
 

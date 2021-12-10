@@ -45,8 +45,8 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-use-undefined">3. How to use <code class="docutils literal notranslate"><span class="pre">Undefined</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#forward-model-demo">3.1 Forward Model Demo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#reverse-model-demo">3.2 Reverse Model Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#forward-mode-demo">3.1 Forward Mode Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reverse-mode-demo">3.2 Reverse Mode Demo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#multiple-vectors-inputs-and-outputs">3.3 Multiple Vectors Inputs and Outputs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#debugging">3.4 Debugging</a></li>
 </ul>
@@ -93,10 +93,9 @@
 <section id="how-to-use-undefined">
 <h2>3. How to use <code class="docutils literal notranslate"><span class="pre">Undefined</span></code><a class="headerlink" href="#how-to-use-undefined" title="Permalink to this headline"></a></h2>
 <p>This is the recommended usage. The users can interact with the package at their discretion.</p>
-<p>Download our wheel file (<code class="docutils literal notranslate"><span class="pre">undefined-1.0.0-py3-none-any.whl</span></code>) from the Github page. <code class="docutils literal notranslate"><span class="pre">Link</span> <span class="pre">&lt;https://github.com/cs107-undefined/cs107-FinalProject/releases/tag/v1.0.0&gt;</span></code>
-And save the file into your working directory.</p>
+<p>We have published our package to the PyPI, so people can easily install the package via pip command.</p>
 <p>Then, <code class="docutils literal notranslate"><span class="pre">undefined</span></code> provided easy installation by running this following command (Assuming your current directory is the working directory, which contains the wheel file):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>pip install undefined-1.0.0-py3-none-any.whl
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>pip install undefined_AD
 </pre></div>
 </div>
 <p>Users should import the package by the following in their Python script:</p>
@@ -110,8 +109,8 @@ And save the file into your working directory.</p>
 <p><strong>Note:</strong> Our package will not work with the functions in other libraries, such as np.sin. Please use our customized functions.</p>
 <p>Once imported successfully, users can calculate the derivative of a given function by using the syntax from the section below.</p>
 <p>Here, we will demo the R -&gt; R cases in the 3.1 and 3.2 to illustrate the basic usage of <code class="docutils literal notranslate"><span class="pre">Undefined</span></code>. In 3.3, we will demo the higher order inputs and outputs.</p>
-<section id="forward-model-demo">
-<h3>3.1 Forward Model Demo<a class="headerlink" href="#forward-model-demo" title="Permalink to this headline"></a></h3>
+<section id="forward-mode-demo">
+<h3>3.1 Forward Mode Demo<a class="headerlink" href="#forward-mode-demo" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function will calculate the derivative, which will intake a user defined function using <code class="docutils literal notranslate"><span class="pre">lambda</span></code>, the mode (default is <strong>forward</strong> mode), and associated values. The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function will return the derivatives of the function.</p>
 <p>Here, we showed a demo with <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> -&gt; <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>:</p>
 <p><strong>*Note:*</strong>
@@ -162,8 +161,8 @@ In our design, the users do not need to instantiate an <code class="docutils lit
 </div>
 <p>Our function will handle other multiple dimensional calculations, including <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> -&gt; <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> -&gt; <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. The difference will be the number of input values.</p>
 </section>
-<section id="reverse-model-demo">
-<h3>3.2 Reverse Model Demo<a class="headerlink" href="#reverse-model-demo" title="Permalink to this headline"></a></h3>
+<section id="reverse-mode-demo">
+<h3>3.2 Reverse Mode Demo<a class="headerlink" href="#reverse-mode-demo" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> function will also be able to calculate derivatives in reverse mode by specifying the <code class="docutils literal notranslate"><span class="pre">mode</span></code> parameters. Take the example below as a demo.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">undefined.API</span> <span class="kn">import</span> <span class="n">trace</span>
 <span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">undefined.Calculator</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">sin</span>

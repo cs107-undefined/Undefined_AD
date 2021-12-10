@@ -7,7 +7,7 @@ Here, we describe the implementation details of ``Undefined`` on how we achieve 
 -------------------------
 
 
-.. image:: resources/undefined_workflow.png
+.. image:: ../resources/undefined_workflow.png
     :width: 600
     :alt: undefined_workflow
 

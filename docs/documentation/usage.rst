@@ -6,15 +6,14 @@ Usage
 
 This is the recommended usage. The users can interact with the package at their discretion. 
 
-Download our wheel file (``undefined-1.0.0-py3-none-any.whl``) from the Github page. ``Link <https://github.com/cs107-undefined/cs107-FinalProject/releases/tag/v1.0.0>``
-And save the file into your working directory.
+We have published our package to the PyPI, so people can easily install the package via pip command. 
 
 Then, ``undefined`` provided easy installation by running this following command (Assuming your current directory is the working directory, which contains the wheel file):
 
 .. code-block:: bash
     :linenos:
     
-    pip install undefined-1.0.0-py3-none-any.whl
+    pip install undefined_AD
 
 Users should import the package by the following in their Python script:
 
@@ -36,7 +35,7 @@ Once imported successfully, users can calculate the derivative of a given functi
 
 Here, we will demo the R -> R cases in the 3.1 and 3.2 to illustrate the basic usage of ``Undefined``. In 3.3, we will demo the higher order inputs and outputs.
 
-3.1 Forward Model Demo
+3.1 Forward Mode Demo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``trace`` function will calculate the derivative, which will intake a user defined function using ``lambda``, the mode (default is **forward** mode), and associated values. The ``trace`` function will return the derivatives of the function.
@@ -101,7 +100,7 @@ The ``trace`` function can also handle multiple dimensional calculation. Assume 
 Our function will handle other multiple dimensional calculations, including :math:`\mathbb{R}`` -> :math:`\mathbb{R}^n`, :math:`\mathbb{R}^m`` -> :math:`\mathbb{R}^n`. The difference will be the number of input values. 
 
 
-3.2 Reverse Model Demo
+3.2 Reverse Mode Demo
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``trace`` function will also be able to calculate derivatives in reverse mode by specifying the ``mode`` parameters. Take the example below as a demo.
@@ -151,7 +150,7 @@ First, let's look at the graph structure we generated. I will use the same funct
 
 Moreover, the reverse mode will auto save the plot to your current working directory. The associated graph generated from the function above is shown below.
 
-.. image:: resources/reverse_mode_example1.png
+.. image:: ../resources/reverse_mode_example1.png
     :width: 600
     :alt: reverse_mode_example1
 
@@ -207,7 +206,7 @@ Undefined, like the name suggested, has unlimited boundary. Let's try a complica
     |      |<-(parent)-Computational Graph (2, UDPrimitive.VAR)
     (1.95, [5.548, 1.637])
 
-.. image:: resources/reverse_mode_example2.png
+.. image:: ../resources/reverse_mode_example2.png
     :width: 600
     :alt: reverse_mode_example2
 
