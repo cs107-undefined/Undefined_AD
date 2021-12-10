@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>undefined.Calculator &mdash; Undefined - an automatic differentiation tool 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Undefined - an automatic differentiation tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../organization.html">Testing and Software Organization</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../implementation.html">Implementation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">undefined</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Undefined - an automatic differentiation tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>undefined.Calculator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for undefined.Calculator</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="c1"># # temp solution for directory.</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;./src/&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">undefined.UDFunction</span> <span class="kn">import</span> <span class="n">UDFunction</span>
+<span class="kn">from</span> <span class="nn">undefined.GraphGenerator</span> <span class="kn">import</span> <span class="n">UDGraph</span>
+<span class="kn">from</span> <span class="nn">undefined.Utils</span> <span class="kn">import</span> <span class="n">UDPrimitive</span><span class="p">,</span> <span class="n">check_division_by_zero</span><span class="p">,</span> <span class="n">check_log</span><span class="p">,</span> <span class="n">check_pow</span><span class="p">,</span> <span class="n">check_arc</span>
+
+
+
+<div class="viewcode-block" id="cos"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.cos">[docs]</a><span class="k">def</span> <span class="nf">cos</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;calculate the cosine operation of input</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function</span>
+
+<span class="sd">    Raises:</span>
+
+<span class="sd">        TypeError:raised if input is not compatiable with cosine operation</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        if input is udfunction object,update val and der by cosine operation.</span>
+<span class="sd">        if input is UDGraph object,update notes and function by cosine operation.</span>
+<span class="sd">        if input is int,float,ndarray object,update them in cosine operation by their own types. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDFunction</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_der</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDGraph</span><span class="p">):</span>
+        <span class="n">new_func</span> <span class="o">=</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">COS</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="n">udgraph</span> <span class="o">=</span> <span class="n">UDGraph</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_func</span><span class="p">)</span>
+        <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">udgraph</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sin"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.sin">[docs]</a><span class="k">def</span> <span class="nf">sin</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;calculate the sin operation of input</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</span>
+
+<span class="sd">    Raises:</span>
+
+<span class="sd">        TypeError:raised if input is not compatiable with sin operation</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        if input is udfunction object,update val and der by sin operation.</span>
+<span class="sd">        if input is UDGraph object,update notes and function by sin operation.</span>
+<span class="sd">        if input is int,float,ndarray object,update them in sin operation by their own types. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDFunction</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_der</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDGraph</span><span class="p">):</span>
+        <span class="n">new_func</span> <span class="o">=</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">SIN</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="n">udgraph</span> <span class="o">=</span> <span class="n">UDGraph</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_func</span><span class="p">)</span>
+        <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">udgraph</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="tan"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.tan">[docs]</a><span class="k">def</span> <span class="nf">tan</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;calculate the tangent operation of input</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</span>
+
+<span class="sd">    Raises:</span>
+
+<span class="sd">        TypeError:raised if input is not compatiable with tangent operation</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        if input is udfunction object,update val and der by tangenr operation.</span>
+<span class="sd">        if input is UDGraph object,update notes and function by tangent operation.</span>
+<span class="sd">        if input is int,float,ndarray object,update them in tangent operation by their own types. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDFunction</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">check_division_by_zero</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">))</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">check_division_by_zero</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">))</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_der</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDGraph</span><span class="p">):</span>
+        <span class="n">new_func</span> <span class="o">=</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">TAN</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">check_division_by_zero</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">))</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">check_division_by_zero</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">))</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="n">udgraph</span> <span class="o">=</span> <span class="n">UDGraph</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_func</span><span class="p">)</span>
+        <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">udgraph</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">check_division_by_zero</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="n">check_division_by_zero</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">udobject</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sinh"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.sinh">[docs]</a><span class="k">def</span> <span class="nf">sinh</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        udobject ([type]): [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type]: [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span> <span class="o">-</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">udobject</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span></div>
+
+
+<div class="viewcode-block" id="cosh"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.cosh">[docs]</a><span class="k">def</span> <span class="nf">cosh</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        udobject ([type]): [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type]: [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span> <span class="o">+</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">udobject</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span></div>
+
+
+<div class="viewcode-block" id="tanh"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.tanh">[docs]</a><span class="k">def</span> <span class="nf">tanh</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        udobject ([type]): [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type]: [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">sinh</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span> <span class="o">/</span> <span class="n">cosh</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="coth"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.coth">[docs]</a><span class="k">def</span> <span class="nf">coth</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        udobject ([type]): [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type]: [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cosh</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span> <span class="o">/</span> <span class="n">sinh</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sech"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.sech">[docs]</a><span class="k">def</span> <span class="nf">sech</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        udobject ([type]): [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type]: [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">cosh</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="csch"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.csch">[docs]</a><span class="k">def</span> <span class="nf">csch</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        udobject ([type]): [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type]: [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">sinh</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="arccos"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.arccos">[docs]</a><span class="k">def</span> <span class="nf">arccos</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        udobject ([type]): [description]</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        TypeError: [description]</span>
+<span class="sd">        TypeError: [description]</span>
+<span class="sd">        TypeError: [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type]: [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDFunction</span><span class="p">):</span>
+        <span class="n">check_arc</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_der</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDGraph</span><span class="p">):</span>
+        <span class="n">check_arc</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="n">new_func</span> <span class="o">=</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">ACOS</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="n">udgraph</span> <span class="o">=</span> <span class="n">UDGraph</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_func</span><span class="p">)</span>
+        <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">udgraph</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">check_arc</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="n">check_arc</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="arcsin"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.arcsin">[docs]</a><span class="k">def</span> <span class="nf">arcsin</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        udobject ([type]): [description]</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        TypeError: [description]</span>
+<span class="sd">        TypeError: [description]</span>
+<span class="sd">        TypeError: [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type]: [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDFunction</span><span class="p">):</span>
+        <span class="n">check_arc</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">asin</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_der</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDGraph</span><span class="p">):</span>
+        <span class="n">check_arc</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="n">new_func</span> <span class="o">=</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">ASIN</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">asin</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="n">udgraph</span> <span class="o">=</span> <span class="n">UDGraph</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_func</span><span class="p">)</span>
+        <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">udgraph</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">check_arc</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="n">check_arc</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">asin</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="arctan"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.arctan">[docs]</a><span class="k">def</span> <span class="nf">arctan</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        udobject ([type]): [description]</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        TypeError: [description]</span>
+<span class="sd">        TypeError: [description]</span>
+<span class="sd">        TypeError: [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type]: [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDFunction</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_val</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_val</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_der</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDGraph</span><span class="p">):</span>
+        <span class="n">new_func</span> <span class="o">=</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">ATAN</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="n">udgraph</span> <span class="o">=</span> <span class="n">UDGraph</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_func</span><span class="p">)</span>
+        <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">udgraph</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sqrt"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.sqrt">[docs]</a><span class="k">def</span> <span class="nf">sqrt</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;calculate the square root operation of input</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</span>
+
+<span class="sd">    Raises:</span>
+
+<span class="sd">        TypeError:raised if input is not compatiable with square root operation</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        if input is udfunction object,update val and der by square root operation.</span>
+<span class="sd">        if input is UDGraph object,update notes and function by square root operation.</span>
+<span class="sd">        if input is int,float,ndarray object,update them in square root operation by their own types. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDFunction</span><span class="p">):</span>
+        <span class="n">check_pow</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_der</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDGraph</span><span class="p">):</span>
+        <span class="n">check_pow</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">new_func</span> <span class="o">=</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">SQRT</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="n">udgraph</span> <span class="o">=</span> <span class="n">UDGraph</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_func</span><span class="p">)</span>
+        <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">udgraph</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">check_pow</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="n">check_pow</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="exp"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.exp">[docs]</a><span class="k">def</span> <span class="nf">exp</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;calculate the square exponential of input</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</span>
+
+<span class="sd">    Raises:</span>
+
+<span class="sd">        TypeError:raised if input is not compatiable with exponential operation</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        if input is udfunction object,update val and der by exponential operation.</span>
+<span class="sd">        if input is UDGraph object,update notes and function by exponential operation.</span>
+<span class="sd">        if input is int,float,ndarray object,update them in exponential operation by their own types. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDFunction</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_der</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDGraph</span><span class="p">):</span>
+        <span class="n">new_func</span> <span class="o">=</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">EXP</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="n">udgraph</span> <span class="o">=</span> <span class="n">UDGraph</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_func</span><span class="p">)</span>
+        <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">udgraph</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="standard_logistic"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.standard_logistic">[docs]</a><span class="k">def</span> <span class="nf">standard_logistic</span><span class="p">(</span><span class="n">udobject</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">udobject</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="log"><a class="viewcode-back" href="../../undefined.html#undefined.Calculator.log">[docs]</a><span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">e</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;calculate the log of input</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        TypeError:raised if input is not compatiable with log operation</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        if input is udfunction object,update val and der by log operation.</span>
+<span class="sd">        if input is UDGraph object,update notes and function by log operation.</span>
+<span class="sd">        if input is int,float,ndarray object,update them in log operation by their own types. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDFunction</span><span class="p">):</span>
+        <span class="n">check_log</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">new_val</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+            <span class="n">new_der</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">udobject</span><span class="o">.</span><span class="n">_der</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">UDFunction</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_der</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">UDGraph</span><span class="p">):</span>
+        <span class="n">check_log</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+        <span class="n">new_func</span> <span class="o">=</span> <span class="n">UDPrimitive</span><span class="o">.</span><span class="n">LOG</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">udobject</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span>
+        <span class="n">udgraph</span> <span class="o">=</span> <span class="n">UDGraph</span><span class="p">(</span><span class="n">new_val</span><span class="p">,</span> <span class="n">new_func</span><span class="p">)</span>
+        <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span>
+        <span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;base&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">base</span>
+        <span class="k">return</span> <span class="n">udgraph</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">check_log</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">udobject</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="n">check_log</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">udobject</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;error raised by undefined: unsupported attribute type.&quot;</span><span class="p">)</span></div>
+
+
+<span class="c1"># if __name__ == &quot;__main__&quot;:</span>
+    <span class="c1"># beta = 3.0</span>
+    <span class="c1"># x = UDFunction(2)</span>
+    <span class="c1"># y = UDFunction(2)</span>
+    <span class="c1"># f = sin(x)**0.5 + cos(exp(y) + cos(2)) + log(y, 4) / x</span>
+    <span class="c1"># f1 = sinh(f)</span>
+    <span class="c1"># f2 = cosh(f)</span>
+    <span class="c1"># f3 = tanh(f)</span>
+    <span class="c1"># f4 = csch(f)</span>
+    <span class="c1"># f5 = coth(f)</span>
+    <span class="c1"># f6 = sech(f)</span>
+    <span class="c1"># print(f)</span>
+    <span class="c1"># print(f1)</span>
+    <span class="c1"># print(f2)</span>
+    <span class="c1"># print(f3)</span>
+    <span class="c1"># print(f4)</span>
+    <span class="c1"># print(f5)</span>
+    <span class="c1"># print(f6)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Xinran Tang, Renhao Luo, Chelse Swoopes, Shijia Zhang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
