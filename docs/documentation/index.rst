@@ -24,7 +24,7 @@ Implementation of the ``forward`` and ``reverse`` mode (extended feature) to aut
 
 In the extended feature, our package can build computational graphs in the ``reverse`` mode.
 
-Link to the project `Github page <https://github.com/cs107-undefined/cs107-FinalProject>`_.
+Link to the project on `Github page <https://github.com/cs107-undefined/cs107-FinalProject>`_.
 
 Link to the package on `PyPI <https://pypi.org/project/undefined-AD/>`_.
 
