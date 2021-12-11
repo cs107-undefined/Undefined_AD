@@ -31,10 +31,10 @@ class UDPrimitive(Enum):
 
 
 def time():
-    """[summary]
+    """get current time at the most precision in seconds
 
     Returns:
-        [type]: [description]
+        return the current time in string in Hour:Minute:Seconds:precise time format
     """
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S:%f")
@@ -42,14 +42,14 @@ def time():
 
 
 def check_division_by_zero(val):
-    """[summary]
+    """Used to check if unlawful division is executed by users
+    raise errors if happened.
 
     Args:
-        val ([type]): [description]
+        val ([int or float])
 
     Raises:
-        ZeroDivisionError: [description]
-        ZeroDivisionError: [description]
+        ZeroDivisionError raised if dividing by 0.
     """
     if isinstance(val, np.ndarray):
         if not np.all(np.round(val, 7)):
@@ -60,15 +60,15 @@ def check_division_by_zero(val):
 
 
 def check_pow(val, degree):
-    """[summary]
+    """Used to check if unlawful power is executed by users
+    raise errors if happened.
 
     Args:
-        val ([type]): [description]
-        degree ([type]): [description]
+        val ([int or float])
+        degree ([int or float])
 
     Raises:
-        ValueError: [description]
-        ValueError: [description]
+        raise ValueError if any of the val or degree is NA type.
     """
     try:
         temp = np.power(val, degree)
@@ -79,16 +79,16 @@ def check_pow(val, degree):
 
 
 def check_log(val, base):
-    """[summary]
+    """Used to check if unlawful log is executed by users
+    raise errors if happened. Cannot take log for number that is less or equal to 0
+    log base also needs to be greater than 0.
 
     Args:
-        val ([type]): [description]
-        base ([type]): [description]
+        val ([int or float])
+        base ([int or float])
 
     Raises:
-        ValueError: [description]
-        ValueError: [description]
-        ValueError: [description]
+        raise ValueError if any of the base or val is less than 0.
     """
     if base <= 0:
         raise ValueError(f"error raised by undefined: invalid base {base} for log")
@@ -101,14 +101,14 @@ def check_log(val, base):
 
 
 def check_arc(val):
-    """[summary]
+    """Used to check if unlawful inverse trig function is executed by users
+    raise errors if happened. Cannot take inverse trig function that is not between -1 and 1
 
     Args:
-        val ([type]): [description]
+        val ([int or float])
 
     Raises:
-        ValueError: [description]
-        ValueError: [description]
+        raise error if number is not between -1 and 1
     """
     if isinstance(val, np.ndarray):
         if not np.all(val > -1 and val < 1):
@@ -118,12 +118,4 @@ def check_arc(val):
         if not (val > -1 and val < 1):
             raise ValueError(
                 f"error raised by undefined: invalid value {val}, which should be within (-1, 1)")
-#     logging.basicConfig(level=logging.INFO)
-#     if level == logging.INFO:
-#         logging.info(information)
-#     elif level == logging.ERROR:
-#         logging.error(information)
-#     elif level == logging.WARNING:
-#         logging.warning(information)
-#     else:
-#         raise TypeError
+
