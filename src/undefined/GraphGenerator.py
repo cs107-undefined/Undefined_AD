@@ -48,18 +48,19 @@ class UDGraph:
 
 
     def __str__(self):
-        """[summary]
+        """return the results in format. 
+        Used in building the computational graph in the reverse mode.
 
         Returns:
-            [type]: [description]
+            formatted string with the value.
         """
         return f"{self._func}\n".replace("UDPrimitive.","") + f"Value:{self.val}\n"
 
     def __repr__(self):
-        """[summary]
+        """return the computational graph root.
 
         Returns:
-            [type]: [description]
+            formatted string with the value for the computational graph root. 
         """
         res = f'Computational Graph ({self.val}, {self._func})'
         for parent in self._parents:
@@ -431,6 +432,9 @@ class UDGraph:
 
         Args:
             other ([UDGraph])
+        
+        Returns:
+            True if equal. Otherwise False
         """
         if isinstance(other, UDGraph):
             return self.val == other.val
@@ -445,6 +449,9 @@ class UDGraph:
 
         Args:
             other ([UDGraph])
+        
+        Returns:
+            True if not equal. Otherwise False
         """
         if isinstance(other, UDGraph):
             return self.val != other.val
@@ -459,7 +466,9 @@ class UDGraph:
 
         Args:
             other ([UDGraph])
-            
+        
+        Returns:
+            True if less than. Otherwise False            
         """
         if isinstance(other, UDGraph):
             return self.val < other.val
@@ -474,7 +483,9 @@ class UDGraph:
 
         Args:
             other ([UDGraph])
-            
+        
+        Returns:
+            True if greater than. Otherwise False
         """
         if isinstance(other, UDGraph):
             return self.val > other.val
@@ -489,7 +500,9 @@ class UDGraph:
 
         Args:
             other ([UDGraph])
-            
+        
+        Returns:
+            True if less than or equal to. Otherwise False
         """
         if isinstance(other, UDGraph):
             return self.val <= other.val
@@ -504,7 +517,9 @@ class UDGraph:
 
         Args:
             other ([UDGraph])
-            
+        
+        Returns:
+            True if greater than or equal to. Otherwise False
         """
         if isinstance(other, UDGraph):
             return self.val >= other.val
@@ -524,14 +539,15 @@ class UDGraph:
 class GeneratorHelper:
     @classmethod
     def _var(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
-        """[summary]
+        """This private helper function for UDGraph is used to get the values. This is used in the primitive.
+        Generally speaking, this is the function to get node value in the computational graph. 
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Returns:
-            [type]: [description]
+            node value
         """
         if len(seed_dic) > 0:
             seed = seed_dic[udgraph._varname][variable._varname]
@@ -553,14 +569,16 @@ class GeneratorHelper:
 
     @classmethod
     def _add(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """This private helper function is used for addition operation's derivative result. This is used in the primitive and __add__() in UDGraph.
+        If there is one parent node, return the parental node value
+        Otherwise, return the two parental nodes' addition result
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Returns:
-            [type]: [description]
+            the addition derivative result. 
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
@@ -572,14 +590,16 @@ class GeneratorHelper:
 
     @classmethod
     def _radd(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """This private helper function is used for addition operation's derivative result. This is used in the primitive and __radd__() in UDGraph.
+        If there is one parent node, return the parental node value
+        Otherwise, return the two parental nodes' addition result
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Returns:
-            [type]: [description]
+            the right addition derivative result. 
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
@@ -590,14 +610,16 @@ class GeneratorHelper:
 
     @classmethod
     def _mul(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """This private helper function is used for multiplication operation's derivative result. This is used in the primitive and __mul__() in UDGraph.
+        If there is one parent node, return node multiplication result to the constant.
+        Otherwise, return the two parental node multiplication result.
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Returns:
-            [type]: [description]
+            the multiplication derivative result. 
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
@@ -608,14 +630,16 @@ class GeneratorHelper:
 
     @classmethod
     def _rmul(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """This private helper function is used for multiplication operation's derivative result. This is used in the primitive and __rmul__() in UDGraph.
+        If there is one parent node, return node multiplication result to the constant.
+        Otherwise, return the two parental node multiplication result.
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Returns:
-            [type]: [description]
+            the right multiplication derivative result.
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
@@ -626,28 +650,30 @@ class GeneratorHelper:
 
     @classmethod
     def _neg(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """ This is a helper function to convert the value to negative. Used in __ne__() function in UDGraph
 
         Args:
             udgraph (UDGraph): [description]
             variable (UDGraph): [description]
 
         Returns:
-            [type]: [description]
+            the negative value of the node value.
         """
         g1 = udgraph._parents[0]
         return -1 * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
 
     @classmethod
     def _sub(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """This private helper function is used for subtraction operation's derivative result. This is used in the primitive and __sub__() in UDGraph.
+        If there is one parent node, return the parental node value
+        Otherwise, return the two parental nodes' subtraction result
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Returns:
-            [type]: [description]
+            the subtraction derivative result. 
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
@@ -658,14 +684,16 @@ class GeneratorHelper:
 
     @classmethod
     def _rsub(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """This private helper function is used for subtraction operation's derivative result. This is used in the primitive and __rsub__() in UDGraph.
+        If there is one parent node, return the parental node value
+        Otherwise, return the two parental nodes' subtraction result
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Returns:
-            [type]: [description]
+            the right subtraction derivative result.
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
@@ -676,14 +704,16 @@ class GeneratorHelper:
 
     @classmethod
     def _truediv(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """This private helper function is used for true division operation's derivative result. This is used in the primitive and __truediv__() in UDGraph.
+        If there is one parent node, return the parental node value
+        Otherwise, return the two parental nodes' true division result
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Returns:
-            [type]: [description]
+            the true division derivative result.
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
@@ -694,14 +724,16 @@ class GeneratorHelper:
 
     @classmethod
     def _rtruediv(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """This private helper function is used for true division operation's derivative result. This is used in the primitive and __rtruediv__() in UDGraph.
+        If there is one parent node, return the parental node value
+        Otherwise, return the two parental nodes' true division result
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Returns:
-            [type]: [description]
+            the right true division derivative result.
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
@@ -712,14 +744,16 @@ class GeneratorHelper:
 
     @classmethod
     def _floordiv(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """This private helper function is used for floor division operation's derivative result. This is used in the primitive and __floordiv__() in UDGraph.
+        If there is one parent node, return the parental node value
+        Otherwise, return the two parental nodes' floor division result
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Returns:
-            [type]: [description]
+            the floor division derivative result.
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
@@ -730,14 +764,16 @@ class GeneratorHelper:
 
     @classmethod
     def _rfloordiv(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """This private helper function is used for floor division operation's derivative result. This is used in the primitive and __rfloordiv__() in UDGraph.
+        If there is one parent node, return the parental node value
+        Otherwise, return the two parental nodes' floor division result
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Returns:
-            [type]: [description]
+            the right floor division derivative result.
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
@@ -748,14 +784,16 @@ class GeneratorHelper:
 
     @classmethod
     def _pow(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """This private helper function is used for power operation's derivative result. This is used in the primitive and __pow__() in UDGraph.
+        If there is one parent node, return the parental node power derivative result
+        Otherwise, return the two parental nodes' power derivative result
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Returns:
-            [type]: [description]
+            the power derivative result.
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
@@ -797,14 +835,16 @@ class GeneratorHelper:
 
     @classmethod
     def _rpow(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """This private helper function is used for power operation's derivative. This is used in the primitive and __rpow__() in UDGraph.
+        If there is one parent node, return the parental node power derivative result
+        Otherwise, return the two parental nodes' power derivative result
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Returns:
-            [type]: [description]
+            the right power derivative result.
         """
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
@@ -842,17 +882,17 @@ class GeneratorHelper:
 
     @classmethod
     def _cos(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """Calculate the derivative for cosine in reverse mode. 
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Raises:
-            TypeError: [description]
+            TypeError: if unlawful input to the cosine function
 
         Returns:
-            [type]: [description]
+            cosine's derivatives results calculated in reverse mode. 
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
@@ -864,17 +904,17 @@ class GeneratorHelper:
 
     @classmethod
     def _sin(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
-        """[summary]
+        """Calculate the derivative for sine in reverse mode. 
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Raises:
-            TypeError: [description]
+            TypeError: if unlawful input to the sine function
 
         Returns:
-            [type]: [description]
+            sine's derivatives results calculated in reverse mode. 
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
@@ -886,17 +926,17 @@ class GeneratorHelper:
 
     @classmethod
     def _tan(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """Calculate the derivative for tangent in reverse mode. 
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Raises:
-            TypeError: [description]
+            TypeError: if unlawful input to the tangent function
 
         Returns:
-            [type]: [description]
+            tangent's derivatives results calculated in reverse mode. 
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
@@ -908,17 +948,17 @@ class GeneratorHelper:
 
     @classmethod
     def _arccos(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """Calculate the derivative for arccosine in reverse mode. 
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Raises:
-            TypeError: [description]
+            TypeError: if unlawful input to the arccosine function
 
         Returns:
-            [type]: [description]
+            arccosine's derivatives results calculated in reverse mode. 
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
@@ -930,17 +970,17 @@ class GeneratorHelper:
 
     @classmethod
     def _arcsin(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """Calculate the derivative for arcsine in reverse mode. 
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Raises:
-            TypeError: [description]
+            TypeError: if unlawful input to the arcsine function
 
         Returns:
-            [type]: [description]
+            arcsine's derivatives results calculated in reverse mode. 
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
@@ -952,17 +992,17 @@ class GeneratorHelper:
 
     @classmethod
     def _arctan(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """Calculate the derivative for arctangent in reverse mode. 
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Raises:
-            TypeError: [description]
+            TypeError: if unlawful input to the arctangent function
 
         Returns:
-            [type]: [description]
+            arctangent's derivatives results calculated in reverse mode. 
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float, np.ndarray)):
@@ -972,17 +1012,17 @@ class GeneratorHelper:
 
     @classmethod
     def _sqrt(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """Calculate the derivative for squared root in reverse mode. 
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Raises:
-            TypeError: [description]
+            TypeError: if unlawful input to the squared root function
 
         Returns:
-            [type]: [description]
+            squared root's derivatives results calculated in reverse mode. 
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
@@ -994,17 +1034,17 @@ class GeneratorHelper:
 
     @classmethod
     def _exp(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
-        """[summary]
+        """Calculate the derivative for exponential in reverse mode. 
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Raises:
-            TypeError: [description]
+            TypeError: if unlawful input to the exponential function
 
         Returns:
-            [type]: [description]
+            exponential's derivatives results calculated in reverse mode.
         """
         g1 = udgraph._parents[0]
         if isinstance(g1._val, (int, float)):
@@ -1016,14 +1056,14 @@ class GeneratorHelper:
 
     @classmethod
     def _log(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
-        """[summary]
+        """Calculate the derivative for log in reverse mode. 
 
         Args:
-            udgraph (UDGraph): [description]
-            variable (UDGraph): [description]
+            udgraph (UDGraph)
+            variable (UDGraph)
 
         Returns:
-            [type]: [description]
+            log's derivatives results calculated in reverse mode.
         """
         g1 = udgraph._parents[0]
         return 1 / (math.log(udgraph._params["base"]) * g1._val) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
@@ -1057,11 +1097,7 @@ class GraphGenerator:
     }
 
     def __init__(self, g, variables, seeds_dic = None):
-        """[summary]
-
-        Args:
-            g ([type]): [description]
-            variables ([type]): [description]
+        """initialize the input instances.
         """
         self._udgraph = g
         self._variables = variables
@@ -1069,11 +1105,7 @@ class GraphGenerator:
         self._seeds_dic = seeds_dic
 
     def _generate_inner(self, g:UDGraph, nxgraph:nx.DiGraph):
-        """[summary]
-
-        Args:
-            g (UDGraph): [description]
-            nxgraph (nx.DiGraph): [description]
+        """build the computational graph
         """
         for parent in g._parents:
             nxgraph.add_edge(parent, g)
@@ -1095,25 +1127,13 @@ class GraphGenerator:
         plt.savefig(f"{time()}.png")
 
     def generate_str(self):
-        """[summary]
-
-        Returns:
-            [type]: [description]
+        """Output the computational graph in str and maintain the structure.
         """
         return repr(self._udgraph)
 
     def generate_derivative(self, var_name):
-        """[summary]
-
-        Args:
-            var_name ([type]): [description]
-            seed_dic ([type]): [description]
-
-        Raises:
-            TypeError: [description]
-
-        Returns:
-            [type]: [description]
+        """A wrapper function to generate the derivative given the input key value. 
+        Used in the trace function. 
         """
         if var_name not in self._variables.keys():
             # TODO: check der(x of x)
