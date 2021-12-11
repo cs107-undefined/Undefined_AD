@@ -4,7 +4,7 @@ Testing and Software Organization
 4.1 Test ``Undefined``
 ------------------------
 
-Both ``TravisCI`` and ``CodeCov`` will be used for testing suit monitoring, and the package is available in ``PyPI``.
+Both ``TravisCI`` and ``CodeCov`` are used for testing suit monitoring, and the package is available in ``PyPI``.
 
 ``src`` folder is where we house our core modules, which include the following:
 
@@ -16,7 +16,7 @@ Both ``TravisCI`` and ``CodeCov`` will be used for testing suit monitoring, and 
 
 
 ``test`` folder is where we house our test suits, which contains a test file for each python files inside the ``src`` folder. 
-We have developed the test based on the unit test concept and the integration concept, meaning we tested for the basic functionality and also tested if functions could work with other functions in the same defined function. 
+We have developed the tests based on the unit test concept and the integration concept, meaning we tested for the basic functionality and also combined with other operations. 
 
 We developed a bash script to run all the tests, including the tests written under unit test concept and the integration test concept. You can test them by using the following examples:
 

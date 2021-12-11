@@ -39,8 +39,8 @@ The two steps approach we utilized are **Forward pass** and **Reverse pass**
 
 **Forward pass**
 
-In the forward pass, we computes the primal value :math:`v_j` and he partial derivatives :math:`\frac{\partial v_j}{\partial v_i}` with respect to its parent nodes :math:`v_i`. 
-This partial derivatives here are the factors that show up in the chain rule, but it's not the chain rule itself. Given the unique way of the implementation in reverse mode, we are not explicitly calculating the chain rule in the forward pass, but calculate it throughout the ways when we build up the computational graph. 
+In the forward pass, we compute the primal value :math:`v_j` and the partial derivatives :math:`\frac{\partial v_j}{\partial v_i}` with respect to its parent nodes :math:`v_i`. 
+This partial derivatives here are the factors that show up in the chain rule, but it's not the chain rule itself. Given the unique way of the implementation in reverse mode, we are not explicitly calculating the chain rule in the forward pass, but calculate it as we build up the computational graph. 
 
 For example, in the forward pass, given the function :math:`v_j = sin(v_j)`, we calculate :math:`\frac{\partial v_j}{\partial v_i} = cos(v_i)`. 
 In the reverse model, we implemented a graph structure (``UDGraph``) to store the parent and child intermediate results. 
@@ -60,7 +60,7 @@ To deal with this, we know the initial value of the adjoint :math:`v_{n-m]`:
 
 :math:`v_{n-m} = \frac{\partial f}{\partial v_{n-m}} = \frac{\partial v_{n-m}}{\partial v_{n-m}} = 1`
 
-which we need to get started as in the reverse pass we traverse the computational graph backwards, from the right, which is the outputs to the left which is the inputs. 
+which we need to get started as in the reverse pass we traverse the computational graph backwards, from the right, which is the outputs to the left (the input). 
 
 In the reverse mode, we used the ``UDPremitive`` class serving as a look up table to help us to calculate the derivative in the reverse mode. 
 One thing to note is that mathematically, we only work with numerical values, not with formulae or overladed operators. However, to automatically build the computational graph structure, we modified the operators for the reverse mode so that we can save the intermediate values as we do the calculation.
@@ -152,7 +152,7 @@ This class contains functions to perform elementary functions calculation on UDF
 One thing to note for log is that we do not support other log functions from other library, such as np.log2().
 In that case, you will need to do ``log(user_defined_function, 2)`` for our program to work. 
 
-Moreover, we also have extended our math operations to additional trig functions.
+Moreover, we also have extended our math operations to inverse trig functions.
 
 +------------------+--------------------------------------+
 | Method           | Description                          |
@@ -216,5 +216,5 @@ We defined our ``Enum`` type of class here, the ``UDPrimitive``.
 5.4 External Dependencies
 ------------------------------
 
-We are planning to include one python file to include the codes for computing the derivative, and have another file with all the testing files. Both ``TravisCI`` and ``CodeCov`` will be used for testing suit monitoring. The CI status and the code coverage are reflected in our github repository. The package will be uploaded and distributed via ``PyPI`` . We will use the ``NetworkX`` package for constructing the visualization for the computational graph.
+Both ``TravisCI`` and ``CodeCov`` are used for testing suit monitoring. The CI status and the code coverage are reflected in our github repository. The package have been uploaded and distributed via ``PyPI`` . We used the ``NetworkX`` package for constructing the visualization for the computational graph.
 Lastly, we used the ``numpy`` and ``math`` libraries to help with the math calculation.
