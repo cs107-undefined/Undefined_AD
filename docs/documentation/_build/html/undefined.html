@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>undefined package &mdash; Undefined - an automatic differentiation tool 2.0.2 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="undefined" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Undefined - an automatic differentiation tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Software Organization</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="organization.html">Testing and Software Organization</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Implementation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Broader Impact and Future Directions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="statement.html">Broader Impact and Future Directions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code details</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">undefined</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">undefined package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-undefined.API">undefined.API module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-undefined.Calculator">undefined.Calculator module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-undefined.GraphGenerator">undefined.GraphGenerator module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-undefined.UDFunction">undefined.UDFunction module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-undefined.Utils">undefined.Utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-undefined">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Undefined - an automatic differentiation tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">undefined</a> &raquo;</li>
+      <li>undefined package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/undefined.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="undefined-package">
+<h1>undefined package<a class="headerlink" href="#undefined-package" title="Permalink to this headline"></a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</div>
+<div class="section" id="module-undefined.API">
+<span id="undefined-api-module"></span><h2>undefined.API module<a class="headerlink" href="#module-undefined.API" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.API.trace">
+<span class="sig-prename descclassname"><span class="pre">undefined.API.</span></span><span class="sig-name descname"><span class="pre">trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'forward'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/API.html#trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.API.trace" title="Permalink to this definition"></a></dt>
+<dd><p>This is the main function that the users will interact with.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>f ([LambdaType]): [This is the user defined function. Use list if there are multiple input functions]
+mode (str, optional): Defaults to ‘forward’. Determine with mode to use to calculate the derivatives.
+seeds ([type], optional): Defaults to None. Used to calculate the Jacobian matrix
+plot (bool, optional):  Defaults to False. Need to use in combination with “reverse” mode. If True, it will save the computational graph to your current working directory.</p>
+</dd>
+<dt>Raises:</dt><dd><p>Errors will raise if unlawful inputs are given.</p>
+</dd>
+<dt>Returns:</dt><dd><p>The function values and the derivatives results will be saved in a tuple as the output.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-undefined.Calculator">
+<span id="undefined-calculator-module"></span><h2>undefined.Calculator module<a class="headerlink" href="#module-undefined.Calculator" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.arccos">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">arccos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#arccos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.arccos" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the arccos operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+<dt>Raises:</dt><dd><p>TypeError:raised if input is not compatiable with arccos operation</p>
+</dd>
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by arccos operation.
+if input is UDGraph object,update notes and function by arccos operation.
+if input is int,float,ndarray object,update them in arccos operation by their own types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.arcsin">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">arcsin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#arcsin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.arcsin" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the arcsin operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+<dt>Raises:</dt><dd><p>TypeError:raised if input is not compatiable with arcsin operation</p>
+</dd>
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by arcsin operation.
+if input is UDGraph object,update notes and function by arcsin operation.
+if input is int,float,ndarray object,update them in arcsin operation by their own types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.arctan">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">arctan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#arctan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.arctan" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the arctan operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+<dt>Raises:</dt><dd><p>TypeError:raised if input is not compatiable with arctan operation</p>
+</dd>
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by arctan operation.
+if input is UDGraph object,update notes and function by arctan operation.
+if input is int,float,ndarray object,update them in arctan operation by their own types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.cos">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">cos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#cos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.cos" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the cosine operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function</p>
+</dd>
+</dl>
+<p>Raises:</p>
+<blockquote>
+<div><p>TypeError:raised if input is not compatiable with cosine operation</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by cosine operation.
+if input is UDGraph object,update notes and function by cosine operation.
+if input is int,float,ndarray object,update them in cosine operation by their own types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.cosh">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">cosh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#cosh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.cosh" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the cosh operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+<dt>Returns:</dt><dd><p>The result from the cosh operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.coth">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">coth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#coth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.coth" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the coth operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+<dt>Returns:</dt><dd><p>The result from the coth operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.csch">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">csch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#csch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.csch" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the csch operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+<dt>Returns:</dt><dd><p>The result from the csch operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.exp">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#exp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.exp" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the square exponential of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+</dl>
+<p>Raises:</p>
+<blockquote>
+<div><p>TypeError:raised if input is not compatiable with exponential operation</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by exponential operation.
+if input is UDGraph object,update notes and function by exponential operation.
+if input is int,float,ndarray object,update them in exponential operation by their own types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.log">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.718281828459045</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.log" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the log of input.
+We can handle the any bases in this log. Users can pass in the base argument.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+<dt>Raises:</dt><dd><p>TypeError:raised if input is not compatiable with log operation</p>
+</dd>
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by log operation.
+if input is UDGraph object,update notes and function by log operation.
+if input is int,float,ndarray object,update them in log operation by their own types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.sech">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">sech</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#sech"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.sech" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the sech operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+<dt>Returns:</dt><dd><p>The result from the sech operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.sin">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">sin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#sin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.sin" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the sin operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+</dl>
+<p>Raises:</p>
+<blockquote>
+<div><p>TypeError:raised if input is not compatiable with sin operation</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by sin operation.
+if input is UDGraph object,update notes and function by sin operation.
+if input is int,float,ndarray object,update them in sin operation by their own types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.sinh">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">sinh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#sinh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.sinh" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the sinh operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+<dt>Returns:</dt><dd><p>The result from the sinh operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.sqrt">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">sqrt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#sqrt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.sqrt" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the square root operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+</dl>
+<p>Raises:</p>
+<blockquote>
+<div><p>TypeError:raised if input is not compatiable with square root operation</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by square root operation.
+if input is UDGraph object,update notes and function by square root operation.
+if input is int,float,ndarray object,update them in square root operation by their own types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.standard_logistic">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">standard_logistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#standard_logistic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.standard_logistic" title="Permalink to this definition"></a></dt>
+<dd><p>this is the function we calculate the standard logistic. 
+It is different than the log() function</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+<dt>Returns:</dt><dd><p>return the standard logistic results.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.tan">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">tan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#tan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.tan" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the tangent operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+</dl>
+<p>Raises:</p>
+<blockquote>
+<div><p>TypeError:raised if input is not compatiable with tangent operation</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by tangent operation.
+if input is UDGraph object,update notes and function by tangent operation.
+if input is int,float,ndarray object,update them in tangent operation by their own types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Calculator.tanh">
+<span class="sig-prename descclassname"><span class="pre">undefined.Calculator.</span></span><span class="sig-name descname"><span class="pre">tanh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#tanh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Calculator.tanh" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the tanh operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+<dt>Returns:</dt><dd><p>The result from the tanh operation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-undefined.GraphGenerator">
+<span id="undefined-graphgenerator-module"></span><h2>undefined.GraphGenerator module<a class="headerlink" href="#module-undefined.GraphGenerator" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="undefined.GraphGenerator.GeneratorHelper">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">undefined.GraphGenerator.</span></span><span class="sig-name descname"><span class="pre">GeneratorHelper</span></span><a class="reference internal" href="_modules/undefined/GraphGenerator.html#GeneratorHelper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.GraphGenerator.GeneratorHelper" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="undefined.GraphGenerator.GraphGenerator">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">undefined.GraphGenerator.</span></span><span class="sig-name descname"><span class="pre">GraphGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds_dic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/GraphGenerator.html#GraphGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.GraphGenerator.GraphGenerator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.GraphGenerator.GraphGenerator.function_dic">
+<span class="sig-name descname"><span class="pre">function_dic</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;UDPrimitive.VAR:</span> <span class="pre">0&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._var</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.ADD:</span> <span class="pre">1&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._add</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.RADD:</span> <span class="pre">2&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._radd</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.MUL:</span> <span class="pre">3&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._mul</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.RMUL:</span> <span class="pre">4&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._rmul</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.NEG:</span> <span class="pre">5&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._neg</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.SUB:</span> <span class="pre">6&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._sub</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.RSUB:</span> <span class="pre">7&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._rsub</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.TRUEDIV:</span> <span class="pre">8&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._truediv</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.RTRUEDIV:</span> <span class="pre">9&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._rtruediv</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.FLOORDIV:</span> <span class="pre">10&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._floordiv</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.RFLOORDIV:</span> <span class="pre">11&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._rfloordiv</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.POW:</span> <span class="pre">12&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._pow</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.RPOW:</span> <span class="pre">13&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._rpow</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.COS:</span> <span class="pre">14&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._cos</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.SIN:</span> <span class="pre">15&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._sin</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.TAN:</span> <span class="pre">16&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._tan</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.SQRT:</span> <span class="pre">17&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._sqrt</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.EXP:</span> <span class="pre">18&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._exp</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.LOG:</span> <span class="pre">19&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._log</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.ACOS:</span> <span class="pre">20&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._arccos</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.ASIN:</span> <span class="pre">21&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._arcsin</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;,</span> <span class="pre">&lt;UDPrimitive.ATAN:</span> <span class="pre">22&gt;:</span> <span class="pre">&lt;bound</span> <span class="pre">method</span> <span class="pre">GeneratorHelper._arctan</span> <span class="pre">of</span> <span class="pre">&lt;class</span> <span class="pre">'undefined.GraphGenerator.GeneratorHelper'&gt;&gt;}</span></em><a class="headerlink" href="#undefined.GraphGenerator.GraphGenerator.function_dic" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="undefined.GraphGenerator.GraphGenerator.generate_derivative">
+<span class="sig-name descname"><span class="pre">generate_derivative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/GraphGenerator.html#GraphGenerator.generate_derivative"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.GraphGenerator.GraphGenerator.generate_derivative" title="Permalink to this definition"></a></dt>
+<dd><p>A wrapper function to generate the derivative given the input key value. 
+Used in the trace function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="undefined.GraphGenerator.GraphGenerator.generate_graph">
+<span class="sig-name descname"><span class="pre">generate_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/GraphGenerator.html#GraphGenerator.generate_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.GraphGenerator.GraphGenerator.generate_graph" title="Permalink to this definition"></a></dt>
+<dd><p>generate the visualization graph</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="undefined.GraphGenerator.GraphGenerator.generate_str">
+<span class="sig-name descname"><span class="pre">generate_str</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/GraphGenerator.html#GraphGenerator.generate_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.GraphGenerator.GraphGenerator.generate_str" title="Permalink to this definition"></a></dt>
+<dd><p>Output the computational graph in str and maintain the structure.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="undefined.GraphGenerator.UDGraph">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">undefined.GraphGenerator.</span></span><span class="sig-name descname"><span class="pre">UDGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">UDPrimitive.VAR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'intermediate'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/GraphGenerator.html#UDGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.GraphGenerator.UDGraph" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="undefined.GraphGenerator.UDGraph.val">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">val</span></span><a class="headerlink" href="#undefined.GraphGenerator.UDGraph.val" title="Permalink to this definition"></a></dt>
+<dd><p>This is a decorator return rouded input self.val</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>array: 4 decimal rounded input of self.value</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-undefined.UDFunction">
+<span id="undefined-udfunction-module"></span><h2>undefined.UDFunction module<a class="headerlink" href="#module-undefined.UDFunction" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="undefined.UDFunction.UDFunction">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">undefined.UDFunction.</span></span><span class="sig-name descname"><span class="pre">UDFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">der</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/UDFunction.html#UDFunction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.UDFunction.UDFunction" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="undefined.UDFunction.UDFunction.der">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">der</span></span><a class="headerlink" href="#undefined.UDFunction.UDFunction.der" title="Permalink to this definition"></a></dt>
+<dd><p>This is a decorator return rouded input self.der</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>array: 3 decimal rounded input of self.der</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="undefined.UDFunction.UDFunction.val">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">val</span></span><a class="headerlink" href="#undefined.UDFunction.UDFunction.val" title="Permalink to this definition"></a></dt>
+<dd><p>This is a decorator return rouded input self.val</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>array: 2 decimal rounded input of self.value</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-undefined.Utils">
+<span id="undefined-utils-module"></span><h2>undefined.Utils module<a class="headerlink" href="#module-undefined.Utils" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">undefined.Utils.</span></span><span class="sig-name descname"><span class="pre">UDPrimitive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Utils.html#UDPrimitive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Utils.UDPrimitive" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.ACOS">
+<span class="sig-name descname"><span class="pre">ACOS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">20</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.ACOS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.ADD">
+<span class="sig-name descname"><span class="pre">ADD</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.ADD" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.ASIN">
+<span class="sig-name descname"><span class="pre">ASIN</span></span><em class="property"> <span class="pre">=</span> <span class="pre">21</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.ASIN" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.ATAN">
+<span class="sig-name descname"><span class="pre">ATAN</span></span><em class="property"> <span class="pre">=</span> <span class="pre">22</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.ATAN" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.COS">
+<span class="sig-name descname"><span class="pre">COS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">14</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.COS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.EXP">
+<span class="sig-name descname"><span class="pre">EXP</span></span><em class="property"> <span class="pre">=</span> <span class="pre">18</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.EXP" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.FLOORDIV">
+<span class="sig-name descname"><span class="pre">FLOORDIV</span></span><em class="property"> <span class="pre">=</span> <span class="pre">10</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.FLOORDIV" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.LOG">
+<span class="sig-name descname"><span class="pre">LOG</span></span><em class="property"> <span class="pre">=</span> <span class="pre">19</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.LOG" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.MUL">
+<span class="sig-name descname"><span class="pre">MUL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">3</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.MUL" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.NEG">
+<span class="sig-name descname"><span class="pre">NEG</span></span><em class="property"> <span class="pre">=</span> <span class="pre">5</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.NEG" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.POW">
+<span class="sig-name descname"><span class="pre">POW</span></span><em class="property"> <span class="pre">=</span> <span class="pre">12</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.POW" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.RADD">
+<span class="sig-name descname"><span class="pre">RADD</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.RADD" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.RFLOORDIV">
+<span class="sig-name descname"><span class="pre">RFLOORDIV</span></span><em class="property"> <span class="pre">=</span> <span class="pre">11</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.RFLOORDIV" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.RMUL">
+<span class="sig-name descname"><span class="pre">RMUL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">4</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.RMUL" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.RPOW">
+<span class="sig-name descname"><span class="pre">RPOW</span></span><em class="property"> <span class="pre">=</span> <span class="pre">13</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.RPOW" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.RSUB">
+<span class="sig-name descname"><span class="pre">RSUB</span></span><em class="property"> <span class="pre">=</span> <span class="pre">7</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.RSUB" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.RTRUEDIV">
+<span class="sig-name descname"><span class="pre">RTRUEDIV</span></span><em class="property"> <span class="pre">=</span> <span class="pre">9</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.RTRUEDIV" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.SIN">
+<span class="sig-name descname"><span class="pre">SIN</span></span><em class="property"> <span class="pre">=</span> <span class="pre">15</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.SIN" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.SQRT">
+<span class="sig-name descname"><span class="pre">SQRT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">17</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.SQRT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.SUB">
+<span class="sig-name descname"><span class="pre">SUB</span></span><em class="property"> <span class="pre">=</span> <span class="pre">6</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.SUB" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.TAN">
+<span class="sig-name descname"><span class="pre">TAN</span></span><em class="property"> <span class="pre">=</span> <span class="pre">16</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.TAN" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.TRUEDIV">
+<span class="sig-name descname"><span class="pre">TRUEDIV</span></span><em class="property"> <span class="pre">=</span> <span class="pre">8</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.TRUEDIV" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="undefined.Utils.UDPrimitive.VAR">
+<span class="sig-name descname"><span class="pre">VAR</span></span><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#undefined.Utils.UDPrimitive.VAR" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Utils.check_arc">
+<span class="sig-prename descclassname"><span class="pre">undefined.Utils.</span></span><span class="sig-name descname"><span class="pre">check_arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Utils.html#check_arc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Utils.check_arc" title="Permalink to this definition"></a></dt>
+<dd><p>Used to check if unlawful inverse trig function is executed by users
+raise errors if happened. Cannot take inverse trig function that is not between -1 and 1</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>val ([int or float])</p>
+</dd>
+<dt>Raises:</dt><dd><p>raise error if number is not between -1 and 1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Utils.check_division_by_zero">
+<span class="sig-prename descclassname"><span class="pre">undefined.Utils.</span></span><span class="sig-name descname"><span class="pre">check_division_by_zero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Utils.html#check_division_by_zero"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Utils.check_division_by_zero" title="Permalink to this definition"></a></dt>
+<dd><p>Used to check if unlawful division is executed by users
+raise errors if happened.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>val ([int or float])</p>
+</dd>
+<dt>Raises:</dt><dd><p>ZeroDivisionError raised if dividing by 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Utils.check_log">
+<span class="sig-prename descclassname"><span class="pre">undefined.Utils.</span></span><span class="sig-name descname"><span class="pre">check_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Utils.html#check_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Utils.check_log" title="Permalink to this definition"></a></dt>
+<dd><p>Used to check if unlawful log is executed by users
+raise errors if happened. Cannot take log for number that is less or equal to 0
+log base also needs to be greater than 0.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>val ([int or float])
+base ([int or float])</p>
+</dd>
+<dt>Raises:</dt><dd><p>raise ValueError if any of the base or val is less than 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Utils.check_pow">
+<span class="sig-prename descclassname"><span class="pre">undefined.Utils.</span></span><span class="sig-name descname"><span class="pre">check_pow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Utils.html#check_pow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Utils.check_pow" title="Permalink to this definition"></a></dt>
+<dd><p>Used to check if unlawful power is executed by users
+raise errors if happened.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>val ([int or float])
+degree ([int or float])</p>
+</dd>
+<dt>Raises:</dt><dd><p>raise ValueError if any of the val or degree is NA type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.Utils.time">
+<span class="sig-prename descclassname"><span class="pre">undefined.Utils.</span></span><span class="sig-name descname"><span class="pre">time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Utils.html#time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Utils.time" title="Permalink to this definition"></a></dt>
+<dd><p>get current time at the most precision in seconds</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>return the current time in string in Hour:Minute:Seconds:precise time format</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-undefined">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-undefined" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.cos">
+<span class="sig-prename descclassname"><span class="pre">undefined.</span></span><span class="sig-name descname"><span class="pre">cos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#cos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.cos" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the cosine operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function</p>
+</dd>
+</dl>
+<p>Raises:</p>
+<blockquote>
+<div><p>TypeError:raised if input is not compatiable with cosine operation</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by cosine operation.
+if input is UDGraph object,update notes and function by cosine operation.
+if input is int,float,ndarray object,update them in cosine operation by their own types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.exp">
+<span class="sig-prename descclassname"><span class="pre">undefined.</span></span><span class="sig-name descname"><span class="pre">exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#exp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.exp" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the square exponential of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+</dl>
+<p>Raises:</p>
+<blockquote>
+<div><p>TypeError:raised if input is not compatiable with exponential operation</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by exponential operation.
+if input is UDGraph object,update notes and function by exponential operation.
+if input is int,float,ndarray object,update them in exponential operation by their own types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.log">
+<span class="sig-prename descclassname"><span class="pre">undefined.</span></span><span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.718281828459045</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.log" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the log of input.
+We can handle the any bases in this log. Users can pass in the base argument.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+<dt>Raises:</dt><dd><p>TypeError:raised if input is not compatiable with log operation</p>
+</dd>
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by log operation.
+if input is UDGraph object,update notes and function by log operation.
+if input is int,float,ndarray object,update them in log operation by their own types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.sin">
+<span class="sig-prename descclassname"><span class="pre">undefined.</span></span><span class="sig-name descname"><span class="pre">sin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#sin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.sin" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the sin operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+</dl>
+<p>Raises:</p>
+<blockquote>
+<div><p>TypeError:raised if input is not compatiable with sin operation</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by sin operation.
+if input is UDGraph object,update notes and function by sin operation.
+if input is int,float,ndarray object,update them in sin operation by their own types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.sqrt">
+<span class="sig-prename descclassname"><span class="pre">undefined.</span></span><span class="sig-name descname"><span class="pre">sqrt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#sqrt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.sqrt" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the square root operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+</dl>
+<p>Raises:</p>
+<blockquote>
+<div><p>TypeError:raised if input is not compatiable with square root operation</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by square root operation.
+if input is UDGraph object,update notes and function by square root operation.
+if input is int,float,ndarray object,update them in square root operation by their own types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.tan">
+<span class="sig-prename descclassname"><span class="pre">undefined.</span></span><span class="sig-name descname"><span class="pre">tan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">udobject</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Calculator.html#tan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.tan" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the tangent operation of input</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>udobject (udfunction object,UDGraph object,ndarray,ndarray,int,float): User defined function/number</p>
+</dd>
+</dl>
+<p>Raises:</p>
+<blockquote>
+<div><p>TypeError:raised if input is not compatiable with tangent operation</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>if input is udfunction object,update val and der by tangent operation.
+if input is UDGraph object,update notes and function by tangent operation.
+if input is int,float,ndarray object,update them in tangent operation by their own types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="undefined.trace">
+<span class="sig-prename descclassname"><span class="pre">undefined.</span></span><span class="sig-name descname"><span class="pre">trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'forward'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/API.html#trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.trace" title="Permalink to this definition"></a></dt>
+<dd><p>This is the main function that the users will interact with.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>f ([LambdaType]): [This is the user defined function. Use list if there are multiple input functions]
+mode (str, optional): Defaults to ‘forward’. Determine with mode to use to calculate the derivatives.
+seeds ([type], optional): Defaults to None. Used to calculate the Jacobian matrix
+plot (bool, optional):  Defaults to False. Need to use in combination with “reverse” mode. If True, it will save the computational graph to your current working directory.</p>
+</dd>
+<dt>Raises:</dt><dd><p>Errors will raise if unlawful inputs are given.</p>
+</dd>
+<dt>Returns:</dt><dd><p>The function values and the derivatives results will be saved in a tuple as the output.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="undefined" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Xinran Tang, Renhao Luo, Chelse Swoopes, Shijia Zhang.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -3,9 +3,16 @@
 # Ignore ipynb checkpoints
 .ipynb_checkpoints
 .idea
+.vscode
 test/__pycache__/
 src/undefined/__pycache__/
 
 # ignore the .coverage files
 coverage.xml
 .coverage
+
+# ignore the coverage html
+htmlcov
+
+# ignore the computational graph generated from testing
+*.png
