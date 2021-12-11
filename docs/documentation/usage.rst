@@ -33,7 +33,7 @@ Also, if the users are planning to use the exponential and trig functions, they 
 
 Please refer to the implementation page for a complete list of supported operations.
 
-**Note:** Our package will not work with the functions in other libraries, such as np.sin. Please use our customized functions.
+**Note:** Our package will not work with the functions in other libraries, such as ``np.sin``. Please import our customized functions from ``undefined.Calculator``.
 
 Once imported successfully, users can calculate the derivative of a given function by using the syntax from the section below. 
 
@@ -79,11 +79,11 @@ The users can also access the partial derivative (Jacobian) results by using the
     print(output_f1[0])
     >>>3.72
 
-    # use index 1 to access the derivative value of the function
+    # use index 1 to access the derivative value (the Jacobian Matrix) of the function
     print(output_f1[1])
     >>>[[1.359], [2.718]]
 
-In the derivative results, the order is the same as the lambda function's variable order. In this case, the first is the partial derivative for x and the other one is for y. 
+In the derivative results (the Jacobian Matrix), the order is the same as the lambda function's variable order. In this case, the first is the partial derivative for x and the other one is for y. 
 
 The ``trace`` function can also handle multiple dimensional calculation. Refer to section 3.3 below.
 
@@ -337,12 +337,14 @@ However, you can define whatever projection you want in our package. See how you
             # define the seeds in the trace function
             print(trace(f1, seeds = 1, x = 2))
 
-            # output ({function value}, {derivative value})
+            # output ({function value}, {derivative value/Jacobian matrix})
             (5.58, 2.445)
         
         **Multiple Variable**
 
         In the case when there are multiple variables, you will need to use a ``numpy.array`` to pass the seed values in the ``seeds``. 
+
+        *Note:* You will need to use **double bracket** in the ``numpy.array`` when pass in the seeds vector.
 
         .. code-block::
             :linenos:
@@ -354,13 +356,13 @@ However, you can define whatever projection you want in our package. See how you
             # define the seeds for two variable in the trace function
             print(trace(f2, seeds = np.array([[1, 0], [0, 1]]), x = 2, y = 1))
 
-            # output ({function value}, {derivative value})
+            # output ({function value}, {derivative value/Jacobian matrix multipled by the seeds vector})
             (3.58, [[-0.328], [1.386]])
 
             # you could combine the seed with multiple inputs values
             print(trace(f2, seeds = np.array([[1, 0], [0, 1]]), x = np.array([[2, 5]]), y = 1))
 
-            # output ({function value}, {derivative value})
+            # output ({function value}, {derivative value/Jacobian matrix multipled by the seeds vector})
             (array([[3.58, 2.62]]), [[-0.328, 0.088], [1.386, 1.386]])
 
             # you could use seeds in the reverse mode as well
@@ -370,7 +372,7 @@ However, you can define whatever projection you want in our package. See how you
             (array([[3.58, 2.62]]), [[-0.328, 0.088], [1.386, 1.386]])
             # it is expected that the results from forward and reverse modes are the same
         
-        *Note:* You will need to use **double bracket** in the ``numpy.array``
+        
     
     .. tab:: multiple functions input
         :tabid: 2

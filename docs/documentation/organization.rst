@@ -24,7 +24,7 @@ Because we provided a command-line friendly user interface, we expect the consum
 Moreover, the developers could index our derivative results for their subsequent use. 
 Since we distributed the package via ``PyPI``, we provided an easy installation for both consumers and developers in modern computers.
 
-Assuming your current directory is the ``undefined`` root directory, you can run the following codes to run the test cases we developed for ``Undefined``.
+Assuming you have ``git clone`` our repository and your current directory is the root directory, you can run the following codes to run the test cases we developed for ``Undefined``.
 
 .. code-block:: 
     :linenos:
