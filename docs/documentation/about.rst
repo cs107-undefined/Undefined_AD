@@ -6,7 +6,7 @@ About
 
 Automatic Differentiation (AD) refers to the way to compute the derivative of a given equation automatically. It has a broad range of applications across many disciplines, such as engineering, statistics, computer science, and computational biology. For both students and researchers, it is essential for them to have tools in order to compute derivatives efficiently, given the amount of computational power needed. Here, we propose a novel Python library, undefined, to implement the AD on user defined numerical equations.
 
-One potential application would be calculating the derivatives in the direction of negative gradient to minimize the loss function when tuning parameters in training gradient machine learning models. ``undefined`` is easier to use, single task focused, and efficient.
+One potential application would be calculating the derivatives in the direction of negative gradient to minimize the loss function when tuning parameters in training gradient machine learning models. ``Undefined`` is easier to use, single task focused, and efficient.
 
 
 2. Background
