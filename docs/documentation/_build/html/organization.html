@@ -95,7 +95,7 @@
 <h1>Testing and Software Organization<a class="headerlink" href="#testing-and-software-organization" title="Permalink to this headline"></a></h1>
 <div class="section" id="test-undefined">
 <h2>4.1 Test <code class="docutils literal notranslate"><span class="pre">Undefined</span></code><a class="headerlink" href="#test-undefined" title="Permalink to this headline"></a></h2>
-<p>Both <code class="docutils literal notranslate"><span class="pre">TravisCI</span></code> and <code class="docutils literal notranslate"><span class="pre">CodeCov</span></code> will be used for testing suit monitoring, and the package is available in <code class="docutils literal notranslate"><span class="pre">PyPI</span></code>.</p>
+<p>Both <code class="docutils literal notranslate"><span class="pre">TravisCI</span></code> and <code class="docutils literal notranslate"><span class="pre">CodeCov</span></code> are used for testing suit monitoring, and the package is available in <code class="docutils literal notranslate"><span class="pre">PyPI</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">src</span></code> folder is where we house our core modules, which include the following:</p>
 <p><code class="docutils literal notranslate"><span class="pre">UDFunction.py</span></code>: We overload the operators in this file, such as <code class="docutils literal notranslate"><span class="pre">__add__</span></code>.
 <code class="docutils literal notranslate"><span class="pre">GraphGenerator.py</span></code>: This is where we mainly achieved the reverse mode.
@@ -103,7 +103,7 @@
 <code class="docutils literal notranslate"><span class="pre">Utils.py</span></code>: This file contains the helper functions.
 <code class="docutils literal notranslate"><span class="pre">API.py</span></code>: We defined the <code class="docutils literal notranslate"><span class="pre">trace</span></code> function here to wrap all the calculation required for the users defined function.</p>
 <p><code class="docutils literal notranslate"><span class="pre">test</span></code> folder is where we house our test suits, which contains a test file for each python files inside the <code class="docutils literal notranslate"><span class="pre">src</span></code> folder.
-We have developed the test based on the unit test concept and the integration concept, meaning we tested for the basic functionality and also tested if functions could work with other functions in the same defined function.</p>
+We have developed the tests based on the unit test concept and the integration concept, meaning we tested for the basic functionality and also combined with other operations.</p>
 <p>We developed a bash script to run all the tests, including the tests written under unit test concept and the integration test concept. You can test them by using the following examples:</p>
 <p>Because we provided a command-line friendly user interface, we expect the consumer and the developers to interact with the package in the same way.
 Moreover, the developers could index our derivative results for their subsequent use.

@@ -397,16 +397,8 @@ if input is int,float,ndarray object,update them in tangent operation by their o
 <dl class="py method">
 <dt class="sig sig-object py" id="undefined.GraphGenerator.GraphGenerator.generate_derivative">
 <span class="sig-name descname"><span class="pre">generate_derivative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/GraphGenerator.html#GraphGenerator.generate_derivative"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.GraphGenerator.GraphGenerator.generate_derivative" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>var_name ([type]): [description]
-seed_dic ([type]): [description]</p>
-</dd>
-<dt>Raises:</dt><dd><p>TypeError: [description]</p>
-</dd>
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
-</dd>
-</dl>
+<dd><p>A wrapper function to generate the derivative given the input key value. 
+Used in the trace function.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -418,11 +410,7 @@ seed_dic ([type]): [description]</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="undefined.GraphGenerator.GraphGenerator.generate_str">
 <span class="sig-name descname"><span class="pre">generate_str</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/GraphGenerator.html#GraphGenerator.generate_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.GraphGenerator.GraphGenerator.generate_str" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
-</dd>
-</dl>
+<dd><p>Output the computational graph in str and maintain the structure.</p>
 </dd></dl>
 
 </dd></dl>
@@ -600,12 +588,12 @@ seed_dic ([type]): [description]</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.Utils.check_arc">
 <span class="sig-prename descclassname"><span class="pre">undefined.Utils.</span></span><span class="sig-name descname"><span class="pre">check_arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Utils.html#check_arc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Utils.check_arc" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>Used to check if unlawful inverse trig function is executed by users
+raise errors if happened. Cannot take inverse trig function that is not between -1 and 1</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>val ([type]): [description]</p>
+<dt>Args:</dt><dd><p>val ([int or float])</p>
 </dd>
-<dt>Raises:</dt><dd><p>ValueError: [description]
-ValueError: [description]</p>
+<dt>Raises:</dt><dd><p>raise error if number is not between -1 and 1</p>
 </dd>
 </dl>
 </dd></dl>
@@ -613,12 +601,12 @@ ValueError: [description]</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.Utils.check_division_by_zero">
 <span class="sig-prename descclassname"><span class="pre">undefined.Utils.</span></span><span class="sig-name descname"><span class="pre">check_division_by_zero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Utils.html#check_division_by_zero"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Utils.check_division_by_zero" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>Used to check if unlawful division is executed by users
+raise errors if happened.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>val ([type]): [description]</p>
+<dt>Args:</dt><dd><p>val ([int or float])</p>
 </dd>
-<dt>Raises:</dt><dd><p>ZeroDivisionError: [description]
-ZeroDivisionError: [description]</p>
+<dt>Raises:</dt><dd><p>ZeroDivisionError raised if dividing by 0.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -626,14 +614,14 @@ ZeroDivisionError: [description]</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.Utils.check_log">
 <span class="sig-prename descclassname"><span class="pre">undefined.Utils.</span></span><span class="sig-name descname"><span class="pre">check_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Utils.html#check_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Utils.check_log" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>Used to check if unlawful log is executed by users
+raise errors if happened. Cannot take log for number that is less or equal to 0
+log base also needs to be greater than 0.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>val ([type]): [description]
-base ([type]): [description]</p>
+<dt>Args:</dt><dd><p>val ([int or float])
+base ([int or float])</p>
 </dd>
-<dt>Raises:</dt><dd><p>ValueError: [description]
-ValueError: [description]
-ValueError: [description]</p>
+<dt>Raises:</dt><dd><p>raise ValueError if any of the base or val is less than 0.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -641,13 +629,13 @@ ValueError: [description]</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.Utils.check_pow">
 <span class="sig-prename descclassname"><span class="pre">undefined.Utils.</span></span><span class="sig-name descname"><span class="pre">check_pow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Utils.html#check_pow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Utils.check_pow" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>Used to check if unlawful power is executed by users
+raise errors if happened.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>val ([type]): [description]
-degree ([type]): [description]</p>
+<dt>Args:</dt><dd><p>val ([int or float])
+degree ([int or float])</p>
 </dd>
-<dt>Raises:</dt><dd><p>ValueError: [description]
-ValueError: [description]</p>
+<dt>Raises:</dt><dd><p>raise ValueError if any of the val or degree is NA type.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -655,9 +643,9 @@ ValueError: [description]</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="undefined.Utils.time">
 <span class="sig-prename descclassname"><span class="pre">undefined.Utils.</span></span><span class="sig-name descname"><span class="pre">time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/undefined/Utils.html#time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#undefined.Utils.time" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dd><p>get current time at the most precision in seconds</p>
 <dl class="simple">
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><p>return the current time in string in Hour:Minute:Seconds:precise time format</p>
 </dd>
 </dl>
 </dd></dl>

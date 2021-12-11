@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>undefined.Utils &mdash; Undefined - an automatic differentiation tool 1.0.0 documentation</title>
+  <title>undefined.Utils &mdash; Undefined - an automatic differentiation tool 2.0.2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -14,6 +15,7 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/tabs.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -35,18 +37,27 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Software Organization</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../organization.html">Testing and Software Organization</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../implementation.html">Implementation</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Broader Impact and Future Directions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../statement.html">Broader Impact and Future Directions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code details</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">undefined</a></li>
 </ul>
@@ -109,10 +120,10 @@
 
 
 <div class="viewcode-block" id="time"><a class="viewcode-back" href="../../undefined.html#undefined.Utils.time">[docs]</a><span class="k">def</span> <span class="nf">time</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
+    <span class="sd">&quot;&quot;&quot;get current time at the most precision in seconds</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        [type]: [description]</span>
+<span class="sd">        return the current time in string in Hour:Minute:Seconds:precise time format</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
     <span class="n">current_time</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H:%M:%S:</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -120,14 +131,14 @@
 
 
 <div class="viewcode-block" id="check_division_by_zero"><a class="viewcode-back" href="../../undefined.html#undefined.Utils.check_division_by_zero">[docs]</a><span class="k">def</span> <span class="nf">check_division_by_zero</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
+    <span class="sd">&quot;&quot;&quot;Used to check if unlawful division is executed by users</span>
+<span class="sd">    raise errors if happened.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        val ([type]): [description]</span>
+<span class="sd">        val ([int or float])</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        ZeroDivisionError: [description]</span>
-<span class="sd">        ZeroDivisionError: [description]</span>
+<span class="sd">        ZeroDivisionError raised if dividing by 0.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="mi">7</span><span class="p">)):</span>
@@ -138,15 +149,15 @@
 
 
 <div class="viewcode-block" id="check_pow"><a class="viewcode-back" href="../../undefined.html#undefined.Utils.check_pow">[docs]</a><span class="k">def</span> <span class="nf">check_pow</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">degree</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
+    <span class="sd">&quot;&quot;&quot;Used to check if unlawful power is executed by users</span>
+<span class="sd">    raise errors if happened.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        val ([type]): [description]</span>
-<span class="sd">        degree ([type]): [description]</span>
+<span class="sd">        val ([int or float])</span>
+<span class="sd">        degree ([int or float])</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        ValueError: [description]</span>
-<span class="sd">        ValueError: [description]</span>
+<span class="sd">        raise ValueError if any of the val or degree is NA type.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">degree</span><span class="p">)</span>
@@ -157,16 +168,16 @@
 
 
 <div class="viewcode-block" id="check_log"><a class="viewcode-back" href="../../undefined.html#undefined.Utils.check_log">[docs]</a><span class="k">def</span> <span class="nf">check_log</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
+    <span class="sd">&quot;&quot;&quot;Used to check if unlawful log is executed by users</span>
+<span class="sd">    raise errors if happened. Cannot take log for number that is less or equal to 0</span>
+<span class="sd">    log base also needs to be greater than 0.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        val ([type]): [description]</span>
-<span class="sd">        base ([type]): [description]</span>
+<span class="sd">        val ([int or float])</span>
+<span class="sd">        base ([int or float])</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        ValueError: [description]</span>
-<span class="sd">        ValueError: [description]</span>
-<span class="sd">        ValueError: [description]</span>
+<span class="sd">        raise ValueError if any of the base or val is less than 0.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">base</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;error raised by undefined: invalid base </span><span class="si">{</span><span class="n">base</span><span class="si">}</span><span class="s2"> for log&quot;</span><span class="p">)</span>
@@ -179,14 +190,14 @@
 
 
 <div class="viewcode-block" id="check_arc"><a class="viewcode-back" href="../../undefined.html#undefined.Utils.check_arc">[docs]</a><span class="k">def</span> <span class="nf">check_arc</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;[summary]</span>
+    <span class="sd">&quot;&quot;&quot;Used to check if unlawful inverse trig function is executed by users</span>
+<span class="sd">    raise errors if happened. Cannot take inverse trig function that is not between -1 and 1</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        val ([type]): [description]</span>
+<span class="sd">        val ([int or float])</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        ValueError: [description]</span>
-<span class="sd">        ValueError: [description]</span>
+<span class="sd">        raise error if number is not between -1 and 1</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">val</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
@@ -196,15 +207,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">val</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;error raised by undefined: invalid value </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">, which should be within (-1, 1)&quot;</span><span class="p">)</span></div>
-<span class="c1">#     logging.basicConfig(level=logging.INFO)</span>
-<span class="c1">#     if level == logging.INFO:</span>
-<span class="c1">#         logging.info(information)</span>
-<span class="c1">#     elif level == logging.ERROR:</span>
-<span class="c1">#         logging.error(information)</span>
-<span class="c1">#     elif level == logging.WARNING:</span>
-<span class="c1">#         logging.warning(information)</span>
-<span class="c1">#     else:</span>
-<span class="c1">#         raise TypeError</span>
+
 </pre></div>
 
            </div>

@@ -6,6 +6,7 @@
   <title>undefined.GraphGenerator &mdash; Undefined - an automatic differentiation tool 2.0.2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -14,6 +15,7 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/tabs.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -35,18 +37,27 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <p class="caption" role="heading"><span class="caption-text">Introduction and Background</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Software Organization</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../organization.html">Testing and Software Organization</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Implementation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../implementation.html">Implementation</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Broader Impact and Future Directions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../statement.html">Broader Impact and Future Directions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code details</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">undefined</a></li>
 </ul>
@@ -126,18 +137,19 @@
 
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;return the results in format. </span>
+<span class="sd">        Used in building the computational graph in the reverse mode.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            formatted string with the value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_func</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;UDPrimitive.&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;Value:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;return the computational graph root.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            formatted string with the value for the computational graph root. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">res</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Computational Graph (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_func</span><span class="si">}</span><span class="s1">)&#39;</span>
         <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">:</span>
@@ -509,6 +521,9 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            other ([UDGraph])</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True if equal. Otherwise False</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">UDGraph</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span>
@@ -523,6 +538,9 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            other ([UDGraph])</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True if not equal. Otherwise False</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">UDGraph</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span>
@@ -537,7 +555,9 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            other ([UDGraph])</span>
-<span class="sd">            </span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True if less than. Otherwise False            </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">UDGraph</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span>
@@ -552,7 +572,9 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            other ([UDGraph])</span>
-<span class="sd">            </span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True if greater than. Otherwise False</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">UDGraph</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span>
@@ -567,7 +589,9 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            other ([UDGraph])</span>
-<span class="sd">            </span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True if less than or equal to. Otherwise False</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">UDGraph</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span>
@@ -582,7 +606,9 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            other ([UDGraph])</span>
-<span class="sd">            </span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True if greater than or equal to. Otherwise False</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">UDGraph</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">&gt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">val</span>
@@ -602,14 +628,15 @@
 <div class="viewcode-block" id="GeneratorHelper"><a class="viewcode-back" href="../../undefined.html#undefined.GraphGenerator.GeneratorHelper">[docs]</a><span class="k">class</span> <span class="nc">GeneratorHelper</span><span class="p">:</span>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_var</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;This private helper function for UDGraph is used to get the values. This is used in the primitive.</span>
+<span class="sd">        Generally speaking, this is the function to get node value in the computational graph. </span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            node value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">seed_dic</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">seed</span> <span class="o">=</span> <span class="n">seed_dic</span><span class="p">[</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_varname</span><span class="p">][</span><span class="n">variable</span><span class="o">.</span><span class="n">_varname</span><span class="p">]</span>
@@ -631,14 +658,16 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;This private helper function is used for addition operation&#39;s derivative result. This is used in the primitive and __add__() in UDGraph.</span>
+<span class="sd">        If there is one parent node, return the parental node value</span>
+<span class="sd">        Otherwise, return the two parental nodes&#39; addition result</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            the addition derivative result. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -650,14 +679,16 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_radd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;This private helper function is used for addition operation&#39;s derivative result. This is used in the primitive and __radd__() in UDGraph.</span>
+<span class="sd">        If there is one parent node, return the parental node value</span>
+<span class="sd">        Otherwise, return the two parental nodes&#39; addition result</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            the right addition derivative result. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -668,14 +699,16 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;This private helper function is used for multiplication operation&#39;s derivative result. This is used in the primitive and __mul__() in UDGraph.</span>
+<span class="sd">        If there is one parent node, return node multiplication result to the constant.</span>
+<span class="sd">        Otherwise, return the two parental node multiplication result.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            the multiplication derivative result. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -686,14 +719,16 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_rmul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;This private helper function is used for multiplication operation&#39;s derivative result. This is used in the primitive and __rmul__() in UDGraph.</span>
+<span class="sd">        If there is one parent node, return node multiplication result to the constant.</span>
+<span class="sd">        Otherwise, return the two parental node multiplication result.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            the right multiplication derivative result.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -704,28 +739,30 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_neg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot; This is a helper function to convert the value to negative. Used in __ne__() function in UDGraph</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            udgraph (UDGraph): [description]</span>
 <span class="sd">            variable (UDGraph): [description]</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            the negative value of the node value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_sub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;This private helper function is used for subtraction operation&#39;s derivative result. This is used in the primitive and __sub__() in UDGraph.</span>
+<span class="sd">        If there is one parent node, return the parental node value</span>
+<span class="sd">        Otherwise, return the two parental nodes&#39; subtraction result</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            the subtraction derivative result. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -736,14 +773,16 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_rsub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;This private helper function is used for subtraction operation&#39;s derivative result. This is used in the primitive and __rsub__() in UDGraph.</span>
+<span class="sd">        If there is one parent node, return the parental node value</span>
+<span class="sd">        Otherwise, return the two parental nodes&#39; subtraction result</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            the right subtraction derivative result.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -754,14 +793,16 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_truediv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;This private helper function is used for true division operation&#39;s derivative result. This is used in the primitive and __truediv__() in UDGraph.</span>
+<span class="sd">        If there is one parent node, return the parental node value</span>
+<span class="sd">        Otherwise, return the two parental nodes&#39; true division result</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            the true division derivative result.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -772,14 +813,16 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_rtruediv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;This private helper function is used for true division operation&#39;s derivative result. This is used in the primitive and __rtruediv__() in UDGraph.</span>
+<span class="sd">        If there is one parent node, return the parental node value</span>
+<span class="sd">        Otherwise, return the two parental nodes&#39; true division result</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            the right true division derivative result.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -790,14 +833,16 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_floordiv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;This private helper function is used for floor division operation&#39;s derivative result. This is used in the primitive and __floordiv__() in UDGraph.</span>
+<span class="sd">        If there is one parent node, return the parental node value</span>
+<span class="sd">        Otherwise, return the two parental nodes&#39; floor division result</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            the floor division derivative result.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -808,14 +853,16 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_rfloordiv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;This private helper function is used for floor division operation&#39;s derivative result. This is used in the primitive and __rfloordiv__() in UDGraph.</span>
+<span class="sd">        If there is one parent node, return the parental node value</span>
+<span class="sd">        Otherwise, return the two parental nodes&#39; floor division result</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            the right floor division derivative result.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -826,14 +873,16 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_pow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;This private helper function is used for power operation&#39;s derivative result. This is used in the primitive and __pow__() in UDGraph.</span>
+<span class="sd">        If there is one parent node, return the parental node power derivative result</span>
+<span class="sd">        Otherwise, return the two parental nodes&#39; power derivative result</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            the power derivative result.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -875,14 +924,16 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_rpow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;This private helper function is used for power operation&#39;s derivative. This is used in the primitive and __rpow__() in UDGraph.</span>
+<span class="sd">        If there is one parent node, return the parental node power derivative result</span>
+<span class="sd">        Otherwise, return the two parental nodes&#39; power derivative result</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            the right power derivative result.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -920,17 +971,17 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_cos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the derivative for cosine in reverse mode. </span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            TypeError: [description]</span>
+<span class="sd">            TypeError: if unlawful input to the cosine function</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            cosine&#39;s derivatives results calculated in reverse mode. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
@@ -942,17 +993,17 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_sin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the derivative for sine in reverse mode. </span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            TypeError: [description]</span>
+<span class="sd">            TypeError: if unlawful input to the sine function</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            sine&#39;s derivatives results calculated in reverse mode. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
@@ -964,17 +1015,17 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_tan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the derivative for tangent in reverse mode. </span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            TypeError: [description]</span>
+<span class="sd">            TypeError: if unlawful input to the tangent function</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            tangent&#39;s derivatives results calculated in reverse mode. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
@@ -986,17 +1037,17 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_arccos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the derivative for arccosine in reverse mode. </span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            TypeError: [description]</span>
+<span class="sd">            TypeError: if unlawful input to the arccosine function</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            arccosine&#39;s derivatives results calculated in reverse mode. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
@@ -1008,17 +1059,17 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_arcsin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the derivative for arcsine in reverse mode. </span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            TypeError: [description]</span>
+<span class="sd">            TypeError: if unlawful input to the arcsine function</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            arcsine&#39;s derivatives results calculated in reverse mode. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
@@ -1030,17 +1081,17 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_arctan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the derivative for arctangent in reverse mode. </span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            TypeError: [description]</span>
+<span class="sd">            TypeError: if unlawful input to the arctangent function</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            arctangent&#39;s derivatives results calculated in reverse mode. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
@@ -1050,17 +1101,17 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the derivative for squared root in reverse mode. </span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            TypeError: [description]</span>
+<span class="sd">            TypeError: if unlawful input to the squared root function</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            squared root&#39;s derivatives results calculated in reverse mode. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
@@ -1072,17 +1123,17 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_exp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the derivative for exponential in reverse mode. </span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            TypeError: [description]</span>
+<span class="sd">            TypeError: if unlawful input to the exponential function</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            exponential&#39;s derivatives results calculated in reverse mode.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
@@ -1094,14 +1145,14 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">udgraph</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">UDGraph</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;Calculate the derivative for log in reverse mode. </span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            udgraph (UDGraph): [description]</span>
-<span class="sd">            variable (UDGraph): [description]</span>
+<span class="sd">            udgraph (UDGraph)</span>
+<span class="sd">            variable (UDGraph)</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+<span class="sd">            log&#39;s derivatives results calculated in reverse mode.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">g1</span> <span class="o">=</span> <span class="n">udgraph</span><span class="o">.</span><span class="n">_parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">udgraph</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="s2">&quot;base&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">g1</span><span class="o">.</span><span class="n">_val</span><span class="p">)</span> <span class="o">*</span> <span class="n">GraphGenerator</span><span class="o">.</span><span class="n">function_dic</span><span class="p">[</span><span class="n">g1</span><span class="o">.</span><span class="n">_func</span><span class="p">](</span><span class="n">g1</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">seed_dic</span><span class="p">)</span></div>
@@ -1135,11 +1186,7 @@
     <span class="p">}</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">seeds_dic</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            g ([type]): [description]</span>
-<span class="sd">            variables ([type]): [description]</span>
+        <span class="sd">&quot;&quot;&quot;initialize the input instances.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_udgraph</span> <span class="o">=</span> <span class="n">g</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_variables</span> <span class="o">=</span> <span class="n">variables</span>
@@ -1147,11 +1194,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_seeds_dic</span> <span class="o">=</span> <span class="n">seeds_dic</span>
 
     <span class="k">def</span> <span class="nf">_generate_inner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span><span class="n">UDGraph</span><span class="p">,</span> <span class="n">nxgraph</span><span class="p">:</span><span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            g (UDGraph): [description]</span>
-<span class="sd">            nxgraph (nx.DiGraph): [description]</span>
+        <span class="sd">&quot;&quot;&quot;build the computational graph</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">_parents</span><span class="p">:</span>
             <span class="n">nxgraph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
@@ -1173,25 +1216,13 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">time</span><span class="p">()</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GraphGenerator.generate_str"><a class="viewcode-back" href="../../undefined.html#undefined.GraphGenerator.GraphGenerator.generate_str">[docs]</a>    <span class="k">def</span> <span class="nf">generate_str</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+        <span class="sd">&quot;&quot;&quot;Output the computational graph in str and maintain the structure.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_udgraph</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GraphGenerator.generate_derivative"><a class="viewcode-back" href="../../undefined.html#undefined.GraphGenerator.GraphGenerator.generate_derivative">[docs]</a>    <span class="k">def</span> <span class="nf">generate_derivative</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var_name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            var_name ([type]): [description]</span>
-<span class="sd">            seed_dic ([type]): [description]</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            TypeError: [description]</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            [type]: [description]</span>
+        <span class="sd">&quot;&quot;&quot;A wrapper function to generate the derivative given the input key value. </span>
+<span class="sd">        Used in the trace function. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">var_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_variables</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="c1"># TODO: check der(x of x)</span>
