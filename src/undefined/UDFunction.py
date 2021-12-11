@@ -389,6 +389,9 @@ class UDFunction:
 
         Args:
             other ([UDFunction])
+
+        Returns:
+            True if equal. Otherwise False
         """
         if isinstance(other, UDFunction):
             return self.val == other.val
@@ -403,6 +406,9 @@ class UDFunction:
 
         Args:
             other ([UDFunction])
+
+        Returns:
+            True if not equal. Otherwise False
         """
         if isinstance(other, UDFunction):
             return self.val != other.val
@@ -418,6 +424,8 @@ class UDFunction:
         Args:
             other ([UDFunction])
 
+        Returns:
+            True if less than. Otherwise False
         """
         if isinstance(other, UDFunction):
             return self.val < other.val
@@ -432,7 +440,9 @@ class UDFunction:
 
         Args:
             other ([UDFunction])
-
+        
+        Returns:
+            True if greater than. Otherwise False
         """
         if isinstance(other, UDFunction):
             return self.val > other.val
@@ -448,6 +458,8 @@ class UDFunction:
         Args:
             other ([UDFunction])
 
+        Returns:
+            True if less than or equal to. Otherwise False
         """
         if isinstance(other, UDFunction):
             return self.val <= other.val
@@ -462,7 +474,9 @@ class UDFunction:
 
         Args:
             other ([UDFunction])
-
+        
+        Returns:
+            True if greater than or equal to. Otherwise False
         """
         if isinstance(other, UDFunction):
             return self.val >= other.val
@@ -473,27 +487,7 @@ class UDFunction:
     
     def __round__(self, digit):
         '''overwrite the round method.
+            Internal method for testing.
         '''
         return round(self.val, digit)
 
-# if __name__ == "__main__":
-#     alpha = 2.0
-#     beta  = 3.0
-
-#     a = np.array(2.5)
-#     x = UDFunction(a)
-
-#     b = 5.0
-#     y = UDFunction(b)
-
-#     f1 = -2*x + beta
-#     f2 = -2*y + beta
-#     f1 = -2*x + beta
-#     # print(x >= y)
-#     print(f1.val, f2.val)
-#     a = 2.5
-#     x = UDFunction(a)
-#     f1 = -2*x + beta
-#     print(f1 == -0.5)
-#     print(f1.val)
-#     print(0.5 <= -1 * f1)
