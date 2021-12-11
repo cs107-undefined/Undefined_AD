@@ -6,8 +6,12 @@
 
 [![Documentation Status](https://readthedocs.org/projects/cs107-undefined/badge/?version=latest)](https://cs107-undefined.readthedocs.io/en/latest/?badge=latest)
 
-[**DOCUMENTATION**](https://cs107-undefined.readthedocs.io/en/latest/)
 
+## Brief Introduction
+
+This project/package is part of the Harvard CS107/AC207 class final project in Fall 2021, automatic differentiation (AD). We created this package to compute the first-order derivative from a user-defined function automatically. Our package can utilize both forward and reverse modes. In addition, to calculate the derivative results, we also allow users to define their own seeds vector for the Jacobian Matrix and the option to generate the computational graph associated with the input function.
+
+For details instruction on how to use this package, please check out our [**Undefined_AD DOCUMENTATION**](https://cs107-undefined.readthedocs.io/en/latest/)
 
 **Group Number:**
 

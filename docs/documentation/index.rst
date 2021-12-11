@@ -26,6 +26,8 @@ In the extended feature, our package can build computational graphs in the ``rev
 
 Link to the project `Github page <https://github.com/cs107-undefined/cs107-FinalProject>`_.
 
+Link to the package on `PyPI <https://pypi.org/project/undefined-AD/>`_.
+
 
 .. toctree::
    :maxdepth: 3
