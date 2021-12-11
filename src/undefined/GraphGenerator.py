@@ -1,17 +1,15 @@
 import sys
 # # temp solution for directory.
 sys.path.append("./src/")
-
-from undefined.Utils import UDPrimitive, time, check_division_by_zero, check_pow
-import numpy as np
-import math
-import networkx as nx
 import matplotlib.pyplot as plt
-
+import networkx as nx
+import math
+import numpy as np
+from undefined.Utils import UDPrimitive, time, check_division_by_zero, check_pow
 
 
 class UDGraph:
-    def __init__(self, val, func=UDPrimitive.VAR, varname = "intermediate"):
+    def __init__(self, val, func=UDPrimitive.VAR, varname="intermediate"):
         # TODO
         """
         This class is where we overload all the operators, which will be used to calculate the derivatives.
@@ -46,7 +44,6 @@ class UDGraph:
         else:
             return self._val
 
-
     def __str__(self):
         """return the results in format. 
         Used in building the computational graph in the reverse mode.
@@ -54,7 +51,7 @@ class UDGraph:
         Returns:
             formatted string with the value.
         """
-        return f"{self._func}\n".replace("UDPrimitive.","") + f"Value:{self.val}\n"
+        return f"{self._func}\n".replace("UDPrimitive.", "") + f"Value:{self.val}\n"
 
     def __repr__(self):
         """return the computational graph root.
@@ -92,7 +89,8 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __mul__(self, other):
@@ -118,7 +116,8 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __radd__(self, other):
@@ -143,7 +142,8 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __rmul__(self, other):
@@ -169,7 +169,8 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __neg__(self):
@@ -205,7 +206,8 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __rsub__(self, other):
@@ -231,7 +233,8 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __truediv__(self, other):
@@ -260,7 +263,8 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __rtruediv__(self, other):
@@ -287,7 +291,8 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __floordiv__(self, other):  # self // other
@@ -316,7 +321,8 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
         return udgraph
 
     def __rfloordiv__(self, other):
@@ -343,9 +349,9 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["constant"] = other
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
         return udgraph
-
 
     def __pow__(self, other):
         """
@@ -422,8 +428,10 @@ class UDGraph:
             udgraph._parents.append(self)
             udgraph._params["base"] = other
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
         return udgraph
+
     def __eq__(self, other):
         """compare whether the two UDGraph objects have the same values.
         Return true if equal, and false otherwise.
@@ -432,7 +440,7 @@ class UDGraph:
 
         Args:
             other ([UDGraph])
-        
+
         Returns:
             True if equal. Otherwise False
         """
@@ -441,15 +449,16 @@ class UDGraph:
         elif isinstance(other, (int, float)):
             return self.val == other
         else:
-            raise TypeError("error raised by undefined: Need a UDGraph object to compare")
-    
+            raise TypeError(
+                "error raised by undefined: Need a UDGraph object to compare")
+
     def __ne__(self, other):
         """compare whether the two UDGraph objects have different values.
         raise TypeError is other is not a UDGraph object.
 
         Args:
             other ([UDGraph])
-        
+
         Returns:
             True if not equal. Otherwise False
         """
@@ -458,15 +467,16 @@ class UDGraph:
         elif isinstance(other, (int, float)):
             return self.val != other
         else:
-            raise TypeError("error raised by undefined: Need a UDGraph object to compare")
-    
+            raise TypeError(
+                "error raised by undefined: Need a UDGraph object to compare")
+
     def __lt__(self, other):
         """overload the < operator
         raise TypeError is other is not a UDGraph object.
 
         Args:
             other ([UDGraph])
-        
+
         Returns:
             True if less than. Otherwise False            
         """
@@ -475,15 +485,16 @@ class UDGraph:
         elif isinstance(other, (int, float)):
             return self.val < other
         else:
-            raise TypeError("error raised by undefined: Need a UDGraph object to compare")
-    
+            raise TypeError(
+                "error raised by undefined: Need a UDGraph object to compare")
+
     def __gt__(self, other):
         """overload the > operator
         raise TypeError is other is not a UDGraph object.
 
         Args:
             other ([UDGraph])
-        
+
         Returns:
             True if greater than. Otherwise False
         """
@@ -492,15 +503,16 @@ class UDGraph:
         elif isinstance(other, (int, float)):
             return self.val > other
         else:
-            raise TypeError("error raised by undefined: Need a UDGraph object to compare")
-    
+            raise TypeError(
+                "error raised by undefined: Need a UDGraph object to compare")
+
     def __le__(self, other):
         """overload the > operator
         raise TypeError is other is not a UDGraph object.
 
         Args:
             other ([UDGraph])
-        
+
         Returns:
             True if less than or equal to. Otherwise False
         """
@@ -509,7 +521,8 @@ class UDGraph:
         elif isinstance(other, (int, float)):
             return self.val <= other
         else:
-            raise TypeError("error raised by undefined: Need a UDGraph object to compare")
+            raise TypeError(
+                "error raised by undefined: Need a UDGraph object to compare")
 
     def __ge__(self, other):
         """overload the > operator
@@ -517,7 +530,7 @@ class UDGraph:
 
         Args:
             other ([UDGraph])
-        
+
         Returns:
             True if greater than or equal to. Otherwise False
         """
@@ -526,7 +539,8 @@ class UDGraph:
         elif isinstance(other, (int, float)):
             return self.val >= other
         else:
-            raise TypeError("error raised by undefined: Need a UDGraph object to compare")
+            raise TypeError(
+                "error raised by undefined: Need a UDGraph object to compare")
 
     def __hash__(self):
         """hash function for udgraph
@@ -535,6 +549,7 @@ class UDGraph:
             int: hash value for udgraph
         """
         return hash((str(self._val), self._func))
+
 
 class GeneratorHelper:
     @classmethod
@@ -549,7 +564,7 @@ class GeneratorHelper:
         Returns:
             node value
         """
-        if len(seed_dic) > 0:
+        if seed_dic and len(seed_dic) > 0:
             seed = seed_dic[udgraph._varname][variable._varname]
             if isinstance(udgraph._val, np.ndarray):
                 return seed * np.ones(udgraph._valshape)
@@ -568,7 +583,7 @@ class GeneratorHelper:
                     return 1
 
     @classmethod
-    def _add(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _add(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """This private helper function is used for addition operation's derivative result. This is used in the primitive and __add__() in UDGraph.
         If there is one parent node, return the parental node value
         Otherwise, return the two parental nodes' addition result
@@ -589,7 +604,7 @@ class GeneratorHelper:
             return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) + GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
 
     @classmethod
-    def _radd(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _radd(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """This private helper function is used for addition operation's derivative result. This is used in the primitive and __radd__() in UDGraph.
         If there is one parent node, return the parental node value
         Otherwise, return the two parental nodes' addition result
@@ -609,7 +624,7 @@ class GeneratorHelper:
             return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) + GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
 
     @classmethod
-    def _mul(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _mul(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """This private helper function is used for multiplication operation's derivative result. This is used in the primitive and __mul__() in UDGraph.
         If there is one parent node, return node multiplication result to the constant.
         Otherwise, return the two parental node multiplication result.
@@ -629,7 +644,7 @@ class GeneratorHelper:
             return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val + GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val
 
     @classmethod
-    def _rmul(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _rmul(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """This private helper function is used for multiplication operation's derivative result. This is used in the primitive and __rmul__() in UDGraph.
         If there is one parent node, return node multiplication result to the constant.
         Otherwise, return the two parental node multiplication result.
@@ -649,7 +664,7 @@ class GeneratorHelper:
             return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val + GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val
 
     @classmethod
-    def _neg(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _neg(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """ This is a helper function to convert the value to negative. Used in __ne__() function in UDGraph
 
         Args:
@@ -663,7 +678,7 @@ class GeneratorHelper:
         return -1 * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
 
     @classmethod
-    def _sub(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _sub(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """This private helper function is used for subtraction operation's derivative result. This is used in the primitive and __sub__() in UDGraph.
         If there is one parent node, return the parental node value
         Otherwise, return the two parental nodes' subtraction result
@@ -683,7 +698,7 @@ class GeneratorHelper:
             return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
 
     @classmethod
-    def _rsub(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _rsub(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """This private helper function is used for subtraction operation's derivative result. This is used in the primitive and __rsub__() in UDGraph.
         If there is one parent node, return the parental node value
         Otherwise, return the two parental nodes' subtraction result
@@ -703,7 +718,7 @@ class GeneratorHelper:
             return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
 
     @classmethod
-    def _truediv(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _truediv(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """This private helper function is used for true division operation's derivative result. This is used in the primitive and __truediv__() in UDGraph.
         If there is one parent node, return the parental node value
         Otherwise, return the two parental nodes' true division result
@@ -723,7 +738,7 @@ class GeneratorHelper:
             return (GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val) / (g2._val * g2._val)
 
     @classmethod
-    def _rtruediv(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _rtruediv(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """This private helper function is used for true division operation's derivative result. This is used in the primitive and __rtruediv__() in UDGraph.
         If there is one parent node, return the parental node value
         Otherwise, return the two parental nodes' true division result
@@ -743,7 +758,7 @@ class GeneratorHelper:
             return (GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val) / (g2._val * g2._val)
 
     @classmethod
-    def _floordiv(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _floordiv(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """This private helper function is used for floor division operation's derivative result. This is used in the primitive and __floordiv__() in UDGraph.
         If there is one parent node, return the parental node value
         Otherwise, return the two parental nodes' floor division result
@@ -763,7 +778,7 @@ class GeneratorHelper:
             return (GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val) // (g2._val * g2._val)
 
     @classmethod
-    def _rfloordiv(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _rfloordiv(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """This private helper function is used for floor division operation's derivative result. This is used in the primitive and __rfloordiv__() in UDGraph.
         If there is one parent node, return the parental node value
         Otherwise, return the two parental nodes' floor division result
@@ -778,12 +793,12 @@ class GeneratorHelper:
         if len(udgraph._parents) == 1:
             g1 = udgraph._parents[0]
             return GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) // udgraph._params["constant"]
-        else:  # len == 2 
+        else:  # len == 2
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
             return (GraphGenerator.function_dic[g1._func](g1, variable, seed_dic) * g2._val - GraphGenerator.function_dic[g2._func](g2, variable, seed_dic) * g1._val) // (g2._val * g2._val)
 
     @classmethod
-    def _pow(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _pow(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """This private helper function is used for power operation's derivative result. This is used in the primitive and __pow__() in UDGraph.
         If there is one parent node, return the parental node power derivative result
         Otherwise, return the two parental nodes' power derivative result
@@ -802,7 +817,7 @@ class GeneratorHelper:
             else:
                 return udgraph._params["degree"] * g1._val ** (udgraph._params["degree"] - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
 
-        else:  # len == 2 
+        else:  # len == 2
             g1, g2 = udgraph._parents[0], udgraph._parents[1]
 
             if isinstance(g2._val, np.ndarray):
@@ -810,31 +825,36 @@ class GeneratorHelper:
                     der1 = g2._val * np.power(
                         g1._val, g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
                     der2 = np.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
+                        GraphGenerator.function_dic[g2._func](
+                            g2, variable, seed_dic)
                     return der1 + der2
                 else:
                     der1 = g2._val * g1._val ** (
                         g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
                     der2 = math.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
+                        GraphGenerator.function_dic[g2._func](
+                            g2, variable, seed_dic)
                     return der1 + der2
             else:  # g2._val is int
                 if isinstance(g1._val, np.ndarray):
                     der1 = g2._val * \
                         np.power(g1._val, g2._val - 1) * \
-                        GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
+                        GraphGenerator.function_dic[g1._func](
+                            g1, variable, seed_dic)
                     der2 = np.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
+                        GraphGenerator.function_dic[g2._func](
+                            g2, variable, seed_dic)
                     return der1 + der2
                 else:
                     der1 = g2._val * g1._val ** (
                         g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
                     der2 = math.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
+                        GraphGenerator.function_dic[g2._func](
+                            g2, variable, seed_dic)
                     return der1 + der2
 
     @classmethod
-    def _rpow(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _rpow(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """This private helper function is used for power operation's derivative. This is used in the primitive and __rpow__() in UDGraph.
         If there is one parent node, return the parental node power derivative result
         Otherwise, return the two parental nodes' power derivative result
@@ -857,31 +877,36 @@ class GeneratorHelper:
                     der1 = g2._val * np.power(
                         g1._val, g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
                     der2 = np.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
+                        GraphGenerator.function_dic[g2._func](
+                            g2, variable, seed_dic)
                     return der1 + der2
                 else:
                     der1 = g2._val * g1._val ** (
                         g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
                     der2 = math.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
+                        GraphGenerator.function_dic[g2._func](
+                            g2, variable, seed_dic)
                     return der1 + der2
             else:  # g2._val is int
                 if isinstance(g1._val, np.ndarray):
                     der1 = g2._val * \
                         np.power(g1._val, g2._val - 1) * \
-                        GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
+                        GraphGenerator.function_dic[g1._func](
+                            g1, variable, seed_dic)
                     der2 = np.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
+                        GraphGenerator.function_dic[g2._func](
+                            g2, variable, seed_dic)
                     return der1 + der2
                 else:
                     der1 = g2._val * g1._val ** (
                         g2._val - 1) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
                     der2 = math.log(g1._val) * udgraph._val * \
-                        GraphGenerator.function_dic[g2._func](g2, variable, seed_dic)
+                        GraphGenerator.function_dic[g2._func](
+                            g2, variable, seed_dic)
                     return der1 + der2
 
     @classmethod
-    def _cos(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _cos(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """Calculate the derivative for cosine in reverse mode. 
 
         Args:
@@ -900,7 +925,8 @@ class GeneratorHelper:
         elif isinstance(g1._val, np.ndarray):
             return -1 * np.sin(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
 
     @classmethod
     def _sin(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
@@ -922,10 +948,11 @@ class GeneratorHelper:
         elif isinstance(g1._val, np.ndarray):
             return np.cos(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _tan(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _tan(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """Calculate the derivative for tangent in reverse mode. 
 
         Args:
@@ -944,10 +971,11 @@ class GeneratorHelper:
         elif isinstance(g1._val, np.ndarray):
             return (1 / (np.cos(g1._val)) ** 2) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _arccos(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _arccos(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """Calculate the derivative for arccosine in reverse mode. 
 
         Args:
@@ -966,10 +994,11 @@ class GeneratorHelper:
         elif isinstance(g1._val, np.ndarray):
             return (-1 / np.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _arcsin(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _arcsin(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """Calculate the derivative for arcsine in reverse mode. 
 
         Args:
@@ -988,10 +1017,11 @@ class GeneratorHelper:
         elif isinstance(g1._val, np.ndarray):
             return (1 / np.sqrt(1 - g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _arctan(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _arctan(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """Calculate the derivative for arctangent in reverse mode. 
 
         Args:
@@ -1008,10 +1038,11 @@ class GeneratorHelper:
         if isinstance(g1._val, (int, float, np.ndarray)):
             return (1 / (1 + g1._val**2)) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _sqrt(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _sqrt(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """Calculate the derivative for squared root in reverse mode. 
 
         Args:
@@ -1030,10 +1061,11 @@ class GeneratorHelper:
         elif isinstance(g1._val, np.ndarray):
             return 0.5 * np.power(g1._val, -0.5) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
 
     @classmethod
-    def _exp(self, udgraph: UDGraph, variable: UDGraph, seed_dic = None):
+    def _exp(self, udgraph: UDGraph, variable: UDGraph, seed_dic=None):
         """Calculate the derivative for exponential in reverse mode. 
 
         Args:
@@ -1052,7 +1084,8 @@ class GeneratorHelper:
         elif isinstance(g1._val, np.ndarray):
             return np.exp(g1._val) * GraphGenerator.function_dic[g1._func](g1, variable, seed_dic)
         else:
-            raise TypeError("error raised by undefined: unsupported attribute type.")
+            raise TypeError(
+                "error raised by undefined: unsupported attribute type.")
 
     @classmethod
     def _log(self, udgraph: UDGraph, variable: UDGraph, seed_dic):
@@ -1096,7 +1129,7 @@ class GraphGenerator:
         UDPrimitive.ATAN: GeneratorHelper._arctan,
     }
 
-    def __init__(self, g, variables, seeds_dic = None):
+    def __init__(self, g, variables, seeds_dic=None):
         """initialize the input instances.
         """
         self._udgraph = g
@@ -1104,7 +1137,7 @@ class GraphGenerator:
         self._nxgraph = None
         self._seeds_dic = seeds_dic
 
-    def _generate_inner(self, g:UDGraph, nxgraph:nx.DiGraph):
+    def _generate_inner(self, g: UDGraph, nxgraph: nx.DiGraph):
         """build the computational graph
         """
         for parent in g._parents:
@@ -1136,10 +1169,7 @@ class GraphGenerator:
         Used in the trace function. 
         """
         if var_name not in self._variables.keys():
-            # TODO: check der(x of x)
-            raise TypeError("error raised by undefined: variable not defined in function")
-        # TODO: check if variable address does not change
-        # TODO: check if variable is UDGraph
-
+            raise TypeError(
+                "error raised by undefined: variable not defined in function")
         variable = self._variables[var_name]
         return np.round(GraphGenerator.function_dic[self._udgraph._func](self._udgraph, variable, self._seeds_dic), 3)
