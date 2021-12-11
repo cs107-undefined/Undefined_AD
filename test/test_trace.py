@@ -90,6 +90,16 @@ class TestTrace(unittest.TestCase):
         self.assertNumpyArraysEqual(trace([self.f1, self.f2], x = 2)[0], np.array([1.58, 135.54]))
         self.assertNumpyArraysEqual(trace([self.f1, self.f2], x = 2)[1], np.array([-3.2800e-01,  4.8577e+02]))
 
+        g = UDGraph(np.array([[2],[1]]))
+        with self.assertRaises(ValueError):
+            g.__rpow__(UDGraph(np.array([[np.pi/2]])))
+
+        with self.assertRaises(TypeError):
+            g.__rpow__("str")
+
+        g = UDGraph(np.array([[2],[1]]))
+        g.__hash__()
+
         
     def test_reverse(self):
         g = UDGraph(9999.909)
@@ -128,11 +138,18 @@ class TestTrace(unittest.TestCase):
         g2 = g.__rpow__(UDGraph(3.5))
         GeneratorHelper._rpow(g2, g,seed_dic = {})
 
-        g = UDGraph(np.array([[3.5]]))
-        g2 = g.__rpow__(UDGraph(np.array([[np.pi/2]])))
-        GeneratorHelper._rpow(g2, g,seed_dic = {})
+        g1 = UDGraph(np.array([[3.5]]))
+        g2 = g1.__rpow__(UDGraph(np.array([[np.pi/2]])))
+        GeneratorHelper._rpow(g2, g1,seed_dic = {})
 
-        self.assertEqual(repr(g),"Computational Graph ([[3.5]], UDPrimitive.VAR)")
+        # g = UDGraph(999)
+        # GeneratorHelper._rfloordiv(g,g1,seed_dic = {})
+
+        # g = UDGraph(np.array([[3.5]]))
+        # g2 = g.__rpow__(UDGraph(np.array([[np.pi/2]])))
+        # GeneratorHelper._rpow(g2, g,seed_dic = {1:1})
+
+        self.assertEqual(repr(g),"Computational Graph (3.5, UDPrimitive.VAR)")
 
         result1001 = trace(self.f1001, mode = "reverse", x = np.pi,y = 998)
 
@@ -254,6 +271,28 @@ class TestTrace(unittest.TestCase):
         self.f103 =  lambda x: - x + 1
         result19 =  trace(self.f103,mode = "reverse",x = 2)
         self.assertEqual(result19,(-1, [-1]))
+
+        self.fcs = lambda x : cos(x)+1
+        result19 =  trace(self.fcs,mode = "reverse",x = np.array([[2]]))
+        self.assertEqual(result19,(np.array([[0.58]]), -0.909))
+
+        with self.assertRaises(TypeError):
+            trace(self.fcs,mode = "reverse",x = "str")
+
+        self.sine = lambda x : sin(x)+1
+        result19 =  trace(self.sine,mode = "reverse",x = np.array([[20]]))
+        self.assertEqual(result19,(np.array([[1.91]]), 0.408))
+
+        with self.assertRaises(TypeError):
+            trace(self.sine,mode = "reverse",x = "str")
+
+        self.tange = lambda x : sin(x)+1
+        result19 =  trace(self.tange,mode = "reverse",x = np.array([[50]]))
+        self.assertEqual(result19,(np.array([[0.74]]), 0.965))
+
+        with self.assertRaises(TypeError):
+            trace(self.tange,mode = "reverse",x = "str")
+
 
     def test_multiple_function(self):
         f1 = lambda x: sqrt(exp(sin(x)))
